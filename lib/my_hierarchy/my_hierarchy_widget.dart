@@ -270,7 +270,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      35, 0, 0, 0),
+                                      25, 0, 0, 0),
                                   child: StreamBuilder<
                                       List<ChildHierarchiesRecord>>(
                                     stream: queryChildHierarchiesRecord(
@@ -594,90 +594,142 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        40, 20, 0, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        if (!(columnUserHierarchiesRecord
-                                                .hasLeft) ??
-                                            true)
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AddLeftChildWidget(),
+                                  if (!(columnUserHierarchiesRecord.hasLeft) ??
+                                      true)
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 20, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          StreamBuilder<
+                                              List<DelinkedUsersRecord>>(
+                                            stream: queryDelinkedUsersRecord(),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 40,
+                                                    height: 40,
+                                                    child: SpinKitPumpingHeart(
+                                                      color: FlutterFlowTheme
+                                                          .primaryColor,
+                                                      size: 40,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              List<DelinkedUsersRecord>
+                                                  buttonLeftChildDelinkedUsersRecordList =
+                                                  snapshot.data;
+                                              return FFButtonWidget(
+                                                onPressed: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AddLeftChildWidget(
+                                                        userSize:
+                                                            buttonLeftChildDelinkedUsersRecordList
+                                                                .length,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                text: 'Add Left Child',
+                                                options: FFButtonOptions(
+                                                  width: 122,
+                                                  height: 30,
+                                                  color: FlutterFlowTheme
+                                                      .darkBackground,
+                                                  textStyle: FlutterFlowTheme
+                                                      .bodyText2,
+                                                  elevation: 2,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius: 8,
                                                 ),
                                               );
                                             },
-                                            text: 'Add Left Child',
-                                            options: FFButtonOptions(
-                                              width: 122,
-                                              height: 30,
-                                              color: FlutterFlowTheme
-                                                  .darkBackground,
-                                              textStyle:
-                                                  FlutterFlowTheme.bodyText2,
-                                              elevation: 2,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1,
-                                              ),
-                                              borderRadius: 8,
-                                            ),
                                           ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        60, 20, 0, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        if (!(columnUserHierarchiesRecord
-                                                .hasRight) ??
-                                            true)
-                                          FFButtonWidget(
-                                            onPressed: () async {
-                                              await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      AddRightChildWidget(),
+                                  if (!(columnUserHierarchiesRecord.hasRight) ??
+                                      true)
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          60, 20, 0, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          StreamBuilder<
+                                              List<DelinkedUsersRecord>>(
+                                            stream: queryDelinkedUsersRecord(),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 40,
+                                                    height: 40,
+                                                    child: SpinKitPumpingHeart(
+                                                      color: FlutterFlowTheme
+                                                          .primaryColor,
+                                                      size: 40,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              List<DelinkedUsersRecord>
+                                                  buttonRightChildDelinkedUsersRecordList =
+                                                  snapshot.data;
+                                              return FFButtonWidget(
+                                                onPressed: () async {
+                                                  await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          AddRightChildWidget(
+                                                        userSize:
+                                                            buttonRightChildDelinkedUsersRecordList
+                                                                .length,
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                                text: 'Add Right Child',
+                                                options: FFButtonOptions(
+                                                  width: 122,
+                                                  height: 30,
+                                                  color: FlutterFlowTheme
+                                                      .darkBackground,
+                                                  textStyle: FlutterFlowTheme
+                                                      .bodyText2,
+                                                  elevation: 2,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius: 8,
                                                 ),
                                               );
                                             },
-                                            text: 'Add Right Child',
-                                            options: FFButtonOptions(
-                                              width: 122,
-                                              height: 30,
-                                              color: FlutterFlowTheme
-                                                  .darkBackground,
-                                              textStyle:
-                                                  FlutterFlowTheme.bodyText2,
-                                              elevation: 2,
-                                              borderSide: BorderSide(
-                                                color: Colors.transparent,
-                                                width: 1,
-                                              ),
-                                              borderRadius: 8,
-                                            ),
                                           ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
                                 ],
                               ),
                           ],

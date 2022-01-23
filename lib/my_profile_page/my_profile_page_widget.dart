@@ -269,7 +269,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                 ),
                 if ((myProfilePageUsersRecord.email) == 'admin@saamarth.com')
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 8),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -407,13 +407,13 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                      child: InkWell(
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
                         onTap: () async {
                           await Navigator.push(
                             context,
@@ -477,11 +477,11 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -552,7 +552,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -624,7 +624,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
