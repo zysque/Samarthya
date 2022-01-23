@@ -1,3 +1,4 @@
+import '../admin_operations/admin_operations_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../change_password/change_password_widget.dart';
@@ -14,8 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MYProfilePageWidget extends StatefulWidget {
-  const MYProfilePageWidget({
+class MyProfilePageWidget extends StatefulWidget {
+  const MyProfilePageWidget({
     Key key,
     this.userProfile,
   }) : super(key: key);
@@ -23,10 +24,10 @@ class MYProfilePageWidget extends StatefulWidget {
   final DocumentReference userProfile;
 
   @override
-  _MYProfilePageWidgetState createState() => _MYProfilePageWidgetState();
+  _MyProfilePageWidgetState createState() => _MyProfilePageWidgetState();
 }
 
-class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
+class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -47,7 +48,7 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
             ),
           );
         }
-        final mYProfilePageUsersRecord = snapshot.data;
+        final myProfilePageUsersRecord = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.background,
@@ -103,7 +104,7 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Image.network(
-                                      mYProfilePageUsersRecord.photoUrl,
+                                      myProfilePageUsersRecord.photoUrl,
                                     ),
                                   ),
                                 ),
@@ -163,13 +164,13 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
                                 child: Text(
-                                  mYProfilePageUsersRecord.userTitle,
+                                  myProfilePageUsersRecord.userTitle,
                                   style: FlutterFlowTheme.title3,
                                 ),
                               ),
                               Text(
                                 valueOrDefault<String>(
-                                  mYProfilePageUsersRecord.displayName,
+                                  myProfilePageUsersRecord.displayName,
                                   'Random user',
                                 ),
                                 style: FlutterFlowTheme.title3,
@@ -184,7 +185,7 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
                               child: Text(
-                                mYProfilePageUsersRecord.dob,
+                                myProfilePageUsersRecord.dob,
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.textColor,
@@ -201,7 +202,7 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
                               child: Text(
-                                mYProfilePageUsersRecord.phoneNumber,
+                                myProfilePageUsersRecord.phoneNumber,
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.textColor,
@@ -218,7 +219,7 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
                               child: Text(
-                                mYProfilePageUsersRecord.email,
+                                myProfilePageUsersRecord.email,
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.textColor,
@@ -235,7 +236,7 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
                               child: Text(
-                                mYProfilePageUsersRecord.address,
+                                myProfilePageUsersRecord.address,
                                 style: FlutterFlowTheme.bodyText1.override(
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.textColor,
@@ -266,18 +267,160 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
+                if ((myProfilePageUsersRecord.email) == 'admin@saamarth.com')
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () async {
+                            await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => AdminOperationsWidget(),
+                              ),
+                            );
+                          },
+                          child: Material(
+                            color: Colors.transparent,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.9,
+                              height: 60,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.background,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  color: Color(0xFF090F13),
+                                  width: 2,
+                                ),
+                              ),
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(16, 0, 4, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Admin Operations',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                    FlutterFlowIconButton(
+                                      borderColor: Colors.transparent,
+                                      borderRadius: 30,
+                                      buttonSize: 46,
+                                      icon: Icon(
+                                        Icons.chevron_right_rounded,
+                                        color: Color(0xFF95A1AC),
+                                        size: 20,
+                                      ),
+                                      onPressed: () {
+                                        print('IconButton pressed ...');
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MyHierarchyWidget(),
+                          ),
+                        );
+                      },
+                      child: Material(
+                        color: Colors.transparent,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.9,
+                          height: 60,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.background,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              color: Color(0xFF090F13),
+                              width: 2,
+                            ),
+                          ),
+                          child: Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(16, 0, 4, 0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Hierarchical Operations',
+                                  style: FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                FlutterFlowIconButton(
+                                  borderColor: Colors.transparent,
+                                  borderRadius: 30,
+                                  buttonSize: 46,
+                                  icon: Icon(
+                                    Icons.chevron_right_rounded,
+                                    color: Color(0xFF95A1AC),
+                                    size: 20,
+                                  ),
+                                  onPressed: () {
+                                    print('IconButton pressed ...');
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
+                      child: InkWell(
                         onTap: () async {
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MyHierarchyWidget(),
+                              builder: (context) => EditProfileWidget(
+                                userProfile: myProfilePageUsersRecord.reference,
+                              ),
                             ),
                           );
                         },
@@ -294,7 +437,7 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                               color: FlutterFlowTheme.background,
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
-                                color: Color(0xFF090F13),
+                                color: FlutterFlowTheme.darkBackground,
                                 width: 2,
                               ),
                             ),
@@ -307,7 +450,7 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'Hierarchical Operations',
+                                    'Edit Profile',
                                     style: FlutterFlowTheme.bodyText1.override(
                                       fontFamily: 'Lexend Deca',
                                       color: Colors.white,
@@ -330,75 +473,6 @@ class _MYProfilePageWidgetState extends State<MYProfilePageWidget> {
                                   ),
                                 ],
                               ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => EditProfileWidget(
-                              userProfile: mYProfilePageUsersRecord.reference,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Material(
-                        color: Colors.transparent,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.9,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.background,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: FlutterFlowTheme.darkBackground,
-                              width: 2,
-                            ),
-                          ),
-                          child: Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 4, 0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Edit Profile',
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                ),
-                                FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30,
-                                  buttonSize: 46,
-                                  icon: Icon(
-                                    Icons.chevron_right_rounded,
-                                    color: Color(0xFF95A1AC),
-                                    size: 20,
-                                  ),
-                                  onPressed: () {
-                                    print('IconButton pressed ...');
-                                  },
-                                ),
-                              ],
                             ),
                           ),
                         ),

@@ -366,7 +366,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       reverseDuration:
                                           Duration(milliseconds: 220),
                                       child: NavBarPage(
-                                          initialPage: 'MY_profilePage'),
+                                          initialPage: 'MyProfilePage'),
                                     ),
                                   );
                                 },
@@ -421,7 +421,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => NavBarPage(
-                                          initialPage: 'MY_profilePage'),
+                                          initialPage: 'MyProfilePage'),
                                     ),
                                     (r) => false,
                                   );

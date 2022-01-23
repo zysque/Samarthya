@@ -295,21 +295,14 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       return;
                                     }
 
-                                    final budgetListCreateData =
-                                        createBudgetListRecordData(
-                                      budgetUser: currentUserReference,
+                                    final calculationListCreateData =
+                                        createCalculationListRecordData(
+                                      userRef: currentUserReference,
+                                      lastProcessed: getCurrentTimestamp,
                                     );
-                                    await BudgetListRecord.collection
+                                    await CalculationListRecord.collection
                                         .doc()
-                                        .set(budgetListCreateData);
-
-                                    final salesListCreateData =
-                                        createSalesListRecordData(
-                                      saleUser: currentUserReference,
-                                    );
-                                    await SalesListRecord.collection
-                                        .doc()
-                                        .set(salesListCreateData);
+                                        .set(calculationListCreateData);
                                     await Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(

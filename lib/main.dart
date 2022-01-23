@@ -12,7 +12,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'my_sales/my_sales_widget.dart';
-import 'm_y_profile_page/m_y_profile_page_widget.dart';
+import 'my_commissions/my_commissions_widget.dart';
+import 'my_profile_page/my_profile_page_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -63,13 +64,10 @@ class _MyAppState extends State<MyApp> {
       home: initialUser == null || displaySplashImage
           ? Container(
               color: Colors.transparent,
-              child: Center(
-                child: Builder(
-                  builder: (context) => Image.asset(
-                    'assets/images/Medical_ScheduleApp_0.0.png',
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.fitWidth,
-                  ),
+              child: Builder(
+                builder: (context) => Image.asset(
+                  'assets/images/Splash.jpg',
+                  fit: BoxFit.cover,
                 ),
               ),
             )
@@ -103,7 +101,8 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'MySales': MySalesWidget(),
-      'MY_profilePage': MYProfilePageWidget(),
+      'MyCommissions': MyCommissionsWidget(),
+      'MyProfilePage': MyProfilePageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -128,14 +127,21 @@ class _NavBarPageState extends State<NavBarPage> {
             icon: currentIndex == 0
                 ? Icons.stacked_line_chart_rounded
                 : Icons.stacked_line_chart_rounded,
-            text: '•',
+            text: '',
             iconSize: 24,
           ),
           GButton(
             icon: currentIndex == 1
+                ? Icons.stacked_line_chart_rounded
+                : Icons.account_balance_wallet_rounded,
+            text: '',
+            iconSize: 24,
+          ),
+          GButton(
+            icon: currentIndex == 2
                 ? Icons.account_circle_rounded
                 : Icons.account_circle_outlined,
-            text: '•',
+            text: '',
             iconSize: 24,
           )
         ],

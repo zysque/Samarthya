@@ -1,6 +1,4 @@
 import '../backend/backend.dart';
-import '../delete_sale/delete_sale_widget.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -10,27 +8,28 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SaleDetailsWidget extends StatefulWidget {
-  const SaleDetailsWidget({
+class CommissionDetailsWidget extends StatefulWidget {
+  const CommissionDetailsWidget({
     Key key,
-    this.saleDetails,
-    this.processed,
+    this.commissionDetails,
+    this.indirectCommission,
   }) : super(key: key);
 
-  final DocumentReference saleDetails;
-  final bool processed;
+  final DocumentReference commissionDetails;
+  final bool indirectCommission;
 
   @override
-  _SaleDetailsWidgetState createState() => _SaleDetailsWidgetState();
+  _CommissionDetailsWidgetState createState() =>
+      _CommissionDetailsWidgetState();
 }
 
-class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
+class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<SalesRecord>(
-      stream: SalesRecord.getDocument(widget.saleDetails),
+    return StreamBuilder<CommissionsRecord>(
+      stream: CommissionsRecord.getDocument(widget.commissionDetails),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -45,7 +44,7 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
             ),
           );
         }
-        final saleDetailsSalesRecord = snapshot.data;
+        final commissionDetailsCommissionsRecord = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
@@ -61,37 +60,7 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                 size: 32,
               ),
             ),
-            actions: [
-              Visibility(
-                visible: !(widget.processed) ?? true,
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
-                  child: FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30,
-                    buttonSize: 48,
-                    icon: Icon(
-                      Icons.delete_outline_rounded,
-                      color: FlutterFlowTheme.textColor,
-                      size: 30,
-                    ),
-                    onPressed: () async {
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.bottomToTop,
-                          duration: Duration(milliseconds: 220),
-                          reverseDuration: Duration(milliseconds: 220),
-                          child: DeleteSaleWidget(
-                            saleDetails: widget.saleDetails,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
+            actions: [],
             centerTitle: false,
             elevation: 0,
           ),
@@ -119,7 +88,8 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                                 child: Text(
-                                  saleDetailsSalesRecord.projectName,
+                                  commissionDetailsCommissionsRecord
+                                      .projectName,
                                   style: FlutterFlowTheme.title1.override(
                                     fontFamily: 'Lexend Deca',
                                     fontSize: 30,
@@ -149,7 +119,9 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 12, 0, 0),
                               child: Text(
-                                saleDetailsSalesRecord.saleAmount.toString(),
+                                commissionDetailsCommissionsRecord
+                                    .commissionAmount
+                                    .toString(),
                                 style: FlutterFlowTheme.title1.override(
                                   fontFamily: 'Lexend Deca',
                                   fontSize: 36,
@@ -167,8 +139,10 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              dateTimeFormat('relative',
-                                  saleDetailsSalesRecord.saleCreated),
+                              dateTimeFormat(
+                                  'relative',
+                                  commissionDetailsCommissionsRecord
+                                      .commissionCreated),
                               style: FlutterFlowTheme.bodyText2.override(
                                 fontFamily: 'Lexend Deca',
                                 fontSize: 20,
@@ -197,7 +171,7 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                'Sale Logged',
+                                'Commission Processed',
                                 style: FlutterFlowTheme.subtitle1,
                               ),
                             ],
@@ -210,15 +184,19 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                             children: [
                               Text(
                                 dateTimeFormat(
-                                    'EEEE', saleDetailsSalesRecord.saleCreated),
+                                    'EEEE',
+                                    commissionDetailsCommissionsRecord
+                                        .commissionCreated),
                                 style: FlutterFlowTheme.subtitle2,
                               ),
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
                                 child: Text(
-                                  dateTimeFormat('yMMMd',
-                                      saleDetailsSalesRecord.saleCreated),
+                                  dateTimeFormat(
+                                      'yMMMd',
+                                      commissionDetailsCommissionsRecord
+                                          .commissionCreated),
                                   style: FlutterFlowTheme.subtitle2,
                                 ),
                               ),
@@ -226,35 +204,48 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
                                 child: Text(
-                                  dateTimeFormat('jms',
-                                      saleDetailsSalesRecord.saleCreated),
+                                  dateTimeFormat(
+                                      'jms',
+                                      commissionDetailsCommissionsRecord
+                                          .commissionCreated),
                                   style: FlutterFlowTheme.subtitle2,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 0, 0),
-                                    child: AutoSizeText(
-                                      saleDetailsSalesRecord.saleDesc,
-                                      style: FlutterFlowTheme.subtitle2,
+                        if (widget.indirectCommission ?? true)
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
+                                      child: AutoSizeText(
+                                        'Commission Type',
+                                        style: FlutterFlowTheme.subtitle2,
+                                      ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          10, 0, 0, 0),
+                                      child: AutoSizeText(
+                                        commissionDetailsCommissionsRecord
+                                            .commissionType,
+                                        style: FlutterFlowTheme.subtitle2,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),

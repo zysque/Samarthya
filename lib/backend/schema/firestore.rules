@@ -66,13 +66,25 @@ service cloud.firestore {
 
     // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
     // security rules for this collection before publishing your app.
-    match /salesList/{id} {
+    match /sales/{id} {
       allow read, write: if true;
     }
 
     // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
     // security rules for this collection before publishing your app.
-    match /sales/{id} {
+    match /commissions/{id} {
+      allow read, write: if true;
+    }
+
+    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
+    // security rules for this collection before publishing your app.
+    match /calculationList/{id} {
+      allow read, write: if true;
+    }
+
+    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
+    // security rules for this collection before publishing your app.
+    match /adminConsts/{id} {
       allow read, write: if true;
     }
   }

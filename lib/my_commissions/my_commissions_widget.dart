@@ -1,24 +1,23 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../create_sale/create_sale_widget.dart';
+import '../commission_details/commission_details_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../sale_details/sale_details_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MySalesWidget extends StatefulWidget {
-  const MySalesWidget({Key key}) : super(key: key);
+class MyCommissionsWidget extends StatefulWidget {
+  const MyCommissionsWidget({Key key}) : super(key: key);
 
   @override
-  _MySalesWidgetState createState() => _MySalesWidgetState();
+  _MyCommissionsWidgetState createState() => _MyCommissionsWidgetState();
 }
 
-class _MySalesWidgetState extends State<MySalesWidget>
+class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
     with TickerProviderStateMixin {
   final animationsMap = {
     'containerOnPageLoadAnimation1': AnimationInfo(
@@ -96,7 +95,7 @@ class _MySalesWidgetState extends State<MySalesWidget>
         backgroundColor: FlutterFlowTheme.background,
         automaticallyImplyLeading: false,
         title: Text(
-          'My Sales',
+          'My Commisions',
           style: FlutterFlowTheme.title1,
         ),
         actions: [],
@@ -104,26 +103,6 @@ class _MySalesWidgetState extends State<MySalesWidget>
         elevation: 0,
       ),
       backgroundColor: FlutterFlowTheme.background,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          await Navigator.push(
-            context,
-            PageTransition(
-              type: PageTransitionType.bottomToTop,
-              duration: Duration(milliseconds: 220),
-              reverseDuration: Duration(milliseconds: 220),
-              child: CreateSaleWidget(),
-            ),
-          );
-        },
-        backgroundColor: FlutterFlowTheme.tertiaryColor,
-        elevation: 8,
-        child: Icon(
-          Icons.post_add_rounded,
-          color: FlutterFlowTheme.textColor,
-          size: 32,
-        ),
-      ),
       body: SafeArea(
         child: StreamBuilder<List<CalculationListRecord>>(
           stream: queryCalculationListRecord(
@@ -185,10 +164,10 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Not Processed',
+                                      'Direct',
                                       style: FlutterFlowTheme.title3.override(
                                         fontFamily: 'Lexend Deca',
-                                        color: Color(0xFFA5325A),
+                                        color: FlutterFlowTheme.primaryColor,
                                       ),
                                     ),
                                     Padding(
@@ -203,7 +182,8 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                                     0, 0, 10, 0),
                                             child: FaIcon(
                                               FontAwesomeIcons.rupeeSign,
-                                              color: Color(0xFFA5325A),
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
                                               size: 24,
                                             ),
                                           ),
@@ -211,13 +191,14 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                             functions
                                                 .getTotalAmount(
                                                     columnCalculationListRecord
-                                                        .unProcessedSales
+                                                        .directCommission
                                                         .toList())
                                                 .toString(),
                                             style: FlutterFlowTheme.title3
                                                 .override(
                                               fontFamily: 'Lexend Deca',
-                                              color: Color(0xFFA5325A),
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
                                             ),
                                           ),
                                         ],
@@ -245,7 +226,7 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Processed',
+                                      'Indirect',
                                       style: FlutterFlowTheme.title3.override(
                                         fontFamily: 'Lexend Deca',
                                         color: FlutterFlowTheme.primaryColor,
@@ -272,7 +253,7 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                             functions
                                                 .getTotalAmount(
                                                     columnCalculationListRecord
-                                                        .processedSales
+                                                        .indirectCommission
                                                         .toList())
                                                 .toString(),
                                             style: FlutterFlowTheme.title3
@@ -304,23 +285,23 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
                                 child: Text(
-                                  'Not Processed',
+                                  'Direct Commissions',
                                   style: FlutterFlowTheme.title3.override(
                                     fontFamily: 'Lexend Deca',
-                                    color: Color(0xFFA5325A),
+                                    color: FlutterFlowTheme.primaryColor,
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                          StreamBuilder<List<SalesRecord>>(
-                            stream: querySalesRecord(
-                              queryBuilder: (salesRecord) => salesRecord
-                                  .where('saleUser',
-                                      isEqualTo: currentUserReference)
-                                  .where('saleCreated',
-                                      isGreaterThan: columnCalculationListRecord
-                                          .lastProcessed),
+                          StreamBuilder<List<CommissionsRecord>>(
+                            stream: queryCommissionsRecord(
+                              queryBuilder: (commissionsRecord) =>
+                                  commissionsRecord
+                                      .where('commissionUser',
+                                          isEqualTo: currentUserReference)
+                                      .where('commissionType',
+                                          isEqualTo: 'Direct'),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -336,9 +317,9 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                   ),
                                 );
                               }
-                              List<SalesRecord> listViewSalesRecordList =
-                                  snapshot.data;
-                              if (listViewSalesRecordList.isEmpty) {
+                              List<CommissionsRecord>
+                                  listViewCommissionsRecordList = snapshot.data;
+                              if (listViewCommissionsRecordList.isEmpty) {
                                 return Center(
                                   child: Image.asset(
                                     'assets/images/NoSale.JPG',
@@ -349,10 +330,11 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
-                                itemCount: listViewSalesRecordList.length,
+                                itemCount: listViewCommissionsRecordList.length,
                                 itemBuilder: (context, listViewIndex) {
-                                  final listViewSalesRecord =
-                                      listViewSalesRecordList[listViewIndex];
+                                  final listViewCommissionsRecord =
+                                      listViewCommissionsRecordList[
+                                          listViewIndex];
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         16, 0, 16, 12),
@@ -362,10 +344,11 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                SaleDetailsWidget(
-                                              saleDetails:
-                                                  listViewSalesRecord.reference,
-                                              processed: false,
+                                                CommissionDetailsWidget(
+                                              commissionDetails:
+                                                  listViewCommissionsRecord
+                                                      .reference,
+                                              indirectCommission: false,
                                             ),
                                           ),
                                         );
@@ -399,7 +382,7 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      listViewSalesRecord
+                                                      listViewCommissionsRecord
                                                           .projectName,
                                                       style: FlutterFlowTheme
                                                           .bodyText2
@@ -437,8 +420,8 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                                   ),
                                                   Text(
                                                     valueOrDefault<String>(
-                                                      listViewSalesRecord
-                                                          .saleAmount
+                                                      listViewCommissionsRecord
+                                                          .commissionAmount
                                                           .toString(),
                                                       '0',
                                                     ),
@@ -460,8 +443,8 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                                     Text(
                                                       dateTimeFormat(
                                                           'relative',
-                                                          listViewSalesRecord
-                                                              .saleCreated),
+                                                          listViewCommissionsRecord
+                                                              .commissionCreated),
                                                       style: FlutterFlowTheme
                                                           .bodyText2
                                                           .override(
@@ -497,7 +480,7 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
                                 child: Text(
-                                  'Verified & Processed',
+                                  'Indirect Commissions',
                                   style: FlutterFlowTheme.title3.override(
                                     fontFamily: 'Lexend Deca',
                                     color: FlutterFlowTheme.primaryColor,
@@ -506,15 +489,14 @@ class _MySalesWidgetState extends State<MySalesWidget>
                               ),
                             ],
                           ),
-                          StreamBuilder<List<SalesRecord>>(
-                            stream: querySalesRecord(
-                              queryBuilder: (salesRecord) => salesRecord
-                                  .where('saleUser',
-                                      isEqualTo: currentUserReference)
-                                  .where('saleCreated',
-                                      isLessThanOrEqualTo:
-                                          columnCalculationListRecord
-                                              .lastProcessed),
+                          StreamBuilder<List<CommissionsRecord>>(
+                            stream: queryCommissionsRecord(
+                              queryBuilder: (commissionsRecord) =>
+                                  commissionsRecord
+                                      .where('commissionUser',
+                                          isEqualTo: currentUserReference)
+                                      .where('commissionType',
+                                          isEqualTo: 'Indirect'),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -530,9 +512,9 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                   ),
                                 );
                               }
-                              List<SalesRecord> listViewSalesRecordList =
-                                  snapshot.data;
-                              if (listViewSalesRecordList.isEmpty) {
+                              List<CommissionsRecord>
+                                  listViewCommissionsRecordList = snapshot.data;
+                              if (listViewCommissionsRecordList.isEmpty) {
                                 return Center(
                                   child: Image.asset(
                                     'assets/images/NoSale.JPG',
@@ -543,10 +525,11 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
-                                itemCount: listViewSalesRecordList.length,
+                                itemCount: listViewCommissionsRecordList.length,
                                 itemBuilder: (context, listViewIndex) {
-                                  final listViewSalesRecord =
-                                      listViewSalesRecordList[listViewIndex];
+                                  final listViewCommissionsRecord =
+                                      listViewCommissionsRecordList[
+                                          listViewIndex];
                                   return Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         16, 0, 16, 12),
@@ -556,10 +539,11 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                SaleDetailsWidget(
-                                              saleDetails:
-                                                  listViewSalesRecord.reference,
-                                              processed: true,
+                                                CommissionDetailsWidget(
+                                              commissionDetails:
+                                                  listViewCommissionsRecord
+                                                      .reference,
+                                              indirectCommission: true,
                                             ),
                                           ),
                                         );
@@ -593,7 +577,7 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      listViewSalesRecord
+                                                      listViewCommissionsRecord
                                                           .projectName,
                                                       style: FlutterFlowTheme
                                                           .bodyText2
@@ -631,8 +615,8 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                                   ),
                                                   Text(
                                                     valueOrDefault<String>(
-                                                      listViewSalesRecord
-                                                          .saleAmount
+                                                      listViewCommissionsRecord
+                                                          .commissionAmount
                                                           .toString(),
                                                       '0',
                                                     ),
@@ -654,8 +638,8 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                                     Text(
                                                       dateTimeFormat(
                                                           'relative',
-                                                          listViewSalesRecord
-                                                              .saleCreated),
+                                                          listViewCommissionsRecord
+                                                              .commissionCreated),
                                                       style: FlutterFlowTheme
                                                           .bodyText2
                                                           .override(

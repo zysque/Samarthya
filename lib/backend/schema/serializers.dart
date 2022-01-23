@@ -10,8 +10,10 @@ import 'budget_list_record.dart';
 import 'child_hierarchies_record.dart';
 import 'user_hierarchies_record.dart';
 import 'delinked_users_record.dart';
-import 'sales_list_record.dart';
 import 'sales_record.dart';
+import 'commissions_record.dart';
+import 'calculation_list_record.dart';
+import 'admin_consts_record.dart';
 
 import 'index.dart';
 
@@ -32,8 +34,10 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   ChildHierarchiesRecord,
   UserHierarchiesRecord,
   DelinkedUsersRecord,
-  SalesListRecord,
   SalesRecord,
+  CommissionsRecord,
+  CalculationListRecord,
+  AdminConstsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

@@ -554,7 +554,7 @@ class _HomePageAltWidgetState extends State<HomePageAltWidget> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) =>
-                                    NavBarPage(initialPage: 'MY_profilePage'),
+                                    NavBarPage(initialPage: 'MyProfilePage'),
                               ),
                             );
                           },

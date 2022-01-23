@@ -10,9 +10,6 @@ abstract class SalesRecord implements Built<SalesRecord, SalesRecordBuilder> {
   static Serializer<SalesRecord> get serializer => _$salesRecordSerializer;
 
   @nullable
-  int get sid;
-
-  @nullable
   String get projectName;
 
   @nullable
@@ -32,7 +29,6 @@ abstract class SalesRecord implements Built<SalesRecord, SalesRecordBuilder> {
   DocumentReference get reference;
 
   static void _initializeBuilder(SalesRecordBuilder builder) => builder
-    ..sid = 0
     ..projectName = ''
     ..saleAmount = 0
     ..saleDesc = '';
@@ -59,7 +55,6 @@ abstract class SalesRecord implements Built<SalesRecord, SalesRecordBuilder> {
 }
 
 Map<String, dynamic> createSalesRecordData({
-  int sid,
   String projectName,
   int saleAmount,
   String saleDesc,
@@ -69,7 +64,6 @@ Map<String, dynamic> createSalesRecordData({
     serializers.toFirestore(
         SalesRecord.serializer,
         SalesRecord((s) => s
-          ..sid = sid
           ..projectName = projectName
           ..saleAmount = saleAmount
           ..saleDesc = saleDesc

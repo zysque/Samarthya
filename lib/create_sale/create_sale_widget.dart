@@ -254,10 +254,10 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                   Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      StreamBuilder<List<SalesListRecord>>(
-                        stream: querySalesListRecord(
-                          queryBuilder: (salesListRecord) =>
-                              salesListRecord.where('saleUser',
+                      StreamBuilder<List<CalculationListRecord>>(
+                        stream: queryCalculationListRecord(
+                          queryBuilder: (calculationListRecord) =>
+                              calculationListRecord.where('userRef',
                                   isEqualTo: currentUserReference),
                           singleRecord: true,
                         ),
@@ -275,15 +275,15 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                               ),
                             );
                           }
-                          List<SalesListRecord> buttonSalesListRecordList =
-                              snapshot.data;
+                          List<CalculationListRecord>
+                              buttonCalculationListRecordList = snapshot.data;
                           // Return an empty Container when the document does not exist.
                           if (snapshot.data.isEmpty) {
                             return Container();
                           }
-                          final buttonSalesListRecord =
-                              buttonSalesListRecordList.isNotEmpty
-                                  ? buttonSalesListRecordList.first
+                          final buttonCalculationListRecord =
+                              buttonCalculationListRecordList.isNotEmpty
+                                  ? buttonCalculationListRecordList.first
                                   : null;
                           return FFButtonWidget(
                             onPressed: () async {
@@ -301,12 +301,12 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                                   .doc()
                                   .set(salesCreateData);
 
-                              final salesListUpdateData = {
-                                'sales': FieldValue.arrayUnion(
-                                    [projectNameController.text]),
+                              final calculationListUpdateData = {
+                                'unProcessedSales': FieldValue.arrayUnion(
+                                    [int.parse(textController1.text)]),
                               };
-                              await buttonSalesListRecord.reference
-                                  .update(salesListUpdateData);
+                              await buttonCalculationListRecord.reference
+                                  .update(calculationListUpdateData);
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(

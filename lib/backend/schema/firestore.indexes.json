@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "sales",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "saleUser",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "saleCreated",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
 }
