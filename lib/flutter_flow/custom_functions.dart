@@ -25,3 +25,12 @@ List<DocumentReference> addToList(
   parentsList..add(newParent);
   return parentsList;
 }
+
+int getCommission(
+  double percentage,
+  int amount,
+) {
+  // a percent b
+  return ((percentage / 100) * amount).round();
+  ;
+}

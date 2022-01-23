@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../main.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -251,87 +252,137 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      StreamBuilder<List<CalculationListRecord>>(
-                        stream: queryCalculationListRecord(
-                          queryBuilder: (calculationListRecord) =>
-                              calculationListRecord.where('userRef',
-                                  isEqualTo: currentUserReference),
-                          singleRecord: true,
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: SpinKitPumpingHeart(
-                                  color: FlutterFlowTheme.primaryColor,
-                                  size: 40,
-                                ),
-                              ),
-                            );
-                          }
-                          List<CalculationListRecord>
-                              buttonCalculationListRecordList = snapshot.data;
-                          // Return an empty Container when the document does not exist.
-                          if (snapshot.data.isEmpty) {
-                            return Container();
-                          }
-                          final buttonCalculationListRecord =
-                              buttonCalculationListRecordList.isNotEmpty
-                                  ? buttonCalculationListRecordList.first
-                                  : null;
-                          return FFButtonWidget(
-                            onPressed: () async {
-                              if (!formKey.currentState.validate()) {
-                                return;
+                  StreamBuilder<List<AdminConstsRecord>>(
+                    stream: queryAdminConstsRecord(
+                      singleRecord: true,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: SpinKitPumpingHeart(
+                              color: FlutterFlowTheme.primaryColor,
+                              size: 40,
+                            ),
+                          ),
+                        );
+                      }
+                      List<AdminConstsRecord> rowAdminConstsRecordList =
+                          snapshot.data;
+                      // Return an empty Container when the document does not exist.
+                      if (snapshot.data.isEmpty) {
+                        return Container();
+                      }
+                      final rowAdminConstsRecord =
+                          rowAdminConstsRecordList.isNotEmpty
+                              ? rowAdminConstsRecordList.first
+                              : null;
+                      return Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          StreamBuilder<List<CalculationListRecord>>(
+                            stream: queryCalculationListRecord(
+                              queryBuilder: (calculationListRecord) =>
+                                  calculationListRecord.where('userRef',
+                                      isEqualTo: currentUserReference),
+                              singleRecord: true,
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 40,
+                                    height: 40,
+                                    child: SpinKitPumpingHeart(
+                                      color: FlutterFlowTheme.primaryColor,
+                                      size: 40,
+                                    ),
+                                  ),
+                                );
                               }
-                              final salesCreateData = createSalesRecordData(
-                                saleAmount: int.parse(textController1.text),
-                                projectName: projectNameController.text,
-                                saleDesc: descriptionController.text,
-                                saleCreated: getCurrentTimestamp,
-                                saleUser: currentUserReference,
-                              );
-                              await SalesRecord.collection
-                                  .doc()
-                                  .set(salesCreateData);
+                              List<CalculationListRecord>
+                                  buttonCalculationListRecordList =
+                                  snapshot.data;
+                              // Return an empty Container when the document does not exist.
+                              if (snapshot.data.isEmpty) {
+                                return Container();
+                              }
+                              final buttonCalculationListRecord =
+                                  buttonCalculationListRecordList.isNotEmpty
+                                      ? buttonCalculationListRecordList.first
+                                      : null;
+                              return FFButtonWidget(
+                                onPressed: () async {
+                                  if (!formKey.currentState.validate()) {
+                                    return;
+                                  }
+                                  final salesCreateData = createSalesRecordData(
+                                    saleAmount: int.parse(textController1.text),
+                                    projectName: projectNameController.text,
+                                    saleDesc: descriptionController.text,
+                                    saleCreated: getCurrentTimestamp,
+                                    saleUser: currentUserReference,
+                                  );
+                                  await SalesRecord.collection
+                                      .doc()
+                                      .set(salesCreateData);
 
-                              final calculationListUpdateData = {
-                                'unProcessedSales': FieldValue.arrayUnion(
-                                    [int.parse(textController1.text)]),
-                              };
-                              await buttonCalculationListRecord.reference
-                                  .update(calculationListUpdateData);
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      NavBarPage(initialPage: 'MySales'),
+                                  final commissionsCreateData =
+                                      createCommissionsRecordData(
+                                    projectName: projectNameController.text,
+                                    commissionAmount: functions.getCommission(
+                                        rowAdminConstsRecord.directPer,
+                                        int.parse(textController1.text)),
+                                    commissionType: 'Direct',
+                                    commissionCreated: getCurrentTimestamp,
+                                    commissionUser: currentUserReference,
+                                  );
+                                  await CommissionsRecord.collection
+                                      .doc()
+                                      .set(commissionsCreateData);
+
+                                  final calculationListUpdateData = {
+                                    'unProcessedSales': FieldValue.arrayUnion(
+                                        [int.parse(textController1.text)]),
+                                    'directCommission': FieldValue.arrayUnion([
+                                      functions.getCommission(
+                                          rowAdminConstsRecord.directPer,
+                                          int.parse(textController1.text))
+                                    ]),
+                                  };
+                                  await buttonCalculationListRecord.reference
+                                      .update(calculationListUpdateData);
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NavBarPage(initialPage: 'MySales'),
+                                    ),
+                                  );
+                                },
+                                text: 'Log Sale',
+                                options: FFButtonOptions(
+                                  width: 300,
+                                  height: 70,
+                                  color: FlutterFlowTheme.tertiaryColor,
+                                  textStyle: FlutterFlowTheme.title1,
+                                  elevation: 0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: 12,
                                 ),
                               );
                             },
-                            text: 'Log Sale',
-                            options: FFButtonOptions(
-                              width: 300,
-                              height: 70,
-                              color: FlutterFlowTheme.tertiaryColor,
-                              textStyle: FlutterFlowTheme.title1,
-                              elevation: 0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 12,
-                            ),
-                          );
-                        },
-                      ),
-                    ],
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),

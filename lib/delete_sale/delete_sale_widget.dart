@@ -1,3 +1,4 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -143,44 +144,134 @@ class _DeleteSaleWidgetState extends State<DeleteSaleWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        FFButtonWidget(
-                          onPressed: () async {
-                            await deleteSaleSalesRecord.reference.delete();
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.fade,
-                                duration: Duration(milliseconds: 200),
-                                reverseDuration: Duration(milliseconds: 200),
-                                child: NavBarPage(initialPage: 'MySales'),
-                              ),
-                              (r) => false,
-                            );
-                          },
-                          text: 'Delete Sale',
-                          options: FFButtonOptions(
-                            width: 300,
-                            height: 70,
-                            color: FlutterFlowTheme.errorRed,
-                            textStyle: FlutterFlowTheme.title1,
-                            elevation: 0,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
-                            ),
-                            borderRadius: 12,
+                child: StreamBuilder<List<CalculationListRecord>>(
+                  stream: queryCalculationListRecord(
+                    queryBuilder: (calculationListRecord) =>
+                        calculationListRecord.where('userRef',
+                            isEqualTo: currentUserReference),
+                    singleRecord: true,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: SpinKitPumpingHeart(
+                            color: FlutterFlowTheme.primaryColor,
+                            size: 40,
                           ),
                         ),
+                      );
+                    }
+                    List<CalculationListRecord> rowCalculationListRecordList =
+                        snapshot.data;
+                    // Return an empty Container when the document does not exist.
+                    if (snapshot.data.isEmpty) {
+                      return Container();
+                    }
+                    final rowCalculationListRecord =
+                        rowCalculationListRecordList.isNotEmpty
+                            ? rowCalculationListRecordList.first
+                            : null;
+                    return Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        StreamBuilder<List<CommissionsRecord>>(
+                          stream: queryCommissionsRecord(
+                            queryBuilder: (commissionsRecord) =>
+                                commissionsRecord
+                                    .where('projectName',
+                                        isEqualTo:
+                                            deleteSaleSalesRecord.projectName)
+                                    .where('commissionType',
+                                        isEqualTo: 'Direct')
+                                    .where('commissionUser',
+                                        isEqualTo:
+                                            deleteSaleSalesRecord.saleUser),
+                            singleRecord: true,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: SpinKitPumpingHeart(
+                                    color: FlutterFlowTheme.primaryColor,
+                                    size: 40,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<CommissionsRecord> rowCommissionsRecordList =
+                                snapshot.data;
+                            // Return an empty Container when the document does not exist.
+                            if (snapshot.data.isEmpty) {
+                              return Container();
+                            }
+                            final rowCommissionsRecord =
+                                rowCommissionsRecordList.isNotEmpty
+                                    ? rowCommissionsRecordList.first
+                                    : null;
+                            return Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    final calculationListUpdateData = {
+                                      'unProcessedSales':
+                                          FieldValue.arrayRemove([
+                                        deleteSaleSalesRecord.saleAmount
+                                      ]),
+                                      'directCommission':
+                                          FieldValue.arrayRemove([
+                                        rowCommissionsRecord.commissionAmount
+                                      ]),
+                                    };
+                                    await rowCalculationListRecord.reference
+                                        .update(calculationListUpdateData);
+                                    await deleteSaleSalesRecord.reference
+                                        .delete();
+                                    await rowCommissionsRecord.reference
+                                        .delete();
+                                    await Navigator.pushAndRemoveUntil(
+                                      context,
+                                      PageTransition(
+                                        type: PageTransitionType.fade,
+                                        duration: Duration(milliseconds: 200),
+                                        reverseDuration:
+                                            Duration(milliseconds: 200),
+                                        child:
+                                            NavBarPage(initialPage: 'MySales'),
+                                      ),
+                                      (r) => false,
+                                    );
+                                  },
+                                  text: 'Delete Sale',
+                                  options: FFButtonOptions(
+                                    width: 300,
+                                    height: 70,
+                                    color: FlutterFlowTheme.errorRed,
+                                    textStyle: FlutterFlowTheme.title1,
+                                    elevation: 0,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: 12,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ],
-                    ),
-                  ],
+                    );
+                  },
                 ),
               ),
               Text(
