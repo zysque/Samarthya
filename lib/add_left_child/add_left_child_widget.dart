@@ -401,43 +401,22 @@ class _AddLeftChildWidgetState extends State<AddLeftChildWidget> {
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                Wrap(
-                                                  spacing: 0,
-                                                  runSpacing: 0,
-                                                  alignment:
-                                                      WrapAlignment.start,
-                                                  crossAxisAlignment:
-                                                      WrapCrossAlignment.start,
-                                                  direction: Axis.horizontal,
-                                                  runAlignment:
-                                                      WrapAlignment.start,
-                                                  verticalDirection:
-                                                      VerticalDirection.down,
-                                                  clipBehavior: Clip.none,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  4, 8, 0, 0),
-                                                      child: Text(
-                                                        pColumnUsersRecord
-                                                            .address,
-                                                        style: FlutterFlowTheme
-                                                            .bodyText1
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                      ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(4, 8, 0, 0),
+                                                  child: Text(
+                                                    pColumnUsersRecord.address,
+                                                    style: FlutterFlowTheme
+                                                        .bodyText1
+                                                        .override(
+                                                      fontFamily: 'Lexend Deca',
+                                                      color: FlutterFlowTheme
+                                                          .textColor,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w500,
                                                     ),
-                                                  ],
+                                                  ),
                                                 ),
                                               ],
                                             ),

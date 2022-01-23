@@ -230,7 +230,7 @@ class _AdminOperationsWidgetState extends State<AdminOperationsWidget> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -258,19 +258,6 @@ class _AdminOperationsWidgetState extends State<AdminOperationsWidget> {
                                           'relative',
                                           containerAdminConstsRecord
                                               .lastProcessed),
-                                      style: FlutterFlowTheme.subtitle1,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      '      Please click on Process button to \nconsider the pending sales.',
                                       style: FlutterFlowTheme.subtitle1,
                                     ),
                                   ],
@@ -322,6 +309,23 @@ class _AdminOperationsWidgetState extends State<AdminOperationsWidget> {
                                       ),
                                     );
                                   },
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 10, 0, 0),
+                                      child: Text(
+                                        'Click on Process to consider the pending sales.',
+                                        style: FlutterFlowTheme.bodyText1,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],

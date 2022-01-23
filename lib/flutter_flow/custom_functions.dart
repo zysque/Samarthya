@@ -13,3 +13,15 @@ int getTotalAmount(List<int> salesAmounts) {
   // add list data
   return salesAmounts.fold(0, (sum, element) => sum + element);
 }
+
+List<DocumentReference> addToList(
+  List<DocumentReference> parentsList,
+  DocumentReference newParent,
+) {
+  // add to list
+  if (parentsList == null) {
+    parentsList = <DocumentReference>[];
+  }
+  parentsList..add(newParent);
+  return parentsList;
+}

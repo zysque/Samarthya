@@ -687,16 +687,6 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                   ],
                 ),
               ),
-              InkWell(
-                onTap: () async {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.chevron_left_rounded,
-                  color: FlutterFlowTheme.grayLight,
-                  size: 32,
-                ),
-              ),
             ],
           ),
         );

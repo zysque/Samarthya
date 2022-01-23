@@ -319,13 +319,6 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                               }
                               List<CommissionsRecord>
                                   listViewCommissionsRecordList = snapshot.data;
-                              if (listViewCommissionsRecordList.isEmpty) {
-                                return Center(
-                                  child: Image.asset(
-                                    'assets/images/NoSale.JPG',
-                                  ),
-                                );
-                              }
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
@@ -514,13 +507,6 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                               }
                               List<CommissionsRecord>
                                   listViewCommissionsRecordList = snapshot.data;
-                              if (listViewCommissionsRecordList.isEmpty) {
-                                return Center(
-                                  child: Image.asset(
-                                    'assets/images/NoSale.JPG',
-                                  ),
-                                );
-                              }
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,

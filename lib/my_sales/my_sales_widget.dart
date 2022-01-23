@@ -532,13 +532,6 @@ class _MySalesWidgetState extends State<MySalesWidget>
                               }
                               List<SalesRecord> listViewSalesRecordList =
                                   snapshot.data;
-                              if (listViewSalesRecordList.isEmpty) {
-                                return Center(
-                                  child: Image.asset(
-                                    'assets/images/NoSale.JPG',
-                                  ),
-                                );
-                              }
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,

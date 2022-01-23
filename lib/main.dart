@@ -132,8 +132,8 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           GButton(
             icon: currentIndex == 1
-                ? Icons.stacked_line_chart_rounded
-                : Icons.account_balance_wallet_rounded,
+                ? Icons.account_balance_wallet_rounded
+                : Icons.account_balance_wallet_outlined,
             text: '',
             iconSize: 24,
           ),

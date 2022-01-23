@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../my_hierarchy/my_hierarchy_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -166,10 +167,11 @@ class _UpdateHierarchyWidgetState extends State<UpdateHierarchyWidget> {
                             return FFButtonWidget(
                               onPressed: () async {
                                 final userHierarchiesUpdateData = {
-                                  'hierarchicalParents':
+                                  'hierarchicalParents': functions.addToList(
                                       row2UserHierarchiesRecord
                                           .hierarchicalParents
                                           .toList(),
+                                      row2UserHierarchiesRecord.hierarchyUser),
                                 };
                                 await buttonUserHierarchiesRecord.reference
                                     .update(userHierarchiesUpdateData);
