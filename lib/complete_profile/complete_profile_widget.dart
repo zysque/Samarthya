@@ -7,7 +7,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
-import '../onboarding/onboarding_widget.dart';
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -461,7 +461,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => OnboardingWidget(),
+                              builder: (context) =>
+                                  NavBarPage(initialPage: 'MyProfilePage'),
                             ),
                           );
                         },

@@ -222,6 +222,10 @@ class _DeleteSaleWidgetState extends State<DeleteSaleWidget> {
                               children: [
                                 FFButtonWidget(
                                   onPressed: () async {
+                                    await deleteSaleSalesRecord.reference
+                                        .delete();
+                                    await rowCommissionsRecord.reference
+                                        .delete();
                                     final calculationListUpdateData = {
                                       'unProcessedSales':
                                           FieldValue.arrayRemove([
@@ -234,17 +238,13 @@ class _DeleteSaleWidgetState extends State<DeleteSaleWidget> {
                                     };
                                     await rowCalculationListRecord.reference
                                         .update(calculationListUpdateData);
-                                    await deleteSaleSalesRecord.reference
-                                        .delete();
-                                    await rowCommissionsRecord.reference
-                                        .delete();
                                     await Navigator.pushAndRemoveUntil(
                                       context,
                                       PageTransition(
                                         type: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 200),
+                                        duration: Duration(milliseconds: 20),
                                         reverseDuration:
-                                            Duration(milliseconds: 200),
+                                            Duration(milliseconds: 20),
                                         child:
                                             NavBarPage(initialPage: 'MySales'),
                                       ),
