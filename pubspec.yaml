@@ -45,6 +45,7 @@ dependencies:
   mime_type: 1.0.0
   page_transition: 2.0.4
   rxdart: 0.26.0
+  share_plus: ^2.1.4
   sign_in_with_apple:
     git:
       url: https://github.com/asmengistu/dart_packages

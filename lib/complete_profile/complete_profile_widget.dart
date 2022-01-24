@@ -25,8 +25,9 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
   String dropDownValue;
   String uploadedFileUrl = '';
   TextEditingController yourNameController;
-  TextEditingController yourDOBController;
   TextEditingController yourPhoneController;
+  TextEditingController yourReferralIDController;
+  TextEditingController yourDOBController;
   TextEditingController yourAddressController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -62,10 +63,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
     'textFieldOnPageLoadAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
-      delay: 200,
+      delay: 100,
       fadeIn: true,
       initialState: AnimationState(
-        offset: Offset(0, 40),
+        offset: Offset(0, 20),
         opacity: 0,
       ),
       finalState: AnimationState(
@@ -88,6 +89,20 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
       ),
     ),
     'textFieldOnPageLoadAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      delay: 200,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 40),
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        opacity: 1,
+      ),
+    ),
+    'textFieldOnPageLoadAnimation5': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 600,
       delay: 200,
@@ -131,6 +146,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
     yourDOBController = TextEditingController();
     yourNameController = TextEditingController();
     yourPhoneController = TextEditingController();
+    yourReferralIDController = TextEditingController();
   }
 
   @override
@@ -292,48 +308,6 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                   child: TextFormField(
-                    controller: yourDOBController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Your DOB',
-                      labelStyle: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.grayLight,
-                      ),
-                      hintText: 'DD/MM/YYYY',
-                      hintStyle: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: Color(0x98FFFFFF),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      filled: true,
-                      fillColor: FlutterFlowTheme.darkBackground,
-                      contentPadding:
-                          EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                    ),
-                    style: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Lexend Deca',
-                      color: FlutterFlowTheme.textColor,
-                    ),
-                    keyboardType: TextInputType.datetime,
-                  ).animated([animationsMap['textFieldOnPageLoadAnimation2']]),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                  child: TextFormField(
                     controller: yourPhoneController,
                     obscureText: false,
                     decoration: InputDecoration(
@@ -375,7 +349,147 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                       }
                       return null;
                     },
-                  ).animated([animationsMap['textFieldOnPageLoadAnimation3']]),
+                  ).animated([animationsMap['textFieldOnPageLoadAnimation2']]),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  child: StreamBuilder<List<UsersRecord>>(
+                    stream: queryUsersRecord(
+                      queryBuilder: (usersRecord) => usersRecord.where('uid',
+                          isEqualTo: yourReferralIDController.text),
+                      singleRecord: true,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: SpinKitPumpingHeart(
+                              color: FlutterFlowTheme.primaryColor,
+                              size: 40,
+                            ),
+                          ),
+                        );
+                      }
+                      List<UsersRecord> yourReferralIDUsersRecordList =
+                          snapshot.data;
+                      final yourReferralIDUsersRecord =
+                          yourReferralIDUsersRecordList.isNotEmpty
+                              ? yourReferralIDUsersRecordList.first
+                              : null;
+                      return TextFormField(
+                        onFieldSubmitted: (_) async {
+                          if (!formKey.currentState.validate()) {
+                            return;
+                          }
+                          if (!(yourReferralIDUsersRecord != null)) {
+                            await showDialog(
+                              context: context,
+                              builder: (alertDialogContext) {
+                                return AlertDialog(
+                                  title: Text('Wrong Referral ID'),
+                                  content: Text(
+                                      'You have entered wrong referral ID, Please enter correct referral ID. '),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(alertDialogContext),
+                                      child: Text('Ok'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
+                        controller: yourReferralIDController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Referral ID',
+                          labelStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.grayLight,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: FlutterFlowTheme.darkBackground,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                        ),
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.textColor,
+                        ),
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Field is required';
+                          }
+                          if (val.length < 5) {
+                            return 'Requires at least 5 characters.';
+                          }
+                          return null;
+                        },
+                      ).animated(
+                          [animationsMap['textFieldOnPageLoadAnimation3']]);
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  child: TextFormField(
+                    controller: yourDOBController,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'Your DOB',
+                      labelStyle: FlutterFlowTheme.bodyText1.override(
+                        fontFamily: 'Lexend Deca',
+                        color: FlutterFlowTheme.grayLight,
+                      ),
+                      hintText: 'DD/MM/YYYY',
+                      hintStyle: FlutterFlowTheme.bodyText1.override(
+                        fontFamily: 'Lexend Deca',
+                        color: Color(0x98FFFFFF),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      filled: true,
+                      fillColor: FlutterFlowTheme.darkBackground,
+                      contentPadding:
+                          EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                    ),
+                    style: FlutterFlowTheme.bodyText1.override(
+                      fontFamily: 'Lexend Deca',
+                      color: FlutterFlowTheme.textColor,
+                    ),
+                    keyboardType: TextInputType.datetime,
+                  ).animated([animationsMap['textFieldOnPageLoadAnimation4']]),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
@@ -411,8 +525,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                       fontFamily: 'Lexend Deca',
                       color: FlutterFlowTheme.textColor,
                     ),
-                    keyboardType: TextInputType.streetAddress,
-                  ).animated([animationsMap['textFieldOnPageLoadAnimation4']]),
+                    keyboardType: TextInputType.multiline,
+                  ).animated([animationsMap['textFieldOnPageLoadAnimation5']]),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
@@ -454,6 +568,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             userRef: buttonLoginUsersRecord.reference,
                             userEmail: buttonLoginUsersRecord.email,
                             userName: yourNameController.text,
+                            referralUid: yourReferralIDController.text,
                           );
                           await DelinkedUsersRecord.collection
                               .doc()
