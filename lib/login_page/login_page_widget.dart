@@ -80,12 +80,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           children: [
                             Padding(
                               padding:
-                                  EdgeInsetsDirectional.fromSTEB(25, 0, 0, 0),
+                                  EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
                               child: Text(
-                                'Saamarth City',
+                                'Samarthya Bhumi',
                                 style: FlutterFlowTheme.title2.override(
                                   fontFamily: 'Lexend Deca',
-                                  color: Color(0xFF860096),
+                                  color: Color(0xFFA5325A),
                                   fontSize: 35,
                                 ),
                               ),
@@ -309,7 +309,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           },
                                           text: 'Create',
                                           options: FFButtonOptions(
-                                            width: 70,
+                                            width: 80,
                                             height: 40,
                                             color: FlutterFlowTheme.background,
                                             textStyle: FlutterFlowTheme

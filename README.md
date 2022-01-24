@@ -1,4 +1,4 @@
-# Saamarth
+# Samarthya
 
 A new Flutter project.
 

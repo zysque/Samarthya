@@ -14,6 +14,7 @@ import 'sales_record.dart';
 import 'commissions_record.dart';
 import 'calculation_list_record.dart';
 import 'admin_consts_record.dart';
+import 'projects_record.dart';
 
 import 'index.dart';
 
@@ -38,6 +39,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   CommissionsRecord,
   CalculationListRecord,
   AdminConstsRecord,
+  ProjectsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

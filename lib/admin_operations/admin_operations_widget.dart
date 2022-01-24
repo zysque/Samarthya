@@ -1,3 +1,5 @@
+import '../admin_projects/admin_projects_widget.dart';
+import '../admin_sale_process/admin_sale_process_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -230,7 +232,86 @@ class _AdminOperationsWidgetState extends State<AdminOperationsWidget> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                child:
+                                    StreamBuilder<List<CalculationListRecord>>(
+                                  stream: queryCalculationListRecord(),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: SpinKitPumpingHeart(
+                                            color:
+                                                FlutterFlowTheme.primaryColor,
+                                            size: 40,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<CalculationListRecord>
+                                        projectsButtonCalculationListRecordList =
+                                        snapshot.data;
+                                    return FFButtonWidget(
+                                      onPressed: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                AdminProjectsWidget(),
+                                          ),
+                                        );
+                                      },
+                                      text: 'Projects',
+                                      options: FFButtonOptions(
+                                        width: 130,
+                                        height: 50,
+                                        color: Color(0xFFE91E63),
+                                        textStyle:
+                                            FlutterFlowTheme.subtitle2.override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Colors.white,
+                                        ),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: 12,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 10, 0, 0),
+                                      child: Text(
+                                        'Click on Projects to see and modify Projects.',
+                                        style: FlutterFlowTheme.bodyText1,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -288,13 +369,20 @@ class _AdminOperationsWidgetState extends State<AdminOperationsWidget> {
                                         processButtonCalculationListRecordList =
                                         snapshot.data;
                                     return FFButtonWidget(
-                                      onPressed: () {
-                                        print('ProcessButton pressed ...');
+                                      onPressed: () async {
+                                        await Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                AdminSaleProcessWidget(),
+                                          ),
+                                          (r) => false,
+                                        );
                                       },
                                       text: 'Process',
                                       options: FFButtonOptions(
                                         width: 130,
-                                        height: 40,
+                                        height: 50,
                                         color: FlutterFlowTheme.primaryColor,
                                         textStyle:
                                             FlutterFlowTheme.subtitle2.override(

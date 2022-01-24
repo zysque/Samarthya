@@ -208,10 +208,8 @@ class _ModifySaleWidgetState extends State<ModifySaleWidget>
                           Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                            child: StreamBuilder<List<AdminConstsRecord>>(
-                              stream: queryAdminConstsRecord(
-                                singleRecord: true,
-                              ),
+                            child: StreamBuilder<List<ProjectsRecord>>(
+                              stream: queryProjectsRecord(),
                               builder: (context, snapshot) {
                                 // Customize what your widget looks like when it's loading.
                                 if (!snapshot.hasData) {
@@ -226,21 +224,13 @@ class _ModifySaleWidgetState extends State<ModifySaleWidget>
                                     ),
                                   );
                                 }
-                                List<AdminConstsRecord>
-                                    projectAdminConstsRecordList =
+                                List<ProjectsRecord> projectProjectsRecordList =
                                     snapshot.data;
-                                // Return an empty Container when the document does not exist.
-                                if (snapshot.data.isEmpty) {
-                                  return Container();
-                                }
-                                final projectAdminConstsRecord =
-                                    projectAdminConstsRecordList.isNotEmpty
-                                        ? projectAdminConstsRecordList.first
-                                        : null;
                                 return FlutterFlowDropDown(
                                   initialOption: projectValue ??=
                                       columnSalesRecord.projectName,
-                                  options: projectAdminConstsRecord.projects
+                                  options: projectProjectsRecordList
+                                      .map((e) => e.projectName)
                                       .toList()
                                       .toList(),
                                   onChanged: (val) =>

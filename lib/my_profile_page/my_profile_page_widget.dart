@@ -230,20 +230,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 8, 20, 0),
                           child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: 35,
                             decoration: BoxDecoration(),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Text(
-                                  myProfilePageUsersRecord.address
-                                      .maybeHandleOverflow(
-                                    maxChars: 50,
-                                    replacement: '…',
-                                  ),
+                                  myProfilePageUsersRecord.address,
                                   style: FlutterFlowTheme.bodyText1.override(
                                     fontFamily: 'Lexend Deca',
                                     color: FlutterFlowTheme.textColor,

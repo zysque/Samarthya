@@ -493,40 +493,44 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                  child: TextFormField(
-                    controller: yourAddressController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Your Address',
-                      labelStyle: FlutterFlowTheme.bodyText1.override(
+                  child: Container(
+                    decoration: BoxDecoration(),
+                    child: TextFormField(
+                      controller: yourAddressController,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        labelText: 'Your Address',
+                        labelStyle: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.grayLight,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        filled: true,
+                        fillColor: FlutterFlowTheme.darkBackground,
+                        contentPadding:
+                            EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                      ),
+                      style: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.grayLight,
+                        color: FlutterFlowTheme.textColor,
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      filled: true,
-                      fillColor: FlutterFlowTheme.darkBackground,
-                      contentPadding:
-                          EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                    ),
-                    style: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Lexend Deca',
-                      color: FlutterFlowTheme.textColor,
-                    ),
-                    keyboardType: TextInputType.multiline,
-                  ).animated([animationsMap['textFieldOnPageLoadAnimation5']]),
+                      keyboardType: TextInputType.multiline,
+                    ).animated(
+                        [animationsMap['textFieldOnPageLoadAnimation5']]),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),

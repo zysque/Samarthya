@@ -23,7 +23,6 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
   bool passwordCreateVisibility;
   TextEditingController passwordConfirmController;
   bool passwordConfirmVisibility;
-  TextEditingController referralIdController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -34,7 +33,6 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
     passwordCreateVisibility = false;
     passwordConfirmController = TextEditingController();
     passwordConfirmVisibility = false;
-    referralIdController = TextEditingController();
   }
 
   @override
@@ -271,51 +269,6 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                child: TextFormField(
-                                  controller: referralIdController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Referral ID',
-                                    labelStyle:
-                                        FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0x98FFFFFF),
-                                    ),
-                                    hintText: 'Enter referra',
-                                    hintStyle:
-                                        FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0x98FFFFFF),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    filled: true,
-                                    fillColor: FlutterFlowTheme.darkBackground,
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            20, 24, 20, 24),
-                                  ),
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: FlutterFlowTheme.textColor,
-                                  ),
-                                ),
-                              ),
-                              Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0, 24, 0, 24),
                                 child: FFButtonWidget(
@@ -346,6 +299,10 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         createCalculationListRecordData(
                                       userRef: currentUserReference,
                                       lastProcessed: getCurrentTimestamp,
+                                      unProcessedAmount: 0,
+                                      processedAmount: 0,
+                                      directCommissionAmount: 0,
+                                      indirectCommissionAmount: 0,
                                     );
                                     await CalculationListRecord.collection
                                         .doc()

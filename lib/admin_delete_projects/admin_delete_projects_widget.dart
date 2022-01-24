@@ -1,35 +1,34 @@
-import '../admin_sale_process/admin_sale_process_widget.dart';
-import '../auth/auth_util.dart';
+import '../admin_project_details/admin_project_details_widget.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DeleteSaleWidget extends StatefulWidget {
-  const DeleteSaleWidget({
+class AdminDeleteProjectsWidget extends StatefulWidget {
+  const AdminDeleteProjectsWidget({
     Key key,
-    this.saleDetails,
+    this.projectDetails,
   }) : super(key: key);
 
-  final DocumentReference saleDetails;
+  final DocumentReference projectDetails;
 
   @override
-  _DeleteSaleWidgetState createState() => _DeleteSaleWidgetState();
+  _AdminDeleteProjectsWidgetState createState() =>
+      _AdminDeleteProjectsWidgetState();
 }
 
-class _DeleteSaleWidgetState extends State<DeleteSaleWidget> {
+class _AdminDeleteProjectsWidgetState extends State<AdminDeleteProjectsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<SalesRecord>(
-      stream: SalesRecord.getDocument(widget.saleDetails),
+    return StreamBuilder<ProjectsRecord>(
+      stream: ProjectsRecord.getDocument(widget.projectDetails),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -44,7 +43,7 @@ class _DeleteSaleWidgetState extends State<DeleteSaleWidget> {
             ),
           );
         }
-        final deleteSaleSalesRecord = snapshot.data;
+        final adminDeleteProjectsProjectsRecord = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.errorRed,
@@ -117,7 +116,7 @@ class _DeleteSaleWidgetState extends State<DeleteSaleWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                           child: Text(
-                            'Delete Sales',
+                            'Delete Project',
                             style: FlutterFlowTheme.title1,
                           ),
                         ),
@@ -148,88 +147,46 @@ class _DeleteSaleWidgetState extends State<DeleteSaleWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                    child: StreamBuilder<List<CalculationListRecord>>(
-                      stream: queryCalculationListRecord(
-                        queryBuilder: (calculationListRecord) =>
-                            calculationListRecord.where('userRef',
-                                isEqualTo: currentUserReference),
-                        singleRecord: true,
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 40,
-                              height: 40,
-                              child: SpinKitPumpingHeart(
-                                color: FlutterFlowTheme.primaryColor,
-                                size: 40,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            FFButtonWidget(
+                              onPressed: () async {
+                                await adminDeleteProjectsProjectsRecord
+                                    .reference
+                                    .delete();
+                                await Navigator.pushAndRemoveUntil(
+                                  context,
+                                  PageTransition(
+                                    type: PageTransitionType.fade,
+                                    duration: Duration(milliseconds: 0),
+                                    reverseDuration: Duration(milliseconds: 0),
+                                    child: AdminProjectDetailsWidget(),
+                                  ),
+                                  (r) => false,
+                                );
+                              },
+                              text: 'Delete',
+                              options: FFButtonOptions(
+                                width: 300,
+                                height: 70,
+                                color: FlutterFlowTheme.errorRed,
+                                textStyle: FlutterFlowTheme.title1,
+                                elevation: 0,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
                               ),
                             ),
-                          );
-                        }
-                        List<CalculationListRecord>
-                            rowCalculationListRecordList = snapshot.data;
-                        // Return an empty Container when the document does not exist.
-                        if (snapshot.data.isEmpty) {
-                          return Container();
-                        }
-                        final rowCalculationListRecord =
-                            rowCalculationListRecordList.isNotEmpty
-                                ? rowCalculationListRecordList.first
-                                : null;
-                        return Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                FFButtonWidget(
-                                  onPressed: () async {
-                                    await deleteSaleSalesRecord.reference
-                                        .delete();
-                                    final calculationListUpdateData =
-                                        createCalculationListRecordData(
-                                      unProcessedAmount: functions.getDiff(
-                                          rowCalculationListRecord
-                                              .unProcessedAmount,
-                                          deleteSaleSalesRecord.saleAmount),
-                                    );
-                                    await rowCalculationListRecord.reference
-                                        .update(calculationListUpdateData);
-                                    await Navigator.pushAndRemoveUntil(
-                                      context,
-                                      PageTransition(
-                                        type: PageTransitionType.fade,
-                                        duration: Duration(milliseconds: 0),
-                                        reverseDuration:
-                                            Duration(milliseconds: 0),
-                                        child: AdminSaleProcessWidget(),
-                                      ),
-                                      (r) => false,
-                                    );
-                                  },
-                                  text: 'Delete Sale',
-                                  options: FFButtonOptions(
-                                    width: 300,
-                                    height: 70,
-                                    color: FlutterFlowTheme.errorRed,
-                                    textStyle: FlutterFlowTheme.title1,
-                                    elevation: 0,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
-                        );
-                      },
+                        ),
+                      ],
                     ),
                   ),
                   Text(

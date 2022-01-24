@@ -1,7 +1,7 @@
+import '../admin_delete_sale/admin_delete_sale_widget.dart';
 import '../admin_sale_process/admin_sale_process_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../delete_sale/delete_sale_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -85,7 +85,7 @@ class _AdminSaleDetailsWidgetState extends State<AdminSaleDetailsWidget> {
                         type: PageTransitionType.bottomToTop,
                         duration: Duration(milliseconds: 220),
                         reverseDuration: Duration(milliseconds: 220),
-                        child: DeleteSaleWidget(
+                        child: AdminDeleteSaleWidget(
                           saleDetails: widget.saleDetails,
                         ),
                       ),

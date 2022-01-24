@@ -181,10 +181,8 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: StreamBuilder<List<AdminConstsRecord>>(
-                          stream: queryAdminConstsRecord(
-                            singleRecord: true,
-                          ),
+                        child: StreamBuilder<List<ProjectsRecord>>(
+                          stream: queryProjectsRecord(),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -199,18 +197,11 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                                 ),
                               );
                             }
-                            List<AdminConstsRecord>
-                                projectAdminConstsRecordList = snapshot.data;
-                            // Return an empty Container when the document does not exist.
-                            if (snapshot.data.isEmpty) {
-                              return Container();
-                            }
-                            final projectAdminConstsRecord =
-                                projectAdminConstsRecordList.isNotEmpty
-                                    ? projectAdminConstsRecordList.first
-                                    : null;
+                            List<ProjectsRecord> projectProjectsRecordList =
+                                snapshot.data;
                             return FlutterFlowDropDown(
-                              options: projectAdminConstsRecord.projects
+                              options: projectProjectsRecordList
+                                  .map((e) => e.projectName)
                                   .toList()
                                   .toList(),
                               onChanged: (val) =>
