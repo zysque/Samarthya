@@ -18,6 +18,9 @@ abstract class AdminConstsRecord
   double get indirectPer;
 
   @nullable
+  BuiltList<String> get projects;
+
+  @nullable
   DateTime get modified;
 
   @nullable
@@ -29,7 +32,8 @@ abstract class AdminConstsRecord
 
   static void _initializeBuilder(AdminConstsRecordBuilder builder) => builder
     ..directPer = 0.0
-    ..indirectPer = 0.0;
+    ..indirectPer = 0.0
+    ..projects = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('adminConsts');
@@ -63,5 +67,6 @@ Map<String, dynamic> createAdminConstsRecordData({
         AdminConstsRecord((a) => a
           ..directPer = directPer
           ..indirectPer = indirectPer
+          ..projects = null
           ..modified = modified
           ..lastProcessed = lastProcessed));

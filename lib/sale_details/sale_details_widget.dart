@@ -1,8 +1,8 @@
 import '../backend/backend.dart';
-import '../delete_sale/delete_sale_widget.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/flutter_flow_widgets.dart';
+import '../modify_sale/modify_sale_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -61,37 +61,7 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                 size: 32,
               ),
             ),
-            actions: [
-              Visibility(
-                visible: !(widget.processed) ?? true,
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 0, 16, 0),
-                  child: FlutterFlowIconButton(
-                    borderColor: Colors.transparent,
-                    borderRadius: 30,
-                    buttonSize: 48,
-                    icon: Icon(
-                      Icons.delete_outline_rounded,
-                      color: FlutterFlowTheme.textColor,
-                      size: 30,
-                    ),
-                    onPressed: () async {
-                      await Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.bottomToTop,
-                          duration: Duration(milliseconds: 220),
-                          reverseDuration: Duration(milliseconds: 220),
-                          child: DeleteSaleWidget(
-                            saleDetails: widget.saleDetails,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
+            actions: [],
             centerTitle: false,
             elevation: 0,
           ),
@@ -184,7 +154,7 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.6,
+                    height: MediaQuery.of(context).size.height * 0.5,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.background,
                     ),
@@ -245,9 +215,17 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         20, 0, 0, 0),
-                                    child: AutoSizeText(
-                                      saleDetailsSalesRecord.saleDesc,
-                                      style: FlutterFlowTheme.subtitle2,
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.85,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.3,
+                                      decoration: BoxDecoration(),
+                                      child: AutoSizeText(
+                                        saleDetailsSalesRecord.saleDesc,
+                                        style: FlutterFlowTheme.subtitle2,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -259,6 +237,48 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                     ),
                   ),
                 ),
+                if (!(widget.processed) ?? true)
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        FFButtonWidget(
+                          onPressed: () async {
+                            await Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ModifySaleWidget(
+                                  saleDetails: widget.saleDetails,
+                                ),
+                              ),
+                              (r) => false,
+                            );
+                          },
+                          text: 'Modify',
+                          options: FFButtonOptions(
+                            width: 200,
+                            height: 60,
+                            color: FlutterFlowTheme.grayLight,
+                            textStyle: FlutterFlowTheme.title1,
+                            elevation: 0,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 12,
+                          ),
+                        ),
+                        Text(
+                          'Tap above to remove this sale',
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0x43000000),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
               ],
             ),
           ),

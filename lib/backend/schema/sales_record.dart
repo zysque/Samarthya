@@ -25,13 +25,17 @@ abstract class SalesRecord implements Built<SalesRecord, SalesRecordBuilder> {
   DocumentReference get saleUser;
 
   @nullable
+  bool get processed;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(SalesRecordBuilder builder) => builder
     ..projectName = ''
     ..saleAmount = 0
-    ..saleDesc = '';
+    ..saleDesc = ''
+    ..processed = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('sales');
@@ -60,6 +64,7 @@ Map<String, dynamic> createSalesRecordData({
   String saleDesc,
   DateTime saleCreated,
   DocumentReference saleUser,
+  bool processed,
 }) =>
     serializers.toFirestore(
         SalesRecord.serializer,
@@ -68,4 +73,5 @@ Map<String, dynamic> createSalesRecordData({
           ..saleAmount = saleAmount
           ..saleDesc = saleDesc
           ..saleCreated = saleCreated
-          ..saleUser = saleUser));
+          ..saleUser = saleUser
+          ..processed = processed));

@@ -15,18 +15,6 @@ abstract class CalculationListRecord
   DocumentReference get userRef;
 
   @nullable
-  BuiltList<int> get unProcessedSales;
-
-  @nullable
-  BuiltList<int> get processedSales;
-
-  @nullable
-  BuiltList<int> get directCommission;
-
-  @nullable
-  BuiltList<int> get indirectCommission;
-
-  @nullable
   DateTime get lastProcessed;
 
   @nullable
@@ -39,18 +27,30 @@ abstract class CalculationListRecord
   int get balanceRightLeg;
 
   @nullable
+  int get unProcessedAmount;
+
+  @nullable
+  int get processedAmount;
+
+  @nullable
+  int get directCommissionAmount;
+
+  @nullable
+  int get indirectCommissionAmount;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(CalculationListRecordBuilder builder) =>
       builder
-        ..unProcessedSales = ListBuilder()
-        ..processedSales = ListBuilder()
-        ..directCommission = ListBuilder()
-        ..indirectCommission = ListBuilder()
         ..childSalesAmount = 0
         ..balanceLeftLeg = 0
-        ..balanceRightLeg = 0;
+        ..balanceRightLeg = 0
+        ..unProcessedAmount = 0
+        ..processedAmount = 0
+        ..directCommissionAmount = 0
+        ..indirectCommissionAmount = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('calculationList');
@@ -80,16 +80,20 @@ Map<String, dynamic> createCalculationListRecordData({
   int childSalesAmount,
   int balanceLeftLeg,
   int balanceRightLeg,
+  int unProcessedAmount,
+  int processedAmount,
+  int directCommissionAmount,
+  int indirectCommissionAmount,
 }) =>
     serializers.toFirestore(
         CalculationListRecord.serializer,
         CalculationListRecord((c) => c
           ..userRef = userRef
-          ..unProcessedSales = null
-          ..processedSales = null
-          ..directCommission = null
-          ..indirectCommission = null
           ..lastProcessed = lastProcessed
           ..childSalesAmount = childSalesAmount
           ..balanceLeftLeg = balanceLeftLeg
-          ..balanceRightLeg = balanceRightLeg));
+          ..balanceRightLeg = balanceRightLeg
+          ..unProcessedAmount = unProcessedAmount
+          ..processedAmount = processedAmount
+          ..directCommissionAmount = directCommissionAmount
+          ..indirectCommissionAmount = indirectCommissionAmount));

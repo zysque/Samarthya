@@ -229,26 +229,30 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                             ),
                           ],
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
-                              child: Text(
-                                myProfilePageUsersRecord.address
-                                    .maybeHandleOverflow(
-                                  maxChars: 50,
-                                  replacement: '…',
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: 35,
+                            decoration: BoxDecoration(),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  myProfilePageUsersRecord.address
+                                      .maybeHandleOverflow(
+                                    maxChars: 50,
+                                    replacement: '…',
+                                  ),
+                                  style: FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: FlutterFlowTheme.textColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       ],
                     ),

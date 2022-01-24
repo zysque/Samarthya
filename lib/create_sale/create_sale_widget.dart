@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
+import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -22,9 +23,9 @@ class CreateSaleWidget extends StatefulWidget {
 
 class _CreateSaleWidgetState extends State<CreateSaleWidget>
     with TickerProviderStateMixin {
-  TextEditingController descriptionController;
-  TextEditingController projectNameController;
+  String projectValue;
   TextEditingController textController1;
+  TextEditingController descriptionController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
@@ -53,7 +54,6 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
     );
 
     descriptionController = TextEditingController();
-    projectNameController = TextEditingController();
     textController1 = TextEditingController();
   }
 
@@ -181,31 +181,57 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: TextFormField(
-                          controller: projectNameController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Project Name',
-                            labelStyle: FlutterFlowTheme.subtitle1,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 32, 24, 32),
+                        child: StreamBuilder<List<AdminConstsRecord>>(
+                          stream: queryAdminConstsRecord(
+                            singleRecord: true,
                           ),
-                          style: FlutterFlowTheme.title3,
-                          textAlign: TextAlign.start,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: SpinKitPumpingHeart(
+                                    color: FlutterFlowTheme.primaryColor,
+                                    size: 40,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<AdminConstsRecord>
+                                projectAdminConstsRecordList = snapshot.data;
+                            // Return an empty Container when the document does not exist.
+                            if (snapshot.data.isEmpty) {
+                              return Container();
+                            }
+                            final projectAdminConstsRecord =
+                                projectAdminConstsRecordList.isNotEmpty
+                                    ? projectAdminConstsRecordList.first
+                                    : null;
+                            return FlutterFlowDropDown(
+                              options: projectAdminConstsRecord.projects
+                                  .toList()
+                                  .toList(),
+                              onChanged: (val) =>
+                                  setState(() => projectValue = val),
+                              width: MediaQuery.of(context).size.width,
+                              height: 70,
+                              textStyle: FlutterFlowTheme.title3.override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.grayLight,
+                              ),
+                              hintText: 'Please select Project',
+                              fillColor: FlutterFlowTheme.darkBackground,
+                              elevation: 2,
+                              borderColor: Colors.transparent,
+                              borderWidth: 0,
+                              borderRadius: 0,
+                              margin:
+                                  EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                              hidesUnderline: true,
+                            );
+                          },
                         ),
                       ),
                       Padding(
@@ -322,38 +348,23 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                                   }
                                   final salesCreateData = createSalesRecordData(
                                     saleAmount: int.parse(textController1.text),
-                                    projectName: projectNameController.text,
+                                    projectName: projectValue,
                                     saleDesc: descriptionController.text,
                                     saleCreated: getCurrentTimestamp,
                                     saleUser: currentUserReference,
+                                    processed: false,
                                   );
                                   await SalesRecord.collection
                                       .doc()
                                       .set(salesCreateData);
 
-                                  final commissionsCreateData =
-                                      createCommissionsRecordData(
-                                    projectName: projectNameController.text,
-                                    commissionAmount: functions.getCommission(
-                                        rowAdminConstsRecord.directPer,
+                                  final calculationListUpdateData =
+                                      createCalculationListRecordData(
+                                    unProcessedAmount: functions.getSum(
+                                        buttonCalculationListRecord
+                                            .unProcessedAmount,
                                         int.parse(textController1.text)),
-                                    commissionType: 'Direct',
-                                    commissionCreated: getCurrentTimestamp,
-                                    commissionUser: currentUserReference,
                                   );
-                                  await CommissionsRecord.collection
-                                      .doc()
-                                      .set(commissionsCreateData);
-
-                                  final calculationListUpdateData = {
-                                    'unProcessedSales': FieldValue.arrayUnion(
-                                        [int.parse(textController1.text)]),
-                                    'directCommission': FieldValue.arrayUnion([
-                                      functions.getCommission(
-                                          rowAdminConstsRecord.directPer,
-                                          int.parse(textController1.text))
-                                    ]),
-                                  };
                                   await buttonCalculationListRecord.reference
                                       .update(calculationListUpdateData);
                                   await Navigator.push(

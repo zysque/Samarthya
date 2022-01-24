@@ -364,44 +364,49 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         },
                       ),
                     ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                      child: TextFormField(
-                        controller: yourAddressController ??=
-                            TextEditingController(
-                          text: editProfileUsersRecord.address,
-                        ),
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Your Address',
-                          labelStyle: FlutterFlowTheme.bodyText1.override(
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.1,
+                      decoration: BoxDecoration(),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                        child: TextFormField(
+                          controller: yourAddressController ??=
+                              TextEditingController(
+                            text: editProfileUsersRecord.address,
+                          ),
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Your Address',
+                            labelStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.grayLight,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.darkBackground,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.grayLight,
+                            color: FlutterFlowTheme.textColor,
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true,
-                          fillColor: FlutterFlowTheme.darkBackground,
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                          keyboardType: TextInputType.multiline,
                         ),
-                        style: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.textColor,
-                        ),
-                        keyboardType: TextInputType.multiline,
                       ),
                     ),
                     Padding(

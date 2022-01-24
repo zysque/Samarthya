@@ -9,7 +9,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:saamarth/login_page/login_page_widget.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'my_sales/my_sales_widget.dart';
 import 'my_commissions/my_commissions_widget.dart';
@@ -107,68 +106,51 @@ class _NavBarPageState extends State<NavBarPage> {
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
       body: tabs[_currentPage],
-      extendBody: true,
-      bottomNavigationBar: FloatingNavbar(
+      bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
         backgroundColor: FlutterFlowTheme.darkBackground,
         selectedItemColor: FlutterFlowTheme.primaryColor,
         unselectedItemColor: FlutterFlowTheme.grayLight,
-        selectedBackgroundColor: Color(0x00000000),
-        borderRadius: 8,
-        itemBorderRadius: 8,
-        margin: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
-        width: double.infinity,
-        elevation: 0,
-        items: [
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  currentIndex == 0
-                      ? Icons.stacked_line_chart_rounded
-                      : Icons.stacked_line_chart_rounded,
-                  color: currentIndex == 0
-                      ? FlutterFlowTheme.primaryColor
-                      : FlutterFlowTheme.grayLight,
-                  size: 24,
-                ),
-              ],
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.stacked_line_chart_rounded,
+              size: 24,
             ),
+            activeIcon: Icon(
+              Icons.stacked_line_chart_rounded,
+              size: 24,
+            ),
+            label: '',
+            tooltip: '',
           ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  currentIndex == 1
-                      ? Icons.account_balance_wallet_rounded
-                      : Icons.account_balance_wallet_outlined,
-                  color: currentIndex == 1
-                      ? FlutterFlowTheme.primaryColor
-                      : FlutterFlowTheme.grayLight,
-                  size: 24,
-                ),
-              ],
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_balance_wallet_outlined,
+              size: 24,
             ),
+            activeIcon: Icon(
+              Icons.account_balance_wallet_rounded,
+              size: 24,
+            ),
+            label: '',
+            tooltip: '',
           ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  currentIndex == 2
-                      ? Icons.account_circle_rounded
-                      : Icons.account_circle_outlined,
-                  color: currentIndex == 2
-                      ? FlutterFlowTheme.primaryColor
-                      : FlutterFlowTheme.grayLight,
-                  size: 24,
-                ),
-              ],
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_circle_outlined,
+              size: 24,
             ),
+            activeIcon: Icon(
+              Icons.account_circle_rounded,
+              size: 24,
+            ),
+            label: '',
+            tooltip: '',
           )
         ],
       ),

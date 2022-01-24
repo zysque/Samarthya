@@ -14,6 +14,22 @@ int getTotalAmount(List<int> salesAmounts) {
   return salesAmounts.fold(0, (sum, element) => sum + element);
 }
 
+int getSum(
+  int savedAmount,
+  int newAmount,
+) {
+  // add list data
+  return savedAmount + newAmount;
+}
+
+int getDiff(
+  int savedAmount,
+  int newAmount,
+) {
+  // add list data
+  return savedAmount - newAmount;
+}
+
 List<DocumentReference> addToList(
   List<DocumentReference> parentsList,
   DocumentReference newParent,

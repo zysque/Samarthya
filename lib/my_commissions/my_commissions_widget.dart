@@ -4,7 +4,6 @@ import '../commission_details/commission_details_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -174,11 +173,8 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                             ),
                                           ),
                                           Text(
-                                            functions
-                                                .getTotalAmount(
-                                                    columnCalculationListRecord
-                                                        .directCommission
-                                                        .toList())
+                                            columnCalculationListRecord
+                                                .directCommissionAmount
                                                 .toString(),
                                             style: FlutterFlowTheme.title3
                                                 .override(
@@ -236,11 +232,8 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                             ),
                                           ),
                                           Text(
-                                            functions
-                                                .getTotalAmount(
-                                                    columnCalculationListRecord
-                                                        .indirectCommission
-                                                        .toList())
+                                            columnCalculationListRecord
+                                                .indirectCommissionAmount
                                                 .toString(),
                                             style: FlutterFlowTheme.title3
                                                 .override(
