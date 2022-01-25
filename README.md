@@ -1,1 +1,1 @@
-# Saamarth
+# Samarthya
