@@ -5,6 +5,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
               ),
             ),
             actions: [],
-            centerTitle: false,
+            centerTitle: true,
             elevation: 0,
           ),
           backgroundColor: FlutterFlowTheme.background,
@@ -253,24 +254,6 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                     ),
                                   ),
                                 ],
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(40, 0, 0, 0),
-                                child: Card(
-                                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                                  child: InkWell(
-                                    onTap: () async {
-                                      await Share.share(
-                                          'Download the app to connect and earn using my referral code ${myHierarchyUsersRecord.uid}');
-                                    },
-                                    child: FaIcon(
-                                      FontAwesomeIcons.whatsapp,
-                                      color: Colors.black,
-                                      size: 40,
-                                    ),
-                                  ),
-                                ),
                               ),
                             ],
                           ),
@@ -802,6 +785,54 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                 ],
                               ),
                             ),
+                            if (!(functions.getAndOutput(
+                                    columnUserHierarchiesRecord.hasLeft,
+                                    columnUserHierarchiesRecord.hasRight)) ??
+                                true)
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        await Share.share(
+                                            'Download the app to connect and earn using my referral code :-           ${myHierarchyUsersRecord.uid}');
+                                      },
+                                      text: 'Refer',
+                                      icon: FaIcon(
+                                        FontAwesomeIcons.whatsapp,
+                                      ),
+                                      options: FFButtonOptions(
+                                        width: 150,
+                                        height: 50,
+                                        color: FlutterFlowTheme.grayLight,
+                                        textStyle:
+                                            FlutterFlowTheme.title1.override(
+                                          fontFamily: 'Lexend Deca',
+                                          fontSize: 20,
+                                        ),
+                                        elevation: 0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1,
+                                        ),
+                                        borderRadius: 12,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Tap above to refer users to join you',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.textColor,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                           ],
                         );
                       },

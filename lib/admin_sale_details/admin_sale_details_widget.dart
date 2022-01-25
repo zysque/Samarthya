@@ -1,4 +1,5 @@
 import '../admin_delete_sale/admin_delete_sale_widget.dart';
+import '../admin_modify_sale/admin_modify_sale_widget.dart';
 import '../admin_sale_process/admin_sale_process_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
@@ -6,7 +7,6 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../modify_sale/modify_sale_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -278,30 +278,14 @@ class _AdminSaleDetailsWidgetState extends State<AdminSaleDetailsWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 30, 20, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 0, 0),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.85,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.3,
-                                      decoration: BoxDecoration(),
-                                      child: AutoSizeText(
-                                        adminSaleDetailsSalesRecord.saleDesc,
-                                        style: FlutterFlowTheme.subtitle2,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              AutoSizeText(
+                                adminSaleDetailsSalesRecord.saleDesc,
+                                style: FlutterFlowTheme.subtitle2,
                               ),
                             ],
                           ),
@@ -357,15 +341,12 @@ class _AdminSaleDetailsWidgetState extends State<AdminSaleDetailsWidget> {
                                       20, 0, 50, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      await Navigator.pushAndRemoveUntil(
+                                      await Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
-                                              ModifySaleWidget(
-                                            saleDetails: widget.saleDetails,
-                                          ),
+                                              AdminModifySaleWidget(),
                                         ),
-                                        (r) => false,
                                       );
                                     },
                                     text: 'Modify',
@@ -412,10 +393,6 @@ class _AdminSaleDetailsWidgetState extends State<AdminSaleDetailsWidget> {
                                       List<AdminConstsRecord>
                                           processAdminConstsRecordList =
                                           snapshot.data;
-                                      // Return an empty Container when the document does not exist.
-                                      if (snapshot.data.isEmpty) {
-                                        return Container();
-                                      }
                                       final processAdminConstsRecord =
                                           processAdminConstsRecordList
                                                   .isNotEmpty
@@ -473,6 +450,14 @@ class _AdminSaleDetailsWidgetState extends State<AdminSaleDetailsWidget> {
                                               .reference
                                               .update(
                                                   calculationListUpdateData);
+
+                                          final salesUpdateData =
+                                              createSalesRecordData(
+                                            processed: true,
+                                          );
+                                          await adminSaleDetailsSalesRecord
+                                              .reference
+                                              .update(salesUpdateData);
                                           await Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
@@ -511,7 +496,7 @@ class _AdminSaleDetailsWidgetState extends State<AdminSaleDetailsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                         child: Text(
-                          'Tap above to remove this sale',
+                          'Tap above to complete the requests',
                           style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Lexend Deca',
                             color: Color(0x43000000),

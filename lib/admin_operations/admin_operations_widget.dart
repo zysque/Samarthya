@@ -239,55 +239,32 @@ class _AdminOperationsWidgetState extends State<AdminOperationsWidget> {
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                child:
-                                    StreamBuilder<List<CalculationListRecord>>(
-                                  stream: queryCalculationListRecord(),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 40,
-                                          height: 40,
-                                          child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
-                                            size: 40,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<CalculationListRecord>
-                                        projectsButtonCalculationListRecordList =
-                                        snapshot.data;
-                                    return FFButtonWidget(
-                                      onPressed: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminProjectsWidget(),
-                                          ),
-                                        );
-                                      },
-                                      text: 'Projects',
-                                      options: FFButtonOptions(
-                                        width: 130,
-                                        height: 50,
-                                        color: Color(0xFFE91E63),
-                                        textStyle:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Colors.white,
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1,
-                                        ),
-                                        borderRadius: 12,
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AdminProjectsWidget(),
                                       ),
                                     );
                                   },
+                                  text: 'Projects',
+                                  options: FFButtonOptions(
+                                    width: 130,
+                                    height: 50,
+                                    color: Color(0xFFE91E63),
+                                    textStyle:
+                                        FlutterFlowTheme.subtitle2.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: 12,
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -347,56 +324,33 @@ class _AdminOperationsWidgetState extends State<AdminOperationsWidget> {
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                                child:
-                                    StreamBuilder<List<CalculationListRecord>>(
-                                  stream: queryCalculationListRecord(),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 40,
-                                          height: 40,
-                                          child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
-                                            size: 40,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<CalculationListRecord>
-                                        processButtonCalculationListRecordList =
-                                        snapshot.data;
-                                    return FFButtonWidget(
-                                      onPressed: () async {
-                                        await Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                AdminSaleProcessWidget(),
-                                          ),
-                                          (r) => false,
-                                        );
-                                      },
-                                      text: 'Process',
-                                      options: FFButtonOptions(
-                                        width: 130,
-                                        height: 50,
-                                        color: FlutterFlowTheme.primaryColor,
-                                        textStyle:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Colors.white,
-                                        ),
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1,
-                                        ),
-                                        borderRadius: 12,
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    await Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AdminSaleProcessWidget(),
                                       ),
+                                      (r) => false,
                                     );
                                   },
+                                  text: 'Process',
+                                  options: FFButtonOptions(
+                                    width: 130,
+                                    height: 50,
+                                    color: FlutterFlowTheme.primaryColor,
+                                    textStyle:
+                                        FlutterFlowTheme.subtitle2.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                    ),
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: 12,
+                                  ),
                                 ),
                               ),
                               Padding(

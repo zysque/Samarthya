@@ -260,8 +260,11 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                           StreamBuilder<List<CommissionsRecord>>(
                             stream: queryCommissionsRecord(
                               queryBuilder: (commissionsRecord) =>
-                                  commissionsRecord.where('commissionUser',
-                                      isEqualTo: currentUserReference),
+                                  commissionsRecord
+                                      .where('commissionUser',
+                                          isEqualTo: currentUserReference)
+                                      .orderBy('commissionCreated',
+                                          descending: true),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.

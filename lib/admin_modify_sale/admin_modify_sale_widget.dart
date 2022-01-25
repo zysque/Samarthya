@@ -57,8 +57,6 @@ class _AdminModifySaleWidgetState extends State<AdminModifySaleWidget>
           .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
       this,
     );
-
-    descriptionController = TextEditingController();
   }
 
   @override
@@ -258,7 +256,10 @@ class _AdminModifySaleWidgetState extends State<AdminModifySaleWidget>
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                             child: TextFormField(
-                              controller: descriptionController,
+                              controller: descriptionController ??=
+                                  TextEditingController(
+                                text: columnSalesRecord.saleDesc,
+                              ),
                               obscureText: false,
                               decoration: InputDecoration(
                                 hintText: 'Sale Description',
@@ -319,10 +320,6 @@ class _AdminModifySaleWidgetState extends State<AdminModifySaleWidget>
                           }
                           List<AdminConstsRecord> rowAdminConstsRecordList =
                               snapshot.data;
-                          // Return an empty Container when the document does not exist.
-                          if (snapshot.data.isEmpty) {
-                            return Container();
-                          }
                           final rowAdminConstsRecord =
                               rowAdminConstsRecordList.isNotEmpty
                                   ? rowAdminConstsRecordList.first
@@ -399,8 +396,10 @@ class _AdminModifySaleWidgetState extends State<AdminModifySaleWidget>
                                         projectName: projectValue,
                                         saleAmount: int.parse(
                                             textController1?.text ?? ''),
-                                        saleDesc: descriptionController.text,
+                                        saleDesc:
+                                            descriptionController?.text ?? '',
                                         saleCreated: getCurrentTimestamp,
+                                        processed: true,
                                       );
                                       await widget.saleDetails
                                           .update(salesUpdateData);
@@ -422,12 +421,13 @@ class _AdminModifySaleWidgetState extends State<AdminModifySaleWidget>
                                       await CommissionsRecord.collection
                                           .doc()
                                           .set(commissionsCreateData);
-                                      await Navigator.push(
+                                      await Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               AdminSaleProcessWidget(),
                                         ),
+                                        (r) => false,
                                       );
                                     },
                                     text: 'Modify & Process',

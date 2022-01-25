@@ -24,12 +24,16 @@ abstract class AdminConstsRecord
   DateTime get lastProcessed;
 
   @nullable
+  BuiltList<DocumentReference> get adminUsers;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(AdminConstsRecordBuilder builder) => builder
     ..directPer = 0.0
-    ..indirectPer = 0.0;
+    ..indirectPer = 0.0
+    ..adminUsers = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('adminConsts');
@@ -64,4 +68,5 @@ Map<String, dynamic> createAdminConstsRecordData({
           ..directPer = directPer
           ..indirectPer = indirectPer
           ..modified = modified
-          ..lastProcessed = lastProcessed));
+          ..lastProcessed = lastProcessed
+          ..adminUsers = null));

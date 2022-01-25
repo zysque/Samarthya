@@ -205,30 +205,14 @@ class _SaleDetailsWidgetState extends State<SaleDetailsWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 30, 20, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 0, 0),
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.85,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.3,
-                                      decoration: BoxDecoration(),
-                                      child: AutoSizeText(
-                                        saleDetailsSalesRecord.saleDesc,
-                                        style: FlutterFlowTheme.subtitle2,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              AutoSizeText(
+                                saleDetailsSalesRecord.saleDesc,
+                                style: FlutterFlowTheme.subtitle2,
                               ),
                             ],
                           ),

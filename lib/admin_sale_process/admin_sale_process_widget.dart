@@ -1,3 +1,4 @@
+import '../admin_operations/admin_operations_widget.dart';
 import '../admin_sale_details/admin_sale_details_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
@@ -80,8 +81,9 @@ class _AdminSaleProcessWidgetState extends State<AdminSaleProcessWidget>
                     padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                     child: StreamBuilder<List<SalesRecord>>(
                       stream: querySalesRecord(
-                        queryBuilder: (salesRecord) =>
-                            salesRecord.where('processed', isEqualTo: false),
+                        queryBuilder: (salesRecord) => salesRecord
+                            .where('processed', isEqualTo: false)
+                            .orderBy('saleCreated', descending: true),
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -266,7 +268,13 @@ class _AdminSaleProcessWidgetState extends State<AdminSaleProcessWidget>
                     );
                     await buttonAdminConstsRecord.reference
                         .update(adminConstsUpdateData);
-                    Navigator.pop(context);
+                    await Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AdminOperationsWidget(),
+                      ),
+                      (r) => false,
+                    );
                   },
                   text: 'Done',
                   options: FFButtonOptions(

@@ -182,88 +182,82 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(40, 0, 0, 0),
-                        child: FlutterFlowDropDown(
-                          options: ['Mr.', 'Ms.', 'Mrs.'].toList(),
-                          onChanged: (val) =>
-                              setState(() => dropDownValue = val),
-                          width: 80,
-                          height: 50,
-                          textStyle: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.grayDark,
-                          ),
-                          hintText: 'Title',
-                          fillColor: FlutterFlowTheme.darkBackground,
-                          elevation: 2,
-                          borderColor: Colors.transparent,
-                          borderWidth: 0,
-                          borderRadius: 0,
-                          margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                          hidesUnderline: true,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 40, 0, 0),
+                      child: FlutterFlowDropDown(
+                        options: ['Mr.', 'Ms.', 'Mrs.'].toList(),
+                        onChanged: (val) => setState(() => dropDownValue = val),
+                        width: 100,
+                        height: 50,
+                        textStyle: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.grayDark,
                         ),
+                        hintText: 'Title',
+                        fillColor: FlutterFlowTheme.darkBackground,
+                        elevation: 2,
+                        borderColor: Colors.transparent,
+                        borderWidth: 8,
+                        borderRadius: 8,
+                        margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                        hidesUnderline: true,
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(80, 0, 0, 0),
-                        child: InkWell(
-                          onTap: () async {
-                            final selectedMedia =
-                                await selectMediaWithSourceBottomSheet(
-                              context: context,
-                              allowPhoto: true,
-                              backgroundColor: FlutterFlowTheme.darkBackground,
-                              textColor: FlutterFlowTheme.textColor,
-                              pickerFontFamily: 'Lexend Deca',
-                            );
-                            if (selectedMedia != null &&
-                                validateFileFormat(
-                                    selectedMedia.storagePath, context)) {
-                              showUploadMessage(context, 'Uploading file...',
-                                  showLoading: true);
-                              final downloadUrl = await uploadData(
-                                  selectedMedia.storagePath,
-                                  selectedMedia.bytes);
-                              ScaffoldMessenger.of(context)
-                                  .hideCurrentSnackBar();
-                              if (downloadUrl != null) {
-                                setState(() => uploadedFileUrl = downloadUrl);
-                                showUploadMessage(context, 'Success!');
-                              } else {
-                                showUploadMessage(
-                                    context, 'Failed to upload media');
-                                return;
-                              }
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(100, 0, 0, 0),
+                      child: InkWell(
+                        onTap: () async {
+                          final selectedMedia =
+                              await selectMediaWithSourceBottomSheet(
+                            context: context,
+                            allowPhoto: true,
+                            backgroundColor: FlutterFlowTheme.darkBackground,
+                            textColor: FlutterFlowTheme.textColor,
+                            pickerFontFamily: 'Lexend Deca',
+                          );
+                          if (selectedMedia != null &&
+                              validateFileFormat(
+                                  selectedMedia.storagePath, context)) {
+                            showUploadMessage(context, 'Uploading file...',
+                                showLoading: true);
+                            final downloadUrl = await uploadData(
+                                selectedMedia.storagePath, selectedMedia.bytes);
+                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                            if (downloadUrl != null) {
+                              setState(() => uploadedFileUrl = downloadUrl);
+                              showUploadMessage(context, 'Success!');
+                            } else {
+                              showUploadMessage(
+                                  context, 'Failed to upload media');
+                              return;
                             }
-                          },
-                          child: Container(
-                            width: 100,
-                            height: 100,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image.network(
-                              valueOrDefault<String>(
-                                uploadedFileUrl,
-                                'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/finance-app-sample-kugwu4/assets/ijvuhvqbvns6/uiAvatar@2x.png',
-                              ),
-                              fit: BoxFit.cover,
-                            ),
+                          }
+                        },
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
                           ),
-                        ).animated(
-                            [animationsMap['circleImageOnPageLoadAnimation']]),
-                      ),
-                    ],
-                  ),
+                          child: Image.network(
+                            valueOrDefault<String>(
+                              uploadedFileUrl,
+                              'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/finance-app-sample-kugwu4/assets/ijvuhvqbvns6/uiAvatar@2x.png',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ).animated(
+                          [animationsMap['circleImageOnPageLoadAnimation']]),
+                    ),
+                  ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                   child: TextFormField(
                     controller: yourNameController,
                     obscureText: false,
@@ -306,7 +300,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                   ).animated([animationsMap['textFieldOnPageLoadAnimation1']]),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                   child: TextFormField(
                     controller: yourPhoneController,
                     obscureText: false,
@@ -352,7 +346,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                   ).animated([animationsMap['textFieldOnPageLoadAnimation2']]),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                   child: StreamBuilder<List<UsersRecord>>(
                     stream: queryUsersRecord(
                       queryBuilder: (usersRecord) => usersRecord.where('uid',
@@ -439,8 +433,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                           if (val.isEmpty) {
                             return 'Field is required';
                           }
-                          if (val.length < 5) {
-                            return 'Requires at least 5 characters.';
+                          if (val.length < 12) {
+                            return 'Requires at least 12 characters.';
                           }
                           return null;
                         },
@@ -450,7 +444,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                   child: TextFormField(
                     controller: yourDOBController,
                     obscureText: false,
@@ -492,45 +486,42 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                   ).animated([animationsMap['textFieldOnPageLoadAnimation4']]),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                  child: Container(
-                    decoration: BoxDecoration(),
-                    child: TextFormField(
-                      controller: yourAddressController,
-                      obscureText: false,
-                      decoration: InputDecoration(
-                        labelText: 'Your Address',
-                        labelStyle: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.grayLight,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color(0x00000000),
-                            width: 1,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        filled: true,
-                        fillColor: FlutterFlowTheme.darkBackground,
-                        contentPadding:
-                            EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                      ),
-                      style: FlutterFlowTheme.bodyText1.override(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                  child: TextFormField(
+                    controller: yourAddressController,
+                    obscureText: false,
+                    decoration: InputDecoration(
+                      labelText: 'Your Address',
+                      labelStyle: FlutterFlowTheme.bodyText1.override(
                         fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.textColor,
+                        color: FlutterFlowTheme.grayLight,
                       ),
-                      keyboardType: TextInputType.multiline,
-                    ).animated(
-                        [animationsMap['textFieldOnPageLoadAnimation5']]),
-                  ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Color(0x00000000),
+                          width: 1,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      filled: true,
+                      fillColor: FlutterFlowTheme.darkBackground,
+                      contentPadding:
+                          EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                    ),
+                    style: FlutterFlowTheme.bodyText1.override(
+                      fontFamily: 'Lexend Deca',
+                      color: FlutterFlowTheme.textColor,
+                    ),
+                    maxLines: 3,
+                    keyboardType: TextInputType.multiline,
+                  ).animated([animationsMap['textFieldOnPageLoadAnimation5']]),
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),

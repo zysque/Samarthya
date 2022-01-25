@@ -100,7 +100,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 20),
                                         child: Image.asset(
-                                          'assets/images/fin_onboarding_1@2x.png',
+                                          'assets/images/df3hg_',
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -119,7 +119,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Log Sales',
+                                            'No Sale Log',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.title1,
                                           ),
@@ -135,7 +135,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Create sales log that will be tied to transactions of your direct commissions and your hierarchical parents indirect commissions too in order for easy tracking.',
+                                            'Create sale log that will be tied to trasactions of your direct commissions and your hierarchical parents inderect commissions too in order for easy tracking.',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.subtitle2
                                                 .override(

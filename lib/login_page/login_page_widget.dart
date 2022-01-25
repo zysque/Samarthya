@@ -218,7 +218,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       },
                                       text: 'Forgot Password?',
                                       options: FFButtonOptions(
-                                        width: 170,
+                                        width: 180,
                                         height: 40,
                                         color: Color(0x001A1F24),
                                         textStyle:

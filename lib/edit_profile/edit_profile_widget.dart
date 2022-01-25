@@ -274,50 +274,49 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         keyboardType: TextInputType.datetime,
                       ),
                     ),
-                    if ((editProfileUsersRecord.email) != 'admin@saamarth.com')
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                        child: TextFormField(
-                          controller: yourEmailController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Email Address',
-                            labelStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                            ),
-                            hintText: 'Your email',
-                            hintStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0x98FFFFFF),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            filled: true,
-                            fillColor: FlutterFlowTheme.darkBackground,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                          ),
-                          style: FlutterFlowTheme.bodyText1.override(
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                      child: TextFormField(
+                        controller: yourEmailController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Email Address',
+                          labelStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.primaryColor,
-                            fontWeight: FontWeight.w600,
+                            color: FlutterFlowTheme.grayLight,
                           ),
-                          keyboardType: TextInputType.emailAddress,
+                          hintText: 'Your email',
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0x98FFFFFF),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: FlutterFlowTheme.darkBackground,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
                         ),
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.primaryColor,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        keyboardType: TextInputType.emailAddress,
                       ),
+                    ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
                       child: TextFormField(
@@ -364,50 +363,51 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         },
                       ),
                     ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                      child: TextFormField(
+                        controller: yourAddressController ??=
+                            TextEditingController(
+                          text: editProfileUsersRecord.address,
+                        ),
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Your Address',
+                          labelStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.grayLight,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: FlutterFlowTheme.darkBackground,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                        ),
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.textColor,
+                        ),
+                        maxLines: 3,
+                        keyboardType: TextInputType.multiline,
+                      ),
+                    ),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.1,
                       decoration: BoxDecoration(),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
-                        child: TextFormField(
-                          controller: yourAddressController ??=
-                              TextEditingController(
-                            text: editProfileUsersRecord.address,
-                          ),
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Your Address',
-                            labelStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            filled: true,
-                            fillColor: FlutterFlowTheme.darkBackground,
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                          ),
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.textColor,
-                          ),
-                          keyboardType: TextInputType.multiline,
-                        ),
-                      ),
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),

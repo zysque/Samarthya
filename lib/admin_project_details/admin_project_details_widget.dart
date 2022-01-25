@@ -2,17 +2,14 @@ import '../admin_delete_projects/admin_delete_projects_widget.dart';
 import '../admin_modify_projects/admin_modify_projects_widget.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_static_map.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/lat_lng.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mapbox_search/mapbox_search.dart';
 
 class AdminProjectDetailsWidget extends StatefulWidget {
   const AdminProjectDetailsWidget({
@@ -83,7 +80,10 @@ class _AdminProjectDetailsWidgetState extends State<AdminProjectDetailsWidget> {
                         type: PageTransitionType.bottomToTop,
                         duration: Duration(milliseconds: 220),
                         reverseDuration: Duration(milliseconds: 220),
-                        child: AdminDeleteProjectsWidget(),
+                        child: AdminDeleteProjectsWidget(
+                          projectDetails:
+                              adminProjectDetailsProjectsRecord.reference,
+                        ),
                       ),
                     );
                   },
@@ -192,50 +192,16 @@ class _AdminProjectDetailsWidgetState extends State<AdminProjectDetailsWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        20, 0, 0, 0),
-                                    child: Container(
-                                      decoration: BoxDecoration(),
-                                      child: AutoSizeText(
-                                        adminProjectDetailsProjectsRecord
-                                            .projectDesc,
-                                        style: FlutterFlowTheme.subtitle2,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              AutoSizeText(
+                                adminProjectDetailsProjectsRecord.projectDesc,
+                                style: FlutterFlowTheme.subtitle2,
                               ),
                             ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            height: MediaQuery.of(context).size.height * 0.35,
-                            decoration: BoxDecoration(),
-                            child: FlutterFlowStaticMap(
-                              location: adminProjectDetailsProjectsRecord
-                                  .projectLocation,
-                              apiKey:
-                                  'pk.eyJ1IjoienlzcXVlIiwiYSI6ImNreXN3cGQzNTE3cncycHB0amRqYjl4YzgifQ.FcQhcg6GWiXeV82pAmSQgQ',
-                              style: MapBoxStyle.Light,
-                              width: MediaQuery.of(context).size.width,
-                              height: 100,
-                              fit: BoxFit.cover,
-                              borderRadius: BorderRadius.circular(0),
-                              zoom: 12,
-                              tilt: 0,
-                              rotation: 0,
-                            ),
                           ),
                         ),
                       ],

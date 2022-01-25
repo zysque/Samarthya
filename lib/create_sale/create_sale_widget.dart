@@ -289,10 +289,6 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                       }
                       List<AdminConstsRecord> rowAdminConstsRecordList =
                           snapshot.data;
-                      // Return an empty Container when the document does not exist.
-                      if (snapshot.data.isEmpty) {
-                        return Container();
-                      }
                       final rowAdminConstsRecord =
                           rowAdminConstsRecordList.isNotEmpty
                               ? rowAdminConstsRecordList.first
@@ -324,10 +320,6 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                               List<CalculationListRecord>
                                   buttonCalculationListRecordList =
                                   snapshot.data;
-                              // Return an empty Container when the document does not exist.
-                              if (snapshot.data.isEmpty) {
-                                return Container();
-                              }
                               final buttonCalculationListRecord =
                                   buttonCalculationListRecordList.isNotEmpty
                                       ? buttonCalculationListRecordList.first
@@ -358,12 +350,13 @@ class _CreateSaleWidgetState extends State<CreateSaleWidget>
                                   );
                                   await buttonCalculationListRecord.reference
                                       .update(calculationListUpdateData);
-                                  await Navigator.push(
+                                  await Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) =>
                                           NavBarPage(initialPage: 'MySales'),
                                     ),
+                                    (r) => false,
                                   );
                                 },
                                 text: 'Log Sale',

@@ -50,3 +50,11 @@ int getCommission(
   return ((percentage / 100) * amount).round();
   ;
 }
+
+bool getAndOutput(
+  bool op1,
+  bool op2,
+) {
+  // apply and operator
+  return op1 && op2;
+}

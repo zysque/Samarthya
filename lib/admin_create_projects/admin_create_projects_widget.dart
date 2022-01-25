@@ -224,7 +224,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                           textAlign: TextAlign.center,
                           validator: (val) {
                             if (val.isEmpty) {
-                              return 'Please enter an amount';
+                              return 'Please enter City';
                             }
 
                             return null;

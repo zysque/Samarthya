@@ -18,15 +18,6 @@ abstract class CalculationListRecord
   DateTime get lastProcessed;
 
   @nullable
-  int get childSalesAmount;
-
-  @nullable
-  int get balanceLeftLeg;
-
-  @nullable
-  int get balanceRightLeg;
-
-  @nullable
   int get unProcessedAmount;
 
   @nullable
@@ -44,9 +35,6 @@ abstract class CalculationListRecord
 
   static void _initializeBuilder(CalculationListRecordBuilder builder) =>
       builder
-        ..childSalesAmount = 0
-        ..balanceLeftLeg = 0
-        ..balanceRightLeg = 0
         ..unProcessedAmount = 0
         ..processedAmount = 0
         ..directCommissionAmount = 0
@@ -77,9 +65,6 @@ abstract class CalculationListRecord
 Map<String, dynamic> createCalculationListRecordData({
   DocumentReference userRef,
   DateTime lastProcessed,
-  int childSalesAmount,
-  int balanceLeftLeg,
-  int balanceRightLeg,
   int unProcessedAmount,
   int processedAmount,
   int directCommissionAmount,
@@ -90,9 +75,6 @@ Map<String, dynamic> createCalculationListRecordData({
         CalculationListRecord((c) => c
           ..userRef = userRef
           ..lastProcessed = lastProcessed
-          ..childSalesAmount = childSalesAmount
-          ..balanceLeftLeg = balanceLeftLeg
-          ..balanceRightLeg = balanceRightLeg
           ..unProcessedAmount = unProcessedAmount
           ..processedAmount = processedAmount
           ..directCommissionAmount = directCommissionAmount

@@ -132,10 +132,6 @@ class _MySalesWidgetState extends State<MySalesWidget>
             }
             List<CalculationListRecord> columnCalculationListRecordList =
                 snapshot.data;
-            // Return an empty Container when the document does not exist.
-            if (snapshot.data.isEmpty) {
-              return Container();
-            }
             final columnCalculationListRecord =
                 columnCalculationListRecordList.isNotEmpty
                     ? columnCalculationListRecordList.first
@@ -193,9 +189,12 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                             ),
                                           ),
                                           Text(
-                                            columnCalculationListRecord
-                                                .unProcessedAmount
-                                                .toString(),
+                                            formatNumber(
+                                              columnCalculationListRecord
+                                                  .unProcessedAmount,
+                                              formatType:
+                                                  FormatType.compactLong,
+                                            ),
                                             style: FlutterFlowTheme.title3
                                                 .override(
                                               fontFamily: 'Lexend Deca',
@@ -251,9 +250,12 @@ class _MySalesWidgetState extends State<MySalesWidget>
                                             ),
                                           ),
                                           Text(
-                                            columnCalculationListRecord
-                                                .processedAmount
-                                                .toString(),
+                                            formatNumber(
+                                              columnCalculationListRecord
+                                                  .processedAmount,
+                                              formatType:
+                                                  FormatType.compactLong,
+                                            ),
                                             style: FlutterFlowTheme.title3
                                                 .override(
                                               fontFamily: 'Lexend Deca',
@@ -278,9 +280,10 @@ class _MySalesWidgetState extends State<MySalesWidget>
                         children: [
                           StreamBuilder<List<SalesRecord>>(
                             stream: querySalesRecord(
-                              queryBuilder: (salesRecord) => salesRecord.where(
-                                  'saleUser',
-                                  isEqualTo: currentUserReference),
+                              queryBuilder: (salesRecord) => salesRecord
+                                  .where('saleUser',
+                                      isEqualTo: currentUserReference)
+                                  .orderBy('saleCreated', descending: true),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.

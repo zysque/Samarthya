@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -56,8 +57,6 @@ class _ModifySaleWidgetState extends State<ModifySaleWidget>
           .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
       this,
     );
-
-    descriptionController = TextEditingController();
   }
 
   @override
@@ -257,7 +256,10 @@ class _ModifySaleWidgetState extends State<ModifySaleWidget>
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                             child: TextFormField(
-                              controller: descriptionController,
+                              controller: descriptionController ??=
+                                  TextEditingController(
+                                text: columnSalesRecord.saleDesc,
+                              ),
                               obscureText: false,
                               decoration: InputDecoration(
                                 hintText: 'Sale Description',
@@ -319,10 +321,6 @@ class _ModifySaleWidgetState extends State<ModifySaleWidget>
                             }
                             List<AdminConstsRecord> rowAdminConstsRecordList =
                                 snapshot.data;
-                            // Return an empty Container when the document does not exist.
-                            if (snapshot.data.isEmpty) {
-                              return Container();
-                            }
                             final rowAdminConstsRecord =
                                 rowAdminConstsRecordList.isNotEmpty
                                     ? rowAdminConstsRecordList.first
@@ -389,17 +387,25 @@ class _ModifySaleWidgetState extends State<ModifySaleWidget>
                                           projectName: projectValue,
                                           saleAmount: int.parse(
                                               textController1?.text ?? ''),
-                                          saleDesc: descriptionController.text,
+                                          saleDesc:
+                                              descriptionController?.text ?? '',
                                           saleCreated: getCurrentTimestamp,
                                         );
                                         await widget.saleDetails
                                             .update(salesUpdateData);
-                                        Navigator.pop(context);
+                                        await Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => NavBarPage(
+                                                initialPage: 'MySales'),
+                                          ),
+                                          (r) => false,
+                                        );
                                       },
-                                      text: 'Modify Sale',
+                                      text: 'Modify',
                                       options: FFButtonOptions(
-                                        width: 300,
-                                        height: 70,
+                                        width: 200,
+                                        height: 60,
                                         color: FlutterFlowTheme.tertiaryColor,
                                         textStyle: FlutterFlowTheme.title1,
                                         elevation: 0,
