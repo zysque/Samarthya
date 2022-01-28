@@ -14,32 +14,38 @@ int getTotalAmount(List<int> salesAmounts) {
   return salesAmounts.fold(0, (sum, element) => sum + element);
 }
 
-int getSum(
-  int savedAmount,
-  int newAmount,
+double getSum(
+  double val1,
+  double val2,
 ) {
   // add list data
-  return savedAmount + newAmount;
+  return val1 + val2;
 }
 
-int getDiff(
-  int savedAmount,
-  int newAmount,
+double getDiff(
+  double va1,
+  double val2,
 ) {
-  // add list data
-  return savedAmount - newAmount;
+  // difference of two numbers
+  double d1 = va1;
+  double d2 = val2;
+  if (val2 > va1) return d2 - d1;
+  if (val2 < va1) return d1 - d2;
+  return 0.0;
 }
 
-List<DocumentReference> addToList(
-  List<DocumentReference> parentsList,
-  DocumentReference newParent,
-) {
-  // add to list
-  if (parentsList == null) {
-    parentsList = <DocumentReference>[];
-  }
-  parentsList..add(newParent);
-  return parentsList;
+String stringFromList(List<int> optionList) {
+  // make string from list elements
+  String retString = "";
+
+  optionList.forEach((element) {
+    if (element != optionList[optionList.length - 1])
+      retString += "$element    ";
+    else
+      retString += "$element";
+  });
+
+  return retString;
 }
 
 int getCommission(
@@ -57,4 +63,61 @@ bool getAndOutput(
 ) {
   // apply and operator
   return op1 && op2;
+}
+
+double emiCalculator(
+  int plotArea,
+  int ratePerSQFT,
+  double bookingAmount,
+  double downPayment,
+  String tenure,
+) {
+  // calculate interest amount
+  final int tenureY = int.parse(tenure.replaceAll(' Months', ''));
+  double emiAmount =
+      ((plotArea * ratePerSQFT) - bookingAmount - downPayment) / tenureY;
+  return emiAmount;
+}
+
+int parseReplaceFromString(
+  String str1,
+  String str2,
+) {
+  // Add your function code here!
+  return int.parse(str1.replaceAll(str2, ''));
+}
+
+double getMultiplication(
+  double val1,
+  double val2,
+) {
+  // Add your function code here!
+  return val1 * val2;
+}
+
+double getDiffD(
+  double val1,
+  double val2,
+) {
+  // Add your function code here!
+  return val1 - val2;
+}
+
+bool validateBookingAmount(
+  double bookingAmount,
+  double expected,
+) {
+  // Add your function code here!
+  return (bookingAmount - expected) < 0;
+}
+
+DateTime getDayPlusTimeStamp(int extraDays) {
+  // add Days to current timestamp
+  return DateTime.now().add(Duration(days: extraDays));
+}
+
+int getTimeStampDiff(DateTime timeStamp) {
+  // Time Difference from today
+  return DateTime.fromMillisecondsSinceEpoch(timeStamp.millisecondsSinceEpoch)
+      .day;
 }

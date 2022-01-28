@@ -18,13 +18,19 @@ abstract class AdminConstsRecord
   double get indirectPer;
 
   @nullable
-  DateTime get modified;
-
-  @nullable
   DateTime get lastProcessed;
 
   @nullable
   BuiltList<DocumentReference> get adminUsers;
+
+  @nullable
+  int get maxEMITenure;
+
+  @nullable
+  DateTime get lastModified;
+
+  @nullable
+  String get defaultPass;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -33,7 +39,9 @@ abstract class AdminConstsRecord
   static void _initializeBuilder(AdminConstsRecordBuilder builder) => builder
     ..directPer = 0.0
     ..indirectPer = 0.0
-    ..adminUsers = ListBuilder();
+    ..adminUsers = ListBuilder()
+    ..maxEMITenure = 0
+    ..defaultPass = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('adminConsts');
@@ -59,14 +67,18 @@ abstract class AdminConstsRecord
 Map<String, dynamic> createAdminConstsRecordData({
   double directPer,
   double indirectPer,
-  DateTime modified,
   DateTime lastProcessed,
+  int maxEMITenure,
+  DateTime lastModified,
+  String defaultPass,
 }) =>
     serializers.toFirestore(
         AdminConstsRecord.serializer,
         AdminConstsRecord((a) => a
           ..directPer = directPer
           ..indirectPer = indirectPer
-          ..modified = modified
           ..lastProcessed = lastProcessed
-          ..adminUsers = null));
+          ..adminUsers = null
+          ..maxEMITenure = maxEMITenure
+          ..lastModified = lastModified
+          ..defaultPass = defaultPass));

@@ -12,42 +12,38 @@ abstract class TransactionsRecord
       _$transactionsRecordSerializer;
 
   @nullable
-  String get transactionName;
+  DocumentReference get transactionUser;
 
   @nullable
-  String get transactionAmount;
+  double get transactionAmount;
+
+  @nullable
+  String get transactionType;
+
+  @nullable
+  DocumentReference get bookingRef;
+
+  @nullable
+  DocumentReference get commissionRef;
+
+  @nullable
+  String get mode;
 
   @nullable
   DateTime get transactionTime;
 
   @nullable
-  String get transactionPlace;
-
-  @nullable
-  DocumentReference get category;
-
-  @nullable
-  DocumentReference get user;
-
-  @nullable
-  BuiltList<String> get categoryName;
-
-  @nullable
-  String get transactionReason;
-
-  @nullable
-  DocumentReference get budgetAssociated;
+  bool get status;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(TransactionsRecordBuilder builder) => builder
-    ..transactionName = ''
-    ..transactionAmount = ''
-    ..transactionPlace = ''
-    ..categoryName = ListBuilder()
-    ..transactionReason = '';
+    ..transactionAmount = 0.0
+    ..transactionType = ''
+    ..mode = ''
+    ..status = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('transactions');
@@ -72,24 +68,23 @@ abstract class TransactionsRecord
 }
 
 Map<String, dynamic> createTransactionsRecordData({
-  String transactionName,
-  String transactionAmount,
+  DocumentReference transactionUser,
+  double transactionAmount,
+  String transactionType,
+  DocumentReference bookingRef,
+  DocumentReference commissionRef,
+  String mode,
   DateTime transactionTime,
-  String transactionPlace,
-  DocumentReference category,
-  DocumentReference user,
-  String transactionReason,
-  DocumentReference budgetAssociated,
+  bool status,
 }) =>
     serializers.toFirestore(
         TransactionsRecord.serializer,
         TransactionsRecord((t) => t
-          ..transactionName = transactionName
+          ..transactionUser = transactionUser
           ..transactionAmount = transactionAmount
+          ..transactionType = transactionType
+          ..bookingRef = bookingRef
+          ..commissionRef = commissionRef
+          ..mode = mode
           ..transactionTime = transactionTime
-          ..transactionPlace = transactionPlace
-          ..category = category
-          ..user = user
-          ..categoryName = null
-          ..transactionReason = transactionReason
-          ..budgetAssociated = budgetAssociated));
+          ..status = status));

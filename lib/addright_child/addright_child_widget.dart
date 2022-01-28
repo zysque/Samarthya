@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddLeftChildWidget extends StatefulWidget {
-  const AddLeftChildWidget({
+class AddrightChildWidget extends StatefulWidget {
+  const AddrightChildWidget({
     Key key,
     this.userSize,
     this.addDelink,
@@ -26,10 +26,10 @@ class AddLeftChildWidget extends StatefulWidget {
   final DocumentReference userHierarchyRef;
 
   @override
-  _AddLeftChildWidgetState createState() => _AddLeftChildWidgetState();
+  _AddrightChildWidgetState createState() => _AddrightChildWidgetState();
 }
 
-class _AddLeftChildWidgetState extends State<AddLeftChildWidget> {
+class _AddrightChildWidgetState extends State<AddrightChildWidget> {
   String delinkedUserEmailValue;
   String uHUserEmailValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -446,9 +446,9 @@ class _AddLeftChildWidgetState extends State<AddLeftChildWidget> {
                                     onPressed: () async {
                                       final userHierarchiesUpdateData =
                                           createUserHierarchiesRecordData(
-                                        leftChildRef: addUserHierarchiesRecord
+                                        rightChildRef: addUserHierarchiesRecord
                                             .hierarchyUser,
-                                        hasLeft: true,
+                                        hasRight: true,
                                       );
                                       await widget.userHierarchyRef
                                           .update(userHierarchiesUpdateData);
@@ -863,11 +863,11 @@ class _AddLeftChildWidgetState extends State<AddLeftChildWidget> {
                                         hierarchyUser:
                                             addDelinkedUsersRecord.userRef,
                                         referralParent: currentUserReference,
-                                        hierarchyUserEmail:
-                                            addDelinkedUsersRecord.userEmail,
                                         parentRef: actionsUserHierarchiesRecord
                                             .hierarchyUser,
                                         hasParent: true,
+                                        hierarchyUserEmail:
+                                            addDelinkedUsersRecord.userEmail,
                                       );
                                       await UserHierarchiesRecord.collection
                                           .doc()
@@ -875,9 +875,9 @@ class _AddLeftChildWidgetState extends State<AddLeftChildWidget> {
 
                                       final userHierarchiesUpdateData =
                                           createUserHierarchiesRecordData(
-                                        leftChildRef:
+                                        rightChildRef:
                                             addDelinkedUsersRecord.userRef,
-                                        hasLeft: true,
+                                        hasRight: true,
                                       );
                                       await widget.userHierarchyRef
                                           .update(userHierarchiesUpdateData);

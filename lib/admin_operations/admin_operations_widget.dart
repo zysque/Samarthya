@@ -1,10 +1,9 @@
-import '../admin_projects/admin_projects_widget.dart';
-import '../admin_sale_process/admin_sale_process_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -245,7 +244,7 @@ class _AdminOperationsWidgetState extends State<AdminOperationsWidget> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) =>
-                                            AdminProjectsWidget(),
+                                            NavBarPage(initialPage: 'projects'),
                                       ),
                                     );
                                   },
@@ -325,15 +324,8 @@ class _AdminOperationsWidgetState extends State<AdminOperationsWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                                 child: FFButtonWidget(
-                                  onPressed: () async {
-                                    await Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            AdminSaleProcessWidget(),
-                                      ),
-                                      (r) => false,
-                                    );
+                                  onPressed: () {
+                                    print('ProcessButton pressed ...');
                                   },
                                   text: 'Process',
                                   options: FFButtonOptions(

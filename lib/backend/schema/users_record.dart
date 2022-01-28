@@ -17,13 +17,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get email;
 
   @nullable
-  String get password;
-
-  @nullable
   String get uid;
-
-  @nullable
-  int get age;
 
   @nullable
   LatLng get location;
@@ -50,20 +44,34 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get dob;
 
   @nullable
+  int get aadharNumber;
+
+  @nullable
+  String get panNumber;
+
+  @nullable
+  String get aadharImage;
+
+  @nullable
+  String get panImage;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(UsersRecordBuilder builder) => builder
     ..displayName = ''
     ..email = ''
-    ..password = ''
     ..uid = ''
-    ..age = 0
     ..phoneNumber = ''
     ..photoUrl = ''
     ..userTitle = ''
     ..address = ''
-    ..dob = '';
+    ..dob = ''
+    ..aadharNumber = 0
+    ..panNumber = ''
+    ..aadharImage = ''
+    ..panImage = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -89,9 +97,7 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
 Map<String, dynamic> createUsersRecordData({
   String displayName,
   String email,
-  String password,
   String uid,
-  int age,
   LatLng location,
   String phoneNumber,
   String photoUrl,
@@ -99,19 +105,25 @@ Map<String, dynamic> createUsersRecordData({
   String userTitle,
   String address,
   String dob,
+  int aadharNumber,
+  String panNumber,
+  String aadharImage,
+  String panImage,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
         UsersRecord((u) => u
           ..displayName = displayName
           ..email = email
-          ..password = password
           ..uid = uid
-          ..age = age
           ..location = location
           ..phoneNumber = phoneNumber
           ..photoUrl = photoUrl
           ..createdTime = createdTime
           ..userTitle = userTitle
           ..address = address
-          ..dob = dob));
+          ..dob = dob
+          ..aadharNumber = aadharNumber
+          ..panNumber = panNumber
+          ..aadharImage = aadharImage
+          ..panImage = panImage));

@@ -5,20 +5,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 
 import 'schema/users_record.dart';
-import 'schema/appointments_record.dart';
-import 'schema/transactions_record.dart';
-import 'schema/transaction_categories_record.dart';
-import 'schema/budgets_record.dart';
-import 'schema/user_list_record.dart';
-import 'schema/budget_list_record.dart';
-import 'schema/child_hierarchies_record.dart';
 import 'schema/user_hierarchies_record.dart';
 import 'schema/delinked_users_record.dart';
-import 'schema/sales_record.dart';
 import 'schema/commissions_record.dart';
-import 'schema/calculation_list_record.dart';
 import 'schema/admin_consts_record.dart';
 import 'schema/projects_record.dart';
+import 'schema/plans_and_rates_record.dart';
+import 'schema/bookings_record.dart';
+import 'schema/transactions_record.dart';
+import 'schema/calculations_record.dart';
 import 'schema/serializers.dart';
 
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,20 +21,15 @@ export 'schema/index.dart';
 export 'schema/serializers.dart';
 
 export 'schema/users_record.dart';
-export 'schema/appointments_record.dart';
-export 'schema/transactions_record.dart';
-export 'schema/transaction_categories_record.dart';
-export 'schema/budgets_record.dart';
-export 'schema/user_list_record.dart';
-export 'schema/budget_list_record.dart';
-export 'schema/child_hierarchies_record.dart';
 export 'schema/user_hierarchies_record.dart';
 export 'schema/delinked_users_record.dart';
-export 'schema/sales_record.dart';
 export 'schema/commissions_record.dart';
-export 'schema/calculation_list_record.dart';
 export 'schema/admin_consts_record.dart';
 export 'schema/projects_record.dart';
+export 'schema/plans_and_rates_record.dart';
+export 'schema/bookings_record.dart';
+export 'schema/transactions_record.dart';
+export 'schema/calculations_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Stream<List<UsersRecord>> queryUsersRecord(
@@ -54,120 +44,6 @@ Future<List<UsersRecord>> queryUsersRecordOnce(
         int limit = -1,
         bool singleRecord = false}) =>
     queryCollectionOnce(UsersRecord.collection, UsersRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-/// Functions to query AppointmentsRecords (as a Stream and as a Future).
-Stream<List<AppointmentsRecord>> queryAppointmentsRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(
-        AppointmentsRecord.collection, AppointmentsRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-Future<List<AppointmentsRecord>> queryAppointmentsRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(
-        AppointmentsRecord.collection, AppointmentsRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-/// Functions to query TransactionsRecords (as a Stream and as a Future).
-Stream<List<TransactionsRecord>> queryTransactionsRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(
-        TransactionsRecord.collection, TransactionsRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-Future<List<TransactionsRecord>> queryTransactionsRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(
-        TransactionsRecord.collection, TransactionsRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-/// Functions to query TransactionCategoriesRecords (as a Stream and as a Future).
-Stream<List<TransactionCategoriesRecord>> queryTransactionCategoriesRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(TransactionCategoriesRecord.collection,
-        TransactionCategoriesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-Future<List<TransactionCategoriesRecord>> queryTransactionCategoriesRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(TransactionCategoriesRecord.collection,
-        TransactionCategoriesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-/// Functions to query BudgetsRecords (as a Stream and as a Future).
-Stream<List<BudgetsRecord>> queryBudgetsRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(BudgetsRecord.collection, BudgetsRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-Future<List<BudgetsRecord>> queryBudgetsRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(BudgetsRecord.collection, BudgetsRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-/// Functions to query UserListRecords (as a Stream and as a Future).
-Stream<List<UserListRecord>> queryUserListRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(UserListRecord.collection, UserListRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-Future<List<UserListRecord>> queryUserListRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(UserListRecord.collection, UserListRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-/// Functions to query BudgetListRecords (as a Stream and as a Future).
-Stream<List<BudgetListRecord>> queryBudgetListRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(BudgetListRecord.collection, BudgetListRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-Future<List<BudgetListRecord>> queryBudgetListRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(
-        BudgetListRecord.collection, BudgetListRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-/// Functions to query ChildHierarchiesRecords (as a Stream and as a Future).
-Stream<List<ChildHierarchiesRecord>> queryChildHierarchiesRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(
-        ChildHierarchiesRecord.collection, ChildHierarchiesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-Future<List<ChildHierarchiesRecord>> queryChildHierarchiesRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(
-        ChildHierarchiesRecord.collection, ChildHierarchiesRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 /// Functions to query UserHierarchiesRecords (as a Stream and as a Future).
@@ -204,21 +80,6 @@ Future<List<DelinkedUsersRecord>> queryDelinkedUsersRecordOnce(
         DelinkedUsersRecord.collection, DelinkedUsersRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
-/// Functions to query SalesRecords (as a Stream and as a Future).
-Stream<List<SalesRecord>> querySalesRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(SalesRecord.collection, SalesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-Future<List<SalesRecord>> querySalesRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(SalesRecord.collection, SalesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
 /// Functions to query CommissionsRecords (as a Stream and as a Future).
 Stream<List<CommissionsRecord>> queryCommissionsRecord(
         {Query Function(Query) queryBuilder,
@@ -233,23 +94,6 @@ Future<List<CommissionsRecord>> queryCommissionsRecordOnce(
         bool singleRecord = false}) =>
     queryCollectionOnce(
         CommissionsRecord.collection, CommissionsRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-/// Functions to query CalculationListRecords (as a Stream and as a Future).
-Stream<List<CalculationListRecord>> queryCalculationListRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(
-        CalculationListRecord.collection, CalculationListRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
-
-Future<List<CalculationListRecord>> queryCalculationListRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(
-        CalculationListRecord.collection, CalculationListRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 /// Functions to query AdminConstsRecords (as a Stream and as a Future).
@@ -281,6 +125,72 @@ Future<List<ProjectsRecord>> queryProjectsRecordOnce(
         int limit = -1,
         bool singleRecord = false}) =>
     queryCollectionOnce(ProjectsRecord.collection, ProjectsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query PlansAndRatesRecords (as a Stream and as a Future).
+Stream<List<PlansAndRatesRecord>> queryPlansAndRatesRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(
+        PlansAndRatesRecord.collection, PlansAndRatesRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Future<List<PlansAndRatesRecord>> queryPlansAndRatesRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(
+        PlansAndRatesRecord.collection, PlansAndRatesRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query BookingsRecords (as a Stream and as a Future).
+Stream<List<BookingsRecord>> queryBookingsRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(BookingsRecord.collection, BookingsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Future<List<BookingsRecord>> queryBookingsRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(BookingsRecord.collection, BookingsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query TransactionsRecords (as a Stream and as a Future).
+Stream<List<TransactionsRecord>> queryTransactionsRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(
+        TransactionsRecord.collection, TransactionsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Future<List<TransactionsRecord>> queryTransactionsRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(
+        TransactionsRecord.collection, TransactionsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query CalculationsRecords (as a Stream and as a Future).
+Stream<List<CalculationsRecord>> queryCalculationsRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(
+        CalculationsRecord.collection, CalculationsRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Future<List<CalculationsRecord>> queryCalculationsRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(
+        CalculationsRecord.collection, CalculationsRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 Stream<List<T>> queryCollection<T>(

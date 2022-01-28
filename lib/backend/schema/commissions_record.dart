@@ -12,28 +12,34 @@ abstract class CommissionsRecord
       _$commissionsRecordSerializer;
 
   @nullable
-  String get projectName;
-
-  @nullable
-  int get commissionAmount;
-
-  @nullable
-  String get commissionType;
-
-  @nullable
-  DateTime get commissionCreated;
-
-  @nullable
   DocumentReference get commissionUser;
+
+  @nullable
+  DocumentReference get saleTransRef;
+
+  @nullable
+  DocumentReference get commTransRef;
+
+  @nullable
+  double get commissionAmount;
+
+  @nullable
+  bool get isDirect;
+
+  @nullable
+  String get comments;
+
+  @nullable
+  DateTime get processed;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(CommissionsRecordBuilder builder) => builder
-    ..projectName = ''
-    ..commissionAmount = 0
-    ..commissionType = '';
+    ..commissionAmount = 0.0
+    ..isDirect = false
+    ..comments = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('commissions');
@@ -57,17 +63,21 @@ abstract class CommissionsRecord
 }
 
 Map<String, dynamic> createCommissionsRecordData({
-  String projectName,
-  int commissionAmount,
-  String commissionType,
-  DateTime commissionCreated,
   DocumentReference commissionUser,
+  DocumentReference saleTransRef,
+  DocumentReference commTransRef,
+  double commissionAmount,
+  bool isDirect,
+  String comments,
+  DateTime processed,
 }) =>
     serializers.toFirestore(
         CommissionsRecord.serializer,
         CommissionsRecord((c) => c
-          ..projectName = projectName
+          ..commissionUser = commissionUser
+          ..saleTransRef = saleTransRef
+          ..commTransRef = commTransRef
           ..commissionAmount = commissionAmount
-          ..commissionType = commissionType
-          ..commissionCreated = commissionCreated
-          ..commissionUser = commissionUser));
+          ..isDirect = isDirect
+          ..comments = comments
+          ..processed = processed));

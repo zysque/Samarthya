@@ -1,20 +1,15 @@
 import 'package:built_value/standard_json_plugin.dart';
 
 import 'users_record.dart';
-import 'appointments_record.dart';
-import 'transactions_record.dart';
-import 'transaction_categories_record.dart';
-import 'budgets_record.dart';
-import 'user_list_record.dart';
-import 'budget_list_record.dart';
-import 'child_hierarchies_record.dart';
 import 'user_hierarchies_record.dart';
 import 'delinked_users_record.dart';
-import 'sales_record.dart';
 import 'commissions_record.dart';
-import 'calculation_list_record.dart';
 import 'admin_consts_record.dart';
 import 'projects_record.dart';
+import 'plans_and_rates_record.dart';
+import 'bookings_record.dart';
+import 'transactions_record.dart';
+import 'calculations_record.dart';
 
 import 'index.dart';
 
@@ -26,20 +21,15 @@ const kDocumentReferenceField = 'Document__Reference__Field';
 
 @SerializersFor(const [
   UsersRecord,
-  AppointmentsRecord,
-  TransactionsRecord,
-  TransactionCategoriesRecord,
-  BudgetsRecord,
-  UserListRecord,
-  BudgetListRecord,
-  ChildHierarchiesRecord,
   UserHierarchiesRecord,
   DelinkedUsersRecord,
-  SalesRecord,
   CommissionsRecord,
-  CalculationListRecord,
   AdminConstsRecord,
   ProjectsRecord,
+  PlansAndRatesRecord,
+  BookingsRecord,
+  TransactionsRecord,
+  CalculationsRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

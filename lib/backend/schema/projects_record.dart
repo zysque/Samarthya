@@ -24,7 +24,10 @@ abstract class ProjectsRecord
   String get projectDesc;
 
   @nullable
-  DateTime get created;
+  DateTime get lastModified;
+
+  @nullable
+  bool get active;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -33,7 +36,8 @@ abstract class ProjectsRecord
   static void _initializeBuilder(ProjectsRecordBuilder builder) => builder
     ..projectName = ''
     ..projectCity = ''
-    ..projectDesc = '';
+    ..projectDesc = ''
+    ..active = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('projects');
@@ -61,7 +65,8 @@ Map<String, dynamic> createProjectsRecordData({
   LatLng projectLocation,
   String projectCity,
   String projectDesc,
-  DateTime created,
+  DateTime lastModified,
+  bool active,
 }) =>
     serializers.toFirestore(
         ProjectsRecord.serializer,
@@ -70,4 +75,5 @@ Map<String, dynamic> createProjectsRecordData({
           ..projectLocation = projectLocation
           ..projectCity = projectCity
           ..projectDesc = projectDesc
-          ..created = created));
+          ..lastModified = lastModified
+          ..active = active));

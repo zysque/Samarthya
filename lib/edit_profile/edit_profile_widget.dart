@@ -9,6 +9,7 @@ import '../flutter_flow/upload_media.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EditProfileWidget extends StatefulWidget {
@@ -24,13 +25,17 @@ class EditProfileWidget extends StatefulWidget {
 }
 
 class _EditProfileWidgetState extends State<EditProfileWidget> {
-  String uploadedFileUrl = '';
+  String uploadedFileUrl1 = '';
   String yourTitleValue;
   TextEditingController yourNameController;
   TextEditingController yourDOBController;
   TextEditingController yourEmailController;
   TextEditingController yourPhoneController;
+  TextEditingController yourAaadharController;
+  TextEditingController yourPANController;
   TextEditingController yourAddressController;
+  String uploadedFileUrl2 = '';
+  String uploadedFileUrl3 = '';
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -166,7 +171,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               ScaffoldMessenger.of(context)
                                   .hideCurrentSnackBar();
                               if (downloadUrl != null) {
-                                setState(() => uploadedFileUrl = downloadUrl);
+                                setState(() => uploadedFileUrl1 = downloadUrl);
                                 showUploadMessage(context, 'Success!');
                               } else {
                                 showUploadMessage(
@@ -192,7 +197,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       ],
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                       child: TextFormField(
                         controller: yourNameController ??=
                             TextEditingController(
@@ -227,7 +232,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           filled: true,
                           fillColor: FlutterFlowTheme.darkBackground,
                           contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                         ),
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Lexend Deca',
@@ -236,7 +241,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                       child: TextFormField(
                         controller: yourDOBController ??= TextEditingController(
                           text: editProfileUsersRecord.dob,
@@ -265,7 +270,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           filled: true,
                           fillColor: FlutterFlowTheme.darkBackground,
                           contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                         ),
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Lexend Deca',
@@ -275,7 +280,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                       child: TextFormField(
                         controller: yourEmailController,
                         obscureText: false,
@@ -307,7 +312,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           filled: true,
                           fillColor: FlutterFlowTheme.darkBackground,
                           contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                         ),
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Lexend Deca',
@@ -318,7 +323,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                       child: TextFormField(
                         controller: yourPhoneController ??=
                             TextEditingController(
@@ -326,7 +331,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         ),
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: 'Your Age',
+                          labelText: 'Your Phone',
                           labelStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.grayLight,
@@ -348,7 +353,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           filled: true,
                           fillColor: FlutterFlowTheme.darkBackground,
                           contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                         ),
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Lexend Deca',
@@ -364,7 +369,98 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                      child: TextFormField(
+                        controller: yourAaadharController ??=
+                            TextEditingController(
+                          text: editProfileUsersRecord.aadharNumber.toString(),
+                        ),
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Your Aadhar',
+                          labelStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.grayLight,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: FlutterFlowTheme.darkBackground,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                        ),
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.textColor,
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (val) {
+                          if (val.length < 10) {
+                            return 'Requires at least 10 characters.';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                      child: TextFormField(
+                        controller: yourPANController ??= TextEditingController(
+                          text: editProfileUsersRecord.panNumber,
+                        ),
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Your PAN',
+                          labelStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.grayLight,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: FlutterFlowTheme.darkBackground,
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                        ),
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.textColor,
+                        ),
+                        keyboardType: TextInputType.number,
+                        validator: (val) {
+                          if (val.length < 10) {
+                            return 'Requires at least 10 characters.';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                       child: TextFormField(
                         controller: yourAddressController ??=
                             TextEditingController(
@@ -394,23 +490,125 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           filled: true,
                           fillColor: FlutterFlowTheme.darkBackground,
                           contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                         ),
                         style: FlutterFlowTheme.bodyText1.override(
                           fontFamily: 'Lexend Deca',
                           color: FlutterFlowTheme.textColor,
                         ),
-                        maxLines: 3,
+                        maxLines: 5,
                         keyboardType: TextInputType.multiline,
                       ),
                     ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      decoration: BoxDecoration(),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: InkWell(
+                              onTap: () async {
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
+                                  allowPhoto: true,
+                                );
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                      context, 'Uploading file...',
+                                      showLoading: true);
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl2 = downloadUrl);
+                                    showUploadMessage(context, 'Success!');
+                                  } else {
+                                    showUploadMessage(
+                                        context, 'Failed to upload media');
+                                    return;
+                                  }
+                                }
+                              },
+                              child: FaIcon(
+                                FontAwesomeIcons.idCard,
+                                color: Colors.black,
+                                size: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(5, 20, 0, 0),
+                          child: Text(
+                            'Aadhar card',
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFF960087),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
+                          child: Card(
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: InkWell(
+                              onTap: () async {
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
+                                  allowPhoto: true,
+                                );
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                      context, 'Uploading file...',
+                                      showLoading: true);
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl3 = downloadUrl);
+                                    showUploadMessage(context, 'Success!');
+                                  } else {
+                                    showUploadMessage(
+                                        context, 'Failed to upload media');
+                                    return;
+                                  }
+                                }
+                              },
+                              child: FaIcon(
+                                FontAwesomeIcons.idCard,
+                                color: Colors.black,
+                                size: 50,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(5, 20, 0, 0),
+                          child: Text(
+                            'PAN Card',
+                            style: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFF960087),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: FFButtonWidget(
                         onPressed: () async {
                           if (!formKey.currentState.validate()) {
@@ -420,10 +618,15 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             displayName: yourNameController?.text ?? '',
                             email: yourEmailController.text,
                             userTitle: yourTitleValue,
-                            photoUrl: uploadedFileUrl,
+                            photoUrl: uploadedFileUrl1,
                             dob: yourDOBController?.text ?? '',
                             phoneNumber: yourPhoneController?.text ?? '',
                             address: yourAddressController?.text ?? '',
+                            aadharNumber:
+                                int.parse(yourAaadharController?.text ?? ''),
+                            panNumber: yourPANController?.text ?? '',
+                            aadharImage: uploadedFileUrl2,
+                            panImage: uploadedFileUrl3,
                           );
                           await editProfileUsersRecord.reference
                               .update(usersUpdateData);

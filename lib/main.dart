@@ -7,12 +7,13 @@ import 'auth/auth_util.dart';
 
 import '../flutter_flow/flutter_flow_theme.dart';
 import 'package:samarthya/login_page/login_page_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'my_sales/my_sales_widget.dart';
-import 'my_commissions/my_commissions_widget.dart';
 import 'my_profile_page/my_profile_page_widget.dart';
+import 'my_commissions/my_commissions_widget.dart';
+import 'projects/projects_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -88,7 +89,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPage = 'MySales';
+  String _currentPage = 'projects';
 
   @override
   void initState() {
@@ -99,9 +100,9 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'MySales': MySalesWidget(),
-      'MyCommissions': MyCommissionsWidget(),
       'MyProfilePage': MyProfilePageWidget(),
+      'MyCommissions': MyCommissionsWidget(),
+      'projects': ProjectsWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -118,11 +119,11 @@ class _NavBarPageState extends State<NavBarPage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.stacked_line_chart_rounded,
+              Icons.account_circle_outlined,
               size: 24,
             ),
             activeIcon: Icon(
-              Icons.stacked_line_chart_rounded,
+              Icons.account_circle_rounded,
               size: 24,
             ),
             label: '',
@@ -141,12 +142,8 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle_outlined,
-              size: 24,
-            ),
-            activeIcon: Icon(
-              Icons.account_circle_rounded,
+            icon: FaIcon(
+              FontAwesomeIcons.rProject,
               size: 24,
             ),
             label: '',

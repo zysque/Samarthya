@@ -15,13 +15,19 @@ abstract class UserHierarchiesRecord
   DocumentReference get hierarchyUser;
 
   @nullable
-  String get userEmail;
+  DocumentReference get referralParent;
 
   @nullable
-  String get parentEmail;
+  DocumentReference get parentRef;
 
   @nullable
-  BuiltList<DocumentReference> get hierarchicalParents;
+  DocumentReference get leftChildRef;
+
+  @nullable
+  DocumentReference get rightChildRef;
+
+  @nullable
+  bool get hasParent;
 
   @nullable
   bool get hasLeft;
@@ -30,16 +36,18 @@ abstract class UserHierarchiesRecord
   bool get hasRight;
 
   @nullable
+  String get hierarchyUserEmail;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(UserHierarchiesRecordBuilder builder) =>
       builder
-        ..userEmail = ''
-        ..parentEmail = ''
-        ..hierarchicalParents = ListBuilder()
+        ..hasParent = false
         ..hasLeft = false
-        ..hasRight = false;
+        ..hasRight = false
+        ..hierarchyUserEmail = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('userHierarchies');
@@ -65,17 +73,24 @@ abstract class UserHierarchiesRecord
 
 Map<String, dynamic> createUserHierarchiesRecordData({
   DocumentReference hierarchyUser,
-  String userEmail,
-  String parentEmail,
+  DocumentReference referralParent,
+  DocumentReference parentRef,
+  DocumentReference leftChildRef,
+  DocumentReference rightChildRef,
+  bool hasParent,
   bool hasLeft,
   bool hasRight,
+  String hierarchyUserEmail,
 }) =>
     serializers.toFirestore(
         UserHierarchiesRecord.serializer,
         UserHierarchiesRecord((u) => u
           ..hierarchyUser = hierarchyUser
-          ..userEmail = userEmail
-          ..parentEmail = parentEmail
-          ..hierarchicalParents = null
+          ..referralParent = referralParent
+          ..parentRef = parentRef
+          ..leftChildRef = leftChildRef
+          ..rightChildRef = rightChildRef
+          ..hasParent = hasParent
           ..hasLeft = hasLeft
-          ..hasRight = hasRight));
+          ..hasRight = hasRight
+          ..hierarchyUserEmail = hierarchyUserEmail));

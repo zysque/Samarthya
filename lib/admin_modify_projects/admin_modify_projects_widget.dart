@@ -1,14 +1,11 @@
-import '../admin_project_details/admin_project_details_widget.dart';
+import '../admin_create_projects_plan/admin_create_projects_plan_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
-import '../flutter_flow/flutter_flow_icon_button.dart';
-import '../flutter_flow/flutter_flow_place_picker.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/place.dart';
-import 'dart:io';
+import '../project_details/project_details_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -32,7 +29,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
   TextEditingController descriptionController;
   TextEditingController projectCityController;
   TextEditingController projectNameController;
-  var placePickerValue = FFPlace();
+  bool statusValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
@@ -97,6 +94,30 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
           final adminModifyProjectsProjectsRecord = snapshot.data;
           return Scaffold(
             key: scaffoldKey,
+            appBar: AppBar(
+              backgroundColor: FlutterFlowTheme.darkBackground,
+              automaticallyImplyLeading: false,
+              leading: InkWell(
+                onTap: () async {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.chevron_left_rounded,
+                  color: FlutterFlowTheme.grayLight,
+                  size: 32,
+                ),
+              ),
+              title: Text(
+                'Modify Project',
+                style: FlutterFlowTheme.title1.override(
+                  fontFamily: 'Lexend Deca',
+                  color: FlutterFlowTheme.primaryColor,
+                ),
+              ),
+              actions: [],
+              centerTitle: true,
+              elevation: 0,
+            ),
             backgroundColor: FlutterFlowTheme.tertiaryColor,
             body: Column(
               mainAxisSize: MainAxisSize.max,
@@ -114,7 +135,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                   ),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.75,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.darkBackground,
                       borderRadius: BorderRadius.only(
@@ -124,275 +145,287 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                         topRight: Radius.circular(0),
                       ),
                     ),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 44, 20, 20),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Row(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(20, 5, 20, 5),
+                          child: Column(
                             mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                'Modify Project',
-                                style: FlutterFlowTheme.title1,
-                              ),
-                              Card(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                color: FlutterFlowTheme.background,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: FlutterFlowIconButton(
-                                  borderColor: Colors.transparent,
-                                  borderRadius: 30,
-                                  buttonSize: 48,
-                                  icon: Icon(
-                                    Icons.close_rounded,
-                                    color: FlutterFlowTheme.textColor,
-                                    size: 30,
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                child: TextFormField(
+                                  controller: projectNameController ??=
+                                      TextEditingController(
+                                    text: adminModifyProjectsProjectsRecord
+                                        .projectName,
                                   ),
-                                  onPressed: () async {
-                                    Navigator.pop(context);
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Project Name',
+                                    hintStyle: FlutterFlowTheme.title1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.grayLight,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.background,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.background,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            0, 24, 0, 24),
+                                  ),
+                                  style: FlutterFlowTheme.title1.override(
+                                    fontFamily: 'Lexend Deca',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  validator: (val) {
+                                    if (val.isEmpty) {
+                                      return 'Please enter an amount';
+                                    }
+
+                                    return null;
                                   },
+                                ).animated([
+                                  animationsMap['textFieldOnPageLoadAnimation1']
+                                ]),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                child: TextFormField(
+                                  controller: projectCityController ??=
+                                      TextEditingController(
+                                    text: adminModifyProjectsProjectsRecord
+                                        .projectCity,
+                                  ),
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Project City',
+                                    hintStyle: FlutterFlowTheme.title1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.grayLight,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.background,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.background,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            0, 24, 0, 24),
+                                  ),
+                                  style: FlutterFlowTheme.title1.override(
+                                    fontFamily: 'Lexend Deca',
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  validator: (val) {
+                                    if (val.isEmpty) {
+                                      return 'Please enter an amount';
+                                    }
+
+                                    return null;
+                                  },
+                                ).animated([
+                                  animationsMap['textFieldOnPageLoadAnimation2']
+                                ]),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                child: TextFormField(
+                                  controller: descriptionController ??=
+                                      TextEditingController(
+                                    text: adminModifyProjectsProjectsRecord
+                                        .projectDesc,
+                                  ),
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Project  Description',
+                                    hintStyle: FlutterFlowTheme.bodyText1,
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.background,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.background,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            20, 40, 24, 0),
+                                  ),
+                                  style: FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: FlutterFlowTheme.textColor,
+                                  ),
+                                  textAlign: TextAlign.start,
+                                  maxLines: 10,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(2),
+                                  child: SwitchListTile(
+                                    value: statusValue ??=
+                                        adminModifyProjectsProjectsRecord
+                                            .active,
+                                    onChanged: (newValue) =>
+                                        setState(() => statusValue = newValue),
+                                    title: Text(
+                                      'Active',
+                                      style: FlutterFlowTheme.title3,
+                                    ),
+                                    tileColor: Color(0xFFF5F5F5),
+                                    activeTrackColor:
+                                        FlutterFlowTheme.background,
+                                    dense: false,
+                                    controlAffinity:
+                                        ListTileControlAffinity.trailing,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                            child: TextFormField(
-                              controller: projectNameController ??=
-                                  TextEditingController(
-                                text: adminModifyProjectsProjectsRecord
-                                    .projectName,
-                              ),
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintText: 'Project Name',
-                                hintStyle: FlutterFlowTheme.title1.override(
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 30, 20, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'For Adding new Plans to your Project click on Add Plan below.',
+                                style: FlutterFlowTheme.title3.override(
                                   fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.grayLight,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
+                                  color: FlutterFlowTheme.errorRed,
                                 ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 24, 0, 24),
                               ),
-                              style: FlutterFlowTheme.title1.override(
-                                fontFamily: 'Lexend Deca',
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            AdminCreateProjectsPlanWidget(
+                                          projectRef: widget.projectDetails,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  text: 'Add Plan',
+                                  options: FFButtonOptions(
+                                    width: 180,
+                                    height: 60,
+                                    color: FlutterFlowTheme.grayLight,
+                                    textStyle: FlutterFlowTheme.title1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFFC5E1A5),
+                                    ),
+                                    elevation: 0,
+                                    borderSide: BorderSide(
+                                      color: FlutterFlowTheme.grayDark,
+                                      width: 2,
+                                    ),
+                                    borderRadius: 12,
+                                  ),
+                                ),
                               ),
-                              textAlign: TextAlign.center,
-                              validator: (val) {
-                                if (val.isEmpty) {
-                                  return 'Please enter an amount';
-                                }
-
-                                return null;
-                              },
-                            ).animated([
-                              animationsMap['textFieldOnPageLoadAnimation1']
-                            ]),
+                            ],
                           ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                            child: TextFormField(
-                              controller: projectCityController ??=
-                                  TextEditingController(
-                                text: adminModifyProjectsProjectsRecord
-                                    .projectCity,
-                              ),
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintText: 'Project City',
-                                hintStyle: FlutterFlowTheme.title1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.grayLight,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 24, 0, 24),
-                              ),
-                              style: FlutterFlowTheme.title1.override(
-                                fontFamily: 'Lexend Deca',
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              textAlign: TextAlign.center,
-                              validator: (val) {
-                                if (val.isEmpty) {
-                                  return 'Please enter an amount';
-                                }
-
-                                return null;
-                              },
-                            ).animated([
-                              animationsMap['textFieldOnPageLoadAnimation2']
-                            ]),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                            child: FlutterFlowPlacePicker(
-                              iOSGoogleMapsApiKey: '',
-                              androidGoogleMapsApiKey: '',
-                              webGoogleMapsApiKey: '',
-                              onSelect: (place) =>
-                                  setState(() => placePickerValue = place),
-                              defaultText: 'Select Location',
-                              icon: Icon(
-                                Icons.place,
-                                color: Colors.white,
-                                size: 16,
-                              ),
-                              buttonOptions: FFButtonOptions(
-                                width: 320,
-                                height: 60,
-                                color: FlutterFlowTheme.darkBackground,
-                                textStyle: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                ),
-                                borderSide: BorderSide(
-                                  color: FlutterFlowTheme.background,
-                                  width: 1,
-                                ),
-                                borderRadius: 12,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                            child: TextFormField(
-                              controller: descriptionController ??=
-                                  TextEditingController(
-                                text: adminModifyProjectsProjectsRecord
-                                    .projectDesc,
-                              ),
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintText: 'Project  Description',
-                                hintStyle: FlutterFlowTheme.bodyText1,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.background,
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                    20, 40, 24, 0),
-                              ),
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.textColor,
-                              ),
-                              textAlign: TextAlign.start,
-                              maxLines: 10,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
-                  child: Row(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  child: Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          FFButtonWidget(
-                            onPressed: () async {
-                              if (!formKey.currentState.validate()) {
-                                return;
-                              }
-                              final projectsUpdateData =
-                                  createProjectsRecordData(
-                                projectName: projectNameController?.text ?? '',
-                                projectLocation: placePickerValue.latLng,
-                                projectCity: projectCityController?.text ?? '',
-                                projectDesc: descriptionController?.text ?? '',
-                                created: getCurrentTimestamp,
-                              );
-                              await adminModifyProjectsProjectsRecord.reference
-                                  .update(projectsUpdateData);
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      AdminProjectDetailsWidget(),
-                                ),
-                              );
-                            },
-                            text: 'Create',
-                            options: FFButtonOptions(
-                              width: 300,
-                              height: 70,
-                              color: FlutterFlowTheme.tertiaryColor,
-                              textStyle: FlutterFlowTheme.title1,
-                              elevation: 0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 12,
+                      FFButtonWidget(
+                        onPressed: () async {
+                          if (!formKey.currentState.validate()) {
+                            return;
+                          }
+                          final projectsUpdateData = createProjectsRecordData(
+                            projectName: projectNameController?.text ?? '',
+                            projectCity: projectCityController?.text ?? '',
+                            projectDesc: descriptionController?.text ?? '',
+                            lastModified: getCurrentTimestamp,
+                            active: statusValue,
+                          );
+                          await adminModifyProjectsProjectsRecord.reference
+                              .update(projectsUpdateData);
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProjectDetailsWidget(),
                             ),
+                          );
+                        },
+                        text: 'Modify',
+                        options: FFButtonOptions(
+                          width: 180,
+                          height: 60,
+                          color: FlutterFlowTheme.tertiaryColor,
+                          textStyle: FlutterFlowTheme.title1,
+                          elevation: 0,
+                          borderSide: BorderSide(
+                            color: FlutterFlowTheme.grayDark,
+                            width: 2,
                           ),
-                        ],
+                          borderRadius: 12,
+                        ),
+                      ),
+                      Text(
+                        'Tap above to complete request',
+                        style: FlutterFlowTheme.bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: Color(0x43000000),
+                        ),
                       ),
                     ],
-                  ),
-                ),
-                Text(
-                  'Tap above to complete request',
-                  style: FlutterFlowTheme.bodyText1.override(
-                    fontFamily: 'Lexend Deca',
-                    color: Color(0x43000000),
                   ),
                 ),
               ],

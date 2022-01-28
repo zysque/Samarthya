@@ -1,21 +1,19 @@
-import '../create_sale/create_sale_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class OnboardingWidget extends StatefulWidget {
-  const OnboardingWidget({Key key}) : super(key: key);
+class TutorialWidget extends StatefulWidget {
+  const TutorialWidget({Key key}) : super(key: key);
 
   @override
-  _OnboardingWidgetState createState() => _OnboardingWidgetState();
+  _TutorialWidgetState createState() => _TutorialWidgetState();
 }
 
-class _OnboardingWidgetState extends State<OnboardingWidget>
+class _TutorialWidgetState extends State<TutorialWidget>
     with TickerProviderStateMixin {
   PageController pageViewController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -49,6 +47,27 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: FlutterFlowTheme.darkBackground,
+        automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.grayLight,
+            size: 32,
+          ),
+        ),
+        title: Text(
+          'Tutorial',
+          style: FlutterFlowTheme.title3,
+        ),
+        actions: [],
+        centerTitle: false,
+        elevation: 0,
+      ),
       backgroundColor: FlutterFlowTheme.darkBackground,
       body: SafeArea(
         child: Column(
@@ -63,8 +82,8 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                 children: [
                   Image.asset(
                     'assets/images/Logo.png',
-                    width: 270,
-                    height: 70,
+                    width: 220,
+                    height: 60,
                     fit: BoxFit.fitWidth,
                   ).animated([animationsMap['imageOnPageLoadAnimation']]),
                 ],
@@ -100,7 +119,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 0, 20),
                                         child: Image.asset(
-                                          'assets/images/df3hg_',
+                                          'assets/images/fin_onboarding_1@2x.png',
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -119,7 +138,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'No Sale Log',
+                                            'View Projects',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.title1,
                                           ),
@@ -135,7 +154,7 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Create sale log that will be tied to trasactions of your direct commissions and your hierarchical parents inderect commissions too in order for easy tracking.',
+                                            'View new Projects, available plans in mutliple phases available in the Project. Make your booking for desired project by clicking on Book.',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.subtitle2
                                                 .override(
@@ -319,47 +338,6 @@ class _OnboardingWidgetState extends State<OnboardingWidget>
                   ),
                 ),
               ],
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        await Navigator.push(
-                          context,
-                          PageTransition(
-                            type: PageTransitionType.bottomToTop,
-                            duration: Duration(milliseconds: 220),
-                            reverseDuration: Duration(milliseconds: 220),
-                            child: CreateSaleWidget(),
-                          ),
-                        );
-                      },
-                      text: 'Log Your Sales',
-                      options: FFButtonOptions(
-                        width: 200,
-                        height: 50,
-                        color: FlutterFlowTheme.background,
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.primaryColor,
-                        ),
-                        elevation: 2,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: 30,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
           ],
         ),

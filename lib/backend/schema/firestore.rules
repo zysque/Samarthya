@@ -1,97 +1,74 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function userDoc() {
-      return /databases/$(database)/documents/users/$(request.auth.uid);
-    }
-
-    match /users/{userId} {
+    match /users/{document} {
+      allow create: if request.auth.uid == document;
       allow read: if true;
-      allow create, update: if request.auth.uid == userId;
+      allow write: if request.auth.uid == document;
+      allow delete: if false;
     }
 
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /appointments/{id} {
-      allow read, write: if true;
+    match /userHierarchies/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if false;
     }
 
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /transactions/{id} {
-      allow read, write: if true;
+    match /delinkedUsers/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if request.auth != null;
     }
 
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /transactionCategories/{id} {
-      allow read, write: if true;
+    match /commissions/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if false;
     }
 
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /budgets/{id} {
-      allow read, write: if true;
+    match /adminConsts/{document} {
+      allow create: if false;
+      allow read: if true;
+      allow write: if resource.data.adminUsers == /databases/$(database)/documents/users/$(request.auth.uid);
+      allow delete: if false;
     }
 
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /userList/{id} {
-      allow read, write: if true;
+    match /projects/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if false;
     }
 
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /budgetList/{id} {
-      allow read, write: if true;
+    match /plansAndRates/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if false;
     }
 
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /childHierarchies/{id} {
-      allow read, write: if true;
+    match /bookings/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if false;
     }
 
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /userHierarchies/{id} {
-      allow read, write: if true;
+    match /transactions/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if false;
     }
 
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /delinkedUsers/{id} {
-      allow read, write: if true;
-    }
-
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /sales/{id} {
-      allow read, write: if true;
-    }
-
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /commissions/{id} {
-      allow read, write: if true;
-    }
-
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /calculationList/{id} {
-      allow read, write: if true;
-    }
-
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /adminConsts/{id} {
-      allow read, write: if true;
-    }
-
-    // WARNING! ONLY FOR TEST MODE: Make sure you properly configure the
-    // security rules for this collection before publishing your app.
-    match /projects/{id} {
-      allow read, write: if true;
+    match /calculations/{document} {
+      allow create: if request.auth != null;
+      allow read: if true;
+      allow write: if request.auth != null;
+      allow delete: if false;
     }
   }
 }

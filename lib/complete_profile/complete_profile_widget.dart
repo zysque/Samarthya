@@ -7,10 +7,11 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
-import '../main.dart';
+import '../home_page/home_page_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CompleteProfileWidget extends StatefulWidget {
@@ -22,13 +23,16 @@ class CompleteProfileWidget extends StatefulWidget {
 
 class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
     with TickerProviderStateMixin {
-  String dropDownValue;
-  String uploadedFileUrl = '';
+  String uploadedFileUrl1 = '';
+  String yourTitleValue;
   TextEditingController yourNameController;
-  TextEditingController yourPhoneController;
-  TextEditingController yourReferralIDController;
   TextEditingController yourDOBController;
+  TextEditingController yourPhoneController;
+  TextEditingController yourAaadharController;
+  TextEditingController yourPANController;
   TextEditingController yourAddressController;
+  String uploadedFileUrl2 = '';
+  String uploadedFileUrl3 = '';
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
@@ -39,91 +43,6 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
       fadeIn: true,
       initialState: AnimationState(
         offset: Offset(0, 19),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'textFieldOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 100,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 20),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'textFieldOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 100,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 20),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'textFieldOnPageLoadAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 100,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 20),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'textFieldOnPageLoadAnimation4': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 200,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 40),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'textFieldOnPageLoadAnimation5': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 200,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 60),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'buttonOnPageLoadAnimation': AnimationInfo(
-      curve: Curves.bounceOut,
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 600,
-      delay: 400,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 40),
         opacity: 0,
       ),
       finalState: AnimationState(
@@ -142,11 +61,12 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
       this,
     );
 
-    yourAddressController = TextEditingController();
+    yourAaadharController = TextEditingController();
     yourDOBController = TextEditingController();
     yourNameController = TextEditingController();
     yourPhoneController = TextEditingController();
-    yourReferralIDController = TextEditingController();
+    yourPANController = TextEditingController();
+    yourAddressController = TextEditingController();
   }
 
   @override
@@ -163,7 +83,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
             style: FlutterFlowTheme.title3,
           ),
           actions: [],
-          centerTitle: false,
+          centerTitle: true,
           elevation: 0,
         ),
         backgroundColor: FlutterFlowTheme.background,
@@ -178,426 +98,545 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
               ).image,
             ),
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 40, 0, 0),
-                      child: FlutterFlowDropDown(
-                        options: ['Mr.', 'Ms.', 'Mrs.'].toList(),
-                        onChanged: (val) => setState(() => dropDownValue = val),
-                        width: 100,
-                        height: 50,
-                        textStyle: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.grayDark,
-                        ),
-                        hintText: 'Title',
-                        fillColor: FlutterFlowTheme.darkBackground,
-                        elevation: 2,
-                        borderColor: Colors.transparent,
-                        borderWidth: 8,
-                        borderRadius: 8,
-                        margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                        hidesUnderline: true,
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(100, 0, 0, 0),
-                      child: InkWell(
-                        onTap: () async {
-                          final selectedMedia =
-                              await selectMediaWithSourceBottomSheet(
-                            context: context,
-                            allowPhoto: true,
-                            backgroundColor: FlutterFlowTheme.darkBackground,
-                            textColor: FlutterFlowTheme.textColor,
-                            pickerFontFamily: 'Lexend Deca',
-                          );
-                          if (selectedMedia != null &&
-                              validateFileFormat(
-                                  selectedMedia.storagePath, context)) {
-                            showUploadMessage(context, 'Uploading file...',
-                                showLoading: true);
-                            final downloadUrl = await uploadData(
-                                selectedMedia.storagePath, selectedMedia.bytes);
-                            ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                            if (downloadUrl != null) {
-                              setState(() => uploadedFileUrl = downloadUrl);
-                              showUploadMessage(context, 'Success!');
-                            } else {
-                              showUploadMessage(
-                                  context, 'Failed to upload media');
-                              return;
-                            }
-                          }
-                        },
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.network(
-                            valueOrDefault<String>(
-                              uploadedFileUrl,
-                              'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/finance-app-sample-kugwu4/assets/ijvuhvqbvns6/uiAvatar@2x.png',
-                            ),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ).animated(
-                          [animationsMap['circleImageOnPageLoadAnimation']]),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                  child: TextFormField(
-                    controller: yourNameController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Your Name',
-                      labelStyle: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.grayLight,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      filled: true,
-                      fillColor: FlutterFlowTheme.darkBackground,
-                      contentPadding:
-                          EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                    ),
-                    style: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Lexend Deca',
-                      color: FlutterFlowTheme.textColor,
-                    ),
-                    validator: (val) {
-                      if (val.isEmpty) {
-                        return 'Field is required';
-                      }
-
-                      return null;
-                    },
-                  ).animated([animationsMap['textFieldOnPageLoadAnimation1']]),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                  child: TextFormField(
-                    controller: yourPhoneController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Phone Number',
-                      labelStyle: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.grayLight,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      filled: true,
-                      fillColor: FlutterFlowTheme.darkBackground,
-                      contentPadding:
-                          EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                    ),
-                    style: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Lexend Deca',
-                      color: FlutterFlowTheme.textColor,
-                    ),
-                    keyboardType: TextInputType.number,
-                    validator: (val) {
-                      if (val.isEmpty) {
-                        return 'Field is required';
-                      }
-                      if (val.length < 10) {
-                        return 'Requires at least 10 characters.';
-                      }
-                      return null;
-                    },
-                  ).animated([animationsMap['textFieldOnPageLoadAnimation2']]),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                  child: StreamBuilder<List<UsersRecord>>(
-                    stream: queryUsersRecord(
-                      queryBuilder: (usersRecord) => usersRecord.where('uid',
-                          isEqualTo: yourReferralIDController.text),
-                      singleRecord: true,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(25, 0, 20, 0),
+                            child: FlutterFlowDropDown(
+                              options: ['Mr.', 'Ms.', 'Mrs.'].toList(),
+                              onChanged: (val) =>
+                                  setState(() => yourTitleValue = val),
+                              width: 100,
+                              height: 50,
+                              textStyle: FlutterFlowTheme.bodyText1.override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.textColor,
+                              ),
+                              hintText: 'Title',
+                              fillColor: FlutterFlowTheme.darkBackground,
+                              elevation: 2,
+                              borderColor: Colors.transparent,
+                              borderWidth: 0,
+                              borderRadius: 0,
+                              margin:
+                                  EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                              hidesUnderline: true,
                             ),
                           ),
-                        );
-                      }
-                      List<UsersRecord> yourReferralIDUsersRecordList =
-                          snapshot.data;
-                      final yourReferralIDUsersRecord =
-                          yourReferralIDUsersRecordList.isNotEmpty
-                              ? yourReferralIDUsersRecordList.first
-                              : null;
-                      return TextFormField(
-                        onFieldSubmitted: (_) async {
-                          if (!formKey.currentState.validate()) {
-                            return;
-                          }
-                          if (!(yourReferralIDUsersRecord != null)) {
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('Wrong Referral ID'),
-                                  content: Text(
-                                      'You have entered wrong referral ID, Please enter correct referral ID. '),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(85, 0, 0, 0),
+                            child: InkWell(
+                              onTap: () async {
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
+                                  allowPhoto: true,
+                                  backgroundColor:
+                                      FlutterFlowTheme.darkBackground,
+                                  textColor: FlutterFlowTheme.textColor,
+                                  pickerFontFamily: 'Lexend Deca',
                                 );
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                      context, 'Uploading file...',
+                                      showLoading: true);
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl1 = downloadUrl);
+                                    showUploadMessage(context, 'Success!');
+                                  } else {
+                                    showUploadMessage(
+                                        context, 'Failed to upload media');
+                                    return;
+                                  }
+                                }
                               },
-                            );
-                          }
-                        },
-                        controller: yourReferralIDController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Referral ID',
-                          labelStyle: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.grayLight,
+                              child: Container(
+                                width: 80,
+                                height: 80,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Image.network(
+                                  valueOrDefault<String>(
+                                    uploadedFileUrl1,
+                                    'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/finance-app-sample-kugwu4/assets/ijvuhvqbvns6/uiAvatar@2x.png',
+                                  ),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ).animated([
+                              animationsMap['circleImageOnPageLoadAnimation']
+                            ]),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
+                        ],
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                        child: TextFormField(
+                          controller: yourNameController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Your Name',
+                            labelStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.grayLight,
                             ),
-                            borderRadius: BorderRadius.circular(8),
+                            hintText: 'Please enter a valid number...',
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0x98FFFFFF),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.darkBackground,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          filled: true,
-                          fillColor: FlutterFlowTheme.darkBackground,
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                        ),
-                        style: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.textColor,
-                        ),
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'Field is required';
-                          }
-                          if (val.length < 12) {
-                            return 'Requires at least 12 characters.';
-                          }
-                          return null;
-                        },
-                      ).animated(
-                          [animationsMap['textFieldOnPageLoadAnimation3']]);
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                  child: TextFormField(
-                    controller: yourDOBController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Your DOB',
-                      labelStyle: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.grayLight,
-                      ),
-                      hintText: 'DD/MM/YYYY',
-                      hintStyle: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: Color(0x98FFFFFF),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      filled: true,
-                      fillColor: FlutterFlowTheme.darkBackground,
-                      contentPadding:
-                          EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                    ),
-                    style: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Lexend Deca',
-                      color: FlutterFlowTheme.textColor,
-                    ),
-                    keyboardType: TextInputType.datetime,
-                  ).animated([animationsMap['textFieldOnPageLoadAnimation4']]),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                  child: TextFormField(
-                    controller: yourAddressController,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                      labelText: 'Your Address',
-                      labelStyle: FlutterFlowTheme.bodyText1.override(
-                        fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.grayLight,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color(0x00000000),
-                          width: 1,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      filled: true,
-                      fillColor: FlutterFlowTheme.darkBackground,
-                      contentPadding:
-                          EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
-                    ),
-                    style: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Lexend Deca',
-                      color: FlutterFlowTheme.textColor,
-                    ),
-                    maxLines: 3,
-                    keyboardType: TextInputType.multiline,
-                  ).animated([animationsMap['textFieldOnPageLoadAnimation5']]),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                  child: StreamBuilder<UsersRecord>(
-                    stream: UsersRecord.getDocument(currentUserReference),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
-                            ),
-                          ),
-                        );
-                      }
-                      final buttonLoginUsersRecord = snapshot.data;
-                      return FFButtonWidget(
-                        onPressed: () async {
-                          if (!formKey.currentState.validate()) {
-                            return;
-                          }
-                          final usersUpdateData = createUsersRecordData(
-                            userTitle: dropDownValue,
-                            photoUrl: uploadedFileUrl,
-                            displayName: yourNameController.text,
-                            phoneNumber: yourPhoneController.text,
-                            address: yourAddressController.text,
-                            dob: yourDOBController.text,
-                          );
-                          await buttonLoginUsersRecord.reference
-                              .update(usersUpdateData);
-
-                          final delinkedUsersCreateData =
-                              createDelinkedUsersRecordData(
-                            userRef: buttonLoginUsersRecord.reference,
-                            userEmail: buttonLoginUsersRecord.email,
-                            userName: yourNameController.text,
-                            referralUid: yourReferralIDController.text,
-                          );
-                          await DelinkedUsersRecord.collection
-                              .doc()
-                              .set(delinkedUsersCreateData);
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  NavBarPage(initialPage: 'MyProfilePage'),
-                            ),
-                          );
-                        },
-                        text: 'Complete Profile',
-                        options: FFButtonOptions(
-                          width: 230,
-                          height: 50,
-                          color: FlutterFlowTheme.primaryColor,
-                          textStyle: FlutterFlowTheme.subtitle2.override(
+                          style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.textColor,
                           ),
-                          elevation: 3,
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                            width: 1,
-                          ),
-                          borderRadius: 30,
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Field is required';
+                            }
+
+                            return null;
+                          },
                         ),
-                      ).animated([animationsMap['buttonOnPageLoadAnimation']]);
-                    },
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                        child: TextFormField(
+                          controller: yourDOBController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Your DOB',
+                            labelStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.grayLight,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.darkBackground,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.textColor,
+                          ),
+                          keyboardType: TextInputType.datetime,
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Field is required';
+                            }
+
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                        child: TextFormField(
+                          controller: yourPhoneController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Your Phone',
+                            labelStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.grayLight,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.darkBackground,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.textColor,
+                          ),
+                          keyboardType: TextInputType.number,
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Field is required';
+                            }
+                            if (val.length < 10) {
+                              return 'Requires at least 10 characters.';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                        child: TextFormField(
+                          controller: yourAaadharController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Your Aadhar',
+                            labelStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.grayLight,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.darkBackground,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.textColor,
+                          ),
+                          keyboardType: TextInputType.number,
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Field is required';
+                            }
+                            if (val.length < 10) {
+                              return 'Requires at least 10 characters.';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                        child: TextFormField(
+                          controller: yourPANController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Your PAN',
+                            labelStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.grayLight,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.darkBackground,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.textColor,
+                          ),
+                          validator: (val) {
+                            if (val.length < 10) {
+                              return 'Requires at least 10 characters.';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                        child: TextFormField(
+                          controller: yourAddressController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Your Address',
+                            labelStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.grayLight,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.darkBackground,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                          ),
+                          style: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.textColor,
+                          ),
+                          maxLines: 5,
+                          keyboardType: TextInputType.multiline,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(-1, 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        final selectedMedia =
+                                            await selectMediaWithSourceBottomSheet(
+                                          context: context,
+                                          allowPhoto: true,
+                                        );
+                                        if (selectedMedia != null &&
+                                            validateFileFormat(
+                                                selectedMedia.storagePath,
+                                                context)) {
+                                          showUploadMessage(
+                                              context, 'Uploading file...',
+                                              showLoading: true);
+                                          final downloadUrl = await uploadData(
+                                              selectedMedia.storagePath,
+                                              selectedMedia.bytes);
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          if (downloadUrl != null) {
+                                            setState(() =>
+                                                uploadedFileUrl2 = downloadUrl);
+                                            showUploadMessage(
+                                                context, 'Success!');
+                                          } else {
+                                            showUploadMessage(context,
+                                                'Failed to upload media');
+                                            return;
+                                          }
+                                        }
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.idCard,
+                                        color: Colors.black,
+                                        size: 50,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Aadhar Card',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFF960087),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Align(
+                              alignment: AlignmentDirectional(1, 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        final selectedMedia =
+                                            await selectMediaWithSourceBottomSheet(
+                                          context: context,
+                                          allowPhoto: true,
+                                        );
+                                        if (selectedMedia != null &&
+                                            validateFileFormat(
+                                                selectedMedia.storagePath,
+                                                context)) {
+                                          showUploadMessage(
+                                              context, 'Uploading file...',
+                                              showLoading: true);
+                                          final downloadUrl = await uploadData(
+                                              selectedMedia.storagePath,
+                                              selectedMedia.bytes);
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          if (downloadUrl != null) {
+                                            setState(() =>
+                                                uploadedFileUrl3 = downloadUrl);
+                                            showUploadMessage(
+                                                context, 'Success!');
+                                          } else {
+                                            showUploadMessage(context,
+                                                'Failed to upload media');
+                                            return;
+                                          }
+                                        }
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.idCard,
+                                        color: Colors.black,
+                                        size: 50,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'PAN Card',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFF960087),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                    child: FFButtonWidget(
+                      onPressed: () async {
+                        if (!formKey.currentState.validate()) {
+                          return;
+                        }
+                        final usersUpdateData = createUsersRecordData(
+                          userTitle: yourTitleValue,
+                          displayName: yourNameController.text,
+                          photoUrl: uploadedFileUrl1,
+                          dob: yourDOBController.text,
+                          phoneNumber: yourPhoneController.text,
+                          aadharNumber: int.parse(yourAaadharController.text),
+                          panNumber: yourPANController.text,
+                          address: yourAddressController.text,
+                          aadharImage: uploadedFileUrl2,
+                          panImage: uploadedFileUrl3,
+                        );
+                        await currentUserReference.update(usersUpdateData);
+
+                        final calculationsCreateData =
+                            createCalculationsRecordData(
+                          userRef: currentUserReference,
+                        );
+                        await CalculationsRecord.collection
+                            .doc()
+                            .set(calculationsCreateData);
+                        await Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomePageWidget(),
+                          ),
+                          (r) => false,
+                        );
+                      },
+                      text: 'Complete',
+                      options: FFButtonOptions(
+                        width: 150,
+                        height: 50,
+                        color: FlutterFlowTheme.primaryColor,
+                        textStyle: FlutterFlowTheme.subtitle2.override(
+                          fontFamily: 'Lexend Deca',
+                          color: FlutterFlowTheme.textColor,
+                        ),
+                        elevation: 3,
+                        borderSide: BorderSide(
+                          color: Colors.transparent,
+                          width: 1,
+                        ),
+                        borderRadius: 30,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

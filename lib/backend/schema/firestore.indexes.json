@@ -1,20 +1,6 @@
 {
   "indexes": [
     {
-      "collectionGroup": "sales",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "saleUser",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "saleCreated",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
       "collectionGroup": "commissions",
       "queryScope": "COLLECTION",
       "fields": [
@@ -23,21 +9,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "commissionCreated",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "sales",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
           "fieldPath": "processed",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "saleCreated",
           "order": "DESCENDING"
         }
       ]
