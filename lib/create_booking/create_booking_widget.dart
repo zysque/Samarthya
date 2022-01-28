@@ -13,8 +13,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BookingsWidget extends StatefulWidget {
-  const BookingsWidget({
+class CreateBookingWidget extends StatefulWidget {
+  const CreateBookingWidget({
     Key key,
     this.projectRef,
   }) : super(key: key);
@@ -22,10 +22,10 @@ class BookingsWidget extends StatefulWidget {
   final DocumentReference projectRef;
 
   @override
-  _BookingsWidgetState createState() => _BookingsWidgetState();
+  _CreateBookingWidgetState createState() => _CreateBookingWidgetState();
 }
 
-class _BookingsWidgetState extends State<BookingsWidget> {
+class _CreateBookingWidgetState extends State<CreateBookingWidget> {
   String emiTenureValue;
   TextEditingController areaController;
   TextEditingController downPaymentController;

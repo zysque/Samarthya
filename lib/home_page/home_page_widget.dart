@@ -4,6 +4,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
+import '../my_commissions/my_commissions_widget.dart';
 import '../my_hierarchy/my_hierarchy_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
@@ -559,8 +560,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       await Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => NavBarPage(
-                                              initialPage: 'MyCommissions'),
+                                          builder: (context) =>
+                                              MyCommissionsWidget(),
                                         ),
                                         (r) => false,
                                       );

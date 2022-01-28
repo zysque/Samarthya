@@ -12,8 +12,8 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'my_profile_page/my_profile_page_widget.dart';
-import 'my_commissions/my_commissions_widget.dart';
 import 'projects/projects_widget.dart';
+import 'home_page/home_page_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -101,8 +101,8 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'MyProfilePage': MyProfilePageWidget(),
-      'MyCommissions': MyCommissionsWidget(),
       'projects': ProjectsWidget(),
+      'HomePage': HomePageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -130,23 +130,23 @@ class _NavBarPageState extends State<NavBarPage> {
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_balance_wallet_outlined,
-              size: 24,
-            ),
-            activeIcon: Icon(
-              Icons.account_balance_wallet_rounded,
+            icon: FaIcon(
+              FontAwesomeIcons.rProject,
               size: 24,
             ),
             label: '',
             tooltip: '',
           ),
           BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.rProject,
+            icon: Icon(
+              Icons.home_outlined,
               size: 24,
             ),
-            label: '',
+            activeIcon: Icon(
+              Icons.home_rounded,
+              size: 24,
+            ),
+            label: 'Home',
             tooltip: '',
           )
         ],

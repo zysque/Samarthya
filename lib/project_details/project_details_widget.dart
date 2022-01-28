@@ -1,6 +1,6 @@
 import '../admin_modify_projects/admin_modify_projects_widget.dart';
 import '../backend/backend.dart';
-import '../bookings/bookings_widget.dart';
+import '../create_booking/create_booking_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -471,7 +471,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                               await Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => BookingsWidget(),
+                                  builder: (context) => CreateBookingWidget(),
                                 ),
                                 (r) => false,
                               );
