@@ -11,9 +11,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'my_profile_page/my_profile_page_widget.dart';
-import 'projects/projects_widget.dart';
 import 'home_page/home_page_widget.dart';
+import 'projects/projects_widget.dart';
+import 'my_profile_page/my_profile_page_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -89,7 +89,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPage = 'projects';
+  String _currentPage = 'HomePage';
 
   @override
   void initState() {
@@ -100,9 +100,9 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'MyProfilePage': MyProfilePageWidget(),
-      'projects': ProjectsWidget(),
       'HomePage': HomePageWidget(),
+      'projects': ProjectsWidget(),
+      'MyProfilePage': MyProfilePageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -119,14 +119,14 @@ class _NavBarPageState extends State<NavBarPage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.account_circle_outlined,
+              Icons.home_outlined,
               size: 24,
             ),
             activeIcon: Icon(
-              Icons.account_circle_rounded,
+              Icons.home_rounded,
               size: 24,
             ),
-            label: '',
+            label: 'Home',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -139,14 +139,14 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.home_outlined,
+              Icons.account_circle_outlined,
               size: 24,
             ),
             activeIcon: Icon(
-              Icons.home_rounded,
+              Icons.account_circle_rounded,
               size: 24,
             ),
-            label: 'Home',
+            label: '',
             tooltip: '',
           )
         ],
