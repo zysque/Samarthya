@@ -15,12 +15,6 @@ abstract class CommissionsRecord
   DocumentReference get commissionUser;
 
   @nullable
-  DocumentReference get saleTransRef;
-
-  @nullable
-  DocumentReference get commTransRef;
-
-  @nullable
   double get commissionAmount;
 
   @nullable
@@ -30,7 +24,19 @@ abstract class CommissionsRecord
   String get comments;
 
   @nullable
-  DateTime get processed;
+  DocumentReference get bookingRef;
+
+  @nullable
+  BuiltList<DocumentReference> get commTransRef;
+
+  @nullable
+  DateTime get lastModified;
+
+  @nullable
+  double get unsettledAmount;
+
+  @nullable
+  bool get settled;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -39,7 +45,10 @@ abstract class CommissionsRecord
   static void _initializeBuilder(CommissionsRecordBuilder builder) => builder
     ..commissionAmount = 0.0
     ..isDirect = false
-    ..comments = '';
+    ..comments = ''
+    ..commTransRef = ListBuilder()
+    ..unsettledAmount = 0.0
+    ..settled = false;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('commissions');
@@ -64,20 +73,23 @@ abstract class CommissionsRecord
 
 Map<String, dynamic> createCommissionsRecordData({
   DocumentReference commissionUser,
-  DocumentReference saleTransRef,
-  DocumentReference commTransRef,
   double commissionAmount,
   bool isDirect,
   String comments,
-  DateTime processed,
+  DocumentReference bookingRef,
+  DateTime lastModified,
+  double unsettledAmount,
+  bool settled,
 }) =>
     serializers.toFirestore(
         CommissionsRecord.serializer,
         CommissionsRecord((c) => c
           ..commissionUser = commissionUser
-          ..saleTransRef = saleTransRef
-          ..commTransRef = commTransRef
           ..commissionAmount = commissionAmount
           ..isDirect = isDirect
           ..comments = comments
-          ..processed = processed));
+          ..bookingRef = bookingRef
+          ..commTransRef = null
+          ..lastModified = lastModified
+          ..unsettledAmount = unsettledAmount
+          ..settled = settled));

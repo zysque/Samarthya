@@ -9,11 +9,6 @@ import '../backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
-int getTotalAmount(List<int> salesAmounts) {
-  // add list data
-  return salesAmounts.fold(0, (sum, element) => sum + element);
-}
-
 double getSum(
   double val1,
   double val2,
@@ -34,26 +29,12 @@ double getDiff(
   return 0.0;
 }
 
-String stringFromList(List<int> optionList) {
-  // make string from list elements
-  String retString = "";
-
-  optionList.forEach((element) {
-    if (element != optionList[optionList.length - 1])
-      retString += "$element    ";
-    else
-      retString += "$element";
-  });
-
-  return retString;
-}
-
-int getCommission(
+double getCommission(
   double percentage,
-  int amount,
+  double amount,
 ) {
   // a percent b
-  return ((percentage / 100) * amount).round();
+  return ((percentage / 100) * amount);
   ;
 }
 
@@ -95,29 +76,48 @@ double getMultiplication(
   return val1 * val2;
 }
 
-double getDiffD(
+int getDaysLeft(DateTime timeStamp) {
+  // get timestamp difference from current date
+  Duration difference = timeStamp.difference(DateTime.now());
+
+  return difference.inDays;
+}
+
+bool getIfDaysLeft(DateTime timeStamp) {
+  // get timestamp difference from current date
+  Duration difference = timeStamp.difference(DateTime.now());
+
+  return (difference.inDays) > 0;
+}
+
+double getDivision(
   double val1,
   double val2,
 ) {
   // Add your function code here!
-  return val1 - val2;
+  return val1 / val2;
 }
 
-bool validateBookingAmount(
-  double bookingAmount,
-  double expected,
+int getQuotient(
+  double val1,
+  double val2,
 ) {
   // Add your function code here!
-  return (bookingAmount - expected) < 0;
+  return (val1 / val2).floor();
 }
 
-DateTime getDayPlusTimeStamp(int extraDays) {
-  // add Days to current timestamp
-  return DateTime.now().add(Duration(days: extraDays));
-}
-
-int getTimeStampDiff(DateTime timeStamp) {
-  // Time Difference from today
-  return DateTime.fromMillisecondsSinceEpoch(timeStamp.millisecondsSinceEpoch)
-      .day;
+DateTime getNewDate(
+  DateTime date1,
+  int addYear,
+  int addMonth,
+  double day,
+) {
+  // get next month
+  return DateTime.parse(DateFormat('yyyy-MM-dd').format(
+    DateTime(
+      date1.year + addYear + (date1.month + addMonth > 12 ? 1 : 0),
+      (date1.month + addMonth < 12) ? date1.month + addMonth : 1,
+      day.floor(),
+    ),
+  ));
 }

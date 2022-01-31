@@ -1,11 +1,16 @@
-import '../admin_operations/admin_operations_widget.dart';
+import '../admin_approvals/admin_approvals_widget.dart';
+import '../admin_commission_dues/admin_commission_dues_widget.dart';
+import '../admin_constants/admin_constants_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
+import '../my_bookings/my_bookings_widget.dart';
 import '../my_commissions/my_commissions_widget.dart';
 import '../my_hierarchy/my_hierarchy_widget.dart';
+import '../my_transactions/my_transactions_widget.dart';
+import '../pay_dues/pay_dues_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -47,20 +52,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           body: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
-                  ),
-                  child: Image.asset(
-                    'assets/images/Logo.png',
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: 80,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
@@ -71,7 +62,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(16, 40, 16, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(16, 30, 16, 0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -228,7 +219,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           0, 4, 0, 0),
                                       child: Text(
                                         functions
-                                            .getTimeStampDiff(
+                                            .getDaysLeft(
                                                 columnCalculationsRecord
                                                     .emiDueDate)
                                             .toString(),
@@ -347,7 +338,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           0, 4, 0, 0),
                                       child: Text(
                                         functions
-                                            .getTimeStampDiff(
+                                            .getDaysLeft(
                                                 columnCalculationsRecord
                                                     .comissionProcessed)
                                             .toString(),
@@ -382,7 +373,398 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.92,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.darkBackground,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Color(0x66000000),
+                        offset: Offset(0, 2),
+                      )
+                    ],
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(16, 5, 16, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Quick Links',
+                                style: FlutterFlowTheme.title3.override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: Color(0xFF3B6A6A),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NavBarPage(initialPage: 'projects'),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 95,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.background,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 12, 12, 12),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 12),
+                                          child: FaIcon(
+                                            FontAwesomeIcons.projectDiagram,
+                                            color: FlutterFlowTheme.textColor,
+                                            size: 36,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 4, 0, 0),
+                                          child: Text(
+                                            'Projects',
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.getFont(
+                                              'Lexend Deca',
+                                              color: FlutterFlowTheme.textColor,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MyBookingsWidget(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 95,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.background,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 12, 12, 12),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 12),
+                                          child: Icon(
+                                            Icons.library_add_check_rounded,
+                                            color: FlutterFlowTheme.textColor,
+                                            size: 36,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 4, 0, 0),
+                                          child: Text(
+                                            'Bookings',
+                                            textAlign: TextAlign.center,
+                                            style: GoogleFonts.getFont(
+                                              'Lexend Deca',
+                                              color: FlutterFlowTheme.textColor,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => MyHierarchyWidget(
+                                        userProfile:
+                                            homePageUsersRecord.reference,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 95,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.background,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 12, 12, 12),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 12),
+                                          child: FaIcon(
+                                            FontAwesomeIcons.child,
+                                            color: FlutterFlowTheme.textColor,
+                                            size: 36,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 4, 0, 0),
+                                          child: Text(
+                                            'Hierarchy',
+                                            style: GoogleFonts.getFont(
+                                              'Lexend Deca',
+                                              color: FlutterFlowTheme.textColor,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(8, 6, 8, 8),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          MyTransactionsWidget(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 95,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.background,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 12, 12, 12),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 12),
+                                          child: Icon(
+                                            Icons.swap_horiz_outlined,
+                                            color: FlutterFlowTheme.textColor,
+                                            size: 36,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 4, 0, 0),
+                                          child: Text(
+                                            'Transactions',
+                                            style: GoogleFonts.getFont(
+                                              'Lexend Deca',
+                                              color: FlutterFlowTheme.textColor,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => PayDuesWidget(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 95,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.background,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 12, 12, 12),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 12),
+                                          child: Icon(
+                                            Icons.payment,
+                                            color: FlutterFlowTheme.textColor,
+                                            size: 36,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 4, 0, 0),
+                                          child: Text(
+                                            'Dues',
+                                            style: GoogleFonts.getFont(
+                                              'Lexend Deca',
+                                              color: FlutterFlowTheme.textColor,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          MyCommissionsWidget(),
+                                    ),
+                                  );
+                                },
+                                child: Container(
+                                  width: 100,
+                                  height: 95,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.background,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        12, 12, 12, 12),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 0, 0, 12),
+                                          child: FaIcon(
+                                            FontAwesomeIcons.coins,
+                                            color: FlutterFlowTheme.textColor,
+                                            size: 36,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 4, 0, 0),
+                                          child: Text(
+                                            'Commission',
+                                            style: GoogleFonts.getFont(
+                                              'Lexend Deca',
+                                              color: FlutterFlowTheme.textColor,
+                                              fontSize: 12,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: StreamBuilder<List<AdminConstsRecord>>(
                   stream: queryAdminConstsRecord(
                     singleRecord: true,
@@ -401,11 +783,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       );
                     }
-                    List<AdminConstsRecord> containerAdminConstsRecordList =
+                    List<AdminConstsRecord> adminLinksAdminConstsRecordList =
                         snapshot.data;
-                    final containerAdminConstsRecord =
-                        containerAdminConstsRecordList.isNotEmpty
-                            ? containerAdminConstsRecordList.first
+                    final adminLinksAdminConstsRecord =
+                        adminLinksAdminConstsRecordList.isNotEmpty
+                            ? adminLinksAdminConstsRecordList.first
                             : null;
                     return Container(
                       width: MediaQuery.of(context).size.width * 0.92,
@@ -420,342 +802,112 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ],
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(16, 8, 16, 0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Quick Links',
-                                    style: FlutterFlowTheme.title3.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF3B6A6A),
+                      child: Visibility(
+                        visible: adminLinksAdminConstsRecord.adminUsers
+                                .toList()
+                                .contains(homePageUsersRecord.reference) ??
+                            true,
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(4, 4, 4, 4),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16, 5, 16, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Admin Operations',
+                                      style: FlutterFlowTheme.title3.override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Color(0xFFE49CAF),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 16, 8, 16),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.27,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.background,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12, 12, 12, 12),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 12),
-                                            child: Icon(
-                                              Icons.library_add_check_rounded,
-                                              color: FlutterFlowTheme.textColor,
-                                              size: 36,
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 4, 0, 0),
-                                            child: Text(
-                                              'Bookings',
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.getFont(
-                                                'Lexend Deca',
-                                                color:
-                                                    FlutterFlowTheme.textColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        PageTransition(
-                                          type: PageTransitionType.bottomToTop,
-                                          duration: Duration(milliseconds: 220),
-                                          reverseDuration:
-                                              Duration(milliseconds: 220),
-                                          child: NavBarPage(
-                                              initialPage: 'MyProfilePage'),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.28,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.background,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 12, 12, 12),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 12),
-                                              child: Icon(
-                                                Icons.swap_horiz_outlined,
-                                                color:
-                                                    FlutterFlowTheme.textColor,
-                                                size: 36,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
-                                              child: Text(
-                                                'Transactions',
-                                                style: GoogleFonts.getFont(
-                                                  'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      await Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              MyCommissionsWidget(),
-                                        ),
-                                        (r) => false,
-                                      );
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.27,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.background,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 12, 12, 12),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 12),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.coins,
-                                                color:
-                                                    FlutterFlowTheme.textColor,
-                                                size: 36,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
-                                              child: Text(
-                                                'Commissions',
-                                                style: GoogleFonts.getFont(
-                                                  'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(8, 10, 8, 16),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => NavBarPage(
-                                              initialPage: 'projects'),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.27,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.background,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 12, 12, 12),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 12),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.projectDiagram,
-                                                color:
-                                                    FlutterFlowTheme.textColor,
-                                                size: 36,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
-                                              child: Text(
-                                                'Projects',
-                                                textAlign: TextAlign.center,
-                                                style: GoogleFonts.getFont(
-                                                  'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  InkWell(
-                                    onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              MyHierarchyWidget(
-                                            userProfile:
-                                                homePageUsersRecord.reference,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    child: Container(
-                                      width: MediaQuery.of(context).size.width *
-                                          0.28,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.background,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 12, 12, 12),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 12),
-                                              child: FaIcon(
-                                                FontAwesomeIcons.child,
-                                                color:
-                                                    FlutterFlowTheme.textColor,
-                                                size: 36,
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
-                                              child: Text(
-                                                'Hierarchy',
-                                                style: GoogleFonts.getFont(
-                                                  'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                  fontSize: 12,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  if (containerAdminConstsRecord.adminUsers
-                                          .toList()
-                                          .contains(
-                                              homePageUsersRecord.reference) ??
-                                      true)
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(8, 8, 8, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
                                     InkWell(
                                       onTap: () async {
-                                        await Navigator.pushAndRemoveUntil(
+                                        await Navigator.push(
                                           context,
                                           MaterialPageRoute(
                                             builder: (context) =>
-                                                AdminOperationsWidget(),
+                                                AdminConstantsWidget(),
                                           ),
-                                          (r) => false,
                                         );
                                       },
                                       child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.27,
+                                        width: 100,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.background,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12, 12, 12, 12),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 12),
+                                                child: FaIcon(
+                                                  FontAwesomeIcons.percent,
+                                                  color: FlutterFlowTheme
+                                                      .textColor,
+                                                  size: 36,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 4, 0, 0),
+                                                child: Text(
+                                                  'Define Constants',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.getFont(
+                                                    'Lexend Deca',
+                                                    color: FlutterFlowTheme
+                                                        .textColor,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                AdminApprovalsWidget(),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.background,
                                           borderRadius:
@@ -776,8 +928,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 0, 0, 12),
                                                 child: Icon(
-                                                  Icons
-                                                      .admin_panel_settings_outlined,
+                                                  Icons.approval,
                                                   color: FlutterFlowTheme
                                                       .textColor,
                                                   size: 36,
@@ -787,7 +938,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(0, 4, 0, 0),
                                                 child: Text(
-                                                  'Admin',
+                                                  'Make Approvals',
+                                                  textAlign: TextAlign.center,
                                                   style: GoogleFonts.getFont(
                                                     'Lexend Deca',
                                                     color: FlutterFlowTheme
@@ -801,10 +953,69 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         ),
                                       ),
                                     ),
-                                ],
+                                    InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                AdminCommissionDuesWidget(),
+                                          ),
+                                        );
+                                      },
+                                      child: Container(
+                                        width: 100,
+                                        height: 100,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.background,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  12, 12, 12, 12),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 0, 12),
+                                                child: Icon(
+                                                  Icons.payments_rounded,
+                                                  color: FlutterFlowTheme
+                                                      .textColor,
+                                                  size: 36,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 4, 0, 0),
+                                                child: Text(
+                                                  'Commission Dues',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.getFont(
+                                                    'Lexend Deca',
+                                                    color: FlutterFlowTheme
+                                                        .textColor,
+                                                    fontSize: 12,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     );

@@ -1,22 +1,23 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/booking_details_widget.dart';
+import '../components/payment_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MyBookingsWidget extends StatefulWidget {
-  const MyBookingsWidget({Key key}) : super(key: key);
+class PayDuesWidget extends StatefulWidget {
+  const PayDuesWidget({Key key}) : super(key: key);
 
   @override
-  _MyBookingsWidgetState createState() => _MyBookingsWidgetState();
+  _PayDuesWidgetState createState() => _PayDuesWidgetState();
 }
 
-class _MyBookingsWidgetState extends State<MyBookingsWidget>
+class _PayDuesWidgetState extends State<PayDuesWidget>
     with TickerProviderStateMixin {
   final animationsMap = {
     'listViewOnPageLoadAnimation': AnimationInfo(
@@ -54,7 +55,7 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
         backgroundColor: FlutterFlowTheme.darkBackground,
         automaticallyImplyLeading: false,
         title: Text(
-          'Bookings',
+          'Dues',
           style: FlutterFlowTheme.title1.override(
             fontFamily: 'Lexend Deca',
             color: FlutterFlowTheme.textColor,
@@ -78,6 +79,7 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                     stream: queryBookingsRecord(
                       queryBuilder: (bookingsRecord) => bookingsRecord
                           .where('buyerRef', isEqualTo: currentUserReference)
+                          .where('creditStatus', isEqualTo: true)
                           .orderBy('lastModified', descending: true),
                     ),
                     builder: (context, snapshot) {
@@ -142,7 +144,12 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                         return Padding(
                                           padding:
                                               MediaQuery.of(context).viewInsets,
-                                          child: BookingDetailsWidget(),
+                                          child: PaymentWidget(
+                                            bookingDetails:
+                                                listViewBookingsRecord
+                                                    .reference,
+                                            isCommission: false,
+                                          ),
                                         );
                                       },
                                     );
@@ -256,32 +263,18 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                formatNumber(
-                                                  listViewBookingsRecord
-                                                      .totalAmountToPay,
-                                                  formatType:
-                                                      FormatType.compact,
-                                                  currency: '',
-                                                ),
-                                                style: FlutterFlowTheme
-                                                    .subtitle2
-                                                    .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
-                                              ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(2, 0, 0, 0),
                                                 child: Text(
                                                   formatNumber(
                                                     listViewBookingsRecord
-                                                        .amountLeftToPay,
+                                                        .emiAmount,
                                                     formatType:
-                                                        FormatType.compact,
+                                                        FormatType.custom,
                                                     currency: '',
+                                                    format: '',
+                                                    locale: '',
                                                   ),
                                                   style: FlutterFlowTheme
                                                       .subtitle2
@@ -292,34 +285,92 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                   ),
                                                 ),
                                               ),
-                                              Text(
-                                                formatNumber(
-                                                  listViewBookingsRecord
-                                                      .emiAmount,
-                                                  formatType:
-                                                      FormatType.compact,
-                                                  currency: '',
+                                              if (functions.getIfDaysLeft(
+                                                      listViewBookingsRecord
+                                                          .dueDate) ??
+                                                  true)
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      functions
+                                                          .getDaysLeft(
+                                                              listViewBookingsRecord
+                                                                  .dueDate)
+                                                          .toString(),
+                                                      style: FlutterFlowTheme
+                                                          .subtitle2
+                                                          .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color: FlutterFlowTheme
+                                                            .textColor,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  2, 0, 0, 0),
+                                                      child: Text(
+                                                        'Days Left',
+                                                        style: FlutterFlowTheme
+                                                            .subtitle2
+                                                            .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color:
+                                                              FlutterFlowTheme
+                                                                  .textColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                                style: FlutterFlowTheme
-                                                    .subtitle2
-                                                    .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
+                                              if (!(functions.getIfDaysLeft(
+                                                      listViewBookingsRecord
+                                                          .dueDate)) ??
+                                                  true)
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      functions
+                                                          .getDaysLeft(
+                                                              listViewBookingsRecord
+                                                                  .dueDate)
+                                                          .toString(),
+                                                      style: FlutterFlowTheme
+                                                          .subtitle2
+                                                          .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color: FlutterFlowTheme
+                                                            .textColor,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  2, 0, 0, 0),
+                                                      child: Text(
+                                                        'Delayed',
+                                                        style: FlutterFlowTheme
+                                                            .subtitle2
+                                                            .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color:
+                                                              FlutterFlowTheme
+                                                                  .textColor,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                              Text(
-                                                listViewBookingsRecord
-                                                    .emiTenureInMonths
-                                                    .toString(),
-                                                style: FlutterFlowTheme
-                                                    .subtitle2
-                                                    .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
-                                              ),
                                             ],
                                           ),
                                           Padding(
@@ -333,10 +384,13 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  dateTimeFormat(
-                                                      'relative',
-                                                      listViewBookingsRecord
-                                                          .created),
+                                                  formatNumber(
+                                                    listViewBookingsRecord
+                                                        .amountLeftToPay,
+                                                    formatType:
+                                                        FormatType.compact,
+                                                    currency: '',
+                                                  ),
                                                   style: FlutterFlowTheme
                                                       .bodyText2
                                                       .override(
@@ -344,18 +398,53 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                     fontSize: 14,
                                                   ),
                                                 ),
-                                                if (listViewBookingsRecord
-                                                        .creditStatus ??
-                                                    true)
-                                                  Text(
-                                                    'Running EMIs',
-                                                    style: FlutterFlowTheme
-                                                        .bodyText1
-                                                        .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: Color(0xFFE91E63),
-                                                    ),
-                                                  ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    if (listViewBookingsRecord
+                                                            .creditStatus ??
+                                                        true)
+                                                      Text(
+                                                        functions
+                                                            .getQuotient(
+                                                                listViewBookingsRecord
+                                                                    .amountLeftToPay,
+                                                                listViewBookingsRecord
+                                                                    .emiAmount)
+                                                            .toString(),
+                                                        style: FlutterFlowTheme
+                                                            .bodyText1
+                                                            .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color:
+                                                              Color(0xFFE91E63),
+                                                        ),
+                                                      ),
+                                                    if (listViewBookingsRecord
+                                                            .creditStatus ??
+                                                        true)
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    2, 0, 0, 0),
+                                                        child: Text(
+                                                          'EMIs Left',
+                                                          style:
+                                                              FlutterFlowTheme
+                                                                  .bodyText1
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Lexend Deca',
+                                                            color: Color(
+                                                                0xFFE91E63),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                  ],
+                                                ),
                                               ],
                                             ),
                                           ),

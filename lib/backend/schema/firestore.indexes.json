@@ -9,7 +9,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "processed",
+          "fieldPath": "lastModified",
           "order": "DESCENDING"
         }
       ]
@@ -24,6 +24,80 @@
         },
         {
           "fieldPath": "lastModified",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "buyerRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "creditStatus",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastModified",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "transactionUser",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionTime",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastModified",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "bookingRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionTime",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "transactions",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "commissionRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "transactionTime",
           "order": "DESCENDING"
         }
       ]

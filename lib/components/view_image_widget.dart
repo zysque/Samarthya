@@ -39,14 +39,17 @@ class _ViewImageWidgetState extends State<ViewImageWidget> {
               children: [
                 Align(
                   alignment: AlignmentDirectional(-1, 0),
-                  child: InkWell(
-                    onTap: () async {
-                      Navigator.pop(context);
-                    },
-                    child: FaIcon(
-                      FontAwesomeIcons.solidWindowClose,
-                      color: Colors.black,
-                      size: 24,
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 0, 15, 0),
+                    child: InkWell(
+                      onTap: () async {
+                        Navigator.pop(context);
+                      },
+                      child: FaIcon(
+                        FontAwesomeIcons.solidWindowClose,
+                        color: Color(0xFF810933),
+                        size: 24,
+                      ),
                     ),
                   ),
                 ),

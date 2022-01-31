@@ -1,6 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/commission_details_widget.dart';
+import '../commission_details/commission_details_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
@@ -269,7 +269,7 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                           queryBuilder: (commissionsRecord) => commissionsRecord
                               .where('commissionUser',
                                   isEqualTo: currentUserReference)
-                              .orderBy('processed', descending: true),
+                              .orderBy('lastModified', descending: true),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -307,23 +307,16 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                     16, 0, 16, 10),
                                 child: InkWell(
                                   onTap: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: CommissionDetailsWidget(
-                                            commissionRef:
-                                                listViewCommissionsRecord
-                                                    .reference,
-                                            isDirect: listViewCommissionsRecord
-                                                .isDirect,
-                                          ),
-                                        );
-                                      },
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            CommissionDetailsWidget(
+                                          commissionRef:
+                                              listViewCommissionsRecord
+                                                  .reference,
+                                        ),
+                                      ),
                                     );
                                   },
                                   child: Container(
@@ -393,7 +386,7 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                   dateTimeFormat(
                                                       'relative',
                                                       listViewCommissionsRecord
-                                                          .processed),
+                                                          .lastModified),
                                                   style: FlutterFlowTheme
                                                       .bodyText2
                                                       .override(
@@ -413,61 +406,32 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                       fontSize: 14,
                                                     ),
                                                   ),
-                                                StreamBuilder<
-                                                    TransactionsRecord>(
-                                                  stream: TransactionsRecord
-                                                      .getDocument(
-                                                          listViewCommissionsRecord
-                                                              .commTransRef),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 40,
-                                                          height: 40,
-                                                          child:
-                                                              SpinKitPumpingHeart(
-                                                            color:
-                                                                FlutterFlowTheme
-                                                                    .primaryColor,
-                                                            size: 40,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    final toggleIconTransactionsRecord =
-                                                        snapshot.data;
-                                                    return ToggleIcon(
-                                                      onPressed: () async {
-                                                        final transactionsUpdateData =
-                                                            createTransactionsRecordData(
-                                                          status:
-                                                              !toggleIconTransactionsRecord
-                                                                  .status,
-                                                        );
-                                                        await toggleIconTransactionsRecord
-                                                            .reference
-                                                            .update(
-                                                                transactionsUpdateData);
-                                                      },
-                                                      value:
-                                                          toggleIconTransactionsRecord
-                                                              .status,
-                                                      onIcon: FaIcon(
-                                                        FontAwesomeIcons.donate,
-                                                        color:
-                                                            Color(0xFF7CD514),
-                                                        size: 20,
-                                                      ),
-                                                      offIcon: Icon(
-                                                        Icons.pending_actions,
-                                                        color:
-                                                            Color(0xFF810933),
-                                                        size: 20,
-                                                      ),
+                                                ToggleIcon(
+                                                  onPressed: () async {
+                                                    final commissionsUpdateData =
+                                                        createCommissionsRecordData(
+                                                      settled:
+                                                          !listViewCommissionsRecord
+                                                              .settled,
                                                     );
+                                                    await listViewCommissionsRecord
+                                                        .reference
+                                                        .update(
+                                                            commissionsUpdateData);
                                                   },
+                                                  value:
+                                                      listViewCommissionsRecord
+                                                          .settled,
+                                                  onIcon: FaIcon(
+                                                    FontAwesomeIcons.donate,
+                                                    color: Color(0xFF7CD514),
+                                                    size: 20,
+                                                  ),
+                                                  offIcon: Icon(
+                                                    Icons.pending_actions,
+                                                    color: Color(0xFF810933),
+                                                    size: 20,
+                                                  ),
                                                 ),
                                               ],
                                             ),

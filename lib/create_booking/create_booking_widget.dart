@@ -57,12 +57,13 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
             .toString());
     leftAmountController = TextEditingController(
         text: functions
-            .getDiffD(
+            .getDiff(
                 functions.getMultiplication(
-                    double.parse(areaController.text),
                     bookingDetailsPlansAndRatesRecord.fixedRatePerSqFt
-                        .toDouble()),
-                double.parse(downPaymentController.text))
+                        .toDouble(),
+                    double.parse(areaController.text)),
+                functions.getSum(double.parse(bookingAmtController.text),
+                    double.parse(downPaymentController.text)))
             .toString()
             .toString());
   }
@@ -675,90 +676,120 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  StreamBuilder<List<PlansAndRatesRecord>>(
-                    stream: queryPlansAndRatesRecord(
-                      queryBuilder: (plansAndRatesRecord) => plansAndRatesRecord
-                          .where('phaseCode', isEqualTo: phaseValue),
-                      singleRecord: true,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
-                            ),
-                          ),
-                        );
-                      }
-                      List<PlansAndRatesRecord>
-                          logBookingPlansAndRatesRecordList = snapshot.data;
-                      final logBookingPlansAndRatesRecord =
-                          logBookingPlansAndRatesRecordList.isNotEmpty
-                              ? logBookingPlansAndRatesRecordList.first
-                              : null;
-                      return FFButtonWidget(
-                        onPressed: () async {
-                          if (!formKey.currentState.validate()) {
-                            return;
+              child: StreamBuilder<List<UserHierarchiesRecord>>(
+                stream: queryUserHierarchiesRecord(
+                  queryBuilder: (userHierarchiesRecord) => userHierarchiesRecord
+                      .where('hierarchyUser', isEqualTo: currentUserReference),
+                  singleRecord: true,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: SpinKitPumpingHeart(
+                          color: FlutterFlowTheme.primaryColor,
+                          size: 40,
+                        ),
+                      ),
+                    );
+                  }
+                  List<UserHierarchiesRecord> columnUserHierarchiesRecordList =
+                      snapshot.data;
+                  final columnUserHierarchiesRecord =
+                      columnUserHierarchiesRecordList.isNotEmpty
+                          ? columnUserHierarchiesRecordList.first
+                          : null;
+                  return Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      StreamBuilder<List<PlansAndRatesRecord>>(
+                        stream: queryPlansAndRatesRecord(
+                          queryBuilder: (plansAndRatesRecord) =>
+                              plansAndRatesRecord.where('phaseCode',
+                                  isEqualTo: phaseValue),
+                          singleRecord: true,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 40,
+                                height: 40,
+                                child: SpinKitPumpingHeart(
+                                  color: FlutterFlowTheme.primaryColor,
+                                  size: 40,
+                                ),
+                              ),
+                            );
                           }
-                          final bookingsCreateData = createBookingsRecordData(
-                            projectRef: widget.projectRef,
-                            planRef: logBookingPlansAndRatesRecord.reference,
-                            buyerRef: currentUserReference,
-                            totalAmountToPay:
-                                double.parse(totalAmountController?.text ?? ''),
-                            areaBookedInSqft: int.parse(areaController.text),
-                            bookingAmount:
-                                double.parse(bookingAmtController.text),
-                            downPayment:
-                                double.parse(downPaymentController.text),
-                            emiAmount:
-                                double.parse(emiPayController?.text ?? ''),
-                            emiTenureInMonths: functions.parseReplaceFromString(
-                                emiTenureValue, ' Months'),
-                            created: getCurrentTimestamp,
-                            isApproved: false,
-                            amountLeftToPay:
-                                double.parse(leftAmountController.text),
-                            lastModified: getCurrentTimestamp,
-                          );
-                          await BookingsRecord.collection
-                              .doc()
-                              .set(bookingsCreateData);
-                          await Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  NavBarPage(initialPage: 'projects'),
+                          List<PlansAndRatesRecord>
+                              logBookingPlansAndRatesRecordList = snapshot.data;
+                          final logBookingPlansAndRatesRecord =
+                              logBookingPlansAndRatesRecordList.isNotEmpty
+                                  ? logBookingPlansAndRatesRecordList.first
+                                  : null;
+                          return FFButtonWidget(
+                            onPressed: () async {
+                              if (!formKey.currentState.validate()) {
+                                return;
+                              }
+                              final bookingsCreateData =
+                                  createBookingsRecordData(
+                                projectRef: widget.projectRef,
+                                planRef:
+                                    logBookingPlansAndRatesRecord.reference,
+                                buyerRef: currentUserReference,
+                                totalAmountToPay: double.parse(
+                                    totalAmountController?.text ?? ''),
+                                areaBookedInSqft:
+                                    int.parse(areaController.text),
+                                bookingAmount:
+                                    double.parse(bookingAmtController.text),
+                                downPayment:
+                                    double.parse(downPaymentController.text),
+                                emiAmount:
+                                    double.parse(emiPayController?.text ?? ''),
+                                emiTenureInMonths:
+                                    functions.parseReplaceFromString(
+                                        emiTenureValue, ' Months'),
+                                created: getCurrentTimestamp,
+                                isApproved: false,
+                              );
+                              await BookingsRecord.collection
+                                  .doc()
+                                  .set(bookingsCreateData);
+                              await Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      NavBarPage(initialPage: 'projects'),
+                                ),
+                                (r) => false,
+                              );
+                            },
+                            text: 'Book',
+                            options: FFButtonOptions(
+                              width: 180,
+                              height: 50,
+                              color: FlutterFlowTheme.tertiaryColor,
+                              textStyle: FlutterFlowTheme.title1,
+                              elevation: 0,
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.darkBackground,
+                                width: 1,
+                              ),
+                              borderRadius: 12,
                             ),
-                            (r) => false,
                           );
                         },
-                        text: 'Book',
-                        options: FFButtonOptions(
-                          width: 180,
-                          height: 50,
-                          color: FlutterFlowTheme.tertiaryColor,
-                          textStyle: FlutterFlowTheme.title1,
-                          elevation: 0,
-                          borderSide: BorderSide(
-                            color: FlutterFlowTheme.darkBackground,
-                            width: 1,
-                          ),
-                          borderRadius: 12,
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ],
