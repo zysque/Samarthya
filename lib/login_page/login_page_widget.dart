@@ -340,6 +340,17 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           ),
                         ),
                       ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Image.network(
+                            'https://picsum.photos/seed/245/600',
+                            width: 100,
+                            height: 100,
+                            fit: BoxFit.cover,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),
