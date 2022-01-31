@@ -368,8 +368,8 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             if (val.isEmpty) {
                               return 'Field is required';
                             }
-                            if (val.length < 10) {
-                              return 'Requires at least 10 characters.';
+                            if (val.length < 12) {
+                              return 'Requires at least 12 characters.';
                             }
                             return null;
                           },
@@ -409,12 +409,6 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.textColor,
                           ),
-                          validator: (val) {
-                            if (val.length < 10) {
-                              return 'Requires at least 10 characters.';
-                            }
-                            return null;
-                          },
                         ),
                       ),
                       Padding(
@@ -604,6 +598,13 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                         final calculationsCreateData =
                             createCalculationsRecordData(
                           userRef: currentUserReference,
+                          directCommission: 0.0,
+                          indirectCommission: 0.0,
+                          unsettledDirect: 0.0,
+                          unsettledIndirect: 0.0,
+                          emiDueAmount: 0.0,
+                          emiDueDate: getCurrentTimestamp,
+                          defaultPayments: 0,
                         );
                         await CalculationsRecord.collection
                             .doc()

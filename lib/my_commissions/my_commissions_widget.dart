@@ -78,11 +78,24 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.background,
+        backgroundColor: FlutterFlowTheme.primaryColor,
         automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.grayLight,
+            size: 32,
+          ),
+        ),
         title: Text(
-          'My Commisions',
-          style: FlutterFlowTheme.title1,
+          'My Commissions',
+          style: FlutterFlowTheme.title1.override(
+            fontFamily: 'Lexend Deca',
+            color: FlutterFlowTheme.textColor,
+          ),
         ),
         actions: [],
         centerTitle: true,

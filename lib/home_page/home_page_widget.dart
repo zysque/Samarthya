@@ -136,6 +136,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width * 0.44,
+                      height: 150,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.errorRed,
                         borderRadius: BorderRadius.circular(8),
@@ -211,39 +212,78 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     style: FlutterFlowTheme.title3,
                                   ),
                                 ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 4, 0, 0),
-                                      child: Text(
-                                        functions
-                                            .getDaysLeft(
-                                                columnCalculationsRecord
-                                                    .emiDueDate)
-                                            .toString(),
-                                        style: GoogleFonts.getFont(
-                                          'Lexend Deca',
-                                          color: FlutterFlowTheme.textColor,
-                                          fontSize: 12,
+                                if (functions.getIfDaysLeft(
+                                        columnCalculationsRecord.emiDueDate) ??
+                                    true)
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 4, 0, 0),
+                                        child: Text(
+                                          functions
+                                              .getDaysLeft(
+                                                  columnCalculationsRecord
+                                                      .emiDueDate)
+                                              .toString(),
+                                          style: GoogleFonts.getFont(
+                                            'Lexend Deca',
+                                            color: FlutterFlowTheme.textColor,
+                                            fontSize: 12,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 4, 0, 0),
-                                      child: Text(
-                                        'Days Left',
-                                        style: GoogleFonts.getFont(
-                                          'Lexend Deca',
-                                          color: FlutterFlowTheme.textColor,
-                                          fontSize: 12,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            2, 4, 0, 0),
+                                        child: Text(
+                                          'Days Left',
+                                          style: GoogleFonts.getFont(
+                                            'Lexend Deca',
+                                            color: FlutterFlowTheme.textColor,
+                                            fontSize: 12,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
+                                if (!(functions.getIfDaysLeft(
+                                        columnCalculationsRecord.emiDueDate)) ??
+                                    true)
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 4, 0, 0),
+                                        child: Text(
+                                          functions
+                                              .getDaysLeft(
+                                                  columnCalculationsRecord
+                                                      .emiDueDate)
+                                              .toString(),
+                                          style: GoogleFonts.getFont(
+                                            'Lexend Deca',
+                                            color: FlutterFlowTheme.textColor,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            2, 4, 0, 0),
+                                        child: Text(
+                                          'Days Delay',
+                                          style: GoogleFonts.getFont(
+                                            'Lexend Deca',
+                                            color: FlutterFlowTheme.textColor,
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                               ],
                             );
                           },
@@ -252,6 +292,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width * 0.44,
+                      height: 150,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.tertiaryColor,
                         borderRadius: BorderRadius.circular(8),
@@ -353,7 +394,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           2, 4, 0, 0),
                                       child: Text(
-                                        'Days Left',
+                                        'Days Delay',
                                         style: GoogleFonts.getFont(
                                           'Lexend Deca',
                                           color: FlutterFlowTheme.textColor,
@@ -376,6 +417,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.92,
+                  height: 250,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.darkBackground,
                     boxShadow: [
@@ -791,6 +833,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             : null;
                     return Container(
                       width: MediaQuery.of(context).size.width * 0.92,
+                      height: 155,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.darkBackground,
                         boxShadow: [

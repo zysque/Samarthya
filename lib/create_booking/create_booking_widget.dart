@@ -148,349 +148,361 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                           );
                         },
                       ),
-                      StreamBuilder<List<PlansAndRatesRecord>>(
-                        stream: queryPlansAndRatesRecord(
-                          queryBuilder: (plansAndRatesRecord) =>
-                              plansAndRatesRecord.where('phaseCode',
-                                  isEqualTo: phaseValue),
-                          singleRecord: true,
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: SpinKitPumpingHeart(
-                                  color: FlutterFlowTheme.primaryColor,
-                                  size: 40,
-                                ),
-                              ),
-                            );
-                          }
-                          List<PlansAndRatesRecord>
-                              bookingDetailsPlansAndRatesRecordList =
-                              snapshot.data;
-                          final bookingDetailsPlansAndRatesRecord =
-                              bookingDetailsPlansAndRatesRecordList.isNotEmpty
-                                  ? bookingDetailsPlansAndRatesRecordList.first
-                                  : null;
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                child: TextFormField(
-                                  controller: areaController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Plot Area',
-                                    labelStyle: FlutterFlowTheme.subtitle1,
-                                    hintText: 'Please enter plot area in sqft',
-                                    hintStyle: FlutterFlowTheme.subtitle1,
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            20, 4, 20, 4),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 500,
+                        decoration: BoxDecoration(),
+                        child: StreamBuilder<List<PlansAndRatesRecord>>(
+                          stream: queryPlansAndRatesRecord(
+                            queryBuilder: (plansAndRatesRecord) =>
+                                plansAndRatesRecord.where('phaseCode',
+                                    isEqualTo: phaseValue),
+                            singleRecord: true,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: SpinKitPumpingHeart(
+                                    color: FlutterFlowTheme.primaryColor,
+                                    size: 40,
                                   ),
-                                  style: FlutterFlowTheme.subtitle1,
-                                  keyboardType: TextInputType.number,
-                                  validator: (val) {
-                                    if (val.isEmpty) {
-                                      return 'Field is required';
-                                    }
-
-                                    return null;
-                                  },
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Rate per SQFT',
-                                      style: FlutterFlowTheme.subtitle1,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.rupeeSign,
-                                        color: FlutterFlowTheme.grayLight,
-                                        size: 18,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          5, 0, 0, 0),
-                                      child: Text(
-                                        bookingDetailsPlansAndRatesRecord
-                                            .fixedRatePerSqFt
-                                            .toString(),
-                                        style: FlutterFlowTheme.subtitle1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Booking Amount',
-                                      style: FlutterFlowTheme.subtitle1,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.rupeeSign,
-                                        color: FlutterFlowTheme.grayLight,
-                                        size: 18,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          5, 0, 0, 0),
-                                      child: Text(
-                                        functions
-                                            .getBookingAmt(
-                                                bookingDetailsPlansAndRatesRecord
-                                                    .minBookingAmtPerc,
-                                                bookingDetailsPlansAndRatesRecord
-                                                    .fixedRatePerSqFt
-                                                    .toDouble(),
-                                                double.parse(
-                                                    areaController.text))
-                                            .toString(),
-                                        style: FlutterFlowTheme.subtitle1,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                child: TextFormField(
-                                  controller: downPaymentController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    labelText: 'Down Payment',
-                                    labelStyle: FlutterFlowTheme.subtitle1,
-                                    hintText: 'Please enter booking amount',
-                                    hintStyle: FlutterFlowTheme.subtitle1,
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            20, 0, 0, 0),
-                                  ),
-                                  style: FlutterFlowTheme.subtitle1,
-                                  keyboardType: TextInputType.number,
-                                  validator: (val) {
-                                    if (val.isEmpty) {
-                                      return 'Field is required';
-                                    }
-
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    FlutterFlowDropDown(
-                                      options: bookingDetailsPlansAndRatesRecord
-                                          .emiTenureOptions
-                                          .toList()
-                                          .toList(),
-                                      onChanged: (val) =>
-                                          setState(() => emiTenureValue = val),
-                                      width: 200,
-                                      height: 50,
-                                      textStyle: FlutterFlowTheme.subtitle1,
-                                      hintText: 'Select EMI Tenure',
-                                      fillColor:
-                                          FlutterFlowTheme.darkBackground,
-                                      elevation: 2,
-                                      borderColor: Colors.transparent,
-                                      borderWidth: 0,
-                                      borderRadius: 0,
-                                      margin: EdgeInsetsDirectional.fromSTEB(
-                                          12, 4, 4, 4),
-                                      hidesUnderline: true,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 40, 0),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          await showModalBottomSheet(
-                                            isScrollControlled: true,
-                                            backgroundColor: Colors.transparent,
-                                            context: context,
-                                            builder: (context) {
-                                              return Padding(
-                                                padding: MediaQuery.of(context)
-                                                    .viewInsets,
-                                                child: CalculateEMIWidget(
-                                                  planRef:
-                                                      bookingDetailsPlansAndRatesRecord
-                                                          .reference,
-                                                ),
-                                              );
-                                            },
-                                          );
-                                        },
-                                        child: FaIcon(
-                                          FontAwesomeIcons.calculator,
-                                          color: Color(0xFF7CD514),
-                                          size: 24,
+                              );
+                            }
+                            List<PlansAndRatesRecord>
+                                bookingDetailsPlansAndRatesRecordList =
+                                snapshot.data;
+                            final bookingDetailsPlansAndRatesRecord =
+                                bookingDetailsPlansAndRatesRecordList.isNotEmpty
+                                    ? bookingDetailsPlansAndRatesRecordList
+                                        .first
+                                    : null;
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 0),
+                                  child: TextFormField(
+                                    controller: areaController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Plot Area',
+                                      labelStyle: FlutterFlowTheme.subtitle1,
+                                      hintText:
+                                          'Please enter plot area in sqft',
+                                      hintStyle: FlutterFlowTheme.subtitle1,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Monthly Installments',
-                                      style: FlutterFlowTheme.subtitle1,
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20, 0, 0, 0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.rupeeSign,
-                                        color: FlutterFlowTheme.grayLight,
-                                        size: 18,
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
                                       ),
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              20, 4, 20, 4),
                                     ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          5, 0, 0, 0),
-                                      child: Text(
-                                        functions
-                                            .emiCalculator(
-                                                int.parse(areaController.text),
-                                                bookingDetailsPlansAndRatesRecord
-                                                    .fixedRatePerSqFt,
-                                                functions.getBookingAmt(
-                                                    bookingDetailsPlansAndRatesRecord
-                                                        .minBookingAmtPerc,
-                                                    bookingDetailsPlansAndRatesRecord
-                                                        .fixedRatePerSqFt
-                                                        .toDouble(),
-                                                    double.parse(
-                                                        areaController.text)),
-                                                double.parse(
-                                                    downPaymentController.text),
-                                                emiTenureValue)
-                                            .toString(),
+                                    style: FlutterFlowTheme.subtitle1,
+                                    keyboardType: TextInputType.number,
+                                    validator: (val) {
+                                      if (val.isEmpty) {
+                                        return 'Field is required';
+                                      }
+
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Rate per SQFT',
                                         style: FlutterFlowTheme.subtitle1,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                child: TextFormField(
-                                  controller: descriptionController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    hintText: 'Booking  Description',
-                                    hintStyle: FlutterFlowTheme.bodyText1,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.background,
-                                        width: 2,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.rupeeSign,
+                                          color: FlutterFlowTheme.grayLight,
+                                          size: 18,
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.background,
-                                        width: 2,
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5, 0, 0, 0),
+                                        child: Text(
+                                          bookingDetailsPlansAndRatesRecord
+                                              .fixedRatePerSqFt
+                                              .toString(),
+                                          style: FlutterFlowTheme.subtitle1,
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            20, 10, 24, 0),
+                                    ],
                                   ),
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: FlutterFlowTheme.textColor,
-                                    fontSize: 13,
-                                  ),
-                                  textAlign: TextAlign.start,
-                                  maxLines: 12,
                                 ),
-                              ),
-                            ],
-                          );
-                        },
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Booking Amount',
+                                        style: FlutterFlowTheme.subtitle1,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.rupeeSign,
+                                          color: FlutterFlowTheme.grayLight,
+                                          size: 18,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5, 0, 0, 0),
+                                        child: Text(
+                                          functions
+                                              .getBookingAmt(
+                                                  bookingDetailsPlansAndRatesRecord
+                                                      .minBookingAmtPerc,
+                                                  bookingDetailsPlansAndRatesRecord
+                                                      .fixedRatePerSqFt
+                                                      .toDouble(),
+                                                  double.parse(
+                                                      areaController.text))
+                                              .toString(),
+                                          style: FlutterFlowTheme.subtitle1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 0),
+                                  child: TextFormField(
+                                    controller: downPaymentController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Down Payment',
+                                      labelStyle: FlutterFlowTheme.subtitle1,
+                                      hintText: 'Please enter booking amount',
+                                      hintStyle: FlutterFlowTheme.subtitle1,
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0x00000000),
+                                          width: 1,
+                                        ),
+                                        borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(4.0),
+                                          topRight: Radius.circular(4.0),
+                                        ),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              20, 0, 0, 0),
+                                    ),
+                                    style: FlutterFlowTheme.subtitle1,
+                                    keyboardType: TextInputType.number,
+                                    validator: (val) {
+                                      if (val.isEmpty) {
+                                        return 'Field is required';
+                                      }
+
+                                      return null;
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      FlutterFlowDropDown(
+                                        options:
+                                            bookingDetailsPlansAndRatesRecord
+                                                .emiTenureOptions
+                                                .toList()
+                                                .toList(),
+                                        onChanged: (val) => setState(
+                                            () => emiTenureValue = val),
+                                        width: 200,
+                                        height: 50,
+                                        textStyle: FlutterFlowTheme.subtitle1,
+                                        hintText: 'Select EMI Tenure',
+                                        fillColor:
+                                            FlutterFlowTheme.darkBackground,
+                                        elevation: 2,
+                                        borderColor: Colors.transparent,
+                                        borderWidth: 0,
+                                        borderRadius: 0,
+                                        margin: EdgeInsetsDirectional.fromSTEB(
+                                            12, 4, 4, 4),
+                                        hidesUnderline: true,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 40, 0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              context: context,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding:
+                                                      MediaQuery.of(context)
+                                                          .viewInsets,
+                                                  child: CalculateEMIWidget(
+                                                    planRef:
+                                                        bookingDetailsPlansAndRatesRecord
+                                                            .reference,
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          },
+                                          child: FaIcon(
+                                            FontAwesomeIcons.calculator,
+                                            color: Color(0xFF7CD514),
+                                            size: 24,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Monthly Installments',
+                                        style: FlutterFlowTheme.subtitle1,
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: FaIcon(
+                                          FontAwesomeIcons.rupeeSign,
+                                          color: FlutterFlowTheme.grayLight,
+                                          size: 18,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5, 0, 0, 0),
+                                        child: Text(
+                                          functions
+                                              .emiCalculator(
+                                                  int.parse(
+                                                      areaController.text),
+                                                  bookingDetailsPlansAndRatesRecord
+                                                      .fixedRatePerSqFt,
+                                                  functions.getBookingAmt(
+                                                      bookingDetailsPlansAndRatesRecord
+                                                          .minBookingAmtPerc,
+                                                      bookingDetailsPlansAndRatesRecord
+                                                          .fixedRatePerSqFt
+                                                          .toDouble(),
+                                                      double.parse(
+                                                          areaController.text)),
+                                                  double.parse(
+                                                      downPaymentController
+                                                          .text),
+                                                  emiTenureValue)
+                                              .toString(),
+                                          style: FlutterFlowTheme.subtitle1,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 15, 0, 0),
+                                  child: TextFormField(
+                                    controller: descriptionController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      hintText: 'Booking  Description',
+                                      hintStyle: FlutterFlowTheme.bodyText1,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.background,
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.background,
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              20, 10, 24, 0),
+                                    ),
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.textColor,
+                                      fontSize: 13,
+                                    ),
+                                    textAlign: TextAlign.start,
+                                    maxLines: 12,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),

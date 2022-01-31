@@ -52,10 +52,20 @@ class _PayDuesWidgetState extends State<PayDuesWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.darkBackground,
+        backgroundColor: FlutterFlowTheme.primaryColor,
         automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.grayLight,
+            size: 32,
+          ),
+        ),
         title: Text(
-          'Dues',
+          'My Dues',
           style: FlutterFlowTheme.title1.override(
             fontFamily: 'Lexend Deca',
             color: FlutterFlowTheme.textColor,

@@ -238,6 +238,13 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           fontFamily: 'Lexend Deca',
                           color: FlutterFlowTheme.textColor,
                         ),
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Field is required';
+                          }
+
+                          return null;
+                        },
                       ),
                     ),
                     Padding(
@@ -407,8 +414,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         ),
                         keyboardType: TextInputType.number,
                         validator: (val) {
-                          if (val.length < 10) {
-                            return 'Requires at least 10 characters.';
+                          if (val.length < 12) {
+                            return 'Requires at least 12 characters.';
                           }
                           return null;
                         },

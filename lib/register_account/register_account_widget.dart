@@ -304,58 +304,137 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       ),
                                       if (FFAppState().hasReferral ?? true)
                                         Expanded(
-                                          child: TextFormField(
-                                            controller: referralController,
-                                            obscureText: false,
-                                            decoration: InputDecoration(
-                                              labelText: 'Referral ID',
-                                              labelStyle: FlutterFlowTheme
-                                                  .bodyText1
-                                                  .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color: Color(0x98FFFFFF),
-                                              ),
-                                              hintText: 'Enter Referral ID',
-                                              hintStyle: FlutterFlowTheme
-                                                  .bodyText1
-                                                  .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color: Color(0x98FFFFFF),
-                                              ),
-                                              enabledBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Color(0x00000000),
-                                                  width: 1,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              focusedBorder: OutlineInputBorder(
-                                                borderSide: BorderSide(
-                                                  color: Color(0x00000000),
-                                                  width: 1,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                              filled: true,
-                                              fillColor: FlutterFlowTheme
-                                                  .darkBackground,
-                                              contentPadding:
-                                                  EdgeInsetsDirectional
-                                                      .fromSTEB(20, 24, 20, 24),
+                                          child:
+                                              StreamBuilder<List<UsersRecord>>(
+                                            stream: queryUsersRecord(
+                                              queryBuilder: (usersRecord) =>
+                                                  usersRecord.where('uid',
+                                                      isEqualTo:
+                                                          referralController
+                                                              .text),
+                                              singleRecord: true,
                                             ),
-                                            style: FlutterFlowTheme.bodyText1
-                                                .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color: FlutterFlowTheme.textColor,
-                                            ),
-                                            validator: (val) {
-                                              if (val.isEmpty) {
-                                                return 'Field is required';
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 40,
+                                                    height: 40,
+                                                    child: SpinKitPumpingHeart(
+                                                      color: FlutterFlowTheme
+                                                          .primaryColor,
+                                                      size: 40,
+                                                    ),
+                                                  ),
+                                                );
                                               }
+                                              List<UsersRecord>
+                                                  referralUsersRecordList =
+                                                  snapshot.data;
+                                              final referralUsersRecord =
+                                                  referralUsersRecordList
+                                                          .isNotEmpty
+                                                      ? referralUsersRecordList
+                                                          .first
+                                                      : null;
+                                              return TextFormField(
+                                                onFieldSubmitted: (_) async {
+                                                  if (!formKey.currentState
+                                                      .validate()) {
+                                                    return;
+                                                  }
+                                                  if (referralUsersRecord !=
+                                                      null) {
+                                                    await showDialog(
+                                                      context: context,
+                                                      builder:
+                                                          (alertDialogContext) {
+                                                        return AlertDialog(
+                                                          title: Text(
+                                                              'Wrong Referral ID'),
+                                                          content: Text(
+                                                              'The referral User doesn\'t exist, Please correct the rerral ID.'),
+                                                          actions: [
+                                                            TextButton(
+                                                              onPressed: () =>
+                                                                  Navigator.pop(
+                                                                      alertDialogContext),
+                                                              child: Text('Ok'),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      },
+                                                    );
+                                                  }
+                                                  if (!(referralUsersRecord !=
+                                                      null)) {
+                                                    setState(() {
+                                                      referralController
+                                                          .clear();
+                                                    });
+                                                  }
+                                                },
+                                                controller: referralController,
+                                                obscureText: false,
+                                                decoration: InputDecoration(
+                                                  labelText: 'Referral ID',
+                                                  labelStyle: FlutterFlowTheme
+                                                      .bodyText1
+                                                      .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: Color(0x98FFFFFF),
+                                                  ),
+                                                  hintText: 'Enter Referral ID',
+                                                  hintStyle: FlutterFlowTheme
+                                                      .bodyText1
+                                                      .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: Color(0x98FFFFFF),
+                                                  ),
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0x00000000),
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
+                                                  ),
+                                                  filled: true,
+                                                  fillColor: FlutterFlowTheme
+                                                      .darkBackground,
+                                                  contentPadding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                              20, 24, 20, 24),
+                                                ),
+                                                style: FlutterFlowTheme
+                                                    .bodyText1
+                                                    .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme
+                                                      .textColor,
+                                                ),
+                                                validator: (val) {
+                                                  if (val.isEmpty) {
+                                                    return 'Field is required';
+                                                  }
 
-                                              return null;
+                                                  return null;
+                                                },
+                                              );
                                             },
                                           ),
                                         ),
@@ -396,30 +475,6 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                               : null;
                                       return FFButtonWidget(
                                         onPressed: () async {
-                                          if ((FFAppState().hasReferral) ==
-                                              (!(buttonUsersRecord != null))) {
-                                            await showDialog(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title: Text(
-                                                      'Incorrect Referral ID'),
-                                                  content: Text(
-                                                      'The referral User doesn\'t exist, Please correct the rerral ID.'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext),
-                                                      child: Text('Ok'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
-                                          } else {
-                                            return;
-                                          }
                                           if (passwordCreateController.text !=
                                               passwordConfirmController.text) {
                                             ScaffoldMessenger.of(context)

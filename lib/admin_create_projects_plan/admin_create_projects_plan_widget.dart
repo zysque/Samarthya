@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -606,7 +607,13 @@ class _AdminCreateProjectsPlanWidgetState
                       await PlansAndRatesRecord.collection
                           .doc()
                           .set(plansAndRatesCreateData);
-                      Navigator.pop(context);
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              NavBarPage(initialPage: 'projects'),
+                        ),
+                      );
                     },
                     text: 'Create',
                     options: FFButtonOptions(

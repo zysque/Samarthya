@@ -250,13 +250,6 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                               List<PlansAndRatesRecord>
                                   listViewPlansAndRatesRecordList =
                                   snapshot.data;
-                              if (listViewPlansAndRatesRecordList.isEmpty) {
-                                return Center(
-                                  child: Image.asset(
-                                    'assets/images/NoSale.JPG',
-                                  ),
-                                );
-                              }
                               return ListView.builder(
                                 padding: EdgeInsets.zero,
                                 shrinkWrap: true,
@@ -425,10 +418,18 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                                   final emiOptionItem =
                                                                       emiOption[
                                                                           emiOptionIndex];
-                                                                  return Text(
-                                                                    emiOptionItem,
-                                                                    style: FlutterFlowTheme
-                                                                        .bodyText1,
+                                                                  return Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0,
+                                                                            0,
+                                                                            5,
+                                                                            0),
+                                                                    child: Text(
+                                                                      emiOptionItem,
+                                                                      style: FlutterFlowTheme
+                                                                          .bodyText1,
+                                                                    ),
                                                                   );
                                                                 }),
                                                               ),

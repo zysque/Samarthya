@@ -145,7 +145,7 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                           if (listViewProjectsRecordList.isEmpty) {
                             return Center(
                               child: Image.asset(
-                                'assets/images/NoSale.JPG',
+                                'assets/images/NoProject.JPG',
                               ),
                             );
                           }
