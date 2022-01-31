@@ -25,24 +25,12 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
   String emiTenureValue;
   TextEditingController areaController;
   TextEditingController downPaymentController;
-  TextEditingController bookingAmtController;
 
   @override
   void initState() {
     super.initState();
     areaController = TextEditingController();
     downPaymentController = TextEditingController();
-    bookingAmtController = TextEditingController(
-        text: functions
-            .getMultiplication(
-                functions.getMultiplication(
-                    bookingDetailsPlansAndRatesRecord.fixedRatePerSqFt
-                        .toDouble(),
-                    bookingDetailsPlansAndRatesRecord.minBookingAmtPerc),
-                functions.getMultiplication(
-                    double.parse(areaController.text), 0.01))
-            .toString()
-            .toString());
   }
 
   @override
@@ -191,7 +179,15 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                               child: Text(
-                                bookingAmtController.text,
+                                functions
+                                    .getBookingAmt(
+                                        bookingDetailsPlansAndRatesRecord
+                                            .minBookingAmtPerc,
+                                        bookingDetailsPlansAndRatesRecord
+                                            .fixedRatePerSqFt
+                                            .toDouble(),
+                                        double.parse(areaController.text))
+                                    .toString(),
                                 style: FlutterFlowTheme.subtitle2,
                               ),
                             ),
@@ -206,7 +202,7 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                           decoration: InputDecoration(
                             labelText: 'Down Payment',
                             labelStyle: FlutterFlowTheme.subtitle2,
-                            hintText: 'Please enter booking amount',
+                            hintText: 'Please enter down payment',
                             hintStyle: FlutterFlowTheme.subtitle2,
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -287,7 +283,13 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                         int.parse(areaController.text),
                                         bookingDetailsPlansAndRatesRecord
                                             .fixedRatePerSqFt,
-                                        double.parse(bookingAmtController.text),
+                                        functions.getBookingAmt(
+                                            bookingDetailsPlansAndRatesRecord
+                                                .minBookingAmtPerc,
+                                            bookingDetailsPlansAndRatesRecord
+                                                .fixedRatePerSqFt
+                                                .toDouble(),
+                                            double.parse(areaController.text)),
                                         double.parse(
                                             downPaymentController.text),
                                         emiTenureValue)
@@ -301,48 +303,6 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                           ],
                         ),
                       ),
-                      if (('a') == 'b')
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: TextFormField(
-                                  controller: bookingAmtController,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    enabledBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                    focusedBorder: UnderlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0x00000000),
-                                        width: 1,
-                                      ),
-                                      borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(4.0),
-                                        topRight: Radius.circular(4.0),
-                                      ),
-                                    ),
-                                  ),
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    fontSize: 2,
-                                    fontWeight: FontWeight.w100,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                     ],
                   );
                 },

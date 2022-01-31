@@ -131,7 +131,7 @@ class _AdminBookingApprovalWidgetState
                       ),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.78,
+                        height: MediaQuery.of(context).size.height * 0.76,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.darkBackground,
                           borderRadius: BorderRadius.only(
@@ -674,7 +674,7 @@ class _AdminBookingApprovalWidgetState
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                       child: StreamBuilder<List<UserHierarchiesRecord>>(
                         stream: queryUserHierarchiesRecord(
                           queryBuilder: (userHierarchiesRecord) =>
