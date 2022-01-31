@@ -531,8 +531,10 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                       StreamBuilder<List<PlansAndRatesRecord>>(
                         stream: queryPlansAndRatesRecord(
                           queryBuilder: (plansAndRatesRecord) =>
-                              plansAndRatesRecord.where('phaseCode',
-                                  isEqualTo: phaseValue),
+                              plansAndRatesRecord
+                                  .where('phaseCode', isEqualTo: phaseValue)
+                                  .where('projectRef',
+                                      isEqualTo: widget.projectRef),
                           singleRecord: true,
                         ),
                         builder: (context, snapshot) {
@@ -608,7 +610,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      NavBarPage(initialPage: 'HomePage'),
+                                      NavBarPage(initialPage: 'projects'),
                                 ),
                                 (r) => false,
                               );
