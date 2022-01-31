@@ -121,3 +121,12 @@ DateTime getNewDate(
     ),
   ));
 }
+
+double getBookingAmt(
+  double perc,
+  double rate,
+  double area,
+) {
+  // Add your function code here!
+  return (area * rate * perc) / 100;
+}

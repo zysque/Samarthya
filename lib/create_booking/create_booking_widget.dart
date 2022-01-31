@@ -30,10 +30,6 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
   TextEditingController areaController;
   TextEditingController downPaymentController;
   TextEditingController descriptionController;
-  TextEditingController bookingAmtController;
-  TextEditingController totalAmountController;
-  TextEditingController leftAmountController;
-  TextEditingController emiPayController;
   String phaseValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -44,28 +40,6 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
     areaController = TextEditingController();
     downPaymentController = TextEditingController();
     descriptionController = TextEditingController();
-    bookingAmtController = TextEditingController(
-        text: functions
-            .getMultiplication(
-                functions.getMultiplication(
-                    bookingDetailsPlansAndRatesRecord.fixedRatePerSqFt
-                        .toDouble(),
-                    bookingDetailsPlansAndRatesRecord.minBookingAmtPerc),
-                functions.getMultiplication(
-                    double.parse(areaController.text), 0.01))
-            .toString()
-            .toString());
-    leftAmountController = TextEditingController(
-        text: functions
-            .getDiff(
-                functions.getMultiplication(
-                    bookingDetailsPlansAndRatesRecord.fixedRatePerSqFt
-                        .toDouble(),
-                    double.parse(areaController.text)),
-                functions.getSum(double.parse(bookingAmtController.text),
-                    double.parse(downPaymentController.text)))
-            .toString()
-            .toString());
   }
 
   @override
@@ -308,7 +282,16 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           5, 0, 0, 0),
                                       child: Text(
-                                        bookingAmtController.text,
+                                        functions
+                                            .getBookingAmt(
+                                                bookingDetailsPlansAndRatesRecord
+                                                    .minBookingAmtPerc,
+                                                bookingDetailsPlansAndRatesRecord
+                                                    .fixedRatePerSqFt
+                                                    .toDouble(),
+                                                double.parse(
+                                                    areaController.text))
+                                            .toString(),
                                         style: FlutterFlowTheme.subtitle1,
                                       ),
                                     ),
@@ -446,7 +429,23 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           5, 0, 0, 0),
                                       child: Text(
-                                        emiPayController?.text ?? '',
+                                        functions
+                                            .emiCalculator(
+                                                int.parse(areaController.text),
+                                                bookingDetailsPlansAndRatesRecord
+                                                    .fixedRatePerSqFt,
+                                                functions.getBookingAmt(
+                                                    bookingDetailsPlansAndRatesRecord
+                                                        .minBookingAmtPerc,
+                                                    bookingDetailsPlansAndRatesRecord
+                                                        .fixedRatePerSqFt
+                                                        .toDouble(),
+                                                    double.parse(
+                                                        areaController.text)),
+                                                double.parse(
+                                                    downPaymentController.text),
+                                                emiTenureValue)
+                                            .toString(),
                                         style: FlutterFlowTheme.subtitle1,
                                       ),
                                     ),
@@ -489,182 +488,6 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                   maxLines: 12,
                                 ),
                               ),
-                              if (('a') == 'b')
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: bookingAmtController,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                        ),
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Lexend Deca',
-                                          fontSize: 2,
-                                          fontWeight: FontWeight.w100,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: totalAmountController ??=
-                                            TextEditingController(
-                                          text: functions
-                                              .getMultiplication(
-                                                  bookingDetailsPlansAndRatesRecord
-                                                      .fixedRatePerSqFt
-                                                      .toDouble(),
-                                                  double.parse(
-                                                      areaController.text))
-                                              .toString(),
-                                        ),
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                        ),
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Lexend Deca',
-                                          fontSize: 2,
-                                          fontWeight: FontWeight.w100,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: leftAmountController,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                        ),
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Lexend Deca',
-                                          fontSize: 2,
-                                          fontWeight: FontWeight.w100,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: TextFormField(
-                                        controller: emiPayController ??=
-                                            TextEditingController(
-                                          text: functions
-                                              .emiCalculator(
-                                                  int.parse(
-                                                      areaController.text),
-                                                  bookingDetailsPlansAndRatesRecord
-                                                      .fixedRatePerSqFt,
-                                                  double.parse(
-                                                      bookingAmtController
-                                                          .text),
-                                                  double.parse(
-                                                      downPaymentController
-                                                          .text),
-                                                  emiTenureValue)
-                                              .toString(),
-                                        ),
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          enabledBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                          focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0x00000000),
-                                              width: 1,
-                                            ),
-                                            borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
-                                          ),
-                                        ),
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Lexend Deca',
-                                          fontSize: 2,
-                                          fontWeight: FontWeight.w100,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
                             ],
                           );
                         },
@@ -743,16 +566,35 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                 planRef:
                                     logBookingPlansAndRatesRecord.reference,
                                 buyerRef: currentUserReference,
-                                totalAmountToPay: double.parse(
-                                    totalAmountController?.text ?? ''),
+                                totalAmountToPay: functions.getMultiplication(
+                                    logBookingPlansAndRatesRecord
+                                        .fixedRatePerSqFt
+                                        .toDouble(),
+                                    double.parse(areaController.text)),
                                 areaBookedInSqft:
                                     int.parse(areaController.text),
-                                bookingAmount:
-                                    double.parse(bookingAmtController.text),
+                                bookingAmount: functions.getBookingAmt(
+                                    logBookingPlansAndRatesRecord
+                                        .minBookingAmtPerc,
+                                    logBookingPlansAndRatesRecord
+                                        .fixedRatePerSqFt
+                                        .toDouble(),
+                                    double.parse(areaController.text)),
                                 downPayment:
                                     double.parse(downPaymentController.text),
-                                emiAmount:
-                                    double.parse(emiPayController?.text ?? ''),
+                                emiAmount: functions.emiCalculator(
+                                    int.parse(areaController.text),
+                                    logBookingPlansAndRatesRecord
+                                        .fixedRatePerSqFt,
+                                    functions.getBookingAmt(
+                                        logBookingPlansAndRatesRecord
+                                            .minBookingAmtPerc,
+                                        logBookingPlansAndRatesRecord
+                                            .fixedRatePerSqFt
+                                            .toDouble(),
+                                        double.parse(areaController.text)),
+                                    double.parse(downPaymentController.text),
+                                    emiTenureValue),
                                 emiTenureInMonths:
                                     functions.parseReplaceFromString(
                                         emiTenureValue, ' Months'),
@@ -766,7 +608,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      NavBarPage(initialPage: 'projects'),
+                                      NavBarPage(initialPage: 'HomePage'),
                                 ),
                                 (r) => false,
                               );
