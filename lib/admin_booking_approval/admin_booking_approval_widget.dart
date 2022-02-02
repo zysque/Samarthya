@@ -6,8 +6,10 @@ import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -78,7 +80,13 @@ class _AdminBookingApprovalWidgetState
               automaticallyImplyLeading: false,
               leading: InkWell(
                 onTap: () async {
-                  Navigator.pop(context);
+                  await Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NavBarPage(initialPage: 'HomePage'),
+                    ),
+                    (r) => false,
+                  );
                 },
                 child: Icon(
                   Icons.chevron_left_rounded,
@@ -278,12 +286,8 @@ class _AdminBookingApprovalWidgetState
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Plot Area',
-                                            labelStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             hintText:
                                                 'Please enter plot area in sqft',
-                                            hintStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0x00000000),
@@ -316,7 +320,9 @@ class _AdminBookingApprovalWidgetState
                                             if (val.isEmpty) {
                                               return 'Field is required';
                                             }
-
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
                                             return null;
                                           },
                                         ),
@@ -325,26 +331,24 @@ class _AdminBookingApprovalWidgetState
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 8, 0, 0),
                                         child: TextFormField(
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            'rateController',
+                                            Duration(milliseconds: 200),
+                                            () => setState(() {}),
+                                          ),
                                           controller: rateController ??=
                                               TextEditingController(
-                                            text: formatNumber(
-                                              bookingDetailsPlansAndRatesRecord
-                                                  .fixedRatePerSqFt,
-                                              formatType: FormatType.custom,
-                                              currency: '',
-                                              format: '',
-                                              locale: '',
-                                            ),
+                                            text:
+                                                bookingDetailsPlansAndRatesRecord
+                                                    .fixedRatePerSqFt
+                                                    .toString(),
                                           ),
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Rate Per SqFt',
-                                            labelStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             hintText:
                                                 'Please enter rate per sqft',
-                                            hintStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0x00000000),
@@ -370,6 +374,10 @@ class _AdminBookingApprovalWidgetState
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
+                                            prefixIcon: FaIcon(
+                                              FontAwesomeIcons.rupeeSign,
+                                              color: FlutterFlowTheme.grayLight,
+                                            ),
                                           ),
                                           style: FlutterFlowTheme.subtitle1,
                                           keyboardType: TextInputType.number,
@@ -377,7 +385,9 @@ class _AdminBookingApprovalWidgetState
                                             if (val.isEmpty) {
                                               return 'Field is required';
                                             }
-
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
                                             return null;
                                           },
                                         ),
@@ -386,26 +396,23 @@ class _AdminBookingApprovalWidgetState
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 8, 0, 0),
                                         child: TextFormField(
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            'bookingAmtController',
+                                            Duration(milliseconds: 200),
+                                            () => setState(() {}),
+                                          ),
                                           controller: bookingAmtController ??=
                                               TextEditingController(
-                                            text: formatNumber(
-                                              columnBookingsRecord
-                                                  .bookingAmount,
-                                              formatType: FormatType.custom,
-                                              currency: '',
-                                              format: '',
-                                              locale: '',
-                                            ),
+                                            text: columnBookingsRecord
+                                                .bookingAmount
+                                                .toString(),
                                           ),
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Booking Amount',
-                                            labelStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             hintText:
                                                 'Please enter booking amount',
-                                            hintStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0x00000000),
@@ -431,6 +438,10 @@ class _AdminBookingApprovalWidgetState
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
+                                            prefixIcon: FaIcon(
+                                              FontAwesomeIcons.rupeeSign,
+                                              color: FlutterFlowTheme.grayLight,
+                                            ),
                                           ),
                                           style: FlutterFlowTheme.subtitle1,
                                           keyboardType: TextInputType.number,
@@ -438,7 +449,9 @@ class _AdminBookingApprovalWidgetState
                                             if (val.isEmpty) {
                                               return 'Field is required';
                                             }
-
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
                                             return null;
                                           },
                                         ),
@@ -447,25 +460,23 @@ class _AdminBookingApprovalWidgetState
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 8, 0, 0),
                                         child: TextFormField(
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            'downPaymentController',
+                                            Duration(milliseconds: 200),
+                                            () => setState(() {}),
+                                          ),
                                           controller: downPaymentController ??=
                                               TextEditingController(
-                                            text: formatNumber(
-                                              columnBookingsRecord.downPayment,
-                                              formatType: FormatType.custom,
-                                              currency: '',
-                                              format: '',
-                                              locale: '',
-                                            ),
+                                            text: columnBookingsRecord
+                                                .downPayment
+                                                .toString(),
                                           ),
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Down Payment',
-                                            labelStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             hintText:
                                                 'Please enter booking amount',
-                                            hintStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
                                                 color: Color(0x00000000),
@@ -491,6 +502,10 @@ class _AdminBookingApprovalWidgetState
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 0, 0, 0),
+                                            prefixIcon: FaIcon(
+                                              FontAwesomeIcons.rupeeSign,
+                                              color: FlutterFlowTheme.grayLight,
+                                            ),
                                           ),
                                           style: FlutterFlowTheme.subtitle1,
                                           keyboardType: TextInputType.number,
@@ -498,7 +513,9 @@ class _AdminBookingApprovalWidgetState
                                             if (val.isEmpty) {
                                               return 'Field is required';
                                             }
-
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
                                             return null;
                                           },
                                         ),
@@ -514,11 +531,7 @@ class _AdminBookingApprovalWidgetState
                                             FlutterFlowDropDown(
                                               initialOption: emiTenureValue ??=
                                                   '${columnBookingsRecord.emiTenureInMonths.toString()} Months',
-                                              options:
-                                                  bookingDetailsPlansAndRatesRecord
-                                                      .emiTenureOptions
-                                                      .toList()
-                                                      .toList(),
+                                              options: [].toList(),
                                               onChanged: (val) => setState(
                                                   () => emiTenureValue = val),
                                               width: 200,
@@ -629,6 +642,8 @@ class _AdminBookingApprovalWidgetState
                                           controller: descriptionController,
                                           obscureText: false,
                                           decoration: InputDecoration(
+                                            labelStyle:
+                                                FlutterFlowTheme.bodyText1,
                                             hintText: 'Booking  Description',
                                             hintStyle:
                                                 FlutterFlowTheme.bodyText1,
@@ -697,115 +712,174 @@ class _AdminBookingApprovalWidgetState
                             );
                           }
                           List<UserHierarchiesRecord>
-                              columnUserHierarchiesRecordList = snapshot.data;
-                          final columnUserHierarchiesRecord =
-                              columnUserHierarchiesRecordList.isNotEmpty
-                                  ? columnUserHierarchiesRecordList.first
+                              actionsUserHierarchiesRecordList = snapshot.data;
+                          final actionsUserHierarchiesRecord =
+                              actionsUserHierarchiesRecordList.isNotEmpty
+                                  ? actionsUserHierarchiesRecordList.first
                                   : null;
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  if (!formKey.currentState.validate()) {
-                                    return;
+                              StreamBuilder<List<CalculationsRecord>>(
+                                stream: queryCalculationsRecord(
+                                  queryBuilder: (calculationsRecord) =>
+                                      calculationsRecord.where('userRef',
+                                          isEqualTo: currentUserReference),
+                                  singleRecord: true,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: SpinKitPumpingHeart(
+                                          color: FlutterFlowTheme.primaryColor,
+                                          size: 40,
+                                        ),
+                                      ),
+                                    );
                                   }
-                                  final bookingsUpdateData = {
-                                    ...createBookingsRecordData(
-                                      totalAmountToPay:
-                                          functions.getMultiplication(
-                                              double.parse(
-                                                  rateController?.text ?? ''),
-                                              double.parse(
-                                                  areaController?.text ?? '')),
-                                      areaBookedInSqft:
-                                          int.parse(areaController?.text ?? ''),
-                                      bookingAmount: double.parse(
-                                          bookingAmtController?.text ?? ''),
-                                      downPayment: double.parse(
-                                          downPaymentController?.text ?? ''),
-                                      emiAmount: functions.emiCalculator(
-                                          int.parse(areaController?.text ?? ''),
-                                          int.parse(rateController?.text ?? ''),
-                                          double.parse(
+                                  List<CalculationsRecord>
+                                      logBookingCalculationsRecordList =
+                                      snapshot.data;
+                                  final logBookingCalculationsRecord =
+                                      logBookingCalculationsRecordList
+                                              .isNotEmpty
+                                          ? logBookingCalculationsRecordList
+                                              .first
+                                          : null;
+                                  return FFButtonWidget(
+                                    onPressed: () async {
+                                      if (!formKey.currentState.validate()) {
+                                        return;
+                                      }
+                                      final bookingsUpdateData = {
+                                        ...createBookingsRecordData(
+                                          totalAmountToPay:
+                                              functions.getMultiplication(
+                                                  double.parse(
+                                                      rateController?.text ??
+                                                          ''),
+                                                  double.parse(
+                                                      areaController?.text ??
+                                                          '')),
+                                          areaBookedInSqft: int.parse(
+                                              areaController?.text ?? ''),
+                                          bookingAmount: double.parse(
                                               bookingAmtController?.text ?? ''),
-                                          double.parse(
+                                          downPayment: double.parse(
                                               downPaymentController?.text ??
                                                   ''),
-                                          emiTenureValue),
-                                      emiTenureInMonths:
-                                          functions.parseReplaceFromString(
-                                              emiTenureValue, ' Months'),
-                                      isApproved: true,
-                                      dueAmount: functions.getSum(
-                                          double.parse(
-                                              bookingAmtController?.text ?? ''),
-                                          double.parse(
-                                              downPaymentController?.text ??
-                                                  '')),
-                                      dueDate: functions.getNewDate(
-                                          getCurrentTimestamp,
-                                          0,
-                                          1,
-                                          adminBookingApprovalAdminConstsRecord
-                                              .emiPaymentDay),
-                                      lastModified: getCurrentTimestamp,
-                                      amountLeftToPay: functions.getDiff(
-                                          functions.getMultiplication(
-                                              double.parse(
+                                          emiAmount: functions.emiCalculator(
+                                              int.parse(
                                                   areaController?.text ?? ''),
-                                              double.parse(
-                                                  rateController?.text ?? '')),
-                                          functions.getSum(
+                                              int.parse(
+                                                  rateController?.text ?? ''),
                                               double.parse(
                                                   bookingAmtController?.text ??
                                                       ''),
                                               double.parse(
                                                   downPaymentController?.text ??
-                                                      ''))),
+                                                      ''),
+                                              emiTenureValue),
+                                          emiTenureInMonths:
+                                              functions.parseReplaceFromString(
+                                                  emiTenureValue, ' Months'),
+                                          isApproved: true,
+                                          dueAmount: functions.getSum(
+                                              double.parse(
+                                                  bookingAmtController?.text ??
+                                                      ''),
+                                              double.parse(
+                                                  downPaymentController?.text ??
+                                                      '')),
+                                          dueDate: functions.getNewDate(
+                                              getCurrentTimestamp,
+                                              0,
+                                              1,
+                                              adminBookingApprovalAdminConstsRecord
+                                                  .emiPaymentDay),
+                                          lastModified: getCurrentTimestamp,
+                                          amountLeftToPay:
+                                              functions.getMultiplication(
+                                                  double.parse(
+                                                      rateController?.text ??
+                                                          ''),
+                                                  double.parse(
+                                                      areaController?.text ??
+                                                          '')),
+                                        ),
+                                        'comments': FieldValue.arrayUnion(
+                                            [descriptionController.text]),
+                                      };
+                                      await widget.bookingRef
+                                          .update(bookingsUpdateData);
+                                      if (actionsUserHierarchiesRecord
+                                          .hasParent) {
+                                        final commissionsCreateData = {
+                                          ...createCommissionsRecordData(
+                                            commissionUser:
+                                                actionsUserHierarchiesRecord
+                                                    .referralParent,
+                                            isDirect: true,
+                                            bookingRef: widget.bookingRef,
+                                            commissionAmount: 0.0,
+                                            unsettledAmount: 0.0,
+                                            lastModified: getCurrentTimestamp,
+                                          ),
+                                          'comments': [
+                                            'Commission record created for new business booking recieved.'
+                                          ],
+                                        };
+                                        await CommissionsRecord.collection
+                                            .doc()
+                                            .set(commissionsCreateData);
+                                      }
+                                      final calculationsUpdateData =
+                                          createCalculationsRecordData(
+                                        emiDueAmount: functions.getSum(
+                                            double.parse(
+                                                bookingAmtController?.text ??
+                                                    ''),
+                                            double.parse(
+                                                downPaymentController?.text ??
+                                                    '')),
+                                        emiDueDate: functions.getNewDate(
+                                            getCurrentTimestamp,
+                                            0,
+                                            1,
+                                            adminBookingApprovalAdminConstsRecord
+                                                .emiPaymentDay),
+                                      );
+                                      await logBookingCalculationsRecord
+                                          .reference
+                                          .update(calculationsUpdateData);
+                                      await Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AdminApprovalsWidget(),
+                                        ),
+                                        (r) => false,
+                                      );
+                                    },
+                                    text: 'Approve',
+                                    options: FFButtonOptions(
+                                      width: 180,
+                                      height: 50,
+                                      color: FlutterFlowTheme.tertiaryColor,
+                                      textStyle: FlutterFlowTheme.title1,
+                                      elevation: 0,
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.darkBackground,
+                                        width: 1,
+                                      ),
+                                      borderRadius: 12,
                                     ),
-                                    'comments': FieldValue.arrayUnion(
-                                        [descriptionController.text]),
-                                  };
-                                  await widget.bookingRef
-                                      .update(bookingsUpdateData);
-
-                                  final commissionsCreateData =
-                                      createCommissionsRecordData(
-                                    commissionUser: columnUserHierarchiesRecord
-                                        .referralParent,
-                                    isDirect: true,
-                                    comments: descriptionController.text,
-                                    bookingRef: widget.bookingRef,
-                                    commissionAmount: 0.0,
-                                    unsettledAmount: 0.0,
-                                    lastModified: getCurrentTimestamp,
-                                  );
-                                  await CommissionsRecord.collection
-                                      .doc()
-                                      .set(commissionsCreateData);
-                                  await Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          AdminApprovalsWidget(),
-                                    ),
-                                    (r) => false,
                                   );
                                 },
-                                text: 'Approve',
-                                options: FFButtonOptions(
-                                  width: 180,
-                                  height: 50,
-                                  color: FlutterFlowTheme.tertiaryColor,
-                                  textStyle: FlutterFlowTheme.title1,
-                                  elevation: 0,
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.darkBackground,
-                                    width: 1,
-                                  ),
-                                  borderRadius: 12,
-                                ),
                               ),
                             ],
                           );

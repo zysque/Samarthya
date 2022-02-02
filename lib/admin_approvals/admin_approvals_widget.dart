@@ -1,10 +1,11 @@
 import '../admin_booking_approval/admin_booking_approval_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/payment_approvals_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
+import '../payment_approvals/payment_approvals_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,8 +67,24 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.darkBackground,
+        backgroundColor: FlutterFlowTheme.primaryColor,
         automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            await Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NavBarPage(initialPage: 'HomePage'),
+              ),
+              (r) => false,
+            );
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.grayLight,
+            size: 32,
+          ),
+        ),
         title: Text(
           'Approvals',
           style: FlutterFlowTheme.title1.override(
@@ -111,6 +128,11 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                       }
                       List<BookingsRecord> listViewBookingsRecordList =
                           snapshot.data;
+                      if (listViewBookingsRecordList.isEmpty) {
+                        return Image.asset(
+                          'assets/images/df3hg_',
+                        );
+                      }
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
@@ -391,6 +413,7 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                       queryBuilder: (transactionsRecord) => transactionsRecord
                           .where('transactionUser',
                               isEqualTo: currentUserReference)
+                          .where('status', isEqualTo: false)
                           .orderBy('transactionTime', descending: true),
                     ),
                     builder: (context, snapshot) {
@@ -411,8 +434,8 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                           snapshot.data;
                       if (listViewTransactionsRecordList.isEmpty) {
                         return Center(
-                          child: Image.asset(
-                            'assets/images/NoSale.JPG',
+                          child: Image.network(
+                            '',
                           ),
                         );
                       }
@@ -447,24 +470,16 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                 final containerBookingsRecord = snapshot.data;
                                 return InkWell(
                                   onTap: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: PaymentApprovalsWidget(
-                                            transRef: listViewTransactionsRecord
-                                                .reference,
-                                            isCommission:
-                                                (listViewTransactionsRecord
-                                                        .transactionType) ==
-                                                    'Commission',
-                                          ),
-                                        );
-                                      },
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PaymentApprovalsWidget(
+                                          transactionDetails:
+                                              listViewTransactionsRecord
+                                                  .reference,
+                                        ),
+                                      ),
                                     );
                                   },
                                   child: Container(

@@ -75,7 +75,7 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.darkBackground,
+            backgroundColor: FlutterFlowTheme.primaryColor,
             automaticallyImplyLeading: false,
             title: Text(
               'Projects',
@@ -144,8 +144,8 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                               snapshot.data;
                           if (listViewProjectsRecordList.isEmpty) {
                             return Center(
-                              child: Image.asset(
-                                'assets/images/NoProject.JPG',
+                              child: Image.network(
+                                '',
                               ),
                             );
                           }

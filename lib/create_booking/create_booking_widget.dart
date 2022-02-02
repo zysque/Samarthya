@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_widgets.dart';
 import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -16,10 +17,10 @@ import 'package:google_fonts/google_fonts.dart';
 class CreateBookingWidget extends StatefulWidget {
   const CreateBookingWidget({
     Key key,
-    this.projectRef,
+    this.planRef,
   }) : super(key: key);
 
-  final DocumentReference projectRef;
+  final DocumentReference planRef;
 
   @override
   _CreateBookingWidgetState createState() => _CreateBookingWidgetState();
@@ -27,18 +28,17 @@ class CreateBookingWidget extends StatefulWidget {
 
 class _CreateBookingWidgetState extends State<CreateBookingWidget> {
   String emiTenureValue;
+  TextEditingController descriptionController;
   TextEditingController areaController;
   TextEditingController downPaymentController;
-  TextEditingController descriptionController;
-  String phaseValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    areaController = TextEditingController();
-    downPaymentController = TextEditingController();
+    areaController = TextEditingController(text: '0');
+    downPaymentController = TextEditingController(text: '0');
     descriptionController = TextEditingController();
   }
 
@@ -89,7 +89,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.73,
+                height: 575,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.darkBackground,
                   borderRadius: BorderRadius.only(
@@ -104,61 +104,110 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      StreamBuilder<List<PlansAndRatesRecord>>(
-                        stream: queryPlansAndRatesRecord(
-                          queryBuilder: (plansAndRatesRecord) =>
-                              plansAndRatesRecord.where('projectRef',
-                                  isEqualTo: widget.projectRef),
+                      TextFormField(
+                        onChanged: (_) => EasyDebounce.debounce(
+                          'areaController',
+                          Duration(milliseconds: 200),
+                          () => setState(() {}),
                         ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: SpinKitPumpingHeart(
-                                  color: FlutterFlowTheme.primaryColor,
-                                  size: 40,
-                                ),
-                              ),
-                            );
+                        controller: areaController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Plot Area',
+                          hintText: 'Please enter plot area in sqft',
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(20, 4, 20, 4),
+                        ),
+                        style: FlutterFlowTheme.subtitle1,
+                        keyboardType: TextInputType.number,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Field is required';
                           }
-                          List<PlansAndRatesRecord>
-                              phasePlansAndRatesRecordList = snapshot.data;
-                          return FlutterFlowDropDown(
-                            options: phasePlansAndRatesRecordList
-                                .map((e) => e.phaseCode)
-                                .toList()
-                                .toList(),
-                            onChanged: (val) =>
-                                setState(() => phaseValue = val),
-                            width: MediaQuery.of(context).size.width,
-                            height: 70,
-                            textStyle: FlutterFlowTheme.subtitle1,
-                            hintText: 'Please select Plan Phase',
-                            fillColor: FlutterFlowTheme.darkBackground,
-                            elevation: 2,
-                            borderColor: Colors.transparent,
-                            borderWidth: 0,
-                            borderRadius: 0,
-                            margin:
-                                EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                            hidesUnderline: true,
-                          );
+                          if (val.length < 1) {
+                            return 'Requires at least 1 characters.';
+                          }
+                          return null;
                         },
                       ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 500,
-                        decoration: BoxDecoration(),
-                        child: StreamBuilder<List<PlansAndRatesRecord>>(
-                          stream: queryPlansAndRatesRecord(
-                            queryBuilder: (plansAndRatesRecord) =>
-                                plansAndRatesRecord.where('phaseCode',
-                                    isEqualTo: phaseValue),
-                            singleRecord: true,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: TextFormField(
+                          onChanged: (_) => EasyDebounce.debounce(
+                            'downPaymentController',
+                            Duration(milliseconds: 200),
+                            () => setState(() {}),
                           ),
+                          controller: downPaymentController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Down Payment',
+                            hintText: 'Please enter booking amount',
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            prefixIcon: FaIcon(
+                              FontAwesomeIcons.rupeeSign,
+                              color: FlutterFlowTheme.grayLight,
+                            ),
+                          ),
+                          style: FlutterFlowTheme.subtitle1,
+                          keyboardType: TextInputType.number,
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Field is required';
+                            }
+                            if (val.length < 1) {
+                              return 'Requires at least 1 characters.';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                        child: StreamBuilder<PlansAndRatesRecord>(
+                          stream:
+                              PlansAndRatesRecord.getDocument(widget.planRef),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -173,73 +222,52 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                 ),
                               );
                             }
-                            List<PlansAndRatesRecord>
-                                bookingDetailsPlansAndRatesRecordList =
-                                snapshot.data;
                             final bookingDetailsPlansAndRatesRecord =
-                                bookingDetailsPlansAndRatesRecordList.isNotEmpty
-                                    ? bookingDetailsPlansAndRatesRecordList
-                                        .first
-                                    : null;
+                                snapshot.data;
                             return Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 0, 0),
-                                  child: TextFormField(
-                                    controller: areaController,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Plot Area',
-                                      labelStyle: FlutterFlowTheme.subtitle1,
-                                      hintText:
-                                          'Please enter plot area in sqft',
-                                      hintStyle: FlutterFlowTheme.subtitle1,
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              20, 4, 20, 4),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Rate per SQFT',
+                                      style: FlutterFlowTheme.subtitle1,
                                     ),
-                                    style: FlutterFlowTheme.subtitle1,
-                                    keyboardType: TextInputType.number,
-                                    validator: (val) {
-                                      if (val.isEmpty) {
-                                        return 'Field is required';
-                                      }
-
-                                      return null;
-                                    },
-                                  ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          20, 0, 0, 0),
+                                      child: FaIcon(
+                                        FontAwesomeIcons.rupeeSign,
+                                        color: FlutterFlowTheme.grayLight,
+                                        size: 18,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 0, 0, 0),
+                                      child: Text(
+                                        bookingDetailsPlansAndRatesRecord
+                                            .fixedRatePerSqFt
+                                            .toString(),
+                                        style: FlutterFlowTheme.subtitle1,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 10, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        'Rate per SQFT',
+                                        'Total Amount',
                                         style: FlutterFlowTheme.subtitle1,
                                       ),
                                       Padding(
@@ -255,8 +283,13 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             5, 0, 0, 0),
                                         child: Text(
-                                          bookingDetailsPlansAndRatesRecord
-                                              .fixedRatePerSqFt
+                                          functions
+                                              .getMultiplication(
+                                                  double.parse(
+                                                      areaController.text),
+                                                  bookingDetailsPlansAndRatesRecord
+                                                      .fixedRatePerSqFt
+                                                      .toDouble())
                                               .toString(),
                                           style: FlutterFlowTheme.subtitle1,
                                         ),
@@ -269,7 +302,8 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                       0, 10, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         'Booking Amount',
@@ -295,7 +329,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                                   bookingDetailsPlansAndRatesRecord
                                                       .fixedRatePerSqFt
                                                       .toDouble(),
-                                                  double.parse(
+                                                  int.parse(
                                                       areaController.text))
                                               .toString(),
                                           style: FlutterFlowTheme.subtitle1,
@@ -306,59 +340,15 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 0, 0),
-                                  child: TextFormField(
-                                    controller: downPaymentController,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Down Payment',
-                                      labelStyle: FlutterFlowTheme.subtitle1,
-                                      hintText: 'Please enter booking amount',
-                                      hintStyle: FlutterFlowTheme.subtitle1,
-                                      enabledBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: Color(0x00000000),
-                                          width: 1,
-                                        ),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(4.0),
-                                          topRight: Radius.circular(4.0),
-                                        ),
-                                      ),
-                                      contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              20, 0, 0, 0),
-                                    ),
-                                    style: FlutterFlowTheme.subtitle1,
-                                    keyboardType: TextInputType.number,
-                                    validator: (val) {
-                                      if (val.isEmpty) {
-                                        return 'Field is required';
-                                      }
-
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 0, 0),
+                                      0, 15, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       FlutterFlowDropDown(
+                                        initialOption: emiTenureValue ??=
+                                            '12 Months',
                                         options:
                                             bookingDetailsPlansAndRatesRecord
                                                 .emiTenureOptions
@@ -450,7 +440,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                                       bookingDetailsPlansAndRatesRecord
                                                           .fixedRatePerSqFt
                                                           .toDouble(),
-                                                      double.parse(
+                                                      int.parse(
                                                           areaController.text)),
                                                   double.parse(
                                                       downPaymentController
@@ -465,11 +455,12 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 15, 0, 0),
+                                      0, 20, 0, 0),
                                   child: TextFormField(
                                     controller: descriptionController,
                                     obscureText: false,
                                     decoration: InputDecoration(
+                                      labelStyle: FlutterFlowTheme.bodyText1,
                                       hintText: 'Booking  Description',
                                       hintStyle: FlutterFlowTheme.bodyText1,
                                       enabledBorder: OutlineInputBorder(
@@ -531,24 +522,17 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                       ),
                     );
                   }
-                  List<UserHierarchiesRecord> columnUserHierarchiesRecordList =
+                  List<UserHierarchiesRecord> actionsUserHierarchiesRecordList =
                       snapshot.data;
-                  final columnUserHierarchiesRecord =
-                      columnUserHierarchiesRecordList.isNotEmpty
-                          ? columnUserHierarchiesRecordList.first
+                  final actionsUserHierarchiesRecord =
+                      actionsUserHierarchiesRecordList.isNotEmpty
+                          ? actionsUserHierarchiesRecordList.first
                           : null;
                   return Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      StreamBuilder<List<PlansAndRatesRecord>>(
-                        stream: queryPlansAndRatesRecord(
-                          queryBuilder: (plansAndRatesRecord) =>
-                              plansAndRatesRecord
-                                  .where('phaseCode', isEqualTo: phaseValue)
-                                  .where('projectRef',
-                                      isEqualTo: widget.projectRef),
-                          singleRecord: true,
-                        ),
+                      StreamBuilder<PlansAndRatesRecord>(
+                        stream: PlansAndRatesRecord.getDocument(widget.planRef),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
                           if (!snapshot.hasData) {
@@ -563,58 +547,62 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                               ),
                             );
                           }
-                          List<PlansAndRatesRecord>
-                              logBookingPlansAndRatesRecordList = snapshot.data;
-                          final logBookingPlansAndRatesRecord =
-                              logBookingPlansAndRatesRecordList.isNotEmpty
-                                  ? logBookingPlansAndRatesRecordList.first
-                                  : null;
+                          final logBookingPlansAndRatesRecord = snapshot.data;
                           return FFButtonWidget(
                             onPressed: () async {
                               if (!formKey.currentState.validate()) {
                                 return;
                               }
-                              final bookingsCreateData =
-                                  createBookingsRecordData(
-                                projectRef: widget.projectRef,
-                                planRef:
-                                    logBookingPlansAndRatesRecord.reference,
-                                buyerRef: currentUserReference,
-                                totalAmountToPay: functions.getMultiplication(
-                                    logBookingPlansAndRatesRecord
-                                        .fixedRatePerSqFt
-                                        .toDouble(),
-                                    double.parse(areaController.text)),
-                                areaBookedInSqft:
-                                    int.parse(areaController.text),
-                                bookingAmount: functions.getBookingAmt(
-                                    logBookingPlansAndRatesRecord
-                                        .minBookingAmtPerc,
-                                    logBookingPlansAndRatesRecord
-                                        .fixedRatePerSqFt
-                                        .toDouble(),
-                                    double.parse(areaController.text)),
-                                downPayment:
-                                    double.parse(downPaymentController.text),
-                                emiAmount: functions.emiCalculator(
-                                    int.parse(areaController.text),
-                                    logBookingPlansAndRatesRecord
-                                        .fixedRatePerSqFt,
-                                    functions.getBookingAmt(
-                                        logBookingPlansAndRatesRecord
-                                            .minBookingAmtPerc,
-                                        logBookingPlansAndRatesRecord
-                                            .fixedRatePerSqFt
-                                            .toDouble(),
-                                        double.parse(areaController.text)),
-                                    double.parse(downPaymentController.text),
-                                    emiTenureValue),
-                                emiTenureInMonths:
-                                    functions.parseReplaceFromString(
-                                        emiTenureValue, ' Months'),
-                                created: getCurrentTimestamp,
-                                isApproved: false,
-                              );
+                              final bookingsCreateData = {
+                                ...createBookingsRecordData(
+                                  projectRef:
+                                      logBookingPlansAndRatesRecord.projectRef,
+                                  planRef: widget.planRef,
+                                  buyerRef: currentUserReference,
+                                  totalAmountToPay: functions.getMultiplication(
+                                      logBookingPlansAndRatesRecord
+                                          .fixedRatePerSqFt
+                                          .toDouble(),
+                                      double.parse(areaController.text)),
+                                  areaBookedInSqft:
+                                      int.parse(areaController.text),
+                                  bookingAmount: functions.getBookingAmt(
+                                      logBookingPlansAndRatesRecord
+                                          .minBookingAmtPerc,
+                                      logBookingPlansAndRatesRecord
+                                          .fixedRatePerSqFt
+                                          .toDouble(),
+                                      int.parse(areaController.text)),
+                                  downPayment:
+                                      double.parse(downPaymentController.text),
+                                  emiAmount: functions.emiCalculator(
+                                      int.parse(areaController.text),
+                                      logBookingPlansAndRatesRecord
+                                          .fixedRatePerSqFt,
+                                      functions.getBookingAmt(
+                                          logBookingPlansAndRatesRecord
+                                              .minBookingAmtPerc,
+                                          logBookingPlansAndRatesRecord
+                                              .fixedRatePerSqFt
+                                              .toDouble(),
+                                          int.parse(areaController.text)),
+                                      double.parse(downPaymentController.text),
+                                      emiTenureValue),
+                                  emiTenureInMonths:
+                                      functions.parseReplaceFromString(
+                                          emiTenureValue, ' Months'),
+                                  created: getCurrentTimestamp,
+                                  isApproved: false,
+                                  lastModified: getCurrentTimestamp,
+                                  amountLeftToPay: functions.getMultiplication(
+                                      logBookingPlansAndRatesRecord
+                                          .fixedRatePerSqFt
+                                          .toDouble(),
+                                      double.parse(areaController.text)),
+                                  creditStatus: true,
+                                ),
+                                'comments': [descriptionController.text],
+                              };
                               await BookingsRecord.collection
                                   .doc()
                                   .set(bookingsCreateData);
@@ -622,7 +610,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      NavBarPage(initialPage: 'projects'),
+                                      NavBarPage(initialPage: 'HomePage'),
                                 ),
                                 (r) => false,
                               );

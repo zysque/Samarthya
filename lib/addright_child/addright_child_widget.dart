@@ -115,8 +115,12 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                 StreamBuilder<List<UserHierarchiesRecord>>(
                                   stream: queryUserHierarchiesRecord(
                                     queryBuilder: (userHierarchiesRecord) =>
-                                        userHierarchiesRecord.where('hasParent',
-                                            isEqualTo: false),
+                                        userHierarchiesRecord
+                                            .where('hasParent',
+                                                isEqualTo: false)
+                                            .where('referralParent',
+                                                isEqualTo:
+                                                    currentUserReference),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -868,6 +872,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                         hasParent: true,
                                         hierarchyUserEmail:
                                             addDelinkedUsersRecord.userEmail,
+                                        hasReferral: true,
                                       );
                                       await UserHierarchiesRecord.collection
                                           .doc()
@@ -932,7 +937,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'No referral available or no use to add as your child.\n\nfor more contact your Administrator.',
+                    'No referral available or no user to add as your child.\n\nfor more information contact your Administrator.',
                     style: FlutterFlowTheme.title2,
                   ),
                 ],

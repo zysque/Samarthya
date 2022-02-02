@@ -163,8 +163,11 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             if (selectedMedia != null &&
                                 validateFileFormat(
                                     selectedMedia.storagePath, context)) {
-                              showUploadMessage(context, 'Uploading file...',
-                                  showLoading: true);
+                              showUploadMessage(
+                                context,
+                                'Uploading file...',
+                                showLoading: true,
+                              );
                               final downloadUrl = await uploadData(
                                   selectedMedia.storagePath,
                                   selectedMedia.bytes);
@@ -172,10 +175,15 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   .hideCurrentSnackBar();
                               if (downloadUrl != null) {
                                 setState(() => uploadedFileUrl1 = downloadUrl);
-                                showUploadMessage(context, 'Success!');
+                                showUploadMessage(
+                                  context,
+                                  'Success!',
+                                );
                               } else {
                                 showUploadMessage(
-                                    context, 'Failed to upload media');
+                                  context,
+                                  'Failed to upload media',
+                                );
                                 return;
                               }
                             }
@@ -260,6 +268,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.grayLight,
                           ),
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0x98FFFFFF),
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
@@ -343,6 +355,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.grayLight,
                           ),
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0x98FFFFFF),
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
@@ -389,6 +405,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.grayLight,
                           ),
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0x98FFFFFF),
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
@@ -433,6 +453,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           labelStyle: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.grayLight,
+                          ),
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0x98FFFFFF),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
@@ -480,6 +504,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             fontFamily: 'Lexend Deca',
                             color: FlutterFlowTheme.grayLight,
                           ),
+                          hintStyle: FlutterFlowTheme.bodyText1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Color(0x98FFFFFF),
+                          ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
@@ -525,8 +553,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     validateFileFormat(
                                         selectedMedia.storagePath, context)) {
                                   showUploadMessage(
-                                      context, 'Uploading file...',
-                                      showLoading: true);
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
                                   final downloadUrl = await uploadData(
                                       selectedMedia.storagePath,
                                       selectedMedia.bytes);
@@ -535,10 +565,15 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   if (downloadUrl != null) {
                                     setState(
                                         () => uploadedFileUrl2 = downloadUrl);
-                                    showUploadMessage(context, 'Success!');
+                                    showUploadMessage(
+                                      context,
+                                      'Success!',
+                                    );
                                   } else {
                                     showUploadMessage(
-                                        context, 'Failed to upload media');
+                                      context,
+                                      'Failed to upload media',
+                                    );
                                     return;
                                   }
                                 }
@@ -576,8 +611,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                     validateFileFormat(
                                         selectedMedia.storagePath, context)) {
                                   showUploadMessage(
-                                      context, 'Uploading file...',
-                                      showLoading: true);
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
                                   final downloadUrl = await uploadData(
                                       selectedMedia.storagePath,
                                       selectedMedia.bytes);
@@ -586,10 +623,15 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                   if (downloadUrl != null) {
                                     setState(
                                         () => uploadedFileUrl3 = downloadUrl);
-                                    showUploadMessage(context, 'Success!');
+                                    showUploadMessage(
+                                      context,
+                                      'Success!',
+                                    );
                                   } else {
                                     showUploadMessage(
-                                        context, 'Failed to upload media');
+                                      context,
+                                      'Failed to upload media',
+                                    );
                                     return;
                                   }
                                 }

@@ -203,7 +203,7 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Keep Track of Spending',
+                                            'Keep Track of Transactions',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.title1,
                                           ),
@@ -219,7 +219,7 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Easily add transactions and associate them with budgets that have been created.',
+                                            'Easily view and track the booking EMI as well as direct and indirect commission transactions.',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.subtitle2
                                                 .override(
@@ -268,7 +268,7 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Budget Analysis',
+                                            'Hierarchy Operations',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.title1,
                                           ),
@@ -284,7 +284,7 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Know where your budgets are and how they can be adjusted.',
+                                            'View your hierarchy, Your team members details. Add new referrals to your team for better business.',
                                             textAlign: TextAlign.center,
                                             style: FlutterFlowTheme.subtitle2
                                                 .override(

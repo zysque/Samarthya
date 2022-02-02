@@ -303,7 +303,7 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                           if (listViewCommissionsRecordList.isEmpty) {
                             return Center(
                               child: Image.asset(
-                                'assets/images/NoSale.JPG',
+                                'assets/images/NoCommission.JPG',
                               ),
                             );
                           }
@@ -445,6 +445,60 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                     color: Color(0xFF810933),
                                                     size: 20,
                                                   ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 4, 0, 0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  dateTimeFormat(
+                                                      'relative',
+                                                      listViewCommissionsRecord
+                                                          .lastModified),
+                                                  style: FlutterFlowTheme
+                                                      .bodyText2
+                                                      .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    if (!(listViewCommissionsRecord
+                                                            .isDirect) ??
+                                                        true)
+                                                      Text(
+                                                        'In',
+                                                        style: FlutterFlowTheme
+                                                            .bodyText2
+                                                            .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 14,
+                                                        ),
+                                                      ),
+                                                    Text(
+                                                      'Direct',
+                                                      style: FlutterFlowTheme
+                                                          .bodyText2
+                                                          .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),

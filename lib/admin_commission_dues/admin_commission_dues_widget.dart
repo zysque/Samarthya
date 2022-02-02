@@ -1,9 +1,8 @@
 import '../backend/backend.dart';
-import '../components/payment_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '../pay_commission_dues/pay_commission_dues_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -52,8 +51,18 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.darkBackground,
+        backgroundColor: FlutterFlowTheme.primaryColor,
         automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.grayLight,
+            size: 32,
+          ),
+        ),
         title: Text(
           'Commission Dues',
           style: FlutterFlowTheme.title1.override(
@@ -99,7 +108,7 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                       if (listViewCommissionsRecordList.isEmpty) {
                         return Center(
                           child: Image.asset(
-                            'assets/images/NoSale.JPG',
+                            'assets/images/NoDues.JPG',
                           ),
                         );
                       }
@@ -134,25 +143,16 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                 final containerBookingsRecord = snapshot.data;
                                 return InkWell(
                                   onTap: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: PaymentWidget(
-                                            isCommission: true,
-                                            commissionDetails:
-                                                listViewCommissionsRecord
-                                                    .reference,
-                                            bookingDetails:
-                                                containerBookingsRecord
-                                                    .reference,
-                                          ),
-                                        );
-                                      },
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            PayCommissionDuesWidget(
+                                          commissionDetails:
+                                              listViewCommissionsRecord
+                                                  .reference,
+                                        ),
+                                      ),
                                     );
                                   },
                                   child: Container(
@@ -245,17 +245,19 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                   ],
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 0, 4),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      containerBookingsRecord
-                                                          .areaBookedInSqft
-                                                          .toString(),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                2, 0, 0, 0),
+                                                    child: Text(
+                                                      'Area Booked',
                                                       style: FlutterFlowTheme
                                                           .subtitle2
                                                           .override(
@@ -265,26 +267,54 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                             .textColor,
                                                       ),
                                                     ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  2, 0, 0, 0),
-                                                      child: Text(
-                                                        'SQFT',
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 0, 4),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Text(
+                                                          containerBookingsRecord
+                                                              .areaBookedInSqft
+                                                              .toString(),
+                                                          style:
                                                               FlutterFlowTheme
-                                                                  .textColor,
+                                                                  .subtitle2
+                                                                  .override(
+                                                            fontFamily:
+                                                                'Lexend Deca',
+                                                            color:
+                                                                FlutterFlowTheme
+                                                                    .textColor,
+                                                          ),
                                                         ),
-                                                      ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(2,
+                                                                      0, 0, 0),
+                                                          child: Text(
+                                                            'SQFT',
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .subtitle2
+                                                                    .override(
+                                                              fontFamily:
+                                                                  'Lexend Deca',
+                                                              color:
+                                                                  FlutterFlowTheme
+                                                                      .textColor,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                ],
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -296,6 +326,16 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
+                                                    Text(
+                                                      'Total Amount to Pay',
+                                                      style: FlutterFlowTheme
+                                                          .bodyText2
+                                                          .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
                                                     Text(
                                                       formatNumber(
                                                         containerBookingsRecord
@@ -312,56 +352,87 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                         fontSize: 14,
                                                       ),
                                                     ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        if (containerBookingsRecord
-                                                                .creditStatus ??
-                                                            true)
-                                                          Text(
-                                                            functions
-                                                                .getQuotient(
-                                                                    containerBookingsRecord
-                                                                        .amountLeftToPay,
-                                                                    containerBookingsRecord
-                                                                        .emiAmount)
-                                                                .toString(),
-                                                            style:
-                                                                FlutterFlowTheme
-                                                                    .bodyText1
-                                                                    .override(
-                                                              fontFamily:
-                                                                  'Lexend Deca',
-                                                              color: Color(
-                                                                  0xFFE91E63),
-                                                            ),
-                                                          ),
-                                                        if (containerBookingsRecord
-                                                                .creditStatus ??
-                                                            true)
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        2,
-                                                                        0,
-                                                                        0,
-                                                                        0),
-                                                            child: Text(
-                                                              'EMIs Left',
-                                                              style:
-                                                                  FlutterFlowTheme
-                                                                      .bodyText1
-                                                                      .override(
-                                                                fontFamily:
-                                                                    'Lexend Deca',
-                                                                color: Color(
-                                                                    0xFFE91E63),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                      ],
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 4, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'EMI scheduled',
+                                                      style: FlutterFlowTheme
+                                                          .bodyText2
+                                                          .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      formatNumber(
+                                                        containerBookingsRecord
+                                                            .emiAmount,
+                                                        formatType:
+                                                            FormatType.custom,
+                                                        currency: '',
+                                                        format: '',
+                                                        locale: '',
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                          .bodyText2
+                                                          .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 4, 0, 0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Commission Due to Pay',
+                                                      style: FlutterFlowTheme
+                                                          .bodyText2
+                                                          .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      formatNumber(
+                                                        listViewCommissionsRecord
+                                                            .unsettledAmount,
+                                                        formatType:
+                                                            FormatType.custom,
+                                                        currency: '',
+                                                        format: '',
+                                                        locale: '',
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                          .bodyText2
+                                                          .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
                                                     ),
                                                   ],
                                                 ),

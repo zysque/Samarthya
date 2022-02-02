@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -29,7 +30,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.darkBackground,
+        backgroundColor: FlutterFlowTheme.primaryColor,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -45,7 +46,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
           'Admin Constants',
           style: FlutterFlowTheme.title1.override(
             fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.primaryColor,
+            color: FlutterFlowTheme.textColor,
           ),
         ),
         actions: [],
@@ -174,74 +175,89 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 15, 20, 0),
-                          child: Row(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              ToggleIcon(
-                                onPressed: () async {
-                                  setState(() => FFAppState().hasReferral =
-                                      !FFAppState().hasReferral);
-                                },
-                                value: FFAppState().hasReferral,
-                                onIcon: Icon(
-                                  Icons.check_box,
-                                  color: Color(0xFFA5325A),
-                                  size: 25,
-                                ),
-                                offIcon: Icon(
-                                  Icons.check_box_outline_blank,
-                                  color: Color(0xFFA5ADE1),
-                                  size: 25,
-                                ),
+                              Text(
+                                'Want to make a user admin click checkob',
+                                style: FlutterFlowTheme.bodyText1,
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                                child: StreamBuilder<List<UsersRecord>>(
-                                  stream: queryUsersRecord(),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 40,
-                                          height: 40,
-                                          child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
-                                            size: 40,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    List<UsersRecord> dropDownUsersRecordList =
-                                        snapshot.data;
-                                    return FlutterFlowDropDown(
-                                      options: dropDownUsersRecordList
-                                          .map((e) => e.displayName)
-                                          .toList()
-                                          .toList(),
-                                      onChanged: (val) =>
-                                          setState(() => dropDownValue = val),
-                                      width: 265,
-                                      height: 50,
-                                      textStyle:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: FlutterFlowTheme.textColor,
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    5, 10, 20, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    ToggleIcon(
+                                      onPressed: () async {
+                                        setState(() => FFAppState().addAdmin =
+                                            !FFAppState().addAdmin);
+                                      },
+                                      value: FFAppState().addAdmin,
+                                      onIcon: Icon(
+                                        Icons.check_box,
+                                        color: Color(0xFFA5325A),
+                                        size: 25,
                                       ),
-                                      hintText: 'Select User',
-                                      fillColor: FlutterFlowTheme.background,
-                                      elevation: 2,
-                                      borderColor: Colors.transparent,
-                                      borderWidth: 0,
-                                      borderRadius: 0,
-                                      margin: EdgeInsetsDirectional.fromSTEB(
-                                          12, 4, 12, 4),
-                                      hidesUnderline: true,
-                                    );
-                                  },
+                                      offIcon: Icon(
+                                        Icons.check_box_outline_blank,
+                                        color: Color(0xFFA5ADE1),
+                                        size: 25,
+                                      ),
+                                    ),
+                                    if (FFAppState().addAdmin ?? true)
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            15, 0, 0, 0),
+                                        child: StreamBuilder<List<UsersRecord>>(
+                                          stream: queryUsersRecord(),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 40,
+                                                  height: 40,
+                                                  child: SpinKitPumpingHeart(
+                                                    color: FlutterFlowTheme
+                                                        .primaryColor,
+                                                    size: 40,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            List<UsersRecord>
+                                                dropDownUsersRecordList =
+                                                snapshot.data;
+                                            return FlutterFlowDropDown(
+                                              options: [].toList(),
+                                              onChanged: (val) => setState(
+                                                  () => dropDownValue = val),
+                                              width: 265,
+                                              height: 50,
+                                              textStyle: FlutterFlowTheme
+                                                  .bodyText1
+                                                  .override(
+                                                fontFamily: 'Lexend Deca',
+                                                color:
+                                                    FlutterFlowTheme.textColor,
+                                              ),
+                                              hintText: 'Select User',
+                                              fillColor:
+                                                  FlutterFlowTheme.background,
+                                              elevation: 2,
+                                              borderColor: Colors.transparent,
+                                              borderWidth: 0,
+                                              borderRadius: 0,
+                                              margin: EdgeInsetsDirectional
+                                                  .fromSTEB(12, 4, 12, 4),
+                                              hidesUnderline: true,
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ),
                             ],
@@ -296,6 +312,14 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                 };
                                 await columnAdminConstsRecord.reference
                                     .update(adminConstsUpdateData);
+                                await Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        NavBarPage(initialPage: 'HomePage'),
+                                  ),
+                                  (r) => false,
+                                );
                               },
                               text: 'Save',
                               options: FFButtonOptions(

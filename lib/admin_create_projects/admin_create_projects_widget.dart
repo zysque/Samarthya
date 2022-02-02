@@ -74,7 +74,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.darkBackground,
+          backgroundColor: FlutterFlowTheme.primaryColor,
           automaticallyImplyLeading: false,
           leading: InkWell(
             onTap: () async {
@@ -90,7 +90,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
             'Create Project',
             style: FlutterFlowTheme.title1.override(
               fontFamily: 'Lexend Deca',
-              color: FlutterFlowTheme.primaryColor,
+              color: FlutterFlowTheme.textColor,
             ),
           ),
           actions: [],
@@ -114,7 +114,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: MediaQuery.of(context).size.height * 0.6,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.darkBackground,
                   borderRadius: BorderRadius.only(
@@ -275,47 +275,50 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                 ),
               ),
             ),
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                FFButtonWidget(
-                  onPressed: () async {
-                    if (!formKey.currentState.validate()) {
-                      return;
-                    }
-                    final projectsCreateData = createProjectsRecordData(
-                      projectName: projectNameController.text,
-                      projectCity: projectCityController.text,
-                      projectDesc: descriptionController.text,
-                      lastModified: getCurrentTimestamp,
-                    );
-                    await ProjectsRecord.collection
-                        .doc()
-                        .set(projectsCreateData);
-                    Navigator.pop(context);
-                  },
-                  text: 'Create',
-                  options: FFButtonOptions(
-                    width: 300,
-                    height: 70,
-                    color: FlutterFlowTheme.tertiaryColor,
-                    textStyle: FlutterFlowTheme.title1,
-                    elevation: 0,
-                    borderSide: BorderSide(
-                      color: Colors.transparent,
-                      width: 1,
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  FFButtonWidget(
+                    onPressed: () async {
+                      if (!formKey.currentState.validate()) {
+                        return;
+                      }
+                      final projectsCreateData = createProjectsRecordData(
+                        projectName: projectNameController.text,
+                        projectCity: projectCityController.text,
+                        projectDesc: descriptionController.text,
+                        lastModified: getCurrentTimestamp,
+                      );
+                      await ProjectsRecord.collection
+                          .doc()
+                          .set(projectsCreateData);
+                      Navigator.pop(context);
+                    },
+                    text: 'Create',
+                    options: FFButtonOptions(
+                      width: 180,
+                      height: 60,
+                      color: FlutterFlowTheme.tertiaryColor,
+                      textStyle: FlutterFlowTheme.title1,
+                      elevation: 0,
+                      borderSide: BorderSide(
+                        color: Colors.transparent,
+                        width: 1,
+                      ),
+                      borderRadius: 12,
                     ),
-                    borderRadius: 12,
                   ),
-                ),
-                Text(
-                  'Tap above to complete request',
-                  style: FlutterFlowTheme.bodyText1.override(
-                    fontFamily: 'Lexend Deca',
-                    color: Color(0x43000000),
+                  Text(
+                    'Tap above to complete request',
+                    style: FlutterFlowTheme.bodyText1.override(
+                      fontFamily: 'Lexend Deca',
+                      color: Color(0x43000000),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),

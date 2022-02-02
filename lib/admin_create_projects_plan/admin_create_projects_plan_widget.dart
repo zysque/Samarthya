@@ -80,7 +80,7 @@ class _AdminCreateProjectsPlanWidgetState
       child: Scaffold(
         key: scaffoldKey,
         appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.darkBackground,
+          backgroundColor: FlutterFlowTheme.primaryColor,
           automaticallyImplyLeading: false,
           leading: InkWell(
             onTap: () async {
@@ -96,7 +96,7 @@ class _AdminCreateProjectsPlanWidgetState
             'Create Project Plan',
             style: FlutterFlowTheme.title1.override(
               fontFamily: 'Lexend Deca',
-              color: FlutterFlowTheme.primaryColor,
+              color: FlutterFlowTheme.textColor,
             ),
           ),
           actions: [],
@@ -252,17 +252,22 @@ class _AdminCreateProjectsPlanWidgetState
                           ),
                         ),
                       ),
-                      Slider(
-                        activeColor: FlutterFlowTheme.primaryColor,
-                        inactiveColor: Color(0xFF9E9E9E),
-                        min: 0,
-                        max: 100,
-                        value: downPaymentPercentageValue ??= 10,
-                        label: downPaymentPercentageValue.toString(),
-                        divisions: 100,
-                        onChanged: (newValue) {
-                          setState(() => downPaymentPercentageValue = newValue);
-                        },
+                      SliderTheme(
+                        data: SliderThemeData(
+                          showValueIndicator: ShowValueIndicator.always,
+                        ),
+                        child: Slider(
+                          activeColor: FlutterFlowTheme.primaryColor,
+                          inactiveColor: Color(0xFF9E9E9E),
+                          min: 0,
+                          max: 1,
+                          value: downPaymentPercentageValue ??= 0.1,
+                          label: downPaymentPercentageValue.toString(),
+                          onChanged: (newValue) {
+                            setState(
+                                () => downPaymentPercentageValue = newValue);
+                          },
+                        ),
                       ),
                       Expanded(
                         child: Padding(
@@ -585,7 +590,7 @@ class _AdminCreateProjectsPlanWidgetState
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -620,20 +625,16 @@ class _AdminCreateProjectsPlanWidgetState
                       width: 200,
                       height: 60,
                       color: FlutterFlowTheme.tertiaryColor,
-                      textStyle: FlutterFlowTheme.title1,
+                      textStyle: FlutterFlowTheme.title1.override(
+                        fontFamily: 'Lexend Deca',
+                        fontSize: 24,
+                      ),
                       elevation: 0,
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.darkBackground,
                         width: 1,
                       ),
                       borderRadius: 12,
-                    ),
-                  ),
-                  Text(
-                    'Tap above to complete request',
-                    style: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Lexend Deca',
-                      color: Color(0x43000000),
                     ),
                   ),
                 ],

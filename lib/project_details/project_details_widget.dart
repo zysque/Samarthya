@@ -1,4 +1,5 @@
 import '../admin_modify_projects/admin_modify_projects_widget.dart';
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../create_booking/create_booking_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
@@ -190,7 +191,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                   padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: 150,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.background,
                     ),
@@ -205,7 +206,10 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                             children: [
                               AutoSizeText(
                                 projectDetailsProjectsRecord.projectDesc,
-                                style: FlutterFlowTheme.subtitle2,
+                                style: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Lexend Deca',
+                                  fontSize: 12,
+                                ),
                               ),
                             ],
                           ),
@@ -216,311 +220,416 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.background,
+                  child: StreamBuilder<List<UserHierarchiesRecord>>(
+                    stream: queryUserHierarchiesRecord(
+                      queryBuilder: (userHierarchiesRecord) =>
+                          userHierarchiesRecord.where('hierarchyUser',
+                              isEqualTo: currentUserReference),
+                      singleRecord: true,
                     ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          StreamBuilder<List<PlansAndRatesRecord>>(
-                            stream: queryPlansAndRatesRecord(
-                              queryBuilder: (plansAndRatesRecord) =>
-                                  plansAndRatesRecord.where('projectRef',
-                                      isEqualTo: projectDetailsProjectsRecord
-                                          .reference),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: SpinKitPumpingHeart(
+                              color: FlutterFlowTheme.primaryColor,
+                              size: 40,
                             ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 40,
-                                    height: 40,
-                                    child: SpinKitPumpingHeart(
-                                      color: FlutterFlowTheme.primaryColor,
-                                      size: 40,
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<PlansAndRatesRecord>
-                                  listViewPlansAndRatesRecordList =
-                                  snapshot.data;
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount:
-                                    listViewPlansAndRatesRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewPlansAndRatesRecord =
-                                      listViewPlansAndRatesRecordList[
-                                          listViewIndex];
-                                  return Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 5, 5, 0),
-                                    child: Container(
-                                      width: 25,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.primaryColor,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            10, 5, 10, 5),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 4),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    listViewPlansAndRatesRecord
-                                                        .phaseCode,
-                                                    style: FlutterFlowTheme
-                                                        .subtitle1,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 4),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                2, 0, 2, 0),
-                                                    child: FaIcon(
-                                                      FontAwesomeIcons
-                                                          .rupeeSign,
-                                                      color: FlutterFlowTheme
-                                                          .grayLight,
-                                                      size: 16,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    valueOrDefault<String>(
-                                                      listViewPlansAndRatesRecord
-                                                          .fixedRatePerSqFt
-                                                          .toString(),
-                                                      '0',
-                                                    ),
-                                                    style: FlutterFlowTheme
-                                                        .subtitle2,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                4, 0, 0, 0),
-                                                    child: Text(
-                                                      'Per SqFt',
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 4),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    formatNumber(
-                                                      listViewPlansAndRatesRecord
-                                                          .minBookingAmtPerc,
-                                                      formatType:
-                                                          FormatType.percent,
-                                                    ),
-                                                    style: FlutterFlowTheme
-                                                        .subtitle2,
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                4, 0, 0, 0),
-                                                    child: Text(
-                                                      'Minimum Booking Amount',
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SingleChildScrollView(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        'Available EMI Tenure options in Months',
-                                                        style: FlutterFlowTheme
-                                                            .bodyText1,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SingleChildScrollView(
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Builder(
-                                                          builder: (context) {
-                                                            final emiOption =
-                                                                listViewPlansAndRatesRecord
-                                                                        .emiTenureOptions
-                                                                        .toList()
-                                                                        ?.toList() ??
-                                                                    [];
-                                                            return SingleChildScrollView(
-                                                              scrollDirection:
-                                                                  Axis.horizontal,
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: List.generate(
-                                                                    emiOption
-                                                                        .length,
-                                                                    (emiOptionIndex) {
-                                                                  final emiOptionItem =
-                                                                      emiOption[
-                                                                          emiOptionIndex];
-                                                                  return Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0,
-                                                                            0,
-                                                                            5,
-                                                                            0),
-                                                                    child: Text(
-                                                                      emiOptionItem,
-                                                                      style: FlutterFlowTheme
-                                                                          .bodyText1,
-                                                                    ),
-                                                                  );
-                                                                }),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ).animated([
-                                animationsMap['listViewOnPageLoadAnimation']
-                              ]);
-                            },
                           ),
-                        ],
-                      ),
-                    ),
+                        );
+                      }
+                      List<UserHierarchiesRecord>
+                          plansUserHierarchiesRecordList = snapshot.data;
+                      // Return an empty Container when the document does not exist.
+                      if (snapshot.data.isEmpty) {
+                        return Container();
+                      }
+                      final plansUserHierarchiesRecord =
+                          plansUserHierarchiesRecordList.isNotEmpty
+                              ? plansUserHierarchiesRecordList.first
+                              : null;
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 320,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.background,
+                        ),
+                        child: Visibility(
+                          visible:
+                              plansUserHierarchiesRecord.hasReferral ?? true,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Click on Plan you like to Book',
+                                  style: FlutterFlowTheme.title3.override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Color(0xFF7CD514),
+                                    fontSize: 24,
+                                  ),
+                                ),
+                                StreamBuilder<List<PlansAndRatesRecord>>(
+                                  stream: queryPlansAndRatesRecord(
+                                    queryBuilder: (plansAndRatesRecord) =>
+                                        plansAndRatesRecord.where('projectRef',
+                                            isEqualTo:
+                                                projectDetailsProjectsRecord
+                                                    .reference),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: SpinKitPumpingHeart(
+                                            color:
+                                                FlutterFlowTheme.primaryColor,
+                                            size: 40,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<PlansAndRatesRecord>
+                                        listViewPlansAndRatesRecordList =
+                                        snapshot.data;
+                                    if (listViewPlansAndRatesRecordList
+                                        .isEmpty) {
+                                      return Center(
+                                        child: Image.asset(
+                                          'assets/images/NoPhasePlan.JPG',
+                                        ),
+                                      );
+                                    }
+                                    return ListView.builder(
+                                      padding: EdgeInsets.zero,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: listViewPlansAndRatesRecordList
+                                          .length,
+                                      itemBuilder: (context, listViewIndex) {
+                                        final listViewPlansAndRatesRecord =
+                                            listViewPlansAndRatesRecordList[
+                                                listViewIndex];
+                                        return Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  5, 5, 5, 0),
+                                          child: InkWell(
+                                            onTap: () async {
+                                              await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CreateBookingWidget(
+                                                    planRef:
+                                                        listViewPlansAndRatesRecord
+                                                            .reference,
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            child: Container(
+                                              width: 25,
+                                              decoration: BoxDecoration(
+                                                color: FlutterFlowTheme
+                                                    .primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(10, 5, 10, 5),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 4),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Text(
+                                                            listViewPlansAndRatesRecord
+                                                                .phaseCode,
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .subtitle1,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 4),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        2,
+                                                                        0,
+                                                                        2,
+                                                                        0),
+                                                            child: FaIcon(
+                                                              FontAwesomeIcons
+                                                                  .rupeeSign,
+                                                              color:
+                                                                  FlutterFlowTheme
+                                                                      .grayLight,
+                                                              size: 16,
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              listViewPlansAndRatesRecord
+                                                                  .fixedRatePerSqFt
+                                                                  .toString(),
+                                                              '0',
+                                                            ),
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .subtitle2,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        4,
+                                                                        0,
+                                                                        0,
+                                                                        0),
+                                                            child: Text(
+                                                              'Per SqFt',
+                                                              style:
+                                                                  FlutterFlowTheme
+                                                                      .subtitle2,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 0, 4),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            formatNumber(
+                                                              listViewPlansAndRatesRecord
+                                                                  .minBookingAmtPerc,
+                                                              formatType:
+                                                                  FormatType
+                                                                      .percent,
+                                                            ),
+                                                            style:
+                                                                FlutterFlowTheme
+                                                                    .subtitle2,
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        4,
+                                                                        0,
+                                                                        0,
+                                                                        0),
+                                                            child: Text(
+                                                              'Minimum Booking Amount',
+                                                              style:
+                                                                  FlutterFlowTheme
+                                                                      .subtitle2,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                'Available EMI Tenure options in Months',
+                                                                style: FlutterFlowTheme
+                                                                    .bodyText1,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          SingleChildScrollView(
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Builder(
+                                                                  builder:
+                                                                      (context) {
+                                                                    final emiOption = listViewPlansAndRatesRecord
+                                                                            .emiTenureOptions
+                                                                            .toList()
+                                                                            ?.toList() ??
+                                                                        [];
+                                                                    return SingleChildScrollView(
+                                                                      scrollDirection:
+                                                                          Axis.horizontal,
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: List.generate(
+                                                                            emiOption.length,
+                                                                            (emiOptionIndex) {
+                                                                          final emiOptionItem =
+                                                                              emiOption[emiOptionIndex];
+                                                                          return Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0,
+                                                                                0,
+                                                                                5,
+                                                                                0),
+                                                                            child:
+                                                                                Text(
+                                                                              emiOptionItem,
+                                                                              style: FlutterFlowTheme.bodyText1,
+                                                                            ),
+                                                                          );
+                                                                        }),
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ).animated([
+                                      animationsMap[
+                                          'listViewOnPageLoadAnimation']
+                                    ]);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(30, 20, 30, 0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Row(
+                  padding: EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
+                  child: StreamBuilder<List<AdminConstsRecord>>(
+                    stream: queryAdminConstsRecord(
+                      singleRecord: true,
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: SpinKitPumpingHeart(
+                              color: FlutterFlowTheme.primaryColor,
+                              size: 40,
+                            ),
+                          ),
+                        );
+                      }
+                      List<AdminConstsRecord> columnAdminConstsRecordList =
+                          snapshot.data;
+                      // Return an empty Container when the document does not exist.
+                      if (snapshot.data.isEmpty) {
+                        return Container();
+                      }
+                      final columnAdminConstsRecord =
+                          columnAdminConstsRecordList.isNotEmpty
+                              ? columnAdminConstsRecordList.first
+                              : null;
+                      return Column(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          FFButtonWidget(
-                            onPressed: () async {
-                              await Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => CreateBookingWidget(),
-                                ),
-                                (r) => false,
-                              );
-                            },
-                            text: 'Book',
-                            options: FFButtonOptions(
-                              width: 120,
-                              height: 40,
-                              color: Color(0xFF7CD514),
-                              textStyle: FlutterFlowTheme.title1,
-                              elevation: 0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 12,
-                            ),
-                          ),
-                          FFButtonWidget(
-                            onPressed: () async {
-                              await Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      AdminModifyProjectsWidget(
-                                    projectDetails: widget.projectDetails,
+                          if (columnAdminConstsRecord.adminUsers
+                                  .toList()
+                                  .contains(currentUserReference) ??
+                              true)
+                            FFButtonWidget(
+                              onPressed: () async {
+                                await Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        AdminModifyProjectsWidget(
+                                      projectDetails: widget.projectDetails,
+                                    ),
                                   ),
+                                  (r) => false,
+                                );
+                              },
+                              text: 'Modify',
+                              options: FFButtonOptions(
+                                width: 120,
+                                height: 40,
+                                color: Color(0xFF012121),
+                                textStyle: FlutterFlowTheme.title1,
+                                elevation: 0,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
                                 ),
-                                (r) => false,
-                              );
-                            },
-                            text: 'Modify',
-                            options: FFButtonOptions(
-                              width: 120,
-                              height: 40,
-                              color: Color(0xFF810933),
-                              textStyle: FlutterFlowTheme.title1,
-                              elevation: 0,
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
+                                borderRadius: 12,
                               ),
-                              borderRadius: 12,
                             ),
-                          ),
                         ],
-                      ),
-                    ],
+                      );
+                    },
                   ),
                 ),
               ],

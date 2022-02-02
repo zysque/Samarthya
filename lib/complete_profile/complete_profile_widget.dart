@@ -152,8 +152,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                     validateFileFormat(
                                         selectedMedia.storagePath, context)) {
                                   showUploadMessage(
-                                      context, 'Uploading file...',
-                                      showLoading: true);
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
                                   final downloadUrl = await uploadData(
                                       selectedMedia.storagePath,
                                       selectedMedia.bytes);
@@ -162,10 +164,15 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   if (downloadUrl != null) {
                                     setState(
                                         () => uploadedFileUrl1 = downloadUrl);
-                                    showUploadMessage(context, 'Success!');
+                                    showUploadMessage(
+                                      context,
+                                      'Success!',
+                                    );
                                   } else {
                                     showUploadMessage(
-                                        context, 'Failed to upload media');
+                                      context,
+                                      'Failed to upload media',
+                                    );
                                     return;
                                   }
                                 }
@@ -250,6 +257,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               fontFamily: 'Lexend Deca',
                               color: FlutterFlowTheme.grayLight,
                             ),
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0x98FFFFFF),
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
@@ -293,6 +304,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             labelStyle: FlutterFlowTheme.bodyText1.override(
                               fontFamily: 'Lexend Deca',
                               color: FlutterFlowTheme.grayLight,
+                            ),
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0x98FFFFFF),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
@@ -340,6 +355,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               fontFamily: 'Lexend Deca',
                               color: FlutterFlowTheme.grayLight,
                             ),
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0x98FFFFFF),
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
@@ -386,6 +405,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               fontFamily: 'Lexend Deca',
                               color: FlutterFlowTheme.grayLight,
                             ),
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0x98FFFFFF),
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
@@ -422,6 +445,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               fontFamily: 'Lexend Deca',
                               color: FlutterFlowTheme.grayLight,
                             ),
+                            hintStyle: FlutterFlowTheme.bodyText1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0x98FFFFFF),
+                            ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Color(0x00000000),
@@ -450,118 +477,143 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Align(
                               alignment: AlignmentDirectional(-1, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: InkWell(
-                                      onTap: () async {
-                                        final selectedMedia =
-                                            await selectMediaWithSourceBottomSheet(
-                                          context: context,
-                                          allowPhoto: true,
-                                        );
-                                        if (selectedMedia != null &&
-                                            validateFileFormat(
-                                                selectedMedia.storagePath,
-                                                context)) {
-                                          showUploadMessage(
-                                              context, 'Uploading file...',
-                                              showLoading: true);
-                                          final downloadUrl = await uploadData(
-                                              selectedMedia.storagePath,
-                                              selectedMedia.bytes);
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          if (downloadUrl != null) {
-                                            setState(() =>
-                                                uploadedFileUrl2 = downloadUrl);
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: InkWell(
+                                        onTap: () async {
+                                          final selectedMedia =
+                                              await selectMediaWithSourceBottomSheet(
+                                            context: context,
+                                            allowPhoto: true,
+                                          );
+                                          if (selectedMedia != null &&
+                                              validateFileFormat(
+                                                  selectedMedia.storagePath,
+                                                  context)) {
                                             showUploadMessage(
-                                                context, 'Success!');
-                                          } else {
-                                            showUploadMessage(context,
-                                                'Failed to upload media');
-                                            return;
+                                              context,
+                                              'Uploading file...',
+                                              showLoading: true,
+                                            );
+                                            final downloadUrl =
+                                                await uploadData(
+                                                    selectedMedia.storagePath,
+                                                    selectedMedia.bytes);
+                                            ScaffoldMessenger.of(context)
+                                                .hideCurrentSnackBar();
+                                            if (downloadUrl != null) {
+                                              setState(() => uploadedFileUrl2 =
+                                                  downloadUrl);
+                                              showUploadMessage(
+                                                context,
+                                                'Success!',
+                                              );
+                                            } else {
+                                              showUploadMessage(
+                                                context,
+                                                'Failed to upload media',
+                                              );
+                                              return;
+                                            }
                                           }
-                                        }
-                                      },
-                                      child: FaIcon(
-                                        FontAwesomeIcons.idCard,
-                                        color: Colors.black,
-                                        size: 50,
+                                        },
+                                        child: FaIcon(
+                                          FontAwesomeIcons.idCard,
+                                          color: Colors.black,
+                                          size: 50,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Aadhar Card',
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF960087),
+                                    Text(
+                                      'Aadhar Card',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Color(0xFF960087),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             Align(
                               alignment: AlignmentDirectional(1, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: InkWell(
-                                      onTap: () async {
-                                        final selectedMedia =
-                                            await selectMediaWithSourceBottomSheet(
-                                          context: context,
-                                          allowPhoto: true,
-                                        );
-                                        if (selectedMedia != null &&
-                                            validateFileFormat(
-                                                selectedMedia.storagePath,
-                                                context)) {
-                                          showUploadMessage(
-                                              context, 'Uploading file...',
-                                              showLoading: true);
-                                          final downloadUrl = await uploadData(
-                                              selectedMedia.storagePath,
-                                              selectedMedia.bytes);
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          if (downloadUrl != null) {
-                                            setState(() =>
-                                                uploadedFileUrl3 = downloadUrl);
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: InkWell(
+                                        onTap: () async {
+                                          final selectedMedia =
+                                              await selectMediaWithSourceBottomSheet(
+                                            context: context,
+                                            allowPhoto: true,
+                                          );
+                                          if (selectedMedia != null &&
+                                              validateFileFormat(
+                                                  selectedMedia.storagePath,
+                                                  context)) {
                                             showUploadMessage(
-                                                context, 'Success!');
-                                          } else {
-                                            showUploadMessage(context,
-                                                'Failed to upload media');
-                                            return;
+                                              context,
+                                              'Uploading file...',
+                                              showLoading: true,
+                                            );
+                                            final downloadUrl =
+                                                await uploadData(
+                                                    selectedMedia.storagePath,
+                                                    selectedMedia.bytes);
+                                            ScaffoldMessenger.of(context)
+                                                .hideCurrentSnackBar();
+                                            if (downloadUrl != null) {
+                                              setState(() => uploadedFileUrl3 =
+                                                  downloadUrl);
+                                              showUploadMessage(
+                                                context,
+                                                'Success!',
+                                              );
+                                            } else {
+                                              showUploadMessage(
+                                                context,
+                                                'Failed to upload media',
+                                              );
+                                              return;
+                                            }
                                           }
-                                        }
-                                      },
-                                      child: FaIcon(
-                                        FontAwesomeIcons.idCard,
-                                        color: Colors.black,
-                                        size: 50,
+                                        },
+                                        child: FaIcon(
+                                          FontAwesomeIcons.idCard,
+                                          color: Colors.black,
+                                          size: 50,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    'PAN Card',
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF960087),
+                                    Text(
+                                      'PAN Card',
+                                      style:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Color(0xFF960087),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -600,11 +652,10 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                           userRef: currentUserReference,
                           directCommission: 0.0,
                           indirectCommission: 0.0,
-                          unsettledDirect: 0.0,
-                          unsettledIndirect: 0.0,
                           emiDueAmount: 0.0,
                           emiDueDate: getCurrentTimestamp,
                           defaultPayments: 0,
+                          comissionProcessed: getCurrentTimestamp,
                         );
                         await CalculationsRecord.collection
                             .doc()

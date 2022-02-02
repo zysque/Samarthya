@@ -95,7 +95,6 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                     final containerProjectsRecord = snapshot.data;
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 70,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.primaryColor,
                       ),

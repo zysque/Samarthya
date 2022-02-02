@@ -57,7 +57,7 @@ double emiCalculator(
   final int tenureY = int.parse(tenure.replaceAll(' Months', ''));
   double emiAmount =
       ((plotArea * ratePerSQFT) - bookingAmount - downPayment) / tenureY;
-  return emiAmount;
+  return emiAmount.roundToDouble();
 }
 
 int parseReplaceFromString(
@@ -80,7 +80,7 @@ int getDaysLeft(DateTime timeStamp) {
   // get timestamp difference from current date
   Duration difference = timeStamp.difference(DateTime.now());
 
-  return difference.inDays;
+  return difference.inDays.abs();
 }
 
 bool getIfDaysLeft(DateTime timeStamp) {
@@ -103,7 +103,7 @@ int getQuotient(
   double val2,
 ) {
   // Add your function code here!
-  return (val1 / val2).floor();
+  return (val1 / val2).round();
 }
 
 DateTime getNewDate(
@@ -125,8 +125,8 @@ DateTime getNewDate(
 double getBookingAmt(
   double perc,
   double rate,
-  double area,
+  int area,
 ) {
   // Add your function code here!
-  return (area * rate * perc) / 100;
+  return area * rate * perc;
 }

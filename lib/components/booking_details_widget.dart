@@ -94,7 +94,6 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                     final containerProjectsRecord = snapshot.data;
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 70,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.primaryColor,
                       ),
@@ -360,18 +359,6 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                                             style: FlutterFlowTheme.bodyText1,
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5, 0, 0, 0),
-                                          child: Text(
-                                            dateTimeFormat(
-                                                'jms',
-                                                containerBookingsRecord
-                                                    .created),
-                                            style: FlutterFlowTheme.bodyText1,
-                                          ),
-                                        ),
                                       ],
                                     ),
                                   ],
@@ -417,13 +404,6 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Text(
-                                          dateTimeFormat(
-                                              'EEEE',
-                                              containerBookingsRecord
-                                                  .lastModified),
-                                          style: FlutterFlowTheme.bodyText1,
-                                        ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -495,8 +475,8 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                                     Expanded(
                                       child: SwitchListTile(
                                         value: switchListTileValue2 ??=
-                                            containerBookingsRecord
-                                                .creditStatus,
+                                            !(containerBookingsRecord
+                                                .creditStatus),
                                         onChanged: (newValue) => setState(() =>
                                             switchListTileValue2 = newValue),
                                         title: Text(

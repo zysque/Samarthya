@@ -1,51 +1,32 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/payment_widget.dart';
-import '../flutter_flow/flutter_flow_animations.dart';
+import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PayDuesWidget extends StatefulWidget {
-  const PayDuesWidget({Key key}) : super(key: key);
+  const PayDuesWidget({
+    Key key,
+    this.bookingDetails,
+  }) : super(key: key);
+
+  final DocumentReference bookingDetails;
 
   @override
   _PayDuesWidgetState createState() => _PayDuesWidgetState();
 }
 
-class _PayDuesWidgetState extends State<PayDuesWidget>
-    with TickerProviderStateMixin {
-  final animationsMap = {
-    'listViewOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 150,
-      delay: 90,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 26),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-  };
+class _PayDuesWidgetState extends State<PayDuesWidget> {
+  String dropDownValue;
+  TextEditingController amountBPController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    startPageLoadAnimations(
-      animationsMap.values
-          .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
-      this,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +37,13 @@ class _PayDuesWidgetState extends State<PayDuesWidget>
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
-            Navigator.pop(context);
+            await Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NavBarPage(initialPage: 'HomePage'),
+              ),
+              (r) => false,
+            );
           },
           child: Icon(
             Icons.chevron_left_rounded,
@@ -65,7 +52,7 @@ class _PayDuesWidgetState extends State<PayDuesWidget>
           ),
         ),
         title: Text(
-          'My Dues',
+          'Pay Dues',
           style: FlutterFlowTheme.title1.override(
             fontFamily: 'Lexend Deca',
             color: FlutterFlowTheme.textColor,
@@ -77,20 +64,132 @@ class _PayDuesWidgetState extends State<PayDuesWidget>
       ),
       backgroundColor: FlutterFlowTheme.background,
       body: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  StreamBuilder<List<BookingsRecord>>(
-                    stream: queryBookingsRecord(
-                      queryBuilder: (bookingsRecord) => bookingsRecord
-                          .where('buyerRef', isEqualTo: currentUserReference)
-                          .where('creditStatus', isEqualTo: true)
-                          .orderBy('lastModified', descending: true),
+        child: StreamBuilder<BookingsRecord>(
+          stream: BookingsRecord.getDocument(widget.bookingDetails),
+          builder: (context, snapshot) {
+            // Customize what your widget looks like when it's loading.
+            if (!snapshot.hasData) {
+              return Center(
+                child: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: SpinKitPumpingHeart(
+                    color: FlutterFlowTheme.primaryColor,
+                    size: 40,
+                  ),
+                ),
+              );
+            }
+            final columnBookingsRecord = snapshot.data;
+            return Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 175,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.background,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          child: Text(
+                            'Payment',
+                            style: FlutterFlowTheme.title3.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFFC5E1A5),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(40, 20, 40, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              TextFormField(
+                                controller: amountBPController ??=
+                                    TextEditingController(
+                                  text:
+                                      columnBookingsRecord.dueAmount.toString(),
+                                ),
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  hintText: 'Amount to Pay',
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0x00000000),
+                                      width: 1,
+                                    ),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(4.0),
+                                      topRight: Radius.circular(4.0),
+                                    ),
+                                  ),
+                                  prefixIcon: FaIcon(
+                                    FontAwesomeIcons.rupeeSign,
+                                    color: FlutterFlowTheme.textColor,
+                                  ),
+                                ),
+                                style: FlutterFlowTheme.bodyText1.override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.textColor,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                child: FlutterFlowDropDown(
+                                  options: ['Cash'].toList(),
+                                  onChanged: (val) =>
+                                      setState(() => dropDownValue = val),
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 50,
+                                  textStyle:
+                                      FlutterFlowTheme.bodyText1.override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: FlutterFlowTheme.textColor,
+                                  ),
+                                  hintText: 'Select Mode',
+                                  fillColor: FlutterFlowTheme.background,
+                                  elevation: 2,
+                                  borderColor: Colors.transparent,
+                                  borderWidth: 0,
+                                  borderRadius: 0,
+                                  margin: EdgeInsetsDirectional.fromSTEB(
+                                      12, 4, 12, 4),
+                                  hidesUnderline: true,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                  child: StreamBuilder<List<UserHierarchiesRecord>>(
+                    stream: queryUserHierarchiesRecord(
+                      queryBuilder: (userHierarchiesRecord) =>
+                          userHierarchiesRecord.where('hierarchyUser',
+                              isEqualTo: currentUserReference),
+                      singleRecord: true,
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -106,375 +205,149 @@ class _PayDuesWidgetState extends State<PayDuesWidget>
                           ),
                         );
                       }
-                      List<BookingsRecord> listViewBookingsRecordList =
-                          snapshot.data;
-                      if (listViewBookingsRecordList.isEmpty) {
-                        return Center(
-                          child: Image.asset(
-                            'assets/images/NoSale.JPG',
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewBookingsRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewBookingsRecord =
-                              listViewBookingsRecordList[listViewIndex];
-                          return Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
-                            child: StreamBuilder<ProjectsRecord>(
-                              stream: ProjectsRecord.getDocument(
-                                  listViewBookingsRecord.projectRef),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 40,
-                                      height: 40,
-                                      child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.primaryColor,
-                                        size: 40,
+                      List<UserHierarchiesRecord>
+                          actionsUserHierarchiesRecordList = snapshot.data;
+                      final actionsUserHierarchiesRecord =
+                          actionsUserHierarchiesRecordList.isNotEmpty
+                              ? actionsUserHierarchiesRecordList.first
+                              : null;
+                      return Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          if (actionsUserHierarchiesRecord.hasReferral ?? true)
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
+                              child: StreamBuilder<List<CommissionsRecord>>(
+                                stream: queryCommissionsRecord(
+                                  queryBuilder: (commissionsRecord) =>
+                                      commissionsRecord
+                                          .where('commissionUser',
+                                              isEqualTo:
+                                                  actionsUserHierarchiesRecord
+                                                      .referralParent)
+                                          .where('isDirect', isEqualTo: true),
+                                  singleRecord: true,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: SpinKitPumpingHeart(
+                                          color: FlutterFlowTheme.primaryColor,
+                                          size: 40,
+                                        ),
                                       ),
+                                    );
+                                  }
+                                  List<CommissionsRecord>
+                                      logBPCommissionsRecordList =
+                                      snapshot.data;
+                                  final logBPCommissionsRecord =
+                                      logBPCommissionsRecordList.isNotEmpty
+                                          ? logBPCommissionsRecordList.first
+                                          : null;
+                                  return FFButtonWidget(
+                                    onPressed: () async {
+                                      final transactionsCreateData =
+                                          createTransactionsRecordData(
+                                        transactionUser: currentUserReference,
+                                        transactionType: 'Booking',
+                                        mode: dropDownValue,
+                                        bookingRef: widget.bookingDetails,
+                                        transactionTime: getCurrentTimestamp,
+                                        transactionAmount: double.parse(
+                                            amountBPController?.text ?? ''),
+                                        status: false,
+                                        commissionRef:
+                                            logBPCommissionsRecord.reference,
+                                      );
+                                      await TransactionsRecord.collection
+                                          .doc()
+                                          .set(transactionsCreateData);
+
+                                      final bookingsUpdateData =
+                                          createBookingsRecordData(
+                                        creditStatus: false,
+                                      );
+                                      await columnBookingsRecord.reference
+                                          .update(bookingsUpdateData);
+                                      Navigator.pop(context);
+                                    },
+                                    text: 'Log Pay',
+                                    options: FFButtonOptions(
+                                      width: 130,
+                                      height: 40,
+                                      color: FlutterFlowTheme.primaryColor,
+                                      textStyle:
+                                          FlutterFlowTheme.subtitle2.override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Colors.white,
+                                      ),
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                      borderRadius: 12,
                                     ),
                                   );
-                                }
-                                final containerProjectsRecord = snapshot.data;
-                                return InkWell(
-                                  onTap: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: PaymentWidget(
-                                            bookingDetails:
-                                                listViewBookingsRecord
-                                                    .reference,
-                                            isCommission: false,
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.primaryColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12, 12, 12, 12),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  containerProjectsRecord
-                                                      .projectName,
-                                                  style: FlutterFlowTheme
-                                                      .subtitle1
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
-                                                ),
-                                                Icon(
-                                                  Icons
-                                                      .arrow_forward_ios_rounded,
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                  size: 16,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  containerProjectsRecord
-                                                      .projectCity,
-                                                  style: FlutterFlowTheme
-                                                      .subtitle2
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  listViewBookingsRecord
-                                                      .areaBookedInSqft
-                                                      .toString(),
-                                                  style: FlutterFlowTheme
-                                                      .subtitle2
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(2, 0, 0, 0),
-                                                  child: Text(
-                                                    'SQFT',
-                                                    style: FlutterFlowTheme
-                                                        .subtitle2
-                                                        .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 0, 0, 0),
-                                                child: Text(
-                                                  formatNumber(
-                                                    listViewBookingsRecord
-                                                        .emiAmount,
-                                                    formatType:
-                                                        FormatType.custom,
-                                                    currency: '',
-                                                    format: '',
-                                                    locale: '',
-                                                  ),
-                                                  style: FlutterFlowTheme
-                                                      .subtitle2
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
-                                                ),
-                                              ),
-                                              if (functions.getIfDaysLeft(
-                                                      listViewBookingsRecord
-                                                          .dueDate) ??
-                                                  true)
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      functions
-                                                          .getDaysLeft(
-                                                              listViewBookingsRecord
-                                                                  .dueDate)
-                                                          .toString(),
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  2, 0, 0, 0),
-                                                      child: Text(
-                                                        'Days Left',
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              if (!(functions.getIfDaysLeft(
-                                                      listViewBookingsRecord
-                                                          .dueDate)) ??
-                                                  true)
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      functions
-                                                          .getDaysLeft(
-                                                              listViewBookingsRecord
-                                                                  .dueDate)
-                                                          .toString(),
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  2, 0, 0, 0),
-                                                      child: Text(
-                                                        'Delayed',
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 4, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  formatNumber(
-                                                    listViewBookingsRecord
-                                                        .amountLeftToPay,
-                                                    formatType:
-                                                        FormatType.compact,
-                                                    currency: '',
-                                                  ),
-                                                  style: FlutterFlowTheme
-                                                      .bodyText2
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    if (listViewBookingsRecord
-                                                            .creditStatus ??
-                                                        true)
-                                                      Text(
-                                                        functions
-                                                            .getQuotient(
-                                                                listViewBookingsRecord
-                                                                    .amountLeftToPay,
-                                                                listViewBookingsRecord
-                                                                    .emiAmount)
-                                                            .toString(),
-                                                        style: FlutterFlowTheme
-                                                            .bodyText1
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              Color(0xFFE91E63),
-                                                        ),
-                                                      ),
-                                                    if (listViewBookingsRecord
-                                                            .creditStatus ??
-                                                        true)
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    2, 0, 0, 0),
-                                                        child: Text(
-                                                          'EMIs Left',
-                                                          style:
-                                                              FlutterFlowTheme
-                                                                  .bodyText1
-                                                                  .override(
-                                                            fontFamily:
-                                                                'Lexend Deca',
-                                                            color: Color(
-                                                                0xFFE91E63),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
+                                },
+                              ),
                             ),
-                          );
-                        },
-                      ).animated(
-                          [animationsMap['listViewOnPageLoadAnimation']]);
+                          if (!(actionsUserHierarchiesRecord.hasReferral) ??
+                              true)
+                            FFButtonWidget(
+                              onPressed: () async {
+                                final transactionsCreateData =
+                                    createTransactionsRecordData(
+                                  transactionUser: currentUserReference,
+                                  transactionType: 'Booking',
+                                  mode: dropDownValue,
+                                  bookingRef: widget.bookingDetails,
+                                  transactionTime: getCurrentTimestamp,
+                                  transactionAmount: double.parse(
+                                      amountBPController?.text ?? ''),
+                                  status: false,
+                                );
+                                await TransactionsRecord.collection
+                                    .doc()
+                                    .set(transactionsCreateData);
+
+                                final bookingsUpdateData =
+                                    createBookingsRecordData(
+                                  creditStatus: false,
+                                );
+                                await columnBookingsRecord.reference
+                                    .update(bookingsUpdateData);
+                                Navigator.pop(context);
+                              },
+                              text: 'Log Pay',
+                              options: FFButtonOptions(
+                                width: 130,
+                                height: 40,
+                                color: FlutterFlowTheme.primaryColor,
+                                textStyle: FlutterFlowTheme.subtitle2.override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: Colors.white,
+                                ),
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
+                              ),
+                            ),
+                        ],
+                      );
                     },
                   ),
-                ],
-              ),
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

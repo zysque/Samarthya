@@ -21,12 +21,6 @@ abstract class CalculationsRecord
   double get indirectCommission;
 
   @nullable
-  double get unsettledDirect;
-
-  @nullable
-  double get unsettledIndirect;
-
-  @nullable
   double get emiDueAmount;
 
   @nullable
@@ -45,8 +39,6 @@ abstract class CalculationsRecord
   static void _initializeBuilder(CalculationsRecordBuilder builder) => builder
     ..directCommission = 0.0
     ..indirectCommission = 0.0
-    ..unsettledDirect = 0.0
-    ..unsettledIndirect = 0.0
     ..emiDueAmount = 0.0
     ..defaultPayments = 0;
 
@@ -76,8 +68,6 @@ Map<String, dynamic> createCalculationsRecordData({
   DocumentReference userRef,
   double directCommission,
   double indirectCommission,
-  double unsettledDirect,
-  double unsettledIndirect,
   double emiDueAmount,
   DateTime emiDueDate,
   int defaultPayments,
@@ -89,8 +79,6 @@ Map<String, dynamic> createCalculationsRecordData({
           ..userRef = userRef
           ..directCommission = directCommission
           ..indirectCommission = indirectCommission
-          ..unsettledDirect = unsettledDirect
-          ..unsettledIndirect = unsettledIndirect
           ..emiDueAmount = emiDueAmount
           ..emiDueDate = emiDueDate
           ..defaultPayments = defaultPayments

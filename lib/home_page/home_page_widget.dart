@@ -8,9 +8,9 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
 import '../my_bookings/my_bookings_widget.dart';
 import '../my_commissions/my_commissions_widget.dart';
+import '../my_dues/my_dues_widget.dart';
 import '../my_hierarchy/my_hierarchy_widget.dart';
 import '../my_transactions/my_transactions_widget.dart';
-import '../pay_dues/pay_dues_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -183,13 +183,24 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     fontSize: 17,
                                   ),
                                 ),
-                                Text(
-                                  formatNumber(
-                                    columnCalculationsRecord.emiDueAmount,
-                                    formatType: FormatType.compact,
-                                    currency: '',
-                                  ),
-                                  style: FlutterFlowTheme.title1,
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 5, 0),
+                                      child: FaIcon(
+                                        FontAwesomeIcons.rupeeSign,
+                                        color: FlutterFlowTheme.textColor,
+                                        size: 24,
+                                      ),
+                                    ),
+                                    Text(
+                                      columnCalculationsRecord.emiDueAmount
+                                          .toString(),
+                                      style: FlutterFlowTheme.title1,
+                                    ),
+                                  ],
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -332,27 +343,42 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Commissions Due',
+                                  'Total Commissions',
                                   style: FlutterFlowTheme.subtitle1.override(
                                     fontFamily: 'Lexend Deca',
+                                    color: FlutterFlowTheme.textColor,
                                     fontSize: 17,
                                   ),
                                 ),
-                                Text(
-                                  functions
-                                      .getSum(
-                                          columnCalculationsRecord
-                                              .unsettledDirect,
-                                          columnCalculationsRecord
-                                              .unsettledIndirect)
-                                      .toString(),
-                                  style: FlutterFlowTheme.title1,
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 5, 0),
+                                      child: FaIcon(
+                                        FontAwesomeIcons.rupeeSign,
+                                        color: FlutterFlowTheme.textColor,
+                                        size: 24,
+                                      ),
+                                    ),
+                                    Text(
+                                      functions
+                                          .getSum(
+                                              columnCalculationsRecord
+                                                  .directCommission,
+                                              columnCalculationsRecord
+                                                  .indirectCommission)
+                                          .toString(),
+                                      style: FlutterFlowTheme.title1,
+                                    ),
+                                  ],
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 4, 0, 0),
                                   child: Text(
-                                    'Processing Date',
+                                    'last Processing Date',
                                     style: GoogleFonts.getFont(
                                       'Lexend Deca',
                                       color: Color(0xB4FFFFFF),
@@ -368,41 +394,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         'yMMMd',
                                         columnCalculationsRecord
                                             .comissionProcessed),
-                                    style: FlutterFlowTheme.title3,
+                                    style: FlutterFlowTheme.title3.override(
+                                      fontFamily: 'Lexend Deca',
+                                      fontSize: 20,
+                                    ),
                                   ),
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 4, 0, 0),
-                                      child: Text(
-                                        functions
-                                            .getDaysLeft(
-                                                columnCalculationsRecord
-                                                    .comissionProcessed)
-                                            .toString(),
-                                        style: GoogleFonts.getFont(
-                                          'Lexend Deca',
-                                          color: FlutterFlowTheme.textColor,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          2, 4, 0, 0),
-                                      child: Text(
-                                        'Days Delay',
-                                        style: GoogleFonts.getFont(
-                                          'Lexend Deca',
-                                          color: FlutterFlowTheme.textColor,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
                                 ),
                               ],
                             );
@@ -693,7 +689,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => PayDuesWidget(),
+                                      builder: (context) => MyDuesWidget(),
                                     ),
                                   );
                                 },

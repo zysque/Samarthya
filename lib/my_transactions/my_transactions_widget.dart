@@ -109,7 +109,7 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                       if (listViewTransactionsRecordList.isEmpty) {
                         return Center(
                           child: Image.asset(
-                            'assets/images/NoSale.JPG',
+                            'assets/images/NoTransactions.JPG',
                           ),
                         );
                       }

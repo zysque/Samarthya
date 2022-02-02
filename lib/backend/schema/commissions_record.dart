@@ -21,13 +21,7 @@ abstract class CommissionsRecord
   bool get isDirect;
 
   @nullable
-  String get comments;
-
-  @nullable
   DocumentReference get bookingRef;
-
-  @nullable
-  BuiltList<DocumentReference> get commTransRef;
 
   @nullable
   DateTime get lastModified;
@@ -39,16 +33,18 @@ abstract class CommissionsRecord
   bool get settled;
 
   @nullable
+  BuiltList<String> get comments;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(CommissionsRecordBuilder builder) => builder
     ..commissionAmount = 0.0
     ..isDirect = false
-    ..comments = ''
-    ..commTransRef = ListBuilder()
     ..unsettledAmount = 0.0
-    ..settled = false;
+    ..settled = false
+    ..comments = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('commissions');
@@ -75,7 +71,6 @@ Map<String, dynamic> createCommissionsRecordData({
   DocumentReference commissionUser,
   double commissionAmount,
   bool isDirect,
-  String comments,
   DocumentReference bookingRef,
   DateTime lastModified,
   double unsettledAmount,
@@ -87,9 +82,8 @@ Map<String, dynamic> createCommissionsRecordData({
           ..commissionUser = commissionUser
           ..commissionAmount = commissionAmount
           ..isDirect = isDirect
-          ..comments = comments
           ..bookingRef = bookingRef
-          ..commTransRef = null
           ..lastModified = lastModified
           ..unsettledAmount = unsettledAmount
-          ..settled = settled));
+          ..settled = settled
+          ..comments = null));

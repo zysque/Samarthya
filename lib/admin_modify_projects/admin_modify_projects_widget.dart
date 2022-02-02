@@ -95,7 +95,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
           return Scaffold(
             key: scaffoldKey,
             appBar: AppBar(
-              backgroundColor: FlutterFlowTheme.darkBackground,
+              backgroundColor: FlutterFlowTheme.primaryColor,
               automaticallyImplyLeading: false,
               leading: InkWell(
                 onTap: () async {
@@ -111,7 +111,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                 'Modify Project',
                 style: FlutterFlowTheme.title1.override(
                   fontFamily: 'Lexend Deca',
-                  color: FlutterFlowTheme.primaryColor,
+                  color: FlutterFlowTheme.textColor,
                 ),
               ),
               actions: [],
@@ -135,7 +135,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                   ),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.75,
+                    height: 550,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.darkBackground,
                       borderRadius: BorderRadius.only(
@@ -164,6 +164,13 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                   ),
                                   obscureText: false,
                                   decoration: InputDecoration(
+                                    labelStyle:
+                                        FlutterFlowTheme.title1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.grayLight,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w300,
+                                    ),
                                     hintText: 'Project Name',
                                     hintStyle: FlutterFlowTheme.title1.override(
                                       fontFamily: 'Lexend Deca',
@@ -217,6 +224,13 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                   ),
                                   obscureText: false,
                                   decoration: InputDecoration(
+                                    labelStyle:
+                                        FlutterFlowTheme.title1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.grayLight,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w300,
+                                    ),
                                     hintText: 'Project City',
                                     hintStyle: FlutterFlowTheme.title1.override(
                                       fontFamily: 'Lexend Deca',
@@ -270,6 +284,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                   ),
                                   obscureText: false,
                                   decoration: InputDecoration(
+                                    labelStyle: FlutterFlowTheme.bodyText1,
                                     hintText: 'Project  Description',
                                     hintStyle: FlutterFlowTheme.bodyText1,
                                     enabledBorder: OutlineInputBorder(
@@ -327,7 +342,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                         ),
                         Padding(
                           padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 30, 20, 0),
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -336,11 +351,12 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                 style: FlutterFlowTheme.title3.override(
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.errorRed,
+                                  fontSize: 18,
                                 ),
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                    EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
                                     await Navigator.push(
@@ -355,13 +371,10 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                   },
                                   text: 'Add Plan',
                                   options: FFButtonOptions(
-                                    width: 180,
-                                    height: 60,
+                                    width: 140,
+                                    height: 40,
                                     color: FlutterFlowTheme.grayLight,
-                                    textStyle: FlutterFlowTheme.title1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0xFFC5E1A5),
-                                    ),
+                                    textStyle: FlutterFlowTheme.title3,
                                     elevation: 0,
                                     borderSide: BorderSide(
                                       color: FlutterFlowTheme.grayDark,
@@ -379,7 +392,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -416,13 +429,6 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                             width: 2,
                           ),
                           borderRadius: 12,
-                        ),
-                      ),
-                      Text(
-                        'Tap above to complete request',
-                        style: FlutterFlowTheme.bodyText1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: Color(0x43000000),
                         ),
                       ),
                     ],
