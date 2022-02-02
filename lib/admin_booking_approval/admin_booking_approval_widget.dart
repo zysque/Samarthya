@@ -531,7 +531,11 @@ class _AdminBookingApprovalWidgetState
                                             FlutterFlowDropDown(
                                               initialOption: emiTenureValue ??=
                                                   '${columnBookingsRecord.emiTenureInMonths.toString()} Months',
-                                              options: [].toList(),
+                                              options:
+                                                  bookingDetailsPlansAndRatesRecord
+                                                      .emiTenureOptions
+                                                      .toList()
+                                                      .toList(),
                                               onChanged: (val) => setState(
                                                   () => emiTenureValue = val),
                                               width: 200,
