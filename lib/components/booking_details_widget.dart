@@ -43,8 +43,6 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
         }
         final containerBookingsRecord = snapshot.data;
         return Container(
-          width: double.infinity,
-          height: double.infinity,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.darkBackground,
           ),
@@ -160,7 +158,7 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                   },
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 417,

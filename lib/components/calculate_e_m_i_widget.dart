@@ -40,8 +40,6 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
     return Form(
       key: formKey,
       child: Container(
-        width: double.infinity,
-        height: double.infinity,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.darkBackground,
         ),
