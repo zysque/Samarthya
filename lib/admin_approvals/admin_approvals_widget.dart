@@ -289,7 +289,7 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       .totalAmountToPay,
                                                   formatType:
                                                       FormatType.compact,
-                                                  currency: '',
+                                                  currency: 'Rs',
                                                 ),
                                                 style: FlutterFlowTheme
                                                     .subtitle2
@@ -308,7 +308,7 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                         .amountLeftToPay,
                                                     formatType:
                                                         FormatType.compact,
-                                                    currency: '',
+                                                    currency: 'Rs',
                                                   ),
                                                   style: FlutterFlowTheme
                                                       .subtitle2
@@ -325,7 +325,7 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       .emiAmount,
                                                   formatType:
                                                       FormatType.compact,
-                                                  currency: '',
+                                                  currency: 'Rs',
                                                 ),
                                                 style: FlutterFlowTheme
                                                     .subtitle2

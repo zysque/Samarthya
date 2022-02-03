@@ -180,7 +180,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Text(
-                                'Want to make a user admin click checkob',
+                                'Want to make a user admin click checkbox',
                                 style: FlutterFlowTheme.bodyText1,
                               ),
                               Padding(
@@ -231,7 +231,10 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                                 dropDownUsersRecordList =
                                                 snapshot.data;
                                             return FlutterFlowDropDown(
-                                              options: [].toList(),
+                                              options: dropDownUsersRecordList
+                                                  .map((e) => e.email)
+                                                  .toList()
+                                                  .toList(),
                                               onChanged: (val) => setState(
                                                   () => dropDownValue = val),
                                               width: 265,
@@ -273,9 +276,8 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                       children: [
                         StreamBuilder<List<UsersRecord>>(
                           stream: queryUsersRecord(
-                            queryBuilder: (usersRecord) => usersRecord.where(
-                                'display_name',
-                                isEqualTo: dropDownValue),
+                            queryBuilder: (usersRecord) => usersRecord
+                                .where('email', isEqualTo: dropDownValue),
                             singleRecord: true,
                           ),
                           builder: (context, snapshot) {

@@ -607,7 +607,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0, 4, 0, 0),
                                           child: Text(
-                                            'Hierarchy',
+                                            'Binary',
                                             style: GoogleFonts.getFont(
                                               'Lexend Deca',
                                               color: FlutterFlowTheme.textColor,

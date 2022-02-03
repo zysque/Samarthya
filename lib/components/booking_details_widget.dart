@@ -201,7 +201,7 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                                         containerBookingsRecord
                                             .totalAmountToPay,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
@@ -246,7 +246,7 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                                       formatNumber(
                                         containerBookingsRecord.bookingAmount,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
@@ -271,7 +271,7 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                                       formatNumber(
                                         containerBookingsRecord.downPayment,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
@@ -296,7 +296,7 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                                       formatNumber(
                                         containerBookingsRecord.emiAmount,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
@@ -378,7 +378,7 @@ class _BookingDetailsWidgetState extends State<BookingDetailsWidget> {
                                       formatNumber(
                                         containerBookingsRecord.amountLeftToPay,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),

@@ -276,7 +276,7 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                       .totalAmountToPay,
                                                   formatType:
                                                       FormatType.compact,
-                                                  currency: '',
+                                                  currency: 'Rs',
                                                 ),
                                                 style: FlutterFlowTheme
                                                     .subtitle2
@@ -292,10 +292,10 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                 child: Text(
                                                   formatNumber(
                                                     listViewBookingsRecord
-                                                        .amountLeftToPay,
+                                                        .emiAmount,
                                                     formatType:
                                                         FormatType.compact,
-                                                    currency: '',
+                                                    currency: 'Rs',
                                                   ),
                                                   style: FlutterFlowTheme
                                                       .subtitle2
@@ -312,7 +312,7 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                       .emiAmount,
                                                   formatType:
                                                       FormatType.compact,
-                                                  currency: '',
+                                                  currency: 'Rs',
                                                 ),
                                                 style: FlutterFlowTheme
                                                     .subtitle2

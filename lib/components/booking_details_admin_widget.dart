@@ -44,8 +44,6 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
         }
         final containerBookingsRecord = snapshot.data;
         return Container(
-          width: double.infinity,
-          height: double.infinity,
           decoration: BoxDecoration(
             color: FlutterFlowTheme.darkBackground,
           ),
@@ -161,7 +159,7 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                   },
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 417,
@@ -204,7 +202,7 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                         containerBookingsRecord
                                             .totalAmountToPay,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
@@ -249,7 +247,7 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                       formatNumber(
                                         containerBookingsRecord.bookingAmount,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
@@ -274,7 +272,7 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                       formatNumber(
                                         containerBookingsRecord.downPayment,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
@@ -299,7 +297,7 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                       formatNumber(
                                         containerBookingsRecord.emiAmount,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
@@ -393,7 +391,7 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                       formatNumber(
                                         containerBookingsRecord.amountLeftToPay,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),

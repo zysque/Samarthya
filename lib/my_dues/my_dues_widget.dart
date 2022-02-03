@@ -282,7 +282,7 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                         .emiAmount,
                                                     formatType:
                                                         FormatType.custom,
-                                                    currency: '',
+                                                    currency: 'Rs',
                                                     format: '',
                                                     locale: '',
                                                   ),
@@ -399,7 +399,7 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                         .amountLeftToPay,
                                                     formatType:
                                                         FormatType.custom,
-                                                    currency: '',
+                                                    currency: 'Rs',
                                                     format: '',
                                                     locale: '',
                                                   ),

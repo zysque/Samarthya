@@ -1,11 +1,11 @@
 import '../admin_modify_projects/admin_modify_projects_widget.dart';
+import '../admin_modify_projects_plan/admin_modify_projects_plan_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../create_booking/create_booking_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_widgets.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -124,6 +124,25 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                 ),
                               ),
                             ),
+                            if (widget.isAdmin ?? true)
+                              InkWell(
+                                onTap: () async {
+                                  await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          AdminModifyProjectsWidget(
+                                        projectDetails: widget.projectDetails,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: FaIcon(
+                                  FontAwesomeIcons.solidEdit,
+                                  color: Color(0xFF012121),
+                                  size: 30,
+                                ),
+                              ),
                           ],
                         ),
                       ),
@@ -191,30 +210,32 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                   padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 150,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.background,
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              AutoSizeText(
-                                projectDetailsProjectsRecord.projectDesc,
-                                style: FlutterFlowTheme.bodyText2.override(
-                                  fontFamily: 'Lexend Deca',
-                                  fontSize: 12,
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                AutoSizeText(
+                                  projectDetailsProjectsRecord.projectDesc,
+                                  style: FlutterFlowTheme.bodyText2.override(
+                                    fontFamily: 'Lexend Deca',
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -253,7 +274,6 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                               : null;
                       return Container(
                         width: MediaQuery.of(context).size.width,
-                        height: 320,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.background,
                         ),
@@ -371,6 +391,32 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                                 FlutterFlowTheme
                                                                     .subtitle1,
                                                           ),
+                                                          if (widget.isAdmin ??
+                                                              true)
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                await Navigator
+                                                                    .push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                    builder:
+                                                                        (context) =>
+                                                                            AdminModifyProjectsPlanWidget(
+                                                                      planRef:
+                                                                          listViewPlansAndRatesRecord
+                                                                              .reference,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                              child: FaIcon(
+                                                                FontAwesomeIcons
+                                                                    .edit,
+                                                                color: Colors
+                                                                    .black,
+                                                                size: 20,
+                                                              ),
+                                                            ),
                                                         ],
                                                       ),
                                                     ),
@@ -558,75 +604,6 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                             ),
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(30, 10, 30, 0),
-                  child: StreamBuilder<List<AdminConstsRecord>>(
-                    stream: queryAdminConstsRecord(
-                      singleRecord: true,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
-                            ),
-                          ),
-                        );
-                      }
-                      List<AdminConstsRecord> columnAdminConstsRecordList =
-                          snapshot.data;
-                      // Return an empty Container when the document does not exist.
-                      if (snapshot.data.isEmpty) {
-                        return Container();
-                      }
-                      final columnAdminConstsRecord =
-                          columnAdminConstsRecordList.isNotEmpty
-                              ? columnAdminConstsRecordList.first
-                              : null;
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          if (columnAdminConstsRecord.adminUsers
-                                  .toList()
-                                  .contains(currentUserReference) ??
-                              true)
-                            FFButtonWidget(
-                              onPressed: () async {
-                                await Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        AdminModifyProjectsWidget(
-                                      projectDetails: widget.projectDetails,
-                                    ),
-                                  ),
-                                  (r) => false,
-                                );
-                              },
-                              text: 'Modify',
-                              options: FFButtonOptions(
-                                width: 120,
-                                height: 40,
-                                color: Color(0xFF012121),
-                                textStyle: FlutterFlowTheme.title1,
-                                elevation: 0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: 12,
-                              ),
-                            ),
-                        ],
                       );
                     },
                   ),

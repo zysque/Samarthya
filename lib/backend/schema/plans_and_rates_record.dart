@@ -33,6 +33,9 @@ abstract class PlansAndRatesRecord
   DateTime get created;
 
   @nullable
+  DateTime get lastModified;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -72,6 +75,7 @@ Map<String, dynamic> createPlansAndRatesRecordData({
   int paymentDaysAllowed,
   DocumentReference projectRef,
   DateTime created,
+  DateTime lastModified,
 }) =>
     serializers.toFirestore(
         PlansAndRatesRecord.serializer,
@@ -82,4 +86,5 @@ Map<String, dynamic> createPlansAndRatesRecordData({
           ..emiTenureOptions = null
           ..paymentDaysAllowed = paymentDaysAllowed
           ..projectRef = projectRef
-          ..created = created));
+          ..created = created
+          ..lastModified = lastModified));

@@ -369,7 +369,7 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                         .commissionAmount,
                                                     formatType:
                                                         FormatType.custom,
-                                                    currency: '',
+                                                    currency: 'Rs',
                                                     format: '',
                                                     locale: '',
                                                   ),
@@ -418,7 +418,7 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                         .unsettledAmount,
                                                     formatType:
                                                         FormatType.custom,
-                                                    currency: '',
+                                                    currency: 'Rs',
                                                     format: '',
                                                     locale: '',
                                                   ),

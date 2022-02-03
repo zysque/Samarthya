@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AdminCreateProjectsPlanWidget extends StatefulWidget {
@@ -120,7 +121,7 @@ class _AdminCreateProjectsPlanWidgetState
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: 600,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.darkBackground,
                   borderRadius: BorderRadius.only(
@@ -135,59 +136,52 @@ class _AdminCreateProjectsPlanWidgetState
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
-                        child: TextFormField(
-                          controller: phaseCodeController,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Phase Code',
-                            labelStyle: FlutterFlowTheme.title1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w300,
-                            ),
-                            hintText: 'Phase Code',
-                            hintStyle: FlutterFlowTheme.title1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
-                          ),
-                          style: FlutterFlowTheme.title1.override(
+                      TextFormField(
+                        controller: phaseCodeController,
+                        obscureText: false,
+                        decoration: InputDecoration(
+                          labelText: 'Phase Code',
+                          labelStyle: FlutterFlowTheme.title1.override(
                             fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.grayLight,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w300,
+                          ),
+                          hintText: 'Phase Code',
+                          hintStyle: FlutterFlowTheme.title1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.grayLight,
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
                           ),
-                          textAlign: TextAlign.center,
-                          validator: (val) {
-                            if (val.isEmpty) {
-                              return 'Please enter an amount';
-                            }
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.background,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.background,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          contentPadding:
+                              EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
+                        ),
+                        style: FlutterFlowTheme.subtitle2,
+                        textAlign: TextAlign.center,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Please enter an amount';
+                          }
 
-                            return null;
-                          },
-                        ).animated(
-                            [animationsMap['textFieldOnPageLoadAnimation1']]),
-                      ),
+                          return null;
+                        },
+                      ).animated(
+                          [animationsMap['textFieldOnPageLoadAnimation1']]),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
                         child: TextFormField(
@@ -223,13 +217,14 @@ class _AdminCreateProjectsPlanWidgetState
                               borderRadius: BorderRadius.circular(8),
                             ),
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
+                                EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
+                            prefixIcon: FaIcon(
+                              FontAwesomeIcons.rupeeSign,
+                              color: FlutterFlowTheme.textColor,
+                              size: 32,
+                            ),
                           ),
-                          style: FlutterFlowTheme.title1.override(
-                            fontFamily: 'Lexend Deca',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: FlutterFlowTheme.subtitle2,
                           textAlign: TextAlign.center,
                           keyboardType: TextInputType.number,
                           validator: (val) {
@@ -269,11 +264,22 @@ class _AdminCreateProjectsPlanWidgetState
                           },
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        child: Text(
+                          'Select EMI Options (Slide Left)',
+                          style: FlutterFlowTheme.subtitle2.override(
+                            fontFamily: 'Lexend Deca',
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: ListView(
                             padding: EdgeInsets.zero,
+                            shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             children: [
                               Slidable(
@@ -606,6 +612,7 @@ class _AdminCreateProjectsPlanWidgetState
                           minBookingAmtPerc: downPaymentPercentageValue,
                           projectRef: widget.projectRef,
                           created: getCurrentTimestamp,
+                          lastModified: getCurrentTimestamp,
                         ),
                         'emiTenureOptions': FFAppState().strList,
                       };

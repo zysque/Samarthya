@@ -342,7 +342,7 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                             .totalAmountToPay,
                                                         formatType:
                                                             FormatType.compact,
-                                                        currency: '',
+                                                        currency: 'Rs',
                                                       ),
                                                       style: FlutterFlowTheme
                                                           .bodyText2
@@ -381,7 +381,7 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                             .emiAmount,
                                                         formatType:
                                                             FormatType.custom,
-                                                        currency: '',
+                                                        currency: 'Rs',
                                                         format: '',
                                                         locale: '',
                                                       ),
@@ -422,7 +422,7 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                             .unsettledAmount,
                                                         formatType:
                                                             FormatType.custom,
-                                                        currency: '',
+                                                        currency: 'Rs',
                                                         format: '',
                                                         locale: '',
                                                       ),

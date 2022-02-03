@@ -32,6 +32,7 @@ class _AdminBookingApprovalWidgetState
     extends State<AdminBookingApprovalWidget> {
   String emiTenureValue;
   TextEditingController areaController;
+  TextEditingController plotController;
   TextEditingController rateController;
   TextEditingController bookingAmtController;
   TextEditingController downPaymentController;
@@ -139,7 +140,6 @@ class _AdminBookingApprovalWidgetState
                       ),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.76,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.darkBackground,
                           borderRadius: BorderRadius.only(
@@ -273,6 +273,59 @@ class _AdminBookingApprovalWidgetState
                                   return Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 8, 0, 0),
+                                        child: TextFormField(
+                                          controller: plotController ??=
+                                              TextEditingController(
+                                            text: columnBookingsRecord.plotNo
+                                                .toString(),
+                                          ),
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Plot No',
+                                            hintText:
+                                                'Please enter plot number',
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                            focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00000000),
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(4.0),
+                                                topRight: Radius.circular(4.0),
+                                              ),
+                                            ),
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20, 4, 20, 4),
+                                          ),
+                                          style: FlutterFlowTheme.subtitle1,
+                                          keyboardType: TextInputType.number,
+                                          validator: (val) {
+                                            if (val.isEmpty) {
+                                              return 'Field is required';
+                                            }
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 8, 0, 0),
@@ -641,7 +694,7 @@ class _AdminBookingApprovalWidgetState
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 10, 0, 0),
+                                            0, 10, 0, 10),
                                         child: TextFormField(
                                           controller: descriptionController,
                                           obscureText: false,
@@ -680,7 +733,7 @@ class _AdminBookingApprovalWidgetState
                                             fontSize: 13,
                                           ),
                                           textAlign: TextAlign.start,
-                                          maxLines: 12,
+                                          maxLines: 8,
                                         ),
                                       ),
                                     ],
@@ -814,6 +867,8 @@ class _AdminBookingApprovalWidgetState
                                                   double.parse(
                                                       areaController?.text ??
                                                           '')),
+                                          plotNo: int.parse(
+                                              plotController?.text ?? ''),
                                         ),
                                         'comments': FieldValue.arrayUnion(
                                             [descriptionController.text]),

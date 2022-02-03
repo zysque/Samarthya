@@ -23,6 +23,8 @@ class _ViewImageWidgetState extends State<ViewImageWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width,
+      height: 280,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.darkBackground,
       ),

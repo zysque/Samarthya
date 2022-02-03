@@ -40,6 +40,8 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
     return Form(
       key: formKey,
       child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: 400,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.darkBackground,
         ),

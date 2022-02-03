@@ -117,7 +117,7 @@ class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget>
                                 formatNumber(
                                   columnCommissionsRecord.commissionAmount,
                                   formatType: FormatType.custom,
-                                  currency: '',
+                                  currency: 'Rs ',
                                   format: '',
                                   locale: '',
                                 ),
@@ -327,7 +327,7 @@ class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget>
                                                             formatType:
                                                                 FormatType
                                                                     .custom,
-                                                            currency: '',
+                                                            currency: 'Rs',
                                                             format: '',
                                                             locale: '',
                                                           ),
@@ -483,7 +483,7 @@ class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget>
                                                               formatType:
                                                                   FormatType
                                                                       .compact,
-                                                              currency: '',
+                                                              currency: 'Rs',
                                                             ),
                                                             style:
                                                                 FlutterFlowTheme

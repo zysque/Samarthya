@@ -30,6 +30,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
   String emiTenureValue;
   TextEditingController descriptionController;
   TextEditingController areaController;
+  TextEditingController plotController;
   TextEditingController downPaymentController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -38,6 +39,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
   void initState() {
     super.initState();
     areaController = TextEditingController(text: '0');
+    plotController = TextEditingController();
     downPaymentController = TextEditingController(text: '0');
     descriptionController = TextEditingController();
   }
@@ -89,7 +91,6 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 575,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.darkBackground,
                   borderRadius: BorderRadius.only(
@@ -105,16 +106,11 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       TextFormField(
-                        onChanged: (_) => EasyDebounce.debounce(
-                          'areaController',
-                          Duration(milliseconds: 200),
-                          () => setState(() {}),
-                        ),
-                        controller: areaController,
+                        controller: plotController,
                         obscureText: false,
                         decoration: InputDecoration(
-                          labelText: 'Plot Area',
-                          hintText: 'Please enter plot area in sqft',
+                          labelText: 'Plot No',
+                          hintText: 'Please enter plot Number',
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0x00000000),
@@ -149,6 +145,55 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                           }
                           return null;
                         },
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: TextFormField(
+                          onChanged: (_) => EasyDebounce.debounce(
+                            'areaController',
+                            Duration(milliseconds: 200),
+                            () => setState(() {}),
+                          ),
+                          controller: areaController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Plot Area',
+                            hintText: 'Please enter plot area in sqft',
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 4, 20, 4),
+                          ),
+                          style: FlutterFlowTheme.subtitle1,
+                          keyboardType: TextInputType.number,
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Field is required';
+                            }
+                            if (val.length < 1) {
+                              return 'Requires at least 1 characters.';
+                            }
+                            return null;
+                          },
+                        ),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
@@ -455,7 +500,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 20, 0, 0),
+                                      0, 20, 0, 20),
                                   child: TextFormField(
                                     controller: descriptionController,
                                     obscureText: false,
@@ -487,7 +532,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                       fontSize: 13,
                                     ),
                                     textAlign: TextAlign.start,
-                                    maxLines: 12,
+                                    maxLines: 8,
                                   ),
                                 ),
                               ],
@@ -600,6 +645,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                           .toDouble(),
                                       double.parse(areaController.text)),
                                   creditStatus: true,
+                                  plotNo: int.parse(plotController.text),
                                 ),
                                 'comments': [descriptionController.text],
                               };

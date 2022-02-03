@@ -172,7 +172,7 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                   listViewTransactionsRecord
                                                       .transactionAmount,
                                                   formatType: FormatType.custom,
-                                                  currency: '',
+                                                  currency: 'Rs',
                                                   format: '',
                                                   locale: '',
                                                 ),
@@ -318,7 +318,7 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                         .amountLeftToPay,
                                                     formatType:
                                                         FormatType.compact,
-                                                    currency: '',
+                                                    currency: 'Rs',
                                                   ),
                                                   style: FlutterFlowTheme
                                                       .subtitle2
