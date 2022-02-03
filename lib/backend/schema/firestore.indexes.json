@@ -61,10 +61,6 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "transactionUser",
-          "order": "ASCENDING"
-        },
-        {
           "fieldPath": "status",
           "order": "ASCENDING"
         },
@@ -80,20 +76,6 @@
       "fields": [
         {
           "fieldPath": "bookingRef",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "transactionTime",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "transactions",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "commissionRef",
           "order": "ASCENDING"
         },
         {

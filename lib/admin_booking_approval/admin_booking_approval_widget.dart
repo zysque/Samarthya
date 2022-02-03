@@ -698,7 +698,7 @@ class _AdminBookingApprovalWidgetState
                         stream: queryUserHierarchiesRecord(
                           queryBuilder: (userHierarchiesRecord) =>
                               userHierarchiesRecord.where('hierarchyUser',
-                                  isEqualTo: currentUserReference),
+                                  isEqualTo: columnBookingsRecord.buyerRef),
                           singleRecord: true,
                         ),
                         builder: (context, snapshot) {
@@ -821,7 +821,7 @@ class _AdminBookingApprovalWidgetState
                                       await widget.bookingRef
                                           .update(bookingsUpdateData);
                                       if (actionsUserHierarchiesRecord
-                                          .hasParent) {
+                                          .hasReferral) {
                                         final commissionsCreateData = {
                                           ...createCommissionsRecordData(
                                             commissionUser:

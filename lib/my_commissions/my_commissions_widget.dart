@@ -187,11 +187,9 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                             ),
                                           ),
                                           Text(
-                                            formatNumber(
-                                              rowCalculationsRecord
-                                                  .directCommission,
-                                              formatType: FormatType.compact,
-                                            ),
+                                            rowCalculationsRecord
+                                                .directCommission
+                                                .toString(),
                                             style: FlutterFlowTheme.title3
                                                 .override(
                                               fontFamily: 'Lexend Deca',
@@ -248,11 +246,9 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                             ),
                                           ),
                                           Text(
-                                            formatNumber(
-                                              rowCalculationsRecord
-                                                  .indirectCommission,
-                                              formatType: FormatType.compact,
-                                            ),
+                                            rowCalculationsRecord
+                                                .indirectCommission
+                                                .toString(),
                                             style: FlutterFlowTheme.title3
                                                 .override(
                                               fontFamily: 'Lexend Deca',
@@ -359,6 +355,15 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                       .spaceBetween,
                                               children: [
                                                 Text(
+                                                  'Commission',
+                                                  style: FlutterFlowTheme
+                                                      .bodyText2
+                                                      .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    fontSize: 24,
+                                                  ),
+                                                ),
+                                                Text(
                                                   formatNumber(
                                                     listViewCommissionsRecord
                                                         .commissionAmount,
@@ -395,23 +400,11 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text(
-                                                  dateTimeFormat(
-                                                      'relative',
-                                                      listViewCommissionsRecord
-                                                          .lastModified),
-                                                  style: FlutterFlowTheme
-                                                      .bodyText2
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    fontSize: 14,
-                                                  ),
-                                                ),
                                                 if (listViewCommissionsRecord
                                                         .isDirect ??
                                                     true)
                                                   Text(
-                                                    'Direct',
+                                                    'Unsettled Amount',
                                                     style: FlutterFlowTheme
                                                         .bodyText2
                                                         .override(
@@ -419,6 +412,23 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                       fontSize: 14,
                                                     ),
                                                   ),
+                                                Text(
+                                                  formatNumber(
+                                                    listViewCommissionsRecord
+                                                        .unsettledAmount,
+                                                    formatType:
+                                                        FormatType.custom,
+                                                    currency: '',
+                                                    format: '',
+                                                    locale: '',
+                                                  ),
+                                                  style: FlutterFlowTheme
+                                                      .bodyText2
+                                                      .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    fontSize: 14,
+                                                  ),
+                                                ),
                                                 ToggleIcon(
                                                   onPressed: () async {
                                                     final commissionsUpdateData =

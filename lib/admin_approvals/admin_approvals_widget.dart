@@ -1,5 +1,4 @@
 import '../admin_booking_approval/admin_booking_approval_widget.dart';
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -411,8 +410,6 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                   StreamBuilder<List<TransactionsRecord>>(
                     stream: queryTransactionsRecord(
                       queryBuilder: (transactionsRecord) => transactionsRecord
-                          .where('transactionUser',
-                              isEqualTo: currentUserReference)
                           .where('status', isEqualTo: false)
                           .orderBy('transactionTime', descending: true),
                     ),

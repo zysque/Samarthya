@@ -86,8 +86,8 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                 children: [
                   StreamBuilder<List<CommissionsRecord>>(
                     stream: queryCommissionsRecord(
-                      queryBuilder: (commissionsRecord) => commissionsRecord
-                          .where('settled', isGreaterThan: false),
+                      queryBuilder: (commissionsRecord) =>
+                          commissionsRecord.where('settled', isEqualTo: false),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.

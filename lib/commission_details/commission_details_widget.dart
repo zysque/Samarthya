@@ -24,21 +24,7 @@ class CommissionDetailsWidget extends StatefulWidget {
 class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget>
     with TickerProviderStateMixin {
   final animationsMap = {
-    'listViewOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      duration: 150,
-      delay: 90,
-      fadeIn: true,
-      initialState: AnimationState(
-        offset: Offset(0, 26),
-        opacity: 0,
-      ),
-      finalState: AnimationState(
-        offset: Offset(0, 0),
-        opacity: 1,
-      ),
-    ),
-    'listViewOnPageLoadAnimation2': AnimationInfo(
+    'listViewOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       duration: 150,
       delay: 90,
@@ -229,12 +215,12 @@ class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget>
                           ),
                         );
                       }
-                      final payTransRecordsBookingsRecord = snapshot.data;
+                      final transRecordsBookingsRecord = snapshot.data;
                       return Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            'Purchase Payments',
+                            'Linked Transactions',
                             style: FlutterFlowTheme.title3.override(
                               fontFamily: 'Lexend Deca',
                               color: Color(0xFFC5E1A5),
@@ -285,7 +271,7 @@ class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget>
                                           16, 0, 16, 12),
                                       child: StreamBuilder<ProjectsRecord>(
                                         stream: ProjectsRecord.getDocument(
-                                            payTransRecordsBookingsRecord
+                                            transRecordsBookingsRecord
                                                 .projectRef),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -449,7 +435,7 @@ class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget>
                                                             MainAxisSize.max,
                                                         children: [
                                                           Text(
-                                                            payTransRecordsBookingsRecord
+                                                            transRecordsBookingsRecord
                                                                 .areaBookedInSqft
                                                                 .toString(),
                                                             style:
@@ -492,7 +478,7 @@ class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget>
                                                         children: [
                                                           Text(
                                                             formatNumber(
-                                                              payTransRecordsBookingsRecord
+                                                              transRecordsBookingsRecord
                                                                   .amountLeftToPay,
                                                               formatType:
                                                                   FormatType
@@ -622,393 +608,10 @@ class _CommissionDetailsWidgetState extends State<CommissionDetailsWidget>
                                     );
                                   },
                                 ).animated([
-                                  animationsMap['listViewOnPageLoadAnimation1']
+                                  animationsMap['listViewOnPageLoadAnimation']
                                 ]);
                               },
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                  child: StreamBuilder<BookingsRecord>(
-                    stream: BookingsRecord.getDocument(
-                        columnCommissionsRecord.bookingRef),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
-                            ),
-                          ),
-                        );
-                      }
-                      final commTransRecordsBookingsRecord = snapshot.data;
-                      return Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Commission Payments',
-                            style: FlutterFlowTheme.title3.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0xFF7CD514),
-                            ),
-                          ),
-                          StreamBuilder<List<TransactionsRecord>>(
-                            stream: queryTransactionsRecord(
-                              queryBuilder: (transactionsRecord) =>
-                                  transactionsRecord
-                                      .where('commissionRef',
-                                          isEqualTo: widget.commissionRef)
-                                      .orderBy('transactionTime',
-                                          descending: true),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 40,
-                                    height: 40,
-                                    child: SpinKitPumpingHeart(
-                                      color: FlutterFlowTheme.primaryColor,
-                                      size: 40,
-                                    ),
-                                  ),
-                                );
-                              }
-                              List<TransactionsRecord>
-                                  listViewTransactionsRecordList =
-                                  snapshot.data;
-                              return ListView.builder(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount:
-                                    listViewTransactionsRecordList.length,
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewTransactionsRecord =
-                                      listViewTransactionsRecordList[
-                                          listViewIndex];
-                                  return Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16, 0, 16, 12),
-                                    child: Container(
-                                      width: 100,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.primaryColor,
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            12, 12, 12, 12),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 4),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    formatNumber(
-                                                      listViewTransactionsRecord
-                                                          .transactionAmount,
-                                                      formatType:
-                                                          FormatType.custom,
-                                                      currency: '',
-                                                      format: '',
-                                                      locale: '',
-                                                    ),
-                                                    style:
-                                                        FlutterFlowTheme.title3,
-                                                  ),
-                                                  Text(
-                                                    listViewTransactionsRecord
-                                                        .mode,
-                                                    style:
-                                                        FlutterFlowTheme.title3,
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 4),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    listViewTransactionsRecord
-                                                        .transactionType,
-                                                    style: FlutterFlowTheme
-                                                        .subtitle2
-                                                        .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 0, 0, 4),
-                                              child:
-                                                  StreamBuilder<ProjectsRecord>(
-                                                stream: ProjectsRecord.getDocument(
-                                                    commTransRecordsBookingsRecord
-                                                        .projectRef),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 40,
-                                                        height: 40,
-                                                        child:
-                                                            SpinKitPumpingHeart(
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .primaryColor,
-                                                          size: 40,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  final rowProjectsRecord =
-                                                      snapshot.data;
-                                                  return Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        rowProjectsRecord
-                                                            .projectName,
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    2, 0, 0, 0),
-                                                        child: Text(
-                                                          rowProjectsRecord
-                                                              .projectCity,
-                                                          style:
-                                                              FlutterFlowTheme
-                                                                  .subtitle2
-                                                                  .override(
-                                                            fontFamily:
-                                                                'Lexend Deca',
-                                                            color:
-                                                                FlutterFlowTheme
-                                                                    .textColor,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      commTransRecordsBookingsRecord
-                                                          .areaBookedInSqft
-                                                          .toString(),
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  2, 0, 0, 0),
-                                                      child: Text(
-                                                        'SQFT',
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      formatNumber(
-                                                        commTransRecordsBookingsRecord
-                                                            .amountLeftToPay,
-                                                        formatType:
-                                                            FormatType.compact,
-                                                        currency: '',
-                                                      ),
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  2, 0, 0, 0),
-                                                      child: Text(
-                                                        'Left',
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(0, 4, 0, 0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        dateTimeFormat(
-                                                            'EEEE',
-                                                            listViewTransactionsRecord
-                                                                .transactionTime),
-                                                        style: FlutterFlowTheme
-                                                            .bodyText2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          fontSize: 14,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        dateTimeFormat(
-                                                            'yMMMd',
-                                                            listViewTransactionsRecord
-                                                                .transactionTime),
-                                                        style: FlutterFlowTheme
-                                                            .bodyText2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          fontSize: 14,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        dateTimeFormat(
-                                                            'jms',
-                                                            listViewTransactionsRecord
-                                                                .transactionTime),
-                                                        style: FlutterFlowTheme
-                                                            .bodyText2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          fontSize: 14,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  if (listViewTransactionsRecord
-                                                          .status ??
-                                                      true)
-                                                    Text(
-                                                      'Successful',
-                                                      style: FlutterFlowTheme
-                                                          .bodyText1
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color:
-                                                            Color(0xFF7CD514),
-                                                      ),
-                                                    ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ).animated([
-                                animationsMap['listViewOnPageLoadAnimation2']
-                              ]);
-                            },
                           ),
                         ],
                       );

@@ -117,7 +117,7 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                                 controller: amountCPController ??=
                                     TextEditingController(
                                   text: commissionPayCommissionsRecord
-                                      .commissionAmount
+                                      .unsettledAmount
                                       .toString(),
                                 ),
                                 obscureText: false,
