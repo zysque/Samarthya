@@ -117,14 +117,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.grayDark,
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.grayDark,
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
@@ -161,14 +161,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.grayDark,
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.grayDark,
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),

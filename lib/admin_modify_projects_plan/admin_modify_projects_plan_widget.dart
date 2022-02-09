@@ -135,7 +135,7 @@ class _AdminModifyProjectsPlanWidgetState
                   ),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 600,
+                    height: 620,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.darkBackground,
                       borderRadius: BorderRadius.only(
@@ -146,7 +146,7 @@ class _AdminModifyProjectsPlanWidgetState
                       ),
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 20),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -171,22 +171,23 @@ class _AdminModifyProjectsPlanWidgetState
                                 fontSize: 20,
                                 fontWeight: FontWeight.w500,
                               ),
-                              enabledBorder: UnderlineInputBorder(
+                              enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.background,
+                                  color: FlutterFlowTheme.grayDark,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              focusedBorder: UnderlineInputBorder(
+                              focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.background,
+                                  color: FlutterFlowTheme.grayDark,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
+                              filled: true,
                               contentPadding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
+                                  EdgeInsetsDirectional.fromSTEB(20, 5, 20, 5),
                             ),
                             style: FlutterFlowTheme.subtitle2,
                             textAlign: TextAlign.center,
@@ -201,7 +202,7 @@ class _AdminModifyProjectsPlanWidgetState
                               [animationsMap['textFieldOnPageLoadAnimation1']]),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                             child: TextFormField(
                               controller: fixRateController ??=
                                   TextEditingController(
@@ -224,20 +225,21 @@ class _AdminModifyProjectsPlanWidgetState
                                   fontSize: 20,
                                   fontWeight: FontWeight.w500,
                                 ),
-                                enabledBorder: UnderlineInputBorder(
+                                enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.background,
+                                    color: FlutterFlowTheme.grayDark,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
+                                focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.background,
+                                    color: FlutterFlowTheme.grayDark,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
+                                filled: true,
                                 contentPadding:
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
                                 prefixIcon: FaIcon(
@@ -262,7 +264,7 @@ class _AdminModifyProjectsPlanWidgetState
                           ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                             child: Text(
                               'Minimum Booking Amount Percentages',
                               style: FlutterFlowTheme.subtitle2.override(
@@ -271,27 +273,22 @@ class _AdminModifyProjectsPlanWidgetState
                               ),
                             ),
                           ),
-                          SliderTheme(
-                            data: SliderThemeData(
-                              showValueIndicator: ShowValueIndicator.always,
-                            ),
-                            child: Slider(
-                              activeColor: FlutterFlowTheme.primaryColor,
-                              inactiveColor: Color(0xFF9E9E9E),
-                              min: 0,
-                              max: 1,
-                              value: downPaymentPercentageValue ??=
-                                  columnPlansAndRatesRecord.minBookingAmtPerc,
-                              label: downPaymentPercentageValue.toString(),
-                              onChanged: (newValue) {
-                                setState(() =>
-                                    downPaymentPercentageValue = newValue);
-                              },
-                            ),
+                          Slider(
+                            activeColor: FlutterFlowTheme.primaryColor,
+                            inactiveColor: Color(0xFF9E9E9E),
+                            min: 0,
+                            max: 1,
+                            value: downPaymentPercentageValue ??=
+                                columnPlansAndRatesRecord.minBookingAmtPerc,
+                            label: downPaymentPercentageValue.toString(),
+                            divisions: 100,
+                            onChanged: (newValue) {
+                              setState(
+                                  () => downPaymentPercentageValue = newValue);
+                            },
                           ),
                           Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                             child: Text(
                               'Select EMI Options (Slide Left)',
                               style: FlutterFlowTheme.subtitle2.override(
@@ -631,7 +628,7 @@ class _AdminModifyProjectsPlanWidgetState
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [

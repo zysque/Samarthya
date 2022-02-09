@@ -120,26 +120,21 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText: 'Amount to Pay',
-                                  enabledBorder: UnderlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.grayDark,
                                       width: 1,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
+                                  focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.grayDark,
                                       width: 1,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
+                                  filled: true,
                                   prefixIcon: FaIcon(
                                     FontAwesomeIcons.rupeeSign,
                                     color: FlutterFlowTheme.textColor,
@@ -167,9 +162,9 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                   hintText: 'Select Mode',
                                   fillColor: FlutterFlowTheme.background,
                                   elevation: 2,
-                                  borderColor: Colors.transparent,
+                                  borderColor: FlutterFlowTheme.grayDark,
                                   borderWidth: 0,
-                                  borderRadius: 0,
+                                  borderRadius: 8,
                                   margin: EdgeInsetsDirectional.fromSTEB(
                                       12, 4, 12, 4),
                                   hidesUnderline: true,
@@ -222,11 +217,14 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                 stream: queryCommissionsRecord(
                                   queryBuilder: (commissionsRecord) =>
                                       commissionsRecord
-                                          .where('commissionUser',
+                                          .where(
+                                              'commissionUser',
                                               isEqualTo:
                                                   actionsUserHierarchiesRecord
                                                       .referralParent)
-                                          .where('isDirect', isEqualTo: true),
+                                          .where('isDirect', isEqualTo: true)
+                                          .where('bookingRef',
+                                              isEqualTo: widget.bookingDetails),
                                   singleRecord: true,
                                 ),
                                 builder: (context, snapshot) {

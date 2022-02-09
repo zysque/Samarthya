@@ -1,5 +1,6 @@
 import '../admin_booking_approval/admin_booking_approval_widget.dart';
 import '../backend/backend.dart';
+import '../components/user_details_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -102,79 +103,67 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
           children: [
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  StreamBuilder<List<BookingsRecord>>(
-                    stream: queryBookingsRecord(
-                      queryBuilder: (bookingsRecord) => bookingsRecord
-                          .where('isApproved', isEqualTo: false)
-                          .orderBy('lastModified', descending: true),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    StreamBuilder<List<BookingsRecord>>(
+                      stream: queryBookingsRecord(
+                        queryBuilder: (bookingsRecord) => bookingsRecord
+                            .where('isApproved', isEqualTo: false)
+                            .orderBy('lastModified', descending: true),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: SpinKitPumpingHeart(
+                                color: FlutterFlowTheme.primaryColor,
+                                size: 40,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<BookingsRecord> listViewBookingsRecordList =
-                          snapshot.data;
-                      if (listViewBookingsRecordList.isEmpty) {
-                        return Image.asset(
-                          'assets/images/df3hg_',
-                        );
-                      }
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewBookingsRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewBookingsRecord =
-                              listViewBookingsRecordList[listViewIndex];
-                          return Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
-                            child: StreamBuilder<ProjectsRecord>(
-                              stream: ProjectsRecord.getDocument(
-                                  listViewBookingsRecord.projectRef),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 40,
-                                      height: 40,
-                                      child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.primaryColor,
-                                        size: 40,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final containerProjectsRecord = snapshot.data;
-                                return InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            AdminBookingApprovalWidget(
-                                          bookingRef:
-                                              listViewBookingsRecord.reference,
+                          );
+                        }
+                        List<BookingsRecord> listViewBookingsRecordList =
+                            snapshot.data;
+                        if (listViewBookingsRecordList.isEmpty) {
+                          return Image.asset(
+                            'assets/images/df3hg_',
+                          );
+                        }
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listViewBookingsRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewBookingsRecord =
+                                listViewBookingsRecordList[listViewIndex];
+                            return Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
+                              child: StreamBuilder<ProjectsRecord>(
+                                stream: ProjectsRecord.getDocument(
+                                    listViewBookingsRecord.projectRef),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: SpinKitPumpingHeart(
+                                          color: FlutterFlowTheme.primaryColor,
+                                          size: 40,
                                         ),
                                       ),
                                     );
-                                  },
-                                  child: Container(
+                                  }
+                                  final containerProjectsRecord = snapshot.data;
+                                  return Container(
                                     width: 100,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.primaryColor,
@@ -211,12 +200,60 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                         .textColor,
                                                   ),
                                                 ),
-                                                Icon(
-                                                  Icons
-                                                      .arrow_forward_ios_rounded,
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                  size: 16,
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return Padding(
+                                                          padding:
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .viewInsets,
+                                                          child:
+                                                              UserDetailsWidget(
+                                                            userDetails:
+                                                                listViewBookingsRecord
+                                                                    .buyerRef,
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Icon(
+                                                    Icons.person,
+                                                    color: FlutterFlowTheme
+                                                        .textColor,
+                                                    size: 30,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(10, 0, 0, 0),
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      await Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              AdminBookingApprovalWidget(
+                                                            bookingRef:
+                                                                listViewBookingsRecord
+                                                                    .reference,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      Icons.approval,
+                                                      color: FlutterFlowTheme
+                                                          .textColor,
+                                                      size: 30,
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -389,97 +426,84 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                         ],
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ).animated(
-                          [animationsMap['listViewOnPageLoadAnimation1']]);
-                    },
-                  ),
-                ],
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ).animated(
+                            [animationsMap['listViewOnPageLoadAnimation1']]);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  StreamBuilder<List<TransactionsRecord>>(
-                    stream: queryTransactionsRecord(
-                      queryBuilder: (transactionsRecord) => transactionsRecord
-                          .where('status', isEqualTo: false)
-                          .orderBy('transactionTime', descending: true),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    StreamBuilder<List<TransactionsRecord>>(
+                      stream: queryTransactionsRecord(
+                        queryBuilder: (transactionsRecord) => transactionsRecord
+                            .where('status', isEqualTo: false)
+                            .orderBy('transactionTime', descending: true),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: SpinKitPumpingHeart(
+                                color: FlutterFlowTheme.primaryColor,
+                                size: 40,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<TransactionsRecord> listViewTransactionsRecordList =
-                          snapshot.data;
-                      if (listViewTransactionsRecordList.isEmpty) {
-                        return Center(
-                          child: Image.network(
-                            '',
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewTransactionsRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTransactionsRecord =
-                              listViewTransactionsRecordList[listViewIndex];
-                          return Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
-                            child: StreamBuilder<BookingsRecord>(
-                              stream: BookingsRecord.getDocument(
-                                  listViewTransactionsRecord.bookingRef),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 40,
-                                      height: 40,
-                                      child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.primaryColor,
-                                        size: 40,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final containerBookingsRecord = snapshot.data;
-                                return InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            PaymentApprovalsWidget(
-                                          transactionDetails:
-                                              listViewTransactionsRecord
-                                                  .reference,
+                          );
+                        }
+                        List<TransactionsRecord>
+                            listViewTransactionsRecordList = snapshot.data;
+                        if (listViewTransactionsRecordList.isEmpty) {
+                          return Center(
+                            child: Image.network(
+                              '',
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listViewTransactionsRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewTransactionsRecord =
+                                listViewTransactionsRecordList[listViewIndex];
+                            return Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
+                              child: StreamBuilder<BookingsRecord>(
+                                stream: BookingsRecord.getDocument(
+                                    listViewTransactionsRecord.bookingRef),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: SpinKitPumpingHeart(
+                                          color: FlutterFlowTheme.primaryColor,
+                                          size: 40,
                                         ),
                                       ),
                                     );
-                                  },
-                                  child: Container(
+                                  }
+                                  final containerBookingsRecord = snapshot.data;
+                                  return Container(
                                     width: 100,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.primaryColor,
@@ -518,11 +542,60 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                   style:
                                                       FlutterFlowTheme.title3,
                                                 ),
-                                                Text(
-                                                  listViewTransactionsRecord
-                                                      .mode,
-                                                  style:
-                                                      FlutterFlowTheme.title3,
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return Padding(
+                                                          padding:
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .viewInsets,
+                                                          child:
+                                                              UserDetailsWidget(
+                                                            userDetails:
+                                                                listViewTransactionsRecord
+                                                                    .transactionUser,
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Icon(
+                                                    Icons.person,
+                                                    color: FlutterFlowTheme
+                                                        .textColor,
+                                                    size: 30,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(10, 0, 0, 0),
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      await Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              PaymentApprovalsWidget(
+                                                            transactionDetails:
+                                                                listViewTransactionsRecord
+                                                                    .reference,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      Icons.approval,
+                                                      color: FlutterFlowTheme
+                                                          .textColor,
+                                                      size: 30,
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -546,6 +619,12 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     color: FlutterFlowTheme
                                                         .textColor,
                                                   ),
+                                                ),
+                                                Text(
+                                                  listViewTransactionsRecord
+                                                      .mode,
+                                                  style:
+                                                      FlutterFlowTheme.title3,
                                                 ),
                                               ],
                                             ),
@@ -773,17 +852,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                         ],
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ).animated(
-                          [animationsMap['listViewOnPageLoadAnimation2']]);
-                    },
-                  ),
-                ],
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ).animated(
+                            [animationsMap['listViewOnPageLoadAnimation2']]);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

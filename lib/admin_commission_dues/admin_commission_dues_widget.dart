@@ -1,4 +1,5 @@
 import '../backend/backend.dart';
+import '../components/user_details_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -213,12 +214,64 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                             .textColor,
                                                       ),
                                                     ),
-                                                    Icon(
-                                                      Icons
-                                                          .arrow_forward_ios_rounded,
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                      size: 16,
+                                                    InkWell(
+                                                      onTap: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Padding(
+                                                              padding: MediaQuery
+                                                                      .of(context)
+                                                                  .viewInsets,
+                                                              child:
+                                                                  UserDetailsWidget(
+                                                                userDetails:
+                                                                    listViewCommissionsRecord
+                                                                        .commissionUser,
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                      child: Icon(
+                                                        Icons.person,
+                                                        color: FlutterFlowTheme
+                                                            .textColor,
+                                                        size: 30,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  10, 0, 0, 0),
+                                                      child: InkWell(
+                                                        onTap: () async {
+                                                          await Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (context) =>
+                                                                  PayCommissionDuesWidget(
+                                                                commissionDetails:
+                                                                    listViewCommissionsRecord
+                                                                        .reference,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: Icon(
+                                                          Icons.approval,
+                                                          color:
+                                                              FlutterFlowTheme
+                                                                  .textColor,
+                                                          size: 30,
+                                                        ),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),

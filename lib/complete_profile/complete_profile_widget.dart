@@ -126,9 +126,9 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               hintText: 'Title',
                               fillColor: FlutterFlowTheme.darkBackground,
                               elevation: 2,
-                              borderColor: Colors.transparent,
+                              borderColor: FlutterFlowTheme.grayDark,
                               borderWidth: 0,
-                              borderRadius: 0,
+                              borderRadius: 8,
                               margin:
                                   EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
                               hidesUnderline: true,
@@ -216,14 +216,14 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -263,14 +263,14 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -311,14 +311,14 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -361,14 +361,14 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -411,14 +411,14 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -451,14 +451,14 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -477,7 +477,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -628,63 +628,88 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        if (!formKey.currentState.validate()) {
-                          return;
+                    child: StreamBuilder<List<AdminConstsRecord>>(
+                      stream: queryAdminConstsRecord(
+                        singleRecord: true,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: SpinKitPumpingHeart(
+                                color: FlutterFlowTheme.primaryColor,
+                                size: 40,
+                              ),
+                            ),
+                          );
                         }
-                        final usersUpdateData = createUsersRecordData(
-                          userTitle: yourTitleValue,
-                          displayName: yourNameController.text,
-                          photoUrl: uploadedFileUrl1,
-                          dob: yourDOBController.text,
-                          phoneNumber: yourPhoneController.text,
-                          aadharNumber: int.parse(yourAaadharController.text),
-                          panNumber: yourPANController.text,
-                          address: yourAddressController.text,
-                          aadharImage: uploadedFileUrl2,
-                          panImage: uploadedFileUrl3,
-                        );
-                        await currentUserReference.update(usersUpdateData);
+                        List<AdminConstsRecord>
+                            buttonLoginAdminConstsRecordList = snapshot.data;
+                        final buttonLoginAdminConstsRecord =
+                            buttonLoginAdminConstsRecordList.isNotEmpty
+                                ? buttonLoginAdminConstsRecordList.first
+                                : null;
+                        return FFButtonWidget(
+                          onPressed: () async {
+                            if (!formKey.currentState.validate()) {
+                              return;
+                            }
+                            final usersUpdateData = createUsersRecordData(
+                              userTitle: yourTitleValue,
+                              displayName: yourNameController.text,
+                              photoUrl: uploadedFileUrl1,
+                              dob: yourDOBController.text,
+                              phoneNumber: yourPhoneController.text,
+                              aadharNumber:
+                                  int.parse(yourAaadharController.text),
+                              panNumber: yourPANController.text,
+                              address: yourAddressController.text,
+                              aadharImage: uploadedFileUrl2,
+                              panImage: uploadedFileUrl3,
+                            );
+                            await currentUserReference.update(usersUpdateData);
 
-                        final calculationsCreateData =
-                            createCalculationsRecordData(
-                          userRef: currentUserReference,
-                          directCommission: 0.0,
-                          indirectCommission: 0.0,
-                          emiDueAmount: 0.0,
-                          emiDueDate: getCurrentTimestamp,
-                          defaultPayments: 0,
-                          comissionProcessed: getCurrentTimestamp,
-                        );
-                        await CalculationsRecord.collection
-                            .doc()
-                            .set(calculationsCreateData);
-                        await Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NavBarPage(initialPage: 'HomePage'),
+                            final calculationsCreateData =
+                                createCalculationsRecordData(
+                              userRef: currentUserReference,
+                              directCommission: 0.0,
+                              indirectCommission: 0.0,
+                              emiDueAmount: 0.0,
+                              defaultPayments: 0,
+                            );
+                            await CalculationsRecord.collection
+                                .doc()
+                                .set(calculationsCreateData);
+                            await Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    NavBarPage(initialPage: 'HomePage'),
+                              ),
+                              (r) => false,
+                            );
+                          },
+                          text: 'Complete',
+                          options: FFButtonOptions(
+                            width: 150,
+                            height: 50,
+                            color: FlutterFlowTheme.primaryColor,
+                            textStyle: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.textColor,
+                            ),
+                            elevation: 3,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 30,
                           ),
-                          (r) => false,
                         );
                       },
-                      text: 'Complete',
-                      options: FFButtonOptions(
-                        width: 150,
-                        height: 50,
-                        color: FlutterFlowTheme.primaryColor,
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.textColor,
-                        ),
-                        elevation: 3,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: 30,
-                      ),
                     ),
                   ),
                 ],

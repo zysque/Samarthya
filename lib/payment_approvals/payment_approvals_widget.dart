@@ -122,26 +122,24 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText: 'Amount to Pay',
-                                  enabledBorder: UnderlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.grayDark,
                                       width: 1,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
+                                  focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.grayDark,
                                       width: 1,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
+                                  filled: true,
+                                  contentPadding:
+                                      EdgeInsetsDirectional.fromSTEB(
+                                          20, 4, 20, 4),
                                   prefixIcon: FaIcon(
                                     FontAwesomeIcons.rupeeSign,
                                     color: FlutterFlowTheme.textColor,
@@ -156,6 +154,8 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: FlutterFlowDropDown(
+                                  initialOption: dropDownValue ??=
+                                      columnTransactionsRecord.mode,
                                   options: ['Cash'].toList(),
                                   onChanged: (val) =>
                                       setState(() => dropDownValue = val),
@@ -169,9 +169,9 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                   hintText: 'Select Mode',
                                   fillColor: FlutterFlowTheme.background,
                                   elevation: 2,
-                                  borderColor: Colors.transparent,
+                                  borderColor: FlutterFlowTheme.grayDark,
                                   borderWidth: 0,
-                                  borderRadius: 0,
+                                  borderRadius: 8,
                                   margin: EdgeInsetsDirectional.fromSTEB(
                                       12, 4, 12, 4),
                                   hidesUnderline: true,
@@ -383,7 +383,15 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                     0,
                                                                     1,
                                                                     actionsAdminConstsRecord
-                                                                        .emiPaymentDay),
+                                                                        .emiPaymentDay,
+                                                                    (functions.getDiff(
+                                                                            columnBookingsRecord
+                                                                                .dueAmount,
+                                                                            double.parse(amountBPController?.text ??
+                                                                                ''))) <=
+                                                                        0.0,
+                                                                    columnBookingsRecord
+                                                                        .dueDate),
                                                                 creditStatus: (functions.getDiff(
                                                                         columnBookingsRecord
                                                                             .amountLeftToPay,
@@ -408,11 +416,20 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                         amountBPController?.text ??
                                                                             '')),
                                                                 emiDueDate: functions.getNewDate(
-                                                                    getCurrentTimestamp,
+                                                                    columnBookingsRecord
+                                                                        .dueDate,
                                                                     0,
                                                                     1,
                                                                     actionsAdminConstsRecord
-                                                                        .emiPaymentDay),
+                                                                        .emiPaymentDay,
+                                                                    (functions.getDiff(
+                                                                            columnCalculationsRecord
+                                                                                .emiDueAmount,
+                                                                            double.parse(amountBPController?.text ??
+                                                                                ''))) <=
+                                                                        0.0,
+                                                                    columnCalculationsRecord
+                                                                        .emiDueDate),
                                                               );
                                                               await columnCalculationsRecord
                                                                   .reference
@@ -521,7 +538,16 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                               0,
                                                               1,
                                                               actionsAdminConstsRecord
-                                                                  .emiPaymentDay),
+                                                                  .emiPaymentDay,
+                                                              (functions.getDiff(
+                                                                      columnBookingsRecord
+                                                                          .dueAmount,
+                                                                      double.parse(
+                                                                          amountBPController?.text ??
+                                                                              ''))) <=
+                                                                  0.0,
+                                                              columnBookingsRecord
+                                                                  .dueDate),
                                                           creditStatus: (functions.getDiff(
                                                                   columnBookingsRecord
                                                                       .amountLeftToPay,
@@ -549,11 +575,21 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                           ?.text ??
                                                                       '')),
                                                           emiDueDate: functions.getNewDate(
-                                                              getCurrentTimestamp,
+                                                              columnBookingsRecord
+                                                                  .dueDate,
                                                               0,
                                                               1,
                                                               actionsAdminConstsRecord
-                                                                  .emiPaymentDay),
+                                                                  .emiPaymentDay,
+                                                              (functions.getDiff(
+                                                                      columnCalculationsRecord
+                                                                          .emiDueAmount,
+                                                                      double.parse(
+                                                                          amountBPController?.text ??
+                                                                              ''))) <=
+                                                                  0.0,
+                                                              columnCalculationsRecord
+                                                                  .emiDueDate),
                                                         );
                                                         await columnCalculationsRecord
                                                             .reference

@@ -219,9 +219,12 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                                 child: Text(
-                                  bookingDetailsPlansAndRatesRecord
-                                      .fixedRatePerSqFt
-                                      .toString(),
+                                  valueOrDefault<String>(
+                                    bookingDetailsPlansAndRatesRecord
+                                        .fixedRatePerSqFt
+                                        .toString(),
+                                    '0',
+                                  ),
                                   style: FlutterFlowTheme.subtitle2,
                                 ),
                               ),
@@ -251,13 +254,16 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                                 child: Text(
-                                  functions
-                                      .getMultiplication(
-                                          bookingDetailsPlansAndRatesRecord
-                                              .fixedRatePerSqFt
-                                              .toDouble(),
-                                          double.parse(areaController.text))
-                                      .toString(),
+                                  valueOrDefault<String>(
+                                    functions
+                                        .getMultiplication(
+                                            bookingDetailsPlansAndRatesRecord
+                                                .fixedRatePerSqFt
+                                                .toDouble(),
+                                            double.parse(areaController.text))
+                                        .toString(),
+                                    '0',
+                                  ),
                                   style: FlutterFlowTheme.subtitle2,
                                 ),
                               ),
@@ -287,15 +293,18 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                                 child: Text(
-                                  functions
-                                      .getBookingAmt(
-                                          bookingDetailsPlansAndRatesRecord
-                                              .minBookingAmtPerc,
-                                          bookingDetailsPlansAndRatesRecord
-                                              .fixedRatePerSqFt
-                                              .toDouble(),
-                                          int.parse(areaController.text))
-                                      .toString(),
+                                  valueOrDefault<String>(
+                                    functions
+                                        .getBookingAmt(
+                                            bookingDetailsPlansAndRatesRecord
+                                                .minBookingAmtPerc,
+                                            bookingDetailsPlansAndRatesRecord
+                                                .fixedRatePerSqFt
+                                                .toDouble(),
+                                            int.parse(areaController.text))
+                                        .toString(),
+                                    '0',
+                                  ),
                                   style: FlutterFlowTheme.subtitle2,
                                 ),
                               ),

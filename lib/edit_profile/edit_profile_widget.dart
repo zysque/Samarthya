@@ -125,9 +125,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             hintText: 'Title',
                             fillColor: FlutterFlowTheme.darkBackground,
                             elevation: 2,
-                            borderColor: Colors.transparent,
+                            borderColor: FlutterFlowTheme.grayDark,
                             borderWidth: 0,
-                            borderRadius: 0,
+                            borderRadius: 8,
                             margin:
                                 EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
                             hidesUnderline: true,
@@ -225,14 +225,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -274,14 +274,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -316,14 +316,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -361,14 +361,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -411,14 +411,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -460,14 +460,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -510,14 +510,14 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0x00000000),
+                              color: FlutterFlowTheme.grayDark,
                               width: 1,
                             ),
                             borderRadius: BorderRadius.circular(8),
@@ -535,126 +535,144 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         keyboardType: TextInputType.multiline,
                       ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                          child: Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: InkWell(
-                              onTap: () async {
-                                final selectedMedia =
-                                    await selectMediaWithSourceBottomSheet(
-                                  context: context,
-                                  allowPhoto: true,
-                                );
-                                if (selectedMedia != null &&
-                                    validateFileFormat(
-                                        selectedMedia.storagePath, context)) {
-                                  showUploadMessage(
-                                    context,
-                                    'Uploading file...',
-                                    showLoading: true,
-                                  );
-                                  final downloadUrl = await uploadData(
-                                      selectedMedia.storagePath,
-                                      selectedMedia.bytes);
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar();
-                                  if (downloadUrl != null) {
-                                    setState(
-                                        () => uploadedFileUrl2 = downloadUrl);
-                                    showUploadMessage(
-                                      context,
-                                      'Success!',
-                                    );
-                                  } else {
-                                    showUploadMessage(
-                                      context,
-                                      'Failed to upload media',
-                                    );
-                                    return;
-                                  }
-                                }
-                              },
-                              child: FaIcon(
-                                FontAwesomeIcons.idCard,
-                                color: Colors.black,
-                                size: 50,
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(-1, 0),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        final selectedMedia =
+                                            await selectMediaWithSourceBottomSheet(
+                                          context: context,
+                                          allowPhoto: true,
+                                        );
+                                        if (selectedMedia != null &&
+                                            validateFileFormat(
+                                                selectedMedia.storagePath,
+                                                context)) {
+                                          showUploadMessage(
+                                            context,
+                                            'Uploading file...',
+                                            showLoading: true,
+                                          );
+                                          final downloadUrl = await uploadData(
+                                              selectedMedia.storagePath,
+                                              selectedMedia.bytes);
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          if (downloadUrl != null) {
+                                            setState(() =>
+                                                uploadedFileUrl2 = downloadUrl);
+                                            showUploadMessage(
+                                              context,
+                                              'Success!',
+                                            );
+                                          } else {
+                                            showUploadMessage(
+                                              context,
+                                              'Failed to upload media',
+                                            );
+                                            return;
+                                          }
+                                        }
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.idCard,
+                                        color: Colors.black,
+                                        size: 50,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'Aadhar Card',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFF960087),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 20, 0, 0),
-                          child: Text(
-                            'Aadhar card',
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0xFF960087),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0),
-                          child: Card(
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: InkWell(
-                              onTap: () async {
-                                final selectedMedia =
-                                    await selectMediaWithSourceBottomSheet(
-                                  context: context,
-                                  allowPhoto: true,
-                                );
-                                if (selectedMedia != null &&
-                                    validateFileFormat(
-                                        selectedMedia.storagePath, context)) {
-                                  showUploadMessage(
-                                    context,
-                                    'Uploading file...',
-                                    showLoading: true,
-                                  );
-                                  final downloadUrl = await uploadData(
-                                      selectedMedia.storagePath,
-                                      selectedMedia.bytes);
-                                  ScaffoldMessenger.of(context)
-                                      .hideCurrentSnackBar();
-                                  if (downloadUrl != null) {
-                                    setState(
-                                        () => uploadedFileUrl3 = downloadUrl);
-                                    showUploadMessage(
-                                      context,
-                                      'Success!',
-                                    );
-                                  } else {
-                                    showUploadMessage(
-                                      context,
-                                      'Failed to upload media',
-                                    );
-                                    return;
-                                  }
-                                }
-                              },
-                              child: FaIcon(
-                                FontAwesomeIcons.idCard,
-                                color: Colors.black,
-                                size: 50,
+                          Align(
+                            alignment: AlignmentDirectional(1, 0),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Card(
+                                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        final selectedMedia =
+                                            await selectMediaWithSourceBottomSheet(
+                                          context: context,
+                                          allowPhoto: true,
+                                        );
+                                        if (selectedMedia != null &&
+                                            validateFileFormat(
+                                                selectedMedia.storagePath,
+                                                context)) {
+                                          showUploadMessage(
+                                            context,
+                                            'Uploading file...',
+                                            showLoading: true,
+                                          );
+                                          final downloadUrl = await uploadData(
+                                              selectedMedia.storagePath,
+                                              selectedMedia.bytes);
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          if (downloadUrl != null) {
+                                            setState(() =>
+                                                uploadedFileUrl3 = downloadUrl);
+                                            showUploadMessage(
+                                              context,
+                                              'Success!',
+                                            );
+                                          } else {
+                                            showUploadMessage(
+                                              context,
+                                              'Failed to upload media',
+                                            );
+                                            return;
+                                          }
+                                        }
+                                      },
+                                      child: FaIcon(
+                                        FontAwesomeIcons.idCard,
+                                        color: Colors.black,
+                                        size: 50,
+                                      ),
+                                    ),
+                                  ),
+                                  Text(
+                                    'PAN Card',
+                                    style: FlutterFlowTheme.bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFF960087),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(5, 20, 0, 0),
-                          child: Text(
-                            'PAN Card',
-                            style: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0xFF960087),
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),

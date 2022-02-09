@@ -149,22 +149,23 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
-                            enabledBorder: UnderlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
+                                color: FlutterFlowTheme.grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            focusedBorder: UnderlineInputBorder(
+                            focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
+                                color: FlutterFlowTheme.grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
+                            filled: true,
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
+                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
                           ),
                           style: FlutterFlowTheme.title1.override(
                             fontFamily: 'Lexend Deca',
@@ -202,22 +203,23 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                               fontSize: 20,
                               fontWeight: FontWeight.w500,
                             ),
-                            enabledBorder: UnderlineInputBorder(
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
+                                color: FlutterFlowTheme.grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
-                            focusedBorder: UnderlineInputBorder(
+                            focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
+                                color: FlutterFlowTheme.grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
+                            filled: true,
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(0, 24, 0, 24),
+                                EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
                           ),
                           style: FlutterFlowTheme.title1.override(
                             fontFamily: 'Lexend Deca',
@@ -247,20 +249,22 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                             hintStyle: FlutterFlowTheme.bodyText1,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
+                                color: FlutterFlowTheme.grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.background,
+                                color: FlutterFlowTheme.grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
+                            filled: true,
+                            fillColor: FlutterFlowTheme.darkBackground,
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 40, 24, 0),
+                                EdgeInsetsDirectional.fromSTEB(20, 20, 24, 20),
                           ),
                           style: FlutterFlowTheme.bodyText1.override(
                             fontFamily: 'Lexend Deca',

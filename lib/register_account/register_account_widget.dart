@@ -137,14 +137,14 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Color(0x00000000),
+                                          color: FlutterFlowTheme.grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Color(0x00000000),
+                                          color: FlutterFlowTheme.grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -183,14 +183,14 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Color(0x00000000),
+                                          color: FlutterFlowTheme.grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Color(0x00000000),
+                                          color: FlutterFlowTheme.grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -242,14 +242,14 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                       ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Color(0x00000000),
+                                          color: FlutterFlowTheme.grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Color(0x00000000),
+                                          color: FlutterFlowTheme.grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
@@ -336,7 +336,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: FlutterFlowTheme
+                                                          .grayDark,
                                                       width: 1,
                                                     ),
                                                     borderRadius:
@@ -346,7 +347,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                   focusedBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0x00000000),
+                                                      color: FlutterFlowTheme
+                                                          .grayDark,
                                                       width: 1,
                                                     ),
                                                     borderRadius:

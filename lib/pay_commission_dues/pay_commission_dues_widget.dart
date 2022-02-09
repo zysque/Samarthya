@@ -123,26 +123,24 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   hintText: 'Amount to Pay',
-                                  enabledBorder: UnderlineInputBorder(
+                                  enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.grayDark,
                                       width: 1,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  focusedBorder: UnderlineInputBorder(
+                                  focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.grayDark,
                                       width: 1,
                                     ),
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(4.0),
-                                      topRight: Radius.circular(4.0),
-                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
+                                  filled: true,
+                                  contentPadding:
+                                      EdgeInsetsDirectional.fromSTEB(
+                                          20, 4, 20, 4),
                                   prefixIcon: FaIcon(
                                     FontAwesomeIcons.rupeeSign,
                                     color: FlutterFlowTheme.textColor,
@@ -170,9 +168,9 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                                   hintText: 'Select Mode',
                                   fillColor: FlutterFlowTheme.background,
                                   elevation: 2,
-                                  borderColor: Colors.transparent,
+                                  borderColor: FlutterFlowTheme.grayDark,
                                   borderWidth: 0,
-                                  borderRadius: 0,
+                                  borderRadius: 8,
                                   margin: EdgeInsetsDirectional.fromSTEB(
                                       12, 4, 12, 4),
                                   hidesUnderline: true,

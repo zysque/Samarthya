@@ -34,8 +34,7 @@ double getCommission(
   double amount,
 ) {
   // a percent b
-  return ((percentage / 100) * amount);
-  ;
+  return ((percentage / 100) * amount).ceilToDouble();
 }
 
 bool getAndOutput(
@@ -57,7 +56,7 @@ double emiCalculator(
   final int tenureY = int.parse(tenure.replaceAll(' Months', ''));
   double emiAmount =
       ((plotArea * ratePerSQFT) - bookingAmount - downPayment) / tenureY;
-  return emiAmount.roundToDouble();
+  return emiAmount.ceilToDouble();
 }
 
 int parseReplaceFromString(
@@ -111,15 +110,19 @@ DateTime getNewDate(
   int addYear,
   int addMonth,
   double day,
+  bool condn,
+  DateTime date2,
 ) {
   // get next month
-  return DateTime.parse(DateFormat('yyyy-MM-dd').format(
-    DateTime(
-      date1.year + addYear + (date1.month + addMonth > 12 ? 1 : 0),
-      (date1.month + addMonth < 12) ? date1.month + addMonth : 1,
-      day.floor(),
-    ),
-  ));
+  return condn
+      ? DateTime.parse(DateFormat('yyyy-MM-dd').format(
+          DateTime(
+            date1.year + addYear + (date1.month + addMonth > 12 ? 1 : 0),
+            (date1.month + addMonth < 12) ? date1.month + addMonth : 1,
+            day.floor(),
+          ),
+        ))
+      : date2;
 }
 
 double getBookingAmt(
@@ -128,5 +131,5 @@ double getBookingAmt(
   int area,
 ) {
   // Add your function code here!
-  return area * rate * perc;
+  return (area * rate * perc).ceilToDouble();
 }

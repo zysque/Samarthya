@@ -96,274 +96,272 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
             elevation: 0,
           ),
           backgroundColor: FlutterFlowTheme.primaryColor,
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.primaryColor,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
-                                child: Text(
-                                  projectDetailsProjectsRecord.projectName,
-                                  style: FlutterFlowTheme.title1,
-                                ),
-                              ),
-                            ),
-                            if (widget.isAdmin ?? true)
-                              InkWell(
-                                onTap: () async {
-                                  await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          AdminModifyProjectsWidget(
-                                        projectDetails: widget.projectDetails,
-                                      ),
-                                    ),
-                                  );
-                                },
-                                child: FaIcon(
-                                  FontAwesomeIcons.solidEdit,
-                                  color: Color(0xFF012121),
-                                  size: 30,
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
+          body: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.primaryColor,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
                               padding:
                                   EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                               child: Text(
-                                projectDetailsProjectsRecord.projectCity,
+                                projectDetailsProjectsRecord.projectName,
                                 style: FlutterFlowTheme.title1,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          if (widget.isAdmin ?? true)
+                            InkWell(
+                              onTap: () async {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        AdminModifyProjectsWidget(
+                                      projectDetails: widget.projectDetails,
+                                    ),
+                                  ),
+                                );
+                              },
+                              child: FaIcon(
+                                FontAwesomeIcons.solidEdit,
+                                color: Color(0xFF012121),
+                                size: 30,
+                              ),
+                            ),
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 4, 0, 0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              dateTimeFormat('EEEE',
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
+                            child: Text(
+                              projectDetailsProjectsRecord.projectCity,
+                              style: FlutterFlowTheme.title1,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(20, 4, 0, 0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Text(
+                            dateTimeFormat('EEEE',
+                                projectDetailsProjectsRecord.lastModified),
+                            style: FlutterFlowTheme.subtitle2.override(
+                              fontFamily: 'Lexend Deca',
+                              color: FlutterFlowTheme.textColor,
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
+                            child: Text(
+                              dateTimeFormat('yMMMd',
                                   projectDetailsProjectsRecord.lastModified),
                               style: FlutterFlowTheme.subtitle2.override(
                                 fontFamily: 'Lexend Deca',
                                 color: FlutterFlowTheme.textColor,
                               ),
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0),
-                              child: Text(
-                                dateTimeFormat('yMMMd',
-                                    projectDetailsProjectsRecord.lastModified),
-                                style: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
-                              child: Text(
-                                dateTimeFormat('jms',
-                                    projectDetailsProjectsRecord.lastModified),
-                                style: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.background,
-                    ),
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
+                          ),
                           Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                AutoSizeText(
-                                  projectDetailsProjectsRecord.projectDesc,
-                                  style: FlutterFlowTheme.bodyText2.override(
-                                    fontFamily: 'Lexend Deca',
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
+                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                            child: Text(
+                              dateTimeFormat('jms',
+                                  projectDetailsProjectsRecord.lastModified),
+                              style: FlutterFlowTheme.subtitle2.override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.textColor,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.background,
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              AutoSizeText(
+                                projectDetailsProjectsRecord.projectDesc,
+                                style: FlutterFlowTheme.bodyText2.override(
+                                  fontFamily: 'Lexend Deca',
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
-                  child: StreamBuilder<List<UserHierarchiesRecord>>(
-                    stream: queryUserHierarchiesRecord(
-                      queryBuilder: (userHierarchiesRecord) =>
-                          userHierarchiesRecord.where('hierarchyUser',
-                              isEqualTo: currentUserReference),
-                      singleRecord: true,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
-                            ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
+                child: StreamBuilder<List<UserHierarchiesRecord>>(
+                  stream: queryUserHierarchiesRecord(
+                    queryBuilder: (userHierarchiesRecord) =>
+                        userHierarchiesRecord.where('hierarchyUser',
+                            isEqualTo: currentUserReference),
+                    singleRecord: true,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: SpinKitPumpingHeart(
+                            color: FlutterFlowTheme.primaryColor,
+                            size: 40,
                           ),
-                        );
-                      }
-                      List<UserHierarchiesRecord>
-                          plansUserHierarchiesRecordList = snapshot.data;
-                      // Return an empty Container when the document does not exist.
-                      if (snapshot.data.isEmpty) {
-                        return Container();
-                      }
-                      final plansUserHierarchiesRecord =
-                          plansUserHierarchiesRecordList.isNotEmpty
-                              ? plansUserHierarchiesRecordList.first
-                              : null;
-                      return Container(
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.background,
                         ),
-                        child: Visibility(
-                          visible: plansUserHierarchiesRecord != null,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  'Click on Plan you like to Book',
-                                  style: FlutterFlowTheme.title3.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: Color(0xFF7CD514),
-                                    fontSize: 24,
-                                  ),
+                      );
+                    }
+                    List<UserHierarchiesRecord> plansUserHierarchiesRecordList =
+                        snapshot.data;
+                    // Return an empty Container when the document does not exist.
+                    if (snapshot.data.isEmpty) {
+                      return Container();
+                    }
+                    final plansUserHierarchiesRecord =
+                        plansUserHierarchiesRecordList.isNotEmpty
+                            ? plansUserHierarchiesRecordList.first
+                            : null;
+                    return Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.background,
+                      ),
+                      child: Visibility(
+                        visible: plansUserHierarchiesRecord != null,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'Click on Plan you like to Book',
+                                style: FlutterFlowTheme.title3.override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: Color(0xFF7CD514),
+                                  fontSize: 24,
                                 ),
-                                StreamBuilder<List<PlansAndRatesRecord>>(
-                                  stream: queryPlansAndRatesRecord(
-                                    queryBuilder: (plansAndRatesRecord) =>
-                                        plansAndRatesRecord.where('projectRef',
-                                            isEqualTo:
-                                                projectDetailsProjectsRecord
-                                                    .reference),
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 40,
-                                          height: 40,
-                                          child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
-                                            size: 40,
-                                          ),
+                              ),
+                              StreamBuilder<List<PlansAndRatesRecord>>(
+                                stream: queryPlansAndRatesRecord(
+                                  queryBuilder: (plansAndRatesRecord) =>
+                                      plansAndRatesRecord
+                                          .where('projectRef',
+                                              isEqualTo:
+                                                  projectDetailsProjectsRecord
+                                                      .reference)
+                                          .orderBy('phaseCode'),
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: SpinKitPumpingHeart(
+                                          color: FlutterFlowTheme.primaryColor,
+                                          size: 40,
                                         ),
-                                      );
-                                    }
-                                    List<PlansAndRatesRecord>
-                                        listViewPlansAndRatesRecordList =
-                                        snapshot.data;
-                                    if (listViewPlansAndRatesRecordList
-                                        .isEmpty) {
-                                      return Center(
-                                        child: Image.asset(
-                                          'assets/images/NoPhasePlan.JPG',
-                                        ),
-                                      );
-                                    }
-                                    return ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: listViewPlansAndRatesRecordList
-                                          .length,
-                                      itemBuilder: (context, listViewIndex) {
-                                        final listViewPlansAndRatesRecord =
-                                            listViewPlansAndRatesRecordList[
-                                                listViewIndex];
-                                        return Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5, 5, 5, 0),
-                                          child: InkWell(
-                                            onTap: () async {
-                                              await Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CreateBookingWidget(
-                                                    planRef:
-                                                        listViewPlansAndRatesRecord
-                                                            .reference,
-                                                  ),
+                                      ),
+                                    );
+                                  }
+                                  List<PlansAndRatesRecord>
+                                      listViewPlansAndRatesRecordList =
+                                      snapshot.data;
+                                  if (listViewPlansAndRatesRecordList.isEmpty) {
+                                    return Center(
+                                      child: Image.asset(
+                                        'assets/images/NoPhasePlan.JPG',
+                                      ),
+                                    );
+                                  }
+                                  return ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount:
+                                        listViewPlansAndRatesRecordList.length,
+                                    itemBuilder: (context, listViewIndex) {
+                                      final listViewPlansAndRatesRecord =
+                                          listViewPlansAndRatesRecordList[
+                                              listViewIndex];
+                                      return Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5, 5, 5, 0),
+                                        child: InkWell(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CreateBookingWidget(
+                                                  planRef:
+                                                      listViewPlansAndRatesRecord
+                                                          .reference,
                                                 ),
-                                              );
-                                            },
-                                            child: Container(
-                                              width: 25,
-                                              decoration: BoxDecoration(
-                                                color: FlutterFlowTheme
-                                                    .primaryColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
                                               ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(10, 5, 10, 5),
+                                            );
+                                          },
+                                          child: Container(
+                                            width: 25,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.primaryColor,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(10, 5, 10, 5),
+                                              child: SingleChildScrollView(
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -592,24 +590,23 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                               ),
                                             ),
                                           ),
-                                        );
-                                      },
-                                    ).animated([
-                                      animationsMap[
-                                          'listViewOnPageLoadAnimation']
-                                    ]);
-                                  },
-                                ),
-                              ],
-                            ),
+                                        ),
+                                      );
+                                    },
+                                  ).animated([
+                                    animationsMap['listViewOnPageLoadAnimation']
+                                  ]);
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  ),
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },

@@ -105,84 +105,42 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      TextFormField(
-                        controller: plotController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          labelText: 'Plot No',
-                          hintText: 'Please enter plot Number',
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0),
-                            ),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0),
-                            ),
-                          ),
-                          contentPadding:
-                              EdgeInsetsDirectional.fromSTEB(20, 4, 20, 4),
-                        ),
-                        style: FlutterFlowTheme.subtitle1,
-                        keyboardType: TextInputType.number,
-                        validator: (val) {
-                          if (val.isEmpty) {
-                            return 'Field is required';
-                          }
-                          if (val.length < 1) {
-                            return 'Requires at least 1 characters.';
-                          }
-                          return null;
-                        },
-                      ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
                         child: TextFormField(
-                          onChanged: (_) => EasyDebounce.debounce(
-                            'areaController',
-                            Duration(milliseconds: 200),
-                            () => setState(() {}),
-                          ),
-                          controller: areaController,
+                          controller: plotController,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Plot Area',
-                            hintText: 'Please enter plot area in sqft',
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
+                            labelText: 'Plot No',
+                            labelStyle: FlutterFlowTheme.subtitle1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFF98FFFF),
                             ),
-                            focusedBorder: UnderlineInputBorder(
+                            hintText: 'Please enter plot Number',
+                            hintStyle: FlutterFlowTheme.subtitle1,
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
+                                color: FlutterFlowTheme.grayDark,
+                                width: 2,
                               ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
+                              borderRadius: BorderRadius.circular(8),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.grayDark,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 4, 20, 4),
                           ),
-                          style: FlutterFlowTheme.subtitle1,
+                          style: FlutterFlowTheme.subtitle1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.textColor,
+                          ),
+                          textAlign: TextAlign.start,
                           keyboardType: TextInputType.number,
                           validator: (val) {
                             if (val.isEmpty) {
@@ -196,7 +154,60 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
+                        child: TextFormField(
+                          onChanged: (_) => EasyDebounce.debounce(
+                            'areaController',
+                            Duration(milliseconds: 200),
+                            () => setState(() {}),
+                          ),
+                          controller: areaController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Plot Area',
+                            labelStyle: FlutterFlowTheme.subtitle1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFF98FFFF),
+                            ),
+                            hintText: 'Please enter plot area in sqft',
+                            hintStyle: FlutterFlowTheme.subtitle1,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.grayDark,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.grayDark,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 4, 20, 4),
+                          ),
+                          style: FlutterFlowTheme.subtitle1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.textColor,
+                          ),
+                          textAlign: TextAlign.start,
+                          keyboardType: TextInputType.number,
+                          validator: (val) {
+                            if (val.isEmpty) {
+                              return 'Field is required';
+                            }
+                            if (val.length < 1) {
+                              return 'Requires at least 1 characters.';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(10, 20, 10, 0),
                         child: TextFormField(
                           onChanged: (_) => EasyDebounce.debounce(
                             'downPaymentController',
@@ -207,35 +218,39 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Down Payment',
+                            labelStyle: FlutterFlowTheme.subtitle1.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFF98FFFF),
+                            ),
                             hintText: 'Please enter booking amount',
-                            enabledBorder: UnderlineInputBorder(
+                            hintStyle: FlutterFlowTheme.subtitle1,
+                            enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
+                                color: FlutterFlowTheme.grayDark,
+                                width: 2,
                               ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            focusedBorder: UnderlineInputBorder(
+                            focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
+                                color: FlutterFlowTheme.grayDark,
+                                width: 2,
                               ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
+                              borderRadius: BorderRadius.circular(8),
                             ),
+                            filled: true,
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                                EdgeInsetsDirectional.fromSTEB(20, 4, 20, 4),
                             prefixIcon: FaIcon(
                               FontAwesomeIcons.rupeeSign,
-                              color: FlutterFlowTheme.grayLight,
+                              color: FlutterFlowTheme.textColor,
                             ),
                           ),
-                          style: FlutterFlowTheme.subtitle1,
+                          style: FlutterFlowTheme.subtitle1.override(
+                            fontFamily: 'Lexend Deca',
+                            color: FlutterFlowTheme.textColor,
+                          ),
+                          textAlign: TextAlign.start,
                           keyboardType: TextInputType.number,
                           validator: (val) {
                             if (val.isEmpty) {
@@ -280,14 +295,18 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                   children: [
                                     Text(
                                       'Rate per SQFT',
-                                      style: FlutterFlowTheme.subtitle1,
+                                      style:
+                                          FlutterFlowTheme.subtitle1.override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.textColor,
+                                      ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           20, 0, 0, 0),
                                       child: FaIcon(
                                         FontAwesomeIcons.rupeeSign,
-                                        color: FlutterFlowTheme.grayLight,
+                                        color: FlutterFlowTheme.textColor,
                                         size: 18,
                                       ),
                                     ),
@@ -295,10 +314,17 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           5, 0, 0, 0),
                                       child: Text(
-                                        bookingDetailsPlansAndRatesRecord
-                                            .fixedRatePerSqFt
-                                            .toString(),
-                                        style: FlutterFlowTheme.subtitle1,
+                                        valueOrDefault<String>(
+                                          bookingDetailsPlansAndRatesRecord
+                                              .fixedRatePerSqFt
+                                              .toString(),
+                                          '0',
+                                        ),
+                                        style:
+                                            FlutterFlowTheme.subtitle1.override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.textColor,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -313,14 +339,18 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                     children: [
                                       Text(
                                         'Total Amount',
-                                        style: FlutterFlowTheme.subtitle1,
+                                        style:
+                                            FlutterFlowTheme.subtitle1.override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.textColor,
+                                        ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             20, 0, 0, 0),
                                         child: FaIcon(
                                           FontAwesomeIcons.rupeeSign,
-                                          color: FlutterFlowTheme.grayLight,
+                                          color: FlutterFlowTheme.textColor,
                                           size: 18,
                                         ),
                                       ),
@@ -328,15 +358,22 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             5, 0, 0, 0),
                                         child: Text(
-                                          functions
-                                              .getMultiplication(
-                                                  double.parse(
-                                                      areaController.text),
-                                                  bookingDetailsPlansAndRatesRecord
-                                                      .fixedRatePerSqFt
-                                                      .toDouble())
-                                              .toString(),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          valueOrDefault<String>(
+                                            functions
+                                                .getMultiplication(
+                                                    double.parse(
+                                                        areaController.text),
+                                                    bookingDetailsPlansAndRatesRecord
+                                                        .fixedRatePerSqFt
+                                                        .toDouble())
+                                                .toString(),
+                                            '0',
+                                          ),
+                                          style: FlutterFlowTheme.subtitle1
+                                              .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: FlutterFlowTheme.textColor,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -352,14 +389,18 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                     children: [
                                       Text(
                                         'Booking Amount',
-                                        style: FlutterFlowTheme.subtitle1,
+                                        style:
+                                            FlutterFlowTheme.subtitle1.override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.textColor,
+                                        ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             20, 0, 0, 0),
                                         child: FaIcon(
                                           FontAwesomeIcons.rupeeSign,
-                                          color: FlutterFlowTheme.grayLight,
+                                          color: FlutterFlowTheme.textColor,
                                           size: 18,
                                         ),
                                       ),
@@ -367,17 +408,24 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             5, 0, 0, 0),
                                         child: Text(
-                                          functions
-                                              .getBookingAmt(
-                                                  bookingDetailsPlansAndRatesRecord
-                                                      .minBookingAmtPerc,
-                                                  bookingDetailsPlansAndRatesRecord
-                                                      .fixedRatePerSqFt
-                                                      .toDouble(),
-                                                  int.parse(
-                                                      areaController.text))
-                                              .toString(),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          valueOrDefault<String>(
+                                            functions
+                                                .getBookingAmt(
+                                                    bookingDetailsPlansAndRatesRecord
+                                                        .minBookingAmtPerc,
+                                                    bookingDetailsPlansAndRatesRecord
+                                                        .fixedRatePerSqFt
+                                                        .toDouble(),
+                                                    int.parse(
+                                                        areaController.text))
+                                                .toString(),
+                                            '0',
+                                          ),
+                                          style: FlutterFlowTheme.subtitle1
+                                              .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: FlutterFlowTheme.textColor,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -403,7 +451,11 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                             () => emiTenureValue = val),
                                         width: 200,
                                         height: 50,
-                                        textStyle: FlutterFlowTheme.subtitle1,
+                                        textStyle:
+                                            FlutterFlowTheme.subtitle1.override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.textColor,
+                                        ),
                                         hintText: 'Select EMI Tenure',
                                         fillColor:
                                             FlutterFlowTheme.darkBackground,
@@ -458,14 +510,18 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                     children: [
                                       Text(
                                         'Monthly Installments',
-                                        style: FlutterFlowTheme.subtitle1,
+                                        style:
+                                            FlutterFlowTheme.subtitle1.override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.textColor,
+                                        ),
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             20, 0, 0, 0),
                                         child: FaIcon(
                                           FontAwesomeIcons.rupeeSign,
-                                          color: FlutterFlowTheme.grayLight,
+                                          color: FlutterFlowTheme.textColor,
                                           size: 18,
                                         ),
                                       ),
@@ -473,26 +529,33 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             5, 0, 0, 0),
                                         child: Text(
-                                          functions
-                                              .emiCalculator(
-                                                  int.parse(
-                                                      areaController.text),
-                                                  bookingDetailsPlansAndRatesRecord
-                                                      .fixedRatePerSqFt,
-                                                  functions.getBookingAmt(
-                                                      bookingDetailsPlansAndRatesRecord
-                                                          .minBookingAmtPerc,
-                                                      bookingDetailsPlansAndRatesRecord
-                                                          .fixedRatePerSqFt
-                                                          .toDouble(),
-                                                      int.parse(
-                                                          areaController.text)),
-                                                  double.parse(
-                                                      downPaymentController
-                                                          .text),
-                                                  emiTenureValue)
-                                              .toString(),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          valueOrDefault<String>(
+                                            functions
+                                                .emiCalculator(
+                                                    int.parse(
+                                                        areaController.text),
+                                                    bookingDetailsPlansAndRatesRecord
+                                                        .fixedRatePerSqFt,
+                                                    functions.getBookingAmt(
+                                                        bookingDetailsPlansAndRatesRecord
+                                                            .minBookingAmtPerc,
+                                                        bookingDetailsPlansAndRatesRecord
+                                                            .fixedRatePerSqFt
+                                                            .toDouble(),
+                                                        int.parse(areaController
+                                                            .text)),
+                                                    double.parse(
+                                                        downPaymentController
+                                                            .text),
+                                                    emiTenureValue)
+                                                .toString(),
+                                            '0',
+                                          ),
+                                          style: FlutterFlowTheme.subtitle1
+                                              .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: FlutterFlowTheme.textColor,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -505,26 +568,31 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
                                     controller: descriptionController,
                                     obscureText: false,
                                     decoration: InputDecoration(
-                                      labelStyle: FlutterFlowTheme.bodyText1,
+                                      labelText: 'Description',
+                                      labelStyle:
+                                          FlutterFlowTheme.bodyText1.override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Color(0xFF98FFFF),
+                                      ),
                                       hintText: 'Booking  Description',
                                       hintStyle: FlutterFlowTheme.bodyText1,
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.background,
+                                          color: FlutterFlowTheme.grayDark,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.background,
+                                          color: FlutterFlowTheme.grayDark,
                                           width: 2,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       contentPadding:
                                           EdgeInsetsDirectional.fromSTEB(
-                                              20, 10, 24, 0),
+                                              20, 20, 24, 0),
                                     ),
                                     style: FlutterFlowTheme.bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -546,7 +614,7 @@ class _CreateBookingWidgetState extends State<CreateBookingWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
               child: StreamBuilder<List<UserHierarchiesRecord>>(
                 stream: queryUserHierarchiesRecord(
                   queryBuilder: (userHierarchiesRecord) => userHierarchiesRecord

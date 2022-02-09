@@ -287,28 +287,25 @@ class _AdminBookingApprovalWidgetState
                                             labelText: 'Plot No',
                                             hintText:
                                                 'Please enter plot number',
-                                            enabledBorder: UnderlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
+                                            filled: true,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
@@ -341,28 +338,25 @@ class _AdminBookingApprovalWidgetState
                                             labelText: 'Plot Area',
                                             hintText:
                                                 'Please enter plot area in sqft',
-                                            enabledBorder: UnderlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
+                                            filled: true,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
@@ -402,28 +396,25 @@ class _AdminBookingApprovalWidgetState
                                             labelText: 'Rate Per SqFt',
                                             hintText:
                                                 'Please enter rate per sqft',
-                                            enabledBorder: UnderlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
+                                            filled: true,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
@@ -466,28 +457,25 @@ class _AdminBookingApprovalWidgetState
                                             labelText: 'Booking Amount',
                                             hintText:
                                                 'Please enter booking amount',
-                                            enabledBorder: UnderlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
+                                            filled: true,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
@@ -530,31 +518,28 @@ class _AdminBookingApprovalWidgetState
                                             labelText: 'Down Payment',
                                             hintText:
                                                 'Please enter booking amount',
-                                            enabledBorder: UnderlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
+                                            filled: true,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    20, 0, 0, 0),
+                                                    20, 4, 20, 4),
                                             prefixIcon: FaIcon(
                                               FontAwesomeIcons.rupeeSign,
                                               color: FlutterFlowTheme.grayLight,
@@ -599,9 +584,10 @@ class _AdminBookingApprovalWidgetState
                                               fillColor: FlutterFlowTheme
                                                   .darkBackground,
                                               elevation: 2,
-                                              borderColor: Colors.transparent,
+                                              borderColor:
+                                                  FlutterFlowTheme.grayDark,
                                               borderWidth: 0,
-                                              borderRadius: 0,
+                                              borderRadius: 8,
                                               margin: EdgeInsetsDirectional
                                                   .fromSTEB(12, 4, 4, 4),
                                               hidesUnderline: true,
@@ -667,24 +653,29 @@ class _AdminBookingApprovalWidgetState
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(5, 0, 0, 0),
                                               child: Text(
-                                                functions
-                                                    .emiCalculator(
-                                                        int.parse(areaController
-                                                                ?.text ??
-                                                            ''),
-                                                        int.parse(rateController
-                                                                ?.text ??
-                                                            ''),
-                                                        double.parse(
-                                                            bookingAmtController
-                                                                    ?.text ??
-                                                                ''),
-                                                        double.parse(
-                                                            downPaymentController
-                                                                    ?.text ??
-                                                                ''),
-                                                        emiTenureValue)
-                                                    .toString(),
+                                                valueOrDefault<String>(
+                                                  functions
+                                                      .emiCalculator(
+                                                          int.parse(
+                                                              areaController
+                                                                      ?.text ??
+                                                                  ''),
+                                                          int.parse(
+                                                              rateController
+                                                                      ?.text ??
+                                                                  ''),
+                                                          double.parse(
+                                                              bookingAmtController
+                                                                      ?.text ??
+                                                                  ''),
+                                                          double.parse(
+                                                              downPaymentController
+                                                                      ?.text ??
+                                                                  ''),
+                                                          emiTenureValue)
+                                                      .toString(),
+                                                  '0',
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.subtitle1,
                                               ),
@@ -707,7 +698,7 @@ class _AdminBookingApprovalWidgetState
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.background,
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 2,
                                               ),
                                               borderRadius:
@@ -716,15 +707,18 @@ class _AdminBookingApprovalWidgetState
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.background,
+                                                    FlutterFlowTheme.grayDark,
                                                 width: 2,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                             ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.darkBackground,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    20, 10, 24, 0),
+                                                    20, 4, 24, 4),
                                           ),
                                           style: FlutterFlowTheme.bodyText1
                                               .override(
@@ -746,7 +740,7 @@ class _AdminBookingApprovalWidgetState
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: StreamBuilder<List<UserHierarchiesRecord>>(
                         stream: queryUserHierarchiesRecord(
                           queryBuilder: (userHierarchiesRecord) =>
@@ -781,7 +775,8 @@ class _AdminBookingApprovalWidgetState
                                 stream: queryCalculationsRecord(
                                   queryBuilder: (calculationsRecord) =>
                                       calculationsRecord.where('userRef',
-                                          isEqualTo: currentUserReference),
+                                          isEqualTo:
+                                              columnBookingsRecord.buyerRef),
                                   singleRecord: true,
                                 ),
                                 builder: (context, snapshot) {
@@ -857,7 +852,9 @@ class _AdminBookingApprovalWidgetState
                                               0,
                                               1,
                                               adminBookingApprovalAdminConstsRecord
-                                                  .emiPaymentDay),
+                                                  .emiPaymentDay,
+                                              true,
+                                              getCurrentTimestamp),
                                           lastModified: getCurrentTimestamp,
                                           amountLeftToPay:
                                               functions.getMultiplication(
@@ -875,6 +872,36 @@ class _AdminBookingApprovalWidgetState
                                       };
                                       await widget.bookingRef
                                           .update(bookingsUpdateData);
+
+                                      final calculationsUpdateData =
+                                          createCalculationsRecordData(
+                                        emiDueAmount: functions.getSum(
+                                            logBookingCalculationsRecord
+                                                .emiDueAmount,
+                                            functions.getSum(
+                                                double.parse(
+                                                    bookingAmtController
+                                                            ?.text ??
+                                                        ''),
+                                                double.parse(
+                                                    downPaymentController
+                                                            ?.text ??
+                                                        ''))),
+                                        emiDueDate: functions.getNewDate(
+                                            getCurrentTimestamp,
+                                            0,
+                                            1,
+                                            adminBookingApprovalAdminConstsRecord
+                                                .emiPaymentDay,
+                                            (logBookingCalculationsRecord
+                                                    .emiDueAmount) <=
+                                                0.0,
+                                            logBookingCalculationsRecord
+                                                .emiDueDate),
+                                      );
+                                      await logBookingCalculationsRecord
+                                          .reference
+                                          .update(calculationsUpdateData);
                                       if (actionsUserHierarchiesRecord
                                           .hasReferral) {
                                         final commissionsCreateData = {
@@ -896,25 +923,6 @@ class _AdminBookingApprovalWidgetState
                                             .doc()
                                             .set(commissionsCreateData);
                                       }
-                                      final calculationsUpdateData =
-                                          createCalculationsRecordData(
-                                        emiDueAmount: functions.getSum(
-                                            double.parse(
-                                                bookingAmtController?.text ??
-                                                    ''),
-                                            double.parse(
-                                                downPaymentController?.text ??
-                                                    '')),
-                                        emiDueDate: functions.getNewDate(
-                                            getCurrentTimestamp,
-                                            0,
-                                            1,
-                                            adminBookingApprovalAdminConstsRecord
-                                                .emiPaymentDay),
-                                      );
-                                      await logBookingCalculationsRecord
-                                          .reference
-                                          .update(calculationsUpdateData);
                                       await Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(

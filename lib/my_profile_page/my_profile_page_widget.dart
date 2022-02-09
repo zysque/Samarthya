@@ -222,10 +222,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   ),
                                 ),
                                 Text(
-                                  valueOrDefault<String>(
-                                    myProfilePageUsersRecord.displayName,
-                                    'Random user',
-                                  ),
+                                  myProfilePageUsersRecord.displayName,
                                   style: FlutterFlowTheme.subtitle1.override(
                                     fontFamily: 'Lexend Deca',
                                     color: FlutterFlowTheme.textColor,

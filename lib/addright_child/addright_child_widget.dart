@@ -161,7 +161,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                       fillColor:
                                           FlutterFlowTheme.darkBackground,
                                       elevation: 2,
-                                      borderColor: FlutterFlowTheme.background,
+                                      borderColor: FlutterFlowTheme.grayDark,
                                       borderWidth: 2,
                                       borderRadius: 8,
                                       margin: EdgeInsetsDirectional.fromSTEB(

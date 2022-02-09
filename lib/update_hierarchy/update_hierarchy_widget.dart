@@ -92,34 +92,39 @@ class _UpdateHierarchyWidgetState extends State<UpdateHierarchyWidget> {
               ),
             ),
           ),
-          FFButtonWidget(
-            onPressed: () async {
-              final userHierarchiesUpdateData = createUserHierarchiesRecordData(
-                parentRef: widget.parentRef,
-                hasParent: true,
-              );
-              await widget.childHierarchyRef.update(userHierarchiesUpdateData);
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => MyHierarchyWidget(
-                    userProfile: currentUserReference,
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+            child: FFButtonWidget(
+              onPressed: () async {
+                final userHierarchiesUpdateData =
+                    createUserHierarchiesRecordData(
+                  parentRef: widget.parentRef,
+                  hasParent: true,
+                );
+                await widget.childHierarchyRef
+                    .update(userHierarchiesUpdateData);
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MyHierarchyWidget(
+                      userProfile: currentUserReference,
+                    ),
                   ),
+                );
+              },
+              text: 'Accept',
+              options: FFButtonOptions(
+                width: 300,
+                height: 70,
+                color: FlutterFlowTheme.tertiaryColor,
+                textStyle: FlutterFlowTheme.title1,
+                elevation: 0,
+                borderSide: BorderSide(
+                  color: FlutterFlowTheme.grayLight,
+                  width: 1,
                 ),
-              );
-            },
-            text: 'Accept',
-            options: FFButtonOptions(
-              width: 300,
-              height: 70,
-              color: FlutterFlowTheme.tertiaryColor,
-              textStyle: FlutterFlowTheme.title1,
-              elevation: 0,
-              borderSide: BorderSide(
-                color: Colors.transparent,
-                width: 1,
+                borderRadius: 12,
               ),
-              borderRadius: 12,
             ),
           ),
           Text(

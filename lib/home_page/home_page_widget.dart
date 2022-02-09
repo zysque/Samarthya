@@ -173,7 +173,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             return Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   'EMI Payment Due',
@@ -183,117 +183,146 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     fontSize: 17,
                                   ),
                                 ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 0, 5, 0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.rupeeSign,
-                                        color: FlutterFlowTheme.textColor,
-                                        size: 24,
-                                      ),
-                                    ),
-                                    Text(
-                                      columnCalculationsRecord.emiDueAmount
-                                          .toString(),
-                                      style: FlutterFlowTheme.title1,
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 0),
-                                  child: Text(
-                                    'Due Date',
-                                    style: GoogleFonts.getFont(
-                                      'Lexend Deca',
-                                      color: Color(0xB4FFFFFF),
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 0),
-                                  child: Text(
-                                    dateTimeFormat('yMMMd',
-                                        columnCalculationsRecord.emiDueDate),
-                                    style: FlutterFlowTheme.title3,
-                                  ),
-                                ),
-                                if (functions.getIfDaysLeft(
-                                        columnCalculationsRecord.emiDueDate) ??
-                                    true)
-                                  Row(
+                                if ((columnCalculationsRecord.emiDueAmount) >
+                                    0.0)
+                                  Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 5, 0),
+                                            child: FaIcon(
+                                              FontAwesomeIcons.rupeeSign,
+                                              color: FlutterFlowTheme.textColor,
+                                              size: 24,
+                                            ),
+                                          ),
+                                          Text(
+                                            columnCalculationsRecord
+                                                .emiDueAmount
+                                                .toString(),
+                                            style: FlutterFlowTheme.title1,
+                                          ),
+                                        ],
+                                      ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 0, 0),
                                         child: Text(
-                                          functions
-                                              .getDaysLeft(
-                                                  columnCalculationsRecord
-                                                      .emiDueDate)
-                                              .toString(),
+                                          'Due Date',
                                           style: GoogleFonts.getFont(
                                             'Lexend Deca',
-                                            color: FlutterFlowTheme.textColor,
+                                            color: Color(0xB4FFFFFF),
                                             fontSize: 12,
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            2, 4, 0, 0),
-                                        child: Text(
-                                          'Days Left',
-                                          style: GoogleFonts.getFont(
-                                            'Lexend Deca',
-                                            color: FlutterFlowTheme.textColor,
-                                            fontSize: 12,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                if (!(functions.getIfDaysLeft(
-                                        columnCalculationsRecord.emiDueDate)) ??
-                                    true)
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 0, 0),
                                         child: Text(
-                                          functions
-                                              .getDaysLeft(
-                                                  columnCalculationsRecord
-                                                      .emiDueDate)
-                                              .toString(),
-                                          style: GoogleFonts.getFont(
-                                            'Lexend Deca',
-                                            color: FlutterFlowTheme.textColor,
-                                            fontSize: 12,
-                                          ),
+                                          dateTimeFormat(
+                                              'yMMMd',
+                                              columnCalculationsRecord
+                                                  .emiDueDate),
+                                          style: FlutterFlowTheme.title3,
                                         ),
                                       ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            2, 4, 0, 0),
-                                        child: Text(
-                                          'Days Delay',
-                                          style: GoogleFonts.getFont(
-                                            'Lexend Deca',
-                                            color: FlutterFlowTheme.textColor,
-                                            fontSize: 12,
-                                          ),
+                                      if (functions.getIfDaysLeft(
+                                              columnCalculationsRecord
+                                                  .emiDueDate) ??
+                                          true)
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 4, 0, 0),
+                                              child: Text(
+                                                functions
+                                                    .getDaysLeft(
+                                                        columnCalculationsRecord
+                                                            .emiDueDate)
+                                                    .toString(),
+                                                style: GoogleFonts.getFont(
+                                                  'Lexend Deca',
+                                                  color: FlutterFlowTheme
+                                                      .textColor,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(2, 4, 0, 0),
+                                              child: Text(
+                                                'Days Left',
+                                                style: GoogleFonts.getFont(
+                                                  'Lexend Deca',
+                                                  color: FlutterFlowTheme
+                                                      .textColor,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                      if (!(functions.getIfDaysLeft(
+                                              columnCalculationsRecord
+                                                  .emiDueDate)) ??
+                                          true)
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 4, 0, 0),
+                                              child: Text(
+                                                functions
+                                                    .getDaysLeft(
+                                                        columnCalculationsRecord
+                                                            .emiDueDate)
+                                                    .toString(),
+                                                style: GoogleFonts.getFont(
+                                                  'Lexend Deca',
+                                                  color: FlutterFlowTheme
+                                                      .textColor,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(2, 4, 0, 0),
+                                              child: Text(
+                                                'Days Delay',
+                                                style: GoogleFonts.getFont(
+                                                  'Lexend Deca',
+                                                  color: FlutterFlowTheme
+                                                      .textColor,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                     ],
+                                  ),
+                                if ((columnCalculationsRecord.emiDueAmount) <=
+                                    0.0)
+                                  Text(
+                                    'No Dues',
+                                    style: FlutterFlowTheme.title1,
                                   ),
                               ],
                             );
@@ -340,7 +369,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             return Column(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(
                                   'Total Commissions',
@@ -352,6 +381,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -374,32 +404,45 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 0),
-                                  child: Text(
-                                    'last Processing Date',
-                                    style: GoogleFonts.getFont(
-                                      'Lexend Deca',
-                                      color: Color(0xB4FFFFFF),
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 0, 0),
-                                  child: Text(
-                                    dateTimeFormat(
-                                        'yMMMd',
+                                if ((functions.getSum(
                                         columnCalculationsRecord
-                                            .comissionProcessed),
-                                    style: FlutterFlowTheme.title3.override(
-                                      fontFamily: 'Lexend Deca',
-                                      fontSize: 20,
-                                    ),
+                                            .directCommission,
+                                        columnCalculationsRecord
+                                            .indirectCommission)) >
+                                    0.0)
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 4, 0, 0),
+                                        child: Text(
+                                          'last Processing Date',
+                                          style: GoogleFonts.getFont(
+                                            'Lexend Deca',
+                                            color: Color(0xB4FFFFFF),
+                                            fontSize: 12,
+                                          ),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 4, 0, 0),
+                                        child: Text(
+                                          dateTimeFormat(
+                                              'yMMMd',
+                                              columnCalculationsRecord
+                                                  .comissionProcessed),
+                                          style:
+                                              FlutterFlowTheme.title3.override(
+                                            fontFamily: 'Lexend Deca',
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ),
                               ],
                             );
                           },

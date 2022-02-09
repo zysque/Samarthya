@@ -15,6 +15,20 @@
       ]
     },
     {
+      "collectionGroup": "plansAndRates",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "projectRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "phaseCode",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "bookings",
       "queryScope": "COLLECTION",
       "fields": [
