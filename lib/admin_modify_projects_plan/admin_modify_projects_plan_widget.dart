@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../main.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -30,6 +31,8 @@ class _AdminModifyProjectsPlanWidgetState
   TextEditingController fixRateController;
   TextEditingController phaseCodeController;
   double downPaymentPercentageValue;
+  TextEditingController plotEndController;
+  TextEditingController plotStartController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
@@ -69,40 +72,44 @@ class _AdminModifyProjectsPlanWidgetState
           .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
       this,
     );
+
+    plotEndController = TextEditingController();
+    plotStartController = TextEditingController();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Scaffold(
-        key: scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.primaryColor,
-          automaticallyImplyLeading: false,
-          leading: InkWell(
-            onTap: () async {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              Icons.chevron_left_rounded,
-              color: FlutterFlowTheme.grayLight,
-              size: 32,
-            ),
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.of(context).grayLight,
+            size: 32,
           ),
-          title: Text(
-            'Modify Project Plan',
-            style: FlutterFlowTheme.title1.override(
-              fontFamily: 'Lexend Deca',
-              color: FlutterFlowTheme.textColor,
-            ),
-          ),
-          actions: [],
-          centerTitle: true,
-          elevation: 0,
         ),
-        backgroundColor: FlutterFlowTheme.tertiaryColor,
-        body: StreamBuilder<PlansAndRatesRecord>(
+        title: Text(
+          'Modify Project Plan',
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
+        ),
+        actions: [],
+        centerTitle: true,
+        elevation: 0,
+      ),
+      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+      body: Form(
+        key: formKey,
+        autovalidateMode: AutovalidateMode.disabled,
+        child: StreamBuilder<PlansAndRatesRecord>(
           stream: PlansAndRatesRecord.getDocument(widget.planRef),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
@@ -112,7 +119,7 @@ class _AdminModifyProjectsPlanWidgetState
                   width: 40,
                   height: 40,
                   child: SpinKitPumpingHeart(
-                    color: FlutterFlowTheme.primaryColor,
+                    color: FlutterFlowTheme.of(context).primaryColor,
                     size: 40,
                   ),
                 ),
@@ -137,7 +144,7 @@ class _AdminModifyProjectsPlanWidgetState
                     width: MediaQuery.of(context).size.width,
                     height: 620,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.darkBackground,
+                      color: FlutterFlowTheme.of(context).darkBackground,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(16),
                         bottomRight: Radius.circular(16),
@@ -158,29 +165,35 @@ class _AdminModifyProjectsPlanWidgetState
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: 'Phase Code',
-                              labelStyle: FlutterFlowTheme.title1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.grayLight,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w300,
-                              ),
+                              labelStyle: FlutterFlowTheme.of(context)
+                                  .title1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).grayLight,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w300,
+                                  ),
                               hintText: 'Phase Code',
-                              hintStyle: FlutterFlowTheme.title1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.grayLight,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              hintStyle: FlutterFlowTheme.of(context)
+                                  .title1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).grayLight,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.grayDark,
+                                  color: FlutterFlowTheme.of(context).grayDark,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.grayDark,
+                                  color: FlutterFlowTheme.of(context).grayDark,
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
@@ -189,7 +202,7 @@ class _AdminModifyProjectsPlanWidgetState
                               contentPadding:
                                   EdgeInsetsDirectional.fromSTEB(20, 5, 20, 5),
                             ),
-                            style: FlutterFlowTheme.subtitle2,
+                            style: FlutterFlowTheme.of(context).subtitle2,
                             textAlign: TextAlign.center,
                             validator: (val) {
                               if (val.isEmpty) {
@@ -212,29 +225,37 @@ class _AdminModifyProjectsPlanWidgetState
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: 'Fix Rate per SqFt',
-                                labelStyle: FlutterFlowTheme.title1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.grayLight,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w300,
-                                ),
+                                labelStyle: FlutterFlowTheme.of(context)
+                                    .title1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .grayLight,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w300,
+                                    ),
                                 hintText: 'Fix Rate per SqFt',
-                                hintStyle: FlutterFlowTheme.title1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.grayLight,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .title1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .grayLight,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.grayDark,
+                                    color:
+                                        FlutterFlowTheme.of(context).grayDark,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: FlutterFlowTheme.grayDark,
+                                    color:
+                                        FlutterFlowTheme.of(context).grayDark,
                                     width: 2,
                                   ),
                                   borderRadius: BorderRadius.circular(8),
@@ -244,11 +265,11 @@ class _AdminModifyProjectsPlanWidgetState
                                     EdgeInsetsDirectional.fromSTEB(0, 0, 0, 24),
                                 prefixIcon: FaIcon(
                                   FontAwesomeIcons.rupeeSign,
-                                  color: FlutterFlowTheme.textColor,
+                                  color: FlutterFlowTheme.of(context).textColor,
                                   size: 32,
                                 ),
                               ),
-                              style: FlutterFlowTheme.subtitle2,
+                              style: FlutterFlowTheme.of(context).subtitle2,
                               textAlign: TextAlign.center,
                               keyboardType: TextInputType.number,
                               validator: (val) {
@@ -267,14 +288,17 @@ class _AdminModifyProjectsPlanWidgetState
                                 EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                             child: Text(
                               'Minimum Booking Amount Percentages',
-                              style: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Colors.white,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Colors.white,
+                                  ),
                             ),
                           ),
                           Slider(
-                            activeColor: FlutterFlowTheme.primaryColor,
+                            activeColor:
+                                FlutterFlowTheme.of(context).primaryColor,
                             inactiveColor: Color(0xFF9E9E9E),
                             min: 0,
                             max: 1,
@@ -287,14 +311,115 @@ class _AdminModifyProjectsPlanWidgetState
                                   () => downPaymentPercentageValue = newValue);
                             },
                           ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Plots Range',
+                                style: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                    ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      20, 0, 0, 0),
+                                  child: TextFormField(
+                                    controller: plotStartController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'Start',
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2,
+                                      hintText: 'Enter starting plot No',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              20, 10, 20, 10),
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      20, 0, 0, 0),
+                                  child: TextFormField(
+                                    controller: plotEndController,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      labelText: 'End',
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2,
+                                      hintText: 'Enter ending plot No',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
+                                          width: 1,
+                                        ),
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              20, 10, 20, 10),
+                                    ),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                    textAlign: TextAlign.center,
+                                    keyboardType: TextInputType.number,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                             child: Text(
                               'Select EMI Options (Slide Left)',
-                              style: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Colors.white,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Colors.white,
+                                  ),
                             ),
                           ),
                           Expanded(
@@ -334,7 +459,8 @@ class _AdminModifyProjectsPlanWidgetState
                                     child: ListTile(
                                       title: Text(
                                         '12 Months',
-                                        style: FlutterFlowTheme.bodyText1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                       trailing: Icon(
                                         Icons.arrow_forward_ios,
@@ -373,7 +499,8 @@ class _AdminModifyProjectsPlanWidgetState
                                     child: ListTile(
                                       title: Text(
                                         '24 Months',
-                                        style: FlutterFlowTheme.bodyText1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                       trailing: Icon(
                                         Icons.arrow_forward_ios,
@@ -412,7 +539,8 @@ class _AdminModifyProjectsPlanWidgetState
                                     child: ListTile(
                                       title: Text(
                                         '30 Months',
-                                        style: FlutterFlowTheme.bodyText1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                       trailing: Icon(
                                         Icons.arrow_forward_ios,
@@ -451,7 +579,8 @@ class _AdminModifyProjectsPlanWidgetState
                                     child: ListTile(
                                       title: Text(
                                         '36 Months',
-                                        style: FlutterFlowTheme.bodyText1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                       trailing: Icon(
                                         Icons.arrow_forward_ios,
@@ -490,7 +619,8 @@ class _AdminModifyProjectsPlanWidgetState
                                     child: ListTile(
                                       title: Text(
                                         '42 Months',
-                                        style: FlutterFlowTheme.bodyText1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                       trailing: Icon(
                                         Icons.arrow_forward_ios,
@@ -529,7 +659,8 @@ class _AdminModifyProjectsPlanWidgetState
                                     child: ListTile(
                                       title: Text(
                                         '48 Months',
-                                        style: FlutterFlowTheme.bodyText1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                       trailing: Icon(
                                         Icons.arrow_forward_ios,
@@ -568,7 +699,8 @@ class _AdminModifyProjectsPlanWidgetState
                                     child: ListTile(
                                       title: Text(
                                         '54 Months',
-                                        style: FlutterFlowTheme.bodyText1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                       trailing: Icon(
                                         Icons.arrow_forward_ios,
@@ -607,7 +739,8 @@ class _AdminModifyProjectsPlanWidgetState
                                     child: ListTile(
                                       title: Text(
                                         '60 Months',
-                                        style: FlutterFlowTheme.bodyText1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
                                       ),
                                       trailing: Icon(
                                         Icons.arrow_forward_ios,
@@ -634,9 +767,6 @@ class _AdminModifyProjectsPlanWidgetState
                     children: [
                       FFButtonWidget(
                         onPressed: () async {
-                          if (!formKey.currentState.validate()) {
-                            return;
-                          }
                           final plansAndRatesUpdateData = {
                             ...createPlansAndRatesRecordData(
                               phaseCode: phaseCodeController?.text ?? '',
@@ -646,6 +776,9 @@ class _AdminModifyProjectsPlanWidgetState
                               lastModified: getCurrentTimestamp,
                             ),
                             'emiTenureOptions': FFAppState().strList,
+                            'plotsAvailable': functions.getNumbersInBetween(
+                                int.parse(plotStartController.text),
+                                int.parse(plotEndController.text)),
                           };
                           await widget.planRef.update(plansAndRatesUpdateData);
                           await Navigator.push(
@@ -660,14 +793,15 @@ class _AdminModifyProjectsPlanWidgetState
                         options: FFButtonOptions(
                           width: 200,
                           height: 60,
-                          color: FlutterFlowTheme.tertiaryColor,
-                          textStyle: FlutterFlowTheme.title1.override(
-                            fontFamily: 'Lexend Deca',
-                            fontSize: 24,
-                          ),
+                          color: FlutterFlowTheme.of(context).tertiaryColor,
+                          textStyle:
+                              FlutterFlowTheme.of(context).title1.override(
+                                    fontFamily: 'Lexend Deca',
+                                    fontSize: 24,
+                                  ),
                           elevation: 0,
                           borderSide: BorderSide(
-                            color: FlutterFlowTheme.darkBackground,
+                            color: FlutterFlowTheme.of(context).darkBackground,
                             width: 1,
                           ),
                           borderRadius: 12,

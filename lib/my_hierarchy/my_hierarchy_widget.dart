@@ -41,7 +41,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
               width: 40,
               height: 40,
               child: SpinKitPumpingHeart(
-                color: FlutterFlowTheme.primaryColor,
+                color: FlutterFlowTheme.of(context).primaryColor,
                 size: 40,
               ),
             ),
@@ -51,7 +51,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.primaryColor,
+            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: false,
             leading: InkWell(
               onTap: () async {
@@ -65,22 +65,22 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
               },
               child: Icon(
                 Icons.chevron_left_rounded,
-                color: FlutterFlowTheme.grayLight,
+                color: FlutterFlowTheme.of(context).grayLight,
                 size: 32,
               ),
             ),
             title: Text(
               'My Hierarchy',
-              style: FlutterFlowTheme.title1.override(
-                fontFamily: 'Lexend Deca',
-                color: FlutterFlowTheme.textColor,
-              ),
+              style: FlutterFlowTheme.of(context).title1.override(
+                    fontFamily: 'Lexend Deca',
+                    color: FlutterFlowTheme.of(context).textColor,
+                  ),
             ),
             actions: [],
             centerTitle: true,
             elevation: 0,
           ),
-          backgroundColor: FlutterFlowTheme.background,
+          backgroundColor: FlutterFlowTheme.of(context).background,
           body: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -109,7 +109,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                             width: 40,
                             height: 40,
                             child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               size: 40,
                             ),
                           ),
@@ -142,7 +142,8 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                       width: 40,
                                       height: 40,
                                       child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.primaryColor,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
                                         size: 40,
                                       ),
                                     ),
@@ -180,7 +181,8 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                   width: 40,
                                                   height: 40,
                                                   child: SpinKitPumpingHeart(
-                                                    color: FlutterFlowTheme
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .primaryColor,
                                                     size: 40,
                                                   ),
@@ -214,8 +216,10 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                     width: 120,
                                                     height: 120,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                          .darkBackground,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .darkBackground,
                                                       shape: BoxShape.circle,
                                                     ),
                                                     child: Container(
@@ -239,7 +243,8 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                 Text(
                                                   parentColumnUsersRecord
                                                       .displayName,
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle1,
                                                 ),
                                               ],
@@ -262,7 +267,8 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                   width: 120,
                                   height: 120,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.darkBackground,
+                                    color: FlutterFlowTheme.of(context)
+                                        .darkBackground,
                                     shape: BoxShape.circle,
                                   ),
                                   child: Container(
@@ -282,7 +288,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                 ),
                                 Text(
                                   myHierarchyUsersRecord.displayName,
-                                  style: FlutterFlowTheme.subtitle1,
+                                  style: FlutterFlowTheme.of(context).subtitle1,
                                 ),
                               ],
                             ),
@@ -302,7 +308,8 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                     width: 40,
                                     height: 40,
                                     child: SpinKitPumpingHeart(
-                                      color: FlutterFlowTheme.primaryColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                       size: 40,
                                     ),
                                   ),
@@ -351,9 +358,9 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                         height: 40,
                                                         child:
                                                             SpinKitPumpingHeart(
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .primaryColor,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
                                                           size: 40,
                                                         ),
                                                       ),
@@ -395,6 +402,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: FlutterFlowTheme
+                                                                      .of(context)
                                                                   .darkBackground,
                                                               shape: BoxShape
                                                                   .circle,
@@ -427,8 +435,10 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                             .displayName,
                                                         textAlign:
                                                             TextAlign.center,
-                                                        style: FlutterFlowTheme
-                                                            .subtitle1,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle1,
                                                       ),
                                                     ],
                                                   );
@@ -458,9 +468,9 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                         height: 40,
                                                         child:
                                                             SpinKitPumpingHeart(
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .primaryColor,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
                                                           size: 40,
                                                         ),
                                                       ),
@@ -502,6 +512,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: FlutterFlowTheme
+                                                                      .of(context)
                                                                   .darkBackground,
                                                               shape: BoxShape
                                                                   .circle,
@@ -534,8 +545,10 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                             .displayName,
                                                         textAlign:
                                                             TextAlign.center,
-                                                        style: FlutterFlowTheme
-                                                            .subtitle1,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle1,
                                                       ),
                                                     ],
                                                   );
@@ -606,7 +619,8 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                     height: 40,
                                                                     child:
                                                                         SpinKitPumpingHeart(
-                                                                      color: FlutterFlowTheme
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
                                                                           .primaryColor,
                                                                       size: 40,
                                                                     ),
@@ -642,11 +656,12 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                     FFButtonOptions(
                                                                   width: 122,
                                                                   height: 30,
-                                                                  color: FlutterFlowTheme
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
                                                                       .darkBackground,
-                                                                  textStyle:
-                                                                      FlutterFlowTheme
-                                                                          .bodyText2,
+                                                                  textStyle: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText2,
                                                                   elevation: 2,
                                                                   borderSide:
                                                                       BorderSide(
@@ -716,7 +731,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                           40,
                                                                       child:
                                                                           SpinKitPumpingHeart(
-                                                                        color: FlutterFlowTheme
+                                                                        color: FlutterFlowTheme.of(context)
                                                                             .primaryColor,
                                                                         size:
                                                                             40,
@@ -754,11 +769,12 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                       FFButtonOptions(
                                                                     width: 122,
                                                                     height: 30,
-                                                                    color: FlutterFlowTheme
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
                                                                         .darkBackground,
-                                                                    textStyle:
-                                                                        FlutterFlowTheme
-                                                                            .bodyText2,
+                                                                    textStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyText2,
                                                                     elevation:
                                                                         2,
                                                                     borderSide:
@@ -799,15 +815,15 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                       children: [
                                                         Text(
                                                           'Add any Delinked user to hierarchy',
-                                                          style:
-                                                              FlutterFlowTheme
-                                                                  .subtitle1
-                                                                  .override(
-                                                            fontFamily:
-                                                                'Lexend Deca',
-                                                            color: Color(
-                                                                0xFFC5E1A5),
-                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: Color(
+                                                                    0xFFC5E1A5),
+                                                              ),
                                                         ),
                                                       ],
                                                     ),
@@ -860,7 +876,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                               width: 40,
                                                                               height: 40,
                                                                               child: SpinKitPumpingHeart(
-                                                                                color: FlutterFlowTheme.primaryColor,
+                                                                                color: FlutterFlowTheme.of(context).primaryColor,
                                                                                 size: 40,
                                                                               ),
                                                                             ),
@@ -892,9 +908,9 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                             height:
                                                                                 40,
                                                                             color:
-                                                                                FlutterFlowTheme.darkBackground,
+                                                                                FlutterFlowTheme.of(context).darkBackground,
                                                                             textStyle:
-                                                                                FlutterFlowTheme.bodyText2,
+                                                                                FlutterFlowTheme.of(context).bodyText2,
                                                                             elevation:
                                                                                 2,
                                                                             borderSide:
@@ -955,7 +971,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                                 width: 40,
                                                                                 height: 40,
                                                                                 child: SpinKitPumpingHeart(
-                                                                                  color: FlutterFlowTheme.primaryColor,
+                                                                                  color: FlutterFlowTheme.of(context).primaryColor,
                                                                                   size: 40,
                                                                                 ),
                                                                               ),
@@ -984,8 +1000,8 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                                 FFButtonOptions(
                                                                               width: 138,
                                                                               height: 40,
-                                                                              color: FlutterFlowTheme.darkBackground,
-                                                                              textStyle: FlutterFlowTheme.bodyText2,
+                                                                              color: FlutterFlowTheme.of(context).darkBackground,
+                                                                              textStyle: FlutterFlowTheme.of(context).bodyText2,
                                                                               elevation: 2,
                                                                               borderSide: BorderSide(
                                                                                 color: Colors.transparent,

@@ -43,12 +43,13 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.background,
-        body: Column(
+    return Scaffold(
+      key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).background,
+      body: Form(
+        key: formKey,
+        autovalidateMode: AutovalidateMode.disabled,
+        child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Row(
@@ -58,7 +59,7 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 1,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.background,
+                    color: FlutterFlowTheme.of(context).background,
                     image: DecorationImage(
                       fit: BoxFit.fitWidth,
                       image: Image.asset(
@@ -99,7 +100,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                   children: [
                                     Text(
                                       'Get Started',
-                                      style: FlutterFlowTheme.title1,
+                                      style:
+                                          FlutterFlowTheme.of(context).title1,
                                     ),
                                   ],
                                 ),
@@ -111,7 +113,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                     children: [
                                       Text(
                                         'Create your account below.',
-                                        style: FlutterFlowTheme.subtitle1,
+                                        style: FlutterFlowTheme.of(context)
+                                            .subtitle1,
                                       ),
                                     ],
                                   ),
@@ -124,42 +127,49 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       labelText: 'Email Address',
-                                      labelStyle:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Color(0x98FFFFFF),
-                                      ),
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0x98FFFFFF),
+                                          ),
                                       hintText: 'Enter your email...',
-                                      hintStyle:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Color(0x98FFFFFF),
-                                      ),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0x98FFFFFF),
+                                          ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.grayDark,
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.grayDark,
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       filled: true,
-                                      fillColor:
-                                          FlutterFlowTheme.darkBackground,
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .darkBackground,
                                       contentPadding:
                                           EdgeInsetsDirectional.fromSTEB(
                                               20, 24, 20, 24),
                                     ),
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                        ),
                                   ),
                                 ),
                                 Padding(
@@ -170,34 +180,38 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                     obscureText: !passwordCreateVisibility,
                                     decoration: InputDecoration(
                                       labelText: 'Password',
-                                      labelStyle:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Color(0x98FFFFFF),
-                                      ),
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0x98FFFFFF),
+                                          ),
                                       hintText: 'Enter your password...',
-                                      hintStyle:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Color(0x98FFFFFF),
-                                      ),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0x98FFFFFF),
+                                          ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.grayDark,
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.grayDark,
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       filled: true,
-                                      fillColor:
-                                          FlutterFlowTheme.darkBackground,
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .darkBackground,
                                       contentPadding:
                                           EdgeInsetsDirectional.fromSTEB(
                                               20, 24, 20, 24),
@@ -215,10 +229,13 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         ),
                                       ),
                                     ),
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                        ),
                                   ),
                                 ),
                                 Padding(
@@ -229,34 +246,38 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                     obscureText: !passwordConfirmVisibility,
                                     decoration: InputDecoration(
                                       labelText: 'Confirm Password',
-                                      labelStyle:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Color(0x98FFFFFF),
-                                      ),
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0x98FFFFFF),
+                                          ),
                                       hintText: 'Enter your password...',
-                                      hintStyle:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Color(0x98FFFFFF),
-                                      ),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0x98FFFFFF),
+                                          ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.grayDark,
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: FlutterFlowTheme.grayDark,
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
                                           width: 1,
                                         ),
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       filled: true,
-                                      fillColor:
-                                          FlutterFlowTheme.darkBackground,
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .darkBackground,
                                       contentPadding:
                                           EdgeInsetsDirectional.fromSTEB(
                                               20, 24, 20, 24),
@@ -274,10 +295,13 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         ),
                                       ),
                                     ),
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                        ),
                                   ),
                                 ),
                                 Padding(
@@ -298,7 +322,9 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                             value: FFAppState().hasReferral,
                                             onIcon: Icon(
                                               Icons.check_box,
-                                              color: FlutterFlowTheme.errorRed,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .errorRed,
                                               size: 30,
                                             ),
                                             offIcon: Icon(
@@ -321,23 +347,31 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                 decoration: InputDecoration(
                                                   labelText: 'Referral ID',
                                                   labelStyle: FlutterFlowTheme
+                                                          .of(context)
                                                       .bodyText1
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: Color(0x98FFFFFF),
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            Color(0x98FFFFFF),
+                                                      ),
                                                   hintText: 'Enter Referral ID',
                                                   hintStyle: FlutterFlowTheme
+                                                          .of(context)
                                                       .bodyText1
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: Color(0x98FFFFFF),
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            Color(0x98FFFFFF),
+                                                      ),
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: FlutterFlowTheme
-                                                          .grayDark,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .grayDark,
                                                       width: 1,
                                                     ),
                                                     borderRadius:
@@ -347,8 +381,10 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                   focusedBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: FlutterFlowTheme
-                                                          .grayDark,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .grayDark,
                                                       width: 1,
                                                     ),
                                                     borderRadius:
@@ -356,26 +392,31 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                             8),
                                                   ),
                                                   filled: true,
-                                                  fillColor: FlutterFlowTheme
-                                                      .darkBackground,
+                                                  fillColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .darkBackground,
                                                   contentPadding:
                                                       EdgeInsetsDirectional
                                                           .fromSTEB(
                                                               20, 24, 20, 24),
                                                 ),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .bodyText1
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                                 validator: (val) {
                                                   if (val.isEmpty) {
-                                                    return 'Field is required';
+                                                    return 'Referral ID is required if referral selected';
                                                   }
-                                                  if (val.length < 20) {
-                                                    return 'Requires at least 20 characters.';
+                                                  if (val.length < 8) {
+                                                    return 'Referral ID should be of 8 character';
                                                   }
                                                   return null;
                                                 },
@@ -383,12 +424,12 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                             ),
                                         ],
                                       ),
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          if (FFAppState().hasReferral ?? true)
+                                      if (FFAppState().hasReferral ?? true)
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0, 5, 0, 0),
@@ -396,7 +437,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                   List<UsersRecord>>(
                                                 stream: queryUsersRecord(
                                                   queryBuilder: (usersRecord) =>
-                                                      usersRecord.where('uid',
+                                                      usersRecord.where(
+                                                          'userCode',
                                                           isEqualTo:
                                                               referralController
                                                                   .text),
@@ -411,33 +453,29 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                         height: 40,
                                                         child:
                                                             SpinKitPumpingHeart(
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .primaryColor,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryColor,
                                                           size: 40,
                                                         ),
                                                       ),
                                                     );
                                                   }
                                                   List<UsersRecord>
-                                                      buttonUsersRecordList =
+                                                      validateUsersRecordList =
                                                       snapshot.data;
-                                                  final buttonUsersRecord =
-                                                      buttonUsersRecordList
+                                                  final validateUsersRecord =
+                                                      validateUsersRecordList
                                                               .isNotEmpty
-                                                          ? buttonUsersRecordList
+                                                          ? validateUsersRecordList
                                                               .first
                                                           : null;
                                                   return FFButtonWidget(
                                                     onPressed: () async {
-                                                      if (!formKey.currentState
-                                                          .validate()) {
-                                                        return;
-                                                      }
                                                       setState(() => FFAppState()
                                                           .validated = (FFAppState()
                                                               .hasReferral) ==
-                                                          (buttonUsersRecord !=
+                                                          (validateUsersRecord !=
                                                               null));
                                                       if (FFAppState()
                                                           .validated) {
@@ -499,9 +537,10 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                     options: FFButtonOptions(
                                                       width: 74,
                                                       height: 20,
-                                                      color: Color(0xFFE485A2),
+                                                      color: Color(0xFF78A638),
                                                       textStyle:
-                                                          FlutterFlowTheme
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .bodyText2,
                                                       borderSide: BorderSide(
                                                         color:
@@ -514,8 +553,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                 },
                                               ),
                                             ),
-                                        ],
-                                      ),
+                                          ],
+                                        ),
                                     ],
                                   ),
                                 ),
@@ -525,7 +564,7 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                   child: StreamBuilder<List<UsersRecord>>(
                                     stream: queryUsersRecord(
                                       queryBuilder: (usersRecord) =>
-                                          usersRecord.where('uid',
+                                          usersRecord.where('userCode',
                                               isEqualTo:
                                                   referralController.text),
                                       singleRecord: true,
@@ -539,7 +578,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                             height: 40,
                                             child: SpinKitPumpingHeart(
                                               color:
-                                                  FlutterFlowTheme.primaryColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                               size: 40,
                                             ),
                                           ),
@@ -580,6 +620,14 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                             if (user == null) {
                                               return;
                                             }
+
+                                            final usersCreateData =
+                                                createUsersRecordData(
+                                              incomplete: true,
+                                            );
+                                            await UsersRecord.collection
+                                                .doc(user.uid)
+                                                .update(usersCreateData);
                                           } else {
                                             return;
                                           }
@@ -594,6 +642,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                   currentUserEmail,
                                               hasParent: false,
                                               hasReferral: true,
+                                              hasLeft: false,
+                                              hasRight: false,
                                             );
                                             await UserHierarchiesRecord
                                                 .collection
@@ -623,8 +673,11 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                         options: FFButtonOptions(
                                           width: 160,
                                           height: 50,
-                                          color: FlutterFlowTheme.primaryColor,
-                                          textStyle: FlutterFlowTheme.bodyText2,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyText2,
                                           elevation: 3,
                                           borderSide: BorderSide(
                                             color: Colors.transparent,
@@ -645,7 +698,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                           0.8,
                                       height: 44,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.background,
+                                        color: FlutterFlowTheme.of(context)
+                                            .background,
                                         borderRadius: BorderRadius.circular(8),
                                       ),
                                       child: Row(
@@ -672,21 +726,25 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                             icon: Icon(
                                               Icons.arrow_back_rounded,
                                               color:
-                                                  FlutterFlowTheme.primaryColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                               size: 16,
                                             ),
                                             options: FFButtonOptions(
                                               width: 100,
                                               height: 40,
                                               color:
-                                                  FlutterFlowTheme.background,
-                                              textStyle: FlutterFlowTheme
+                                                  FlutterFlowTheme.of(context)
+                                                      .background,
+                                              textStyle: FlutterFlowTheme.of(
+                                                      context)
                                                   .bodyText2
                                                   .override(
-                                                fontFamily: 'Lexend Deca',
-                                                color: FlutterFlowTheme
-                                                    .primaryColor,
-                                              ),
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryColor,
+                                                  ),
                                               borderSide: BorderSide(
                                                 color: Colors.transparent,
                                                 width: 1,
@@ -696,7 +754,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                           ),
                                           Text(
                                             'Already have an account?',
-                                            style: FlutterFlowTheme.bodyText1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
                                           ),
                                         ],
                                       ),

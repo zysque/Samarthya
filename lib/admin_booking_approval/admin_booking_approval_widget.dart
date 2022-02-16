@@ -48,66 +48,67 @@ class _AdminBookingApprovalWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: StreamBuilder<List<AdminConstsRecord>>(
-        stream: queryAdminConstsRecord(
-          singleRecord: true,
-        ),
-        builder: (context, snapshot) {
-          // Customize what your widget looks like when it's loading.
-          if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 40,
-                height: 40,
-                child: SpinKitPumpingHeart(
-                  color: FlutterFlowTheme.primaryColor,
-                  size: 40,
-                ),
+    return StreamBuilder<List<AdminConstsRecord>>(
+      stream: queryAdminConstsRecord(
+        singleRecord: true,
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 40,
+              height: 40,
+              child: SpinKitPumpingHeart(
+                color: FlutterFlowTheme.of(context).primaryColor,
+                size: 40,
               ),
-            );
-          }
-          List<AdminConstsRecord> adminBookingApprovalAdminConstsRecordList =
-              snapshot.data;
-          final adminBookingApprovalAdminConstsRecord =
-              adminBookingApprovalAdminConstsRecordList.isNotEmpty
-                  ? adminBookingApprovalAdminConstsRecordList.first
-                  : null;
-          return Scaffold(
-            key: scaffoldKey,
-            appBar: AppBar(
-              backgroundColor: FlutterFlowTheme.primaryColor,
-              automaticallyImplyLeading: false,
-              leading: InkWell(
-                onTap: () async {
-                  await Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NavBarPage(initialPage: 'HomePage'),
-                    ),
-                    (r) => false,
-                  );
-                },
-                child: Icon(
-                  Icons.chevron_left_rounded,
-                  color: FlutterFlowTheme.grayLight,
-                  size: 32,
-                ),
-              ),
-              title: Text(
-                'Approve Bookings',
-                style: FlutterFlowTheme.title1.override(
-                  fontFamily: 'Lexend Deca',
-                  color: FlutterFlowTheme.textColor,
-                ),
-              ),
-              actions: [],
-              centerTitle: true,
-              elevation: 0,
             ),
-            backgroundColor: FlutterFlowTheme.tertiaryColor,
-            body: StreamBuilder<BookingsRecord>(
+          );
+        }
+        List<AdminConstsRecord> adminBookingApprovalAdminConstsRecordList =
+            snapshot.data;
+        final adminBookingApprovalAdminConstsRecord =
+            adminBookingApprovalAdminConstsRecordList.isNotEmpty
+                ? adminBookingApprovalAdminConstsRecordList.first
+                : null;
+        return Scaffold(
+          key: scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+            automaticallyImplyLeading: false,
+            leading: InkWell(
+              onTap: () async {
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NavBarPage(initialPage: 'HomePage'),
+                  ),
+                  (r) => false,
+                );
+              },
+              child: Icon(
+                Icons.chevron_left_rounded,
+                color: FlutterFlowTheme.of(context).grayLight,
+                size: 32,
+              ),
+            ),
+            title: Text(
+              'Approve Bookings',
+              style: FlutterFlowTheme.of(context).title1.override(
+                    fontFamily: 'Lexend Deca',
+                    color: FlutterFlowTheme.of(context).textColor,
+                  ),
+            ),
+            actions: [],
+            centerTitle: true,
+            elevation: 0,
+          ),
+          backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+          body: Form(
+            key: formKey,
+            autovalidateMode: AutovalidateMode.disabled,
+            child: StreamBuilder<BookingsRecord>(
               stream: BookingsRecord.getDocument(widget.bookingRef),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
@@ -117,7 +118,7 @@ class _AdminBookingApprovalWidgetState
                       width: 40,
                       height: 40,
                       child: SpinKitPumpingHeart(
-                        color: FlutterFlowTheme.primaryColor,
+                        color: FlutterFlowTheme.of(context).primaryColor,
                         size: 40,
                       ),
                     ),
@@ -141,7 +142,7 @@ class _AdminBookingApprovalWidgetState
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.darkBackground,
+                          color: FlutterFlowTheme.of(context).darkBackground,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(16),
                             bottomRight: Radius.circular(16),
@@ -169,8 +170,8 @@ class _AdminBookingApprovalWidgetState
                                           width: 40,
                                           height: 40,
                                           child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
                                             size: 40,
                                           ),
                                         ),
@@ -184,11 +185,13 @@ class _AdminBookingApprovalWidgetState
                                       children: [
                                         Text(
                                           projectProjectsRecord.projectName,
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                         Text(
                                           projectProjectsRecord.projectCity,
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                       ],
                                     );
@@ -209,8 +212,8 @@ class _AdminBookingApprovalWidgetState
                                           width: 40,
                                           height: 40,
                                           child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
                                             size: 40,
                                           ),
                                         ),
@@ -225,7 +228,8 @@ class _AdminBookingApprovalWidgetState
                                       children: [
                                         Text(
                                           planPlansAndRatesRecord.phaseCode,
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                         Text(
                                           formatNumber(
@@ -236,7 +240,8 @@ class _AdminBookingApprovalWidgetState
                                             format: '',
                                             locale: '',
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                         Text(
                                           formatNumber(
@@ -244,7 +249,8 @@ class _AdminBookingApprovalWidgetState
                                                 .minBookingAmtPerc,
                                             formatType: FormatType.percent,
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                       ],
                                     );
@@ -262,7 +268,8 @@ class _AdminBookingApprovalWidgetState
                                         width: 40,
                                         height: 40,
                                         child: SpinKitPumpingHeart(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                           size: 40,
                                         ),
                                       ),
@@ -279,8 +286,7 @@ class _AdminBookingApprovalWidgetState
                                         child: TextFormField(
                                           controller: plotController ??=
                                               TextEditingController(
-                                            text: columnBookingsRecord.plotNo
-                                                .toString(),
+                                            text: columnBookingsRecord.plotNo,
                                           ),
                                           obscureText: false,
                                           decoration: InputDecoration(
@@ -290,7 +296,8 @@ class _AdminBookingApprovalWidgetState
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -299,7 +306,8 @@ class _AdminBookingApprovalWidgetState
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -310,7 +318,8 @@ class _AdminBookingApprovalWidgetState
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                           keyboardType: TextInputType.number,
                                           validator: (val) {
                                             if (val.isEmpty) {
@@ -341,7 +350,8 @@ class _AdminBookingApprovalWidgetState
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -350,7 +360,8 @@ class _AdminBookingApprovalWidgetState
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -361,7 +372,8 @@ class _AdminBookingApprovalWidgetState
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                           keyboardType: TextInputType.number,
                                           validator: (val) {
                                             if (val.isEmpty) {
@@ -399,7 +411,8 @@ class _AdminBookingApprovalWidgetState
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -408,7 +421,8 @@ class _AdminBookingApprovalWidgetState
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -420,10 +434,13 @@ class _AdminBookingApprovalWidgetState
                                                     20, 4, 20, 4),
                                             prefixIcon: FaIcon(
                                               FontAwesomeIcons.rupeeSign,
-                                              color: FlutterFlowTheme.grayLight,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayLight,
                                             ),
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                           keyboardType: TextInputType.number,
                                           validator: (val) {
                                             if (val.isEmpty) {
@@ -460,7 +477,8 @@ class _AdminBookingApprovalWidgetState
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -469,7 +487,8 @@ class _AdminBookingApprovalWidgetState
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -481,10 +500,13 @@ class _AdminBookingApprovalWidgetState
                                                     20, 4, 20, 4),
                                             prefixIcon: FaIcon(
                                               FontAwesomeIcons.rupeeSign,
-                                              color: FlutterFlowTheme.grayLight,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayLight,
                                             ),
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                           keyboardType: TextInputType.number,
                                           validator: (val) {
                                             if (val.isEmpty) {
@@ -521,7 +543,8 @@ class _AdminBookingApprovalWidgetState
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -530,7 +553,8 @@ class _AdminBookingApprovalWidgetState
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
@@ -542,10 +566,13 @@ class _AdminBookingApprovalWidgetState
                                                     20, 4, 20, 4),
                                             prefixIcon: FaIcon(
                                               FontAwesomeIcons.rupeeSign,
-                                              color: FlutterFlowTheme.grayLight,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayLight,
                                             ),
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                           keyboardType: TextInputType.number,
                                           validator: (val) {
                                             if (val.isEmpty) {
@@ -579,13 +606,16 @@ class _AdminBookingApprovalWidgetState
                                               width: 200,
                                               height: 50,
                                               textStyle:
-                                                  FlutterFlowTheme.subtitle1,
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle1,
                                               hintText: 'Select EMI Tenure',
-                                              fillColor: FlutterFlowTheme
-                                                  .darkBackground,
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .darkBackground,
                                               elevation: 2,
                                               borderColor:
-                                                  FlutterFlowTheme.grayDark,
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayDark,
                                               borderWidth: 0,
                                               borderRadius: 8,
                                               margin: EdgeInsetsDirectional
@@ -637,7 +667,9 @@ class _AdminBookingApprovalWidgetState
                                           children: [
                                             Text(
                                               'Monthly Installments',
-                                              style: FlutterFlowTheme.subtitle1,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle1,
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
@@ -645,7 +677,8 @@ class _AdminBookingApprovalWidgetState
                                               child: FaIcon(
                                                 FontAwesomeIcons.rupeeSign,
                                                 color:
-                                                    FlutterFlowTheme.grayLight,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayLight,
                                                 size: 18,
                                               ),
                                             ),
@@ -677,7 +710,8 @@ class _AdminBookingApprovalWidgetState
                                                   '0',
                                                 ),
                                                 style:
-                                                    FlutterFlowTheme.subtitle1,
+                                                    FlutterFlowTheme.of(context)
+                                                        .subtitle1,
                                               ),
                                             ),
                                           ],
@@ -691,14 +725,17 @@ class _AdminBookingApprovalWidgetState
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelStyle:
-                                                FlutterFlowTheme.bodyText1,
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyText1,
                                             hintText: 'Booking  Description',
                                             hintStyle:
-                                                FlutterFlowTheme.bodyText1,
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyText1,
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 2,
                                               ),
                                               borderRadius:
@@ -707,7 +744,8 @@ class _AdminBookingApprovalWidgetState
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.grayDark,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 2,
                                               ),
                                               borderRadius:
@@ -715,17 +753,21 @@ class _AdminBookingApprovalWidgetState
                                             ),
                                             filled: true,
                                             fillColor:
-                                                FlutterFlowTheme.darkBackground,
+                                                FlutterFlowTheme.of(context)
+                                                    .darkBackground,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 24, 4),
                                           ),
-                                          style: FlutterFlowTheme.bodyText1
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
                                               .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: FlutterFlowTheme.textColor,
-                                            fontSize: 13,
-                                          ),
+                                                fontFamily: 'Lexend Deca',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .textColor,
+                                                fontSize: 13,
+                                              ),
                                           textAlign: TextAlign.start,
                                           maxLines: 8,
                                         ),
@@ -756,7 +798,8 @@ class _AdminBookingApprovalWidgetState
                                 width: 40,
                                 height: 40,
                                 child: SpinKitPumpingHeart(
-                                  color: FlutterFlowTheme.primaryColor,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
                                   size: 40,
                                 ),
                               ),
@@ -787,7 +830,8 @@ class _AdminBookingApprovalWidgetState
                                         width: 40,
                                         height: 40,
                                         child: SpinKitPumpingHeart(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                           size: 40,
                                         ),
                                       ),
@@ -804,9 +848,6 @@ class _AdminBookingApprovalWidgetState
                                           : null;
                                   return FFButtonWidget(
                                     onPressed: () async {
-                                      if (!formKey.currentState.validate()) {
-                                        return;
-                                      }
                                       final bookingsUpdateData = {
                                         ...createBookingsRecordData(
                                           totalAmountToPay:
@@ -864,8 +905,7 @@ class _AdminBookingApprovalWidgetState
                                                   double.parse(
                                                       areaController?.text ??
                                                           '')),
-                                          plotNo: int.parse(
-                                              plotController?.text ?? ''),
+                                          plotNo: plotController?.text ?? '',
                                         ),
                                         'comments': FieldValue.arrayUnion(
                                             [descriptionController.text]),
@@ -923,6 +963,16 @@ class _AdminBookingApprovalWidgetState
                                             .doc()
                                             .set(commissionsCreateData);
                                       }
+                                      final plansAndRatesUpdateData = {
+                                        ...createPlansAndRatesRecordData(
+                                          lastModified: getCurrentTimestamp,
+                                        ),
+                                        'plotsAvailable':
+                                            FieldValue.arrayRemove(
+                                                [plotController?.text ?? '']),
+                                      };
+                                      await columnBookingsRecord.planRef
+                                          .update(plansAndRatesUpdateData);
                                       await Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
@@ -936,11 +986,14 @@ class _AdminBookingApprovalWidgetState
                                     options: FFButtonOptions(
                                       width: 180,
                                       height: 50,
-                                      color: FlutterFlowTheme.tertiaryColor,
-                                      textStyle: FlutterFlowTheme.title1,
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      textStyle:
+                                          FlutterFlowTheme.of(context).title1,
                                       elevation: 0,
                                       borderSide: BorderSide(
-                                        color: FlutterFlowTheme.darkBackground,
+                                        color: FlutterFlowTheme.of(context)
+                                            .darkBackground,
                                         width: 1,
                                       ),
                                       borderRadius: 12,
@@ -957,9 +1010,9 @@ class _AdminBookingApprovalWidgetState
                 );
               },
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

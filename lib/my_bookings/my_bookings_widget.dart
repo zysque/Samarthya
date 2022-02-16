@@ -51,7 +51,7 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -59,22 +59,22 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'My Bookings',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -98,7 +98,7 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                             width: 40,
                             height: 40,
                             child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               size: 40,
                             ),
                           ),
@@ -135,7 +135,8 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                       width: 40,
                                       height: 40,
                                       child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.primaryColor,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
                                         size: 40,
                                       ),
                                     ),
@@ -164,7 +165,8 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                   child: Container(
                                     width: 100,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.primaryColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Padding(
@@ -190,18 +192,23 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                 Text(
                                                   containerProjectsRecord
                                                       .projectName,
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle1
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                                 Icon(
                                                   Icons
                                                       .arrow_forward_ios_rounded,
-                                                  color: FlutterFlowTheme
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .textColor,
                                                   size: 16,
                                                 ),
@@ -218,13 +225,17 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                 Text(
                                                   containerProjectsRecord
                                                       .projectCity,
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -240,26 +251,33 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                   listViewBookingsRecord
                                                       .areaBookedInSqft
                                                       .toString(),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(2, 0, 0, 0),
                                                   child: Text(
                                                     'SQFT',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -278,13 +296,16 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                       FormatType.compact,
                                                   currency: 'Rs',
                                                 ),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -297,13 +318,17 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                         FormatType.compact,
                                                     currency: 'Rs',
                                                   ),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                               ),
                                               Text(
@@ -314,25 +339,31 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                       FormatType.compact,
                                                   currency: 'Rs',
                                                 ),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                               Text(
                                                 listViewBookingsRecord
                                                     .emiTenureInMonths
                                                     .toString(),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -351,36 +382,44 @@ class _MyBookingsWidgetState extends State<MyBookingsWidget>
                                                       'relative',
                                                       listViewBookingsRecord
                                                           .created),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    fontSize: 14,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
                                                 ),
                                                 if (listViewBookingsRecord
                                                         .isApproved ??
                                                     true)
                                                   Text(
                                                     'Approved',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: Color(0xFF7CD514),
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color:
+                                                              Color(0xFF7CD514),
+                                                        ),
                                                   ),
                                                 if (listViewBookingsRecord
                                                         .creditStatus ??
                                                     true)
                                                   Text(
                                                     'Running EMIs',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: Color(0xFFE91E63),
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color:
+                                                              Color(0xFFE91E63),
+                                                        ),
                                                   ),
                                               ],
                                             ),

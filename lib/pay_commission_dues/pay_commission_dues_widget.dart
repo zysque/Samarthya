@@ -35,7 +35,7 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -49,22 +49,22 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'Pay Commission',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -74,7 +74,7 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.background,
+                  color: FlutterFlowTheme.of(context).background,
                 ),
                 child: StreamBuilder<CommissionsRecord>(
                   stream:
@@ -87,7 +87,7 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                           width: 40,
                           height: 40,
                           child: SpinKitPumpingHeart(
-                            color: FlutterFlowTheme.primaryColor,
+                            color: FlutterFlowTheme.of(context).primaryColor,
                             size: 40,
                           ),
                         ),
@@ -101,10 +101,10 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Text(
                             'Commission',
-                            style: FlutterFlowTheme.title3.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0xFFC5E1A5),
-                            ),
+                            style: FlutterFlowTheme.of(context).title3.override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: Color(0xFFC5E1A5),
+                                ),
                           ),
                         ),
                         Padding(
@@ -125,14 +125,16 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                                   hintText: 'Amount to Pay',
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.grayDark,
+                                      color:
+                                          FlutterFlowTheme.of(context).grayDark,
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.grayDark,
+                                      color:
+                                          FlutterFlowTheme.of(context).grayDark,
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
@@ -143,13 +145,17 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                                           20, 4, 20, 4),
                                   prefixIcon: FaIcon(
                                     FontAwesomeIcons.rupeeSign,
-                                    color: FlutterFlowTheme.textColor,
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
                                   ),
                                 ),
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                    ),
                               ),
                               Padding(
                                 padding:
@@ -160,15 +166,19 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                                       setState(() => dropDownValue = val),
                                   width: MediaQuery.of(context).size.width,
                                   height: 50,
-                                  textStyle:
-                                      FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: FlutterFlowTheme.textColor,
-                                  ),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.of(context)
+                                            .textColor,
+                                      ),
                                   hintText: 'Select Mode',
-                                  fillColor: FlutterFlowTheme.background,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).background,
                                   elevation: 2,
-                                  borderColor: FlutterFlowTheme.grayDark,
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).grayDark,
                                   borderWidth: 0,
                                   borderRadius: 8,
                                   margin: EdgeInsetsDirectional.fromSTEB(
@@ -197,7 +207,7 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                         width: 40,
                         height: 40,
                         child: SpinKitPumpingHeart(
-                          color: FlutterFlowTheme.primaryColor,
+                          color: FlutterFlowTheme.of(context).primaryColor,
                           size: 40,
                         ),
                       ),
@@ -223,7 +233,8 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                                 width: 40,
                                 height: 40,
                                 child: SpinKitPumpingHeart(
-                                  color: FlutterFlowTheme.primaryColor,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
                                   size: 40,
                                 ),
                               ),
@@ -249,6 +260,8 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                                 transactionTime: getCurrentTimestamp,
                                 commissionRef: widget.commissionDetails,
                                 status: true,
+                                transactionID:
+                                    '${logCPCalculationsRecord.userCode}_T${logCPCalculationsRecord.transCount.toString()}',
                               );
                               await TransactionsRecord.collection
                                   .doc()
@@ -280,14 +293,16 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                               await widget.commissionDetails
                                   .update(commissionsUpdateData);
 
-                              final calculationsUpdateData =
-                                  createCalculationsRecordData(
-                                directCommission: functions.getSum(
-                                    logCPCalculationsRecord.directCommission,
-                                    double.parse(
-                                        amountCPController?.text ?? '')),
-                                comissionProcessed: getCurrentTimestamp,
-                              );
+                              final calculationsUpdateData = {
+                                ...createCalculationsRecordData(
+                                  directCommission: functions.getSum(
+                                      logCPCalculationsRecord.directCommission,
+                                      double.parse(
+                                          amountCPController?.text ?? '')),
+                                  comissionProcessed: getCurrentTimestamp,
+                                ),
+                                'transCount': FieldValue.increment(1),
+                              };
                               await logCPCalculationsRecord.reference
                                   .update(calculationsUpdateData);
                               Navigator.pop(context);
@@ -296,11 +311,13 @@ class _PayCommissionDuesWidgetState extends State<PayCommissionDuesWidget> {
                             options: FFButtonOptions(
                               width: 130,
                               height: 40,
-                              color: FlutterFlowTheme.primaryColor,
-                              textStyle: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'Lexend Deca',
-                                color: Colors.white,
-                              ),
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color: Colors.white,
+                                  ),
                               borderSide: BorderSide(
                                 color: Colors.transparent,
                                 width: 1,

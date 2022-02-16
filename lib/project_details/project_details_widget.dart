@@ -69,7 +69,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
               width: 40,
               height: 40,
               child: SpinKitPumpingHeart(
-                color: FlutterFlowTheme.primaryColor,
+                color: FlutterFlowTheme.of(context).primaryColor,
                 size: 40,
               ),
             ),
@@ -79,7 +79,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
         return Scaffold(
           key: scaffoldKey,
           appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.primaryColor,
+            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
             automaticallyImplyLeading: false,
             leading: InkWell(
               onTap: () async {
@@ -87,7 +87,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
               },
               child: Icon(
                 Icons.chevron_left_rounded,
-                color: FlutterFlowTheme.textColor,
+                color: FlutterFlowTheme.of(context).textColor,
                 size: 32,
               ),
             ),
@@ -95,7 +95,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
             centerTitle: false,
             elevation: 0,
           ),
-          backgroundColor: FlutterFlowTheme.primaryColor,
+          backgroundColor: FlutterFlowTheme.of(context).primaryColor,
           body: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -103,7 +103,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                 width: MediaQuery.of(context).size.width,
                 height: 100,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.primaryColor,
+                  color: FlutterFlowTheme.of(context).primaryColor,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -119,7 +119,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                   EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                               child: Text(
                                 projectDetailsProjectsRecord.projectName,
-                                style: FlutterFlowTheme.title1,
+                                style: FlutterFlowTheme.of(context).title1,
                               ),
                             ),
                           ),
@@ -155,7 +155,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                             padding: EdgeInsetsDirectional.fromSTEB(0, 4, 0, 0),
                             child: Text(
                               projectDetailsProjectsRecord.projectCity,
-                              style: FlutterFlowTheme.title1,
+                              style: FlutterFlowTheme.of(context).title1,
                             ),
                           ),
                         ],
@@ -169,10 +169,12 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                           Text(
                             dateTimeFormat('EEEE',
                                 projectDetailsProjectsRecord.lastModified),
-                            style: FlutterFlowTheme.subtitle2.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.textColor,
-                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .subtitle2
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).textColor,
+                                ),
                           ),
                           Padding(
                             padding:
@@ -180,10 +182,13 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                             child: Text(
                               dateTimeFormat('yMMMd',
                                   projectDetailsProjectsRecord.lastModified),
-                              style: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.textColor,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                  ),
                             ),
                           ),
                           Padding(
@@ -192,10 +197,13 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                             child: Text(
                               dateTimeFormat('jms',
                                   projectDetailsProjectsRecord.lastModified),
-                              style: FlutterFlowTheme.subtitle2.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.textColor,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                  ),
                             ),
                           ),
                         ],
@@ -209,7 +217,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
-                    color: FlutterFlowTheme.background,
+                    color: FlutterFlowTheme.of(context).background,
                   ),
                   child: Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
@@ -224,10 +232,12 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                             children: [
                               AutoSizeText(
                                 projectDetailsProjectsRecord.projectDesc,
-                                style: FlutterFlowTheme.bodyText2.override(
-                                  fontFamily: 'Lexend Deca',
-                                  fontSize: 12,
-                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      fontSize: 12,
+                                    ),
                               ),
                             ],
                           ),
@@ -254,7 +264,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                           width: 40,
                           height: 40,
                           child: SpinKitPumpingHeart(
-                            color: FlutterFlowTheme.primaryColor,
+                            color: FlutterFlowTheme.of(context).primaryColor,
                             size: 40,
                           ),
                         ),
@@ -273,7 +283,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.background,
+                        color: FlutterFlowTheme.of(context).background,
                       ),
                       child: Visibility(
                         visible: plansUserHierarchiesRecord != null,
@@ -283,11 +293,13 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                             children: [
                               Text(
                                 'Click on Plan you like to Book',
-                                style: FlutterFlowTheme.title3.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: Color(0xFF7CD514),
-                                  fontSize: 24,
-                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .title3
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFF7CD514),
+                                      fontSize: 24,
+                                    ),
                               ),
                               StreamBuilder<List<PlansAndRatesRecord>>(
                                 stream: queryPlansAndRatesRecord(
@@ -307,7 +319,8 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                         width: 40,
                                         height: 40,
                                         child: SpinKitPumpingHeart(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                           size: 40,
                                         ),
                                       ),
@@ -354,7 +367,8 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                             width: 25,
                                             decoration: BoxDecoration(
                                               color:
-                                                  FlutterFlowTheme.primaryColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                             ),
@@ -385,9 +399,9 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                           Text(
                                                             listViewPlansAndRatesRecord
                                                                 .phaseCode,
-                                                            style:
-                                                                FlutterFlowTheme
-                                                                    .subtitle1,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .subtitle1,
                                                           ),
                                                           if (widget.isAdmin ??
                                                               true)
@@ -438,9 +452,9 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                             child: FaIcon(
                                                               FontAwesomeIcons
                                                                   .rupeeSign,
-                                                              color:
-                                                                  FlutterFlowTheme
-                                                                      .grayLight,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .grayLight,
                                                               size: 16,
                                                             ),
                                                           ),
@@ -452,9 +466,9 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                                   .toString(),
                                                               '0',
                                                             ),
-                                                            style:
-                                                                FlutterFlowTheme
-                                                                    .subtitle2,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .subtitle2,
                                                           ),
                                                           Padding(
                                                             padding:
@@ -466,9 +480,9 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                                         0),
                                                             child: Text(
                                                               'Per SqFt',
-                                                              style:
-                                                                  FlutterFlowTheme
-                                                                      .subtitle2,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .subtitle2,
                                                             ),
                                                           ),
                                                         ],
@@ -491,9 +505,9 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                                   FormatType
                                                                       .percent,
                                                             ),
-                                                            style:
-                                                                FlutterFlowTheme
-                                                                    .subtitle2,
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .subtitle2,
                                                           ),
                                                           Padding(
                                                             padding:
@@ -505,9 +519,9 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                                         0),
                                                             child: Text(
                                                               'Minimum Booking Amount',
-                                                              style:
-                                                                  FlutterFlowTheme
-                                                                      .subtitle2,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .subtitle2,
                                                             ),
                                                           ),
                                                         ],
@@ -528,7 +542,8 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                             children: [
                                                               Text(
                                                                 'Available EMI Tenure options in Months',
-                                                                style: FlutterFlowTheme
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
                                                                     .bodyText1,
                                                               ),
                                                             ],
@@ -571,7 +586,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                                             child:
                                                                                 Text(
                                                                               emiOptionItem,
-                                                                              style: FlutterFlowTheme.bodyText1,
+                                                                              style: FlutterFlowTheme.of(context).bodyText1,
                                                                             ),
                                                                           );
                                                                         }),

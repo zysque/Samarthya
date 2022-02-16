@@ -53,7 +53,7 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -67,22 +67,22 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'My Dues',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -108,7 +108,7 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                             width: 40,
                             height: 40,
                             child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               size: 40,
                             ),
                           ),
@@ -145,7 +145,8 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                       width: 40,
                                       height: 40,
                                       child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.primaryColor,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
                                         size: 40,
                                       ),
                                     ),
@@ -167,7 +168,8 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                   child: Container(
                                     width: 100,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.primaryColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Padding(
@@ -193,18 +195,23 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                 Text(
                                                   containerProjectsRecord
                                                       .projectName,
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle1
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                                 Icon(
                                                   Icons
                                                       .arrow_forward_ios_rounded,
-                                                  color: FlutterFlowTheme
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .textColor,
                                                   size: 16,
                                                 ),
@@ -221,13 +228,17 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                 Text(
                                                   containerProjectsRecord
                                                       .projectCity,
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -243,26 +254,33 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                   listViewBookingsRecord
                                                       .areaBookedInSqft
                                                       .toString(),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(2, 0, 0, 0),
                                                   child: Text(
                                                     'SQFT',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -286,13 +304,17 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                     format: '',
                                                     locale: '',
                                                   ),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                               ),
                                               if (functions.getIfDaysLeft(
@@ -309,14 +331,17 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                               listViewBookingsRecord
                                                                   .dueDate)
                                                           .toString(),
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -325,15 +350,17 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                                   2, 0, 0, 0),
                                                       child: Text(
                                                         'Days Left',
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
                                                       ),
                                                     ),
                                                   ],
@@ -352,14 +379,17 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                               listViewBookingsRecord
                                                                   .dueDate)
                                                           .toString(),
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -368,15 +398,17 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                                   2, 0, 0, 0),
                                                       child: Text(
                                                         'Days Delayed',
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
                                                       ),
                                                     ),
                                                   ],
@@ -403,12 +435,14 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                     format: '',
                                                     locale: '',
                                                   ),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    fontSize: 14,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
                                                 ),
                                                 if ((functions.getQuotient(
                                                         listViewBookingsRecord
@@ -432,15 +466,15 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                                   listViewBookingsRecord
                                                                       .emiAmount)
                                                               .toString(),
-                                                          style:
-                                                              FlutterFlowTheme
-                                                                  .bodyText1
-                                                                  .override(
-                                                            fontFamily:
-                                                                'Lexend Deca',
-                                                            color: Color(
-                                                                0xFFE91E63),
-                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: Color(
+                                                                    0xFFE91E63),
+                                                              ),
                                                         ),
                                                       if (listViewBookingsRecord
                                                               .creditStatus ??
@@ -452,15 +486,15 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
                                                                       0, 0, 0),
                                                           child: Text(
                                                             'EMIs Left',
-                                                            style:
-                                                                FlutterFlowTheme
-                                                                    .bodyText1
-                                                                    .override(
-                                                              fontFamily:
-                                                                  'Lexend Deca',
-                                                              color: Color(
-                                                                  0xFFE91E63),
-                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: Color(
+                                                                      0xFFE91E63),
+                                                                ),
                                                           ),
                                                         ),
                                                     ],

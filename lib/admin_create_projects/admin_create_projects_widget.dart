@@ -69,36 +69,37 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Scaffold(
-        key: scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.primaryColor,
-          automaticallyImplyLeading: false,
-          leading: InkWell(
-            onTap: () async {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              Icons.chevron_left_rounded,
-              color: FlutterFlowTheme.grayLight,
-              size: 32,
-            ),
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.of(context).grayLight,
+            size: 32,
           ),
-          title: Text(
-            'Create Project',
-            style: FlutterFlowTheme.title1.override(
-              fontFamily: 'Lexend Deca',
-              color: FlutterFlowTheme.textColor,
-            ),
-          ),
-          actions: [],
-          centerTitle: true,
-          elevation: 0,
         ),
-        backgroundColor: FlutterFlowTheme.tertiaryColor,
-        body: Column(
+        title: Text(
+          'Create Project',
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
+        ),
+        actions: [],
+        centerTitle: true,
+        elevation: 0,
+      ),
+      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+      body: Form(
+        key: formKey,
+        autovalidateMode: AutovalidateMode.disabled,
+        child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Material(
@@ -116,7 +117,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.6,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.darkBackground,
+                  color: FlutterFlowTheme.of(context).darkBackground,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(16),
                     bottomRight: Radius.circular(16),
@@ -136,29 +137,33 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Project Name',
-                            labelStyle: FlutterFlowTheme.title1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w300,
-                            ),
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .title1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300,
+                                ),
                             hintText: 'Project Name',
-                            hintStyle: FlutterFlowTheme.title1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .title1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.grayDark,
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.grayDark,
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -167,11 +172,11 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
                           ),
-                          style: FlutterFlowTheme.title1.override(
-                            fontFamily: 'Lexend Deca',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: FlutterFlowTheme.of(context).title1.override(
+                                fontFamily: 'Lexend Deca',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
                           textAlign: TextAlign.center,
                           validator: (val) {
                             if (val.isEmpty) {
@@ -190,29 +195,33 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Project City',
-                            labelStyle: FlutterFlowTheme.title1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w300,
-                            ),
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .title1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300,
+                                ),
                             hintText: 'Project City',
-                            hintStyle: FlutterFlowTheme.title1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .title1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.grayDark,
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.grayDark,
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
@@ -221,11 +230,11 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
                           ),
-                          style: FlutterFlowTheme.title1.override(
-                            fontFamily: 'Lexend Deca',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: FlutterFlowTheme.of(context).title1.override(
+                                fontFamily: 'Lexend Deca',
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
                           textAlign: TextAlign.center,
                           validator: (val) {
                             if (val.isEmpty) {
@@ -244,32 +253,35 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Project Description',
-                            labelStyle: FlutterFlowTheme.bodyText1,
+                            labelStyle: FlutterFlowTheme.of(context).bodyText1,
                             hintText: 'Project  Description',
-                            hintStyle: FlutterFlowTheme.bodyText1,
+                            hintStyle: FlutterFlowTheme.of(context).bodyText1,
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.grayDark,
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: FlutterFlowTheme.grayDark,
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 2,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: FlutterFlowTheme.darkBackground,
+                            fillColor:
+                                FlutterFlowTheme.of(context).darkBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 20, 24, 20),
                           ),
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.textColor,
-                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.of(context).textColor,
+                              ),
                           textAlign: TextAlign.start,
                           maxLines: 10,
                         ),
@@ -286,9 +298,6 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                 children: [
                   FFButtonWidget(
                     onPressed: () async {
-                      if (!formKey.currentState.validate()) {
-                        return;
-                      }
                       final projectsCreateData = createProjectsRecordData(
                         projectName: projectNameController.text,
                         projectCity: projectCityController.text,
@@ -304,8 +313,8 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                     options: FFButtonOptions(
                       width: 180,
                       height: 60,
-                      color: FlutterFlowTheme.tertiaryColor,
-                      textStyle: FlutterFlowTheme.title1,
+                      color: FlutterFlowTheme.of(context).tertiaryColor,
+                      textStyle: FlutterFlowTheme.of(context).title1,
                       elevation: 0,
                       borderSide: BorderSide(
                         color: Colors.transparent,
@@ -316,10 +325,10 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                   ),
                   Text(
                     'Tap above to complete request',
-                    style: FlutterFlowTheme.bodyText1.override(
-                      fontFamily: 'Lexend Deca',
-                      color: Color(0x43000000),
-                    ),
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Lexend Deca',
+                          color: Color(0x43000000),
+                        ),
                   ),
                 ],
               ),

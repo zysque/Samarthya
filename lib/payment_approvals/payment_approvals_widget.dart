@@ -34,7 +34,7 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -48,22 +48,22 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'Payment Approval',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: SafeArea(
         child: StreamBuilder<TransactionsRecord>(
           stream: TransactionsRecord.getDocument(widget.transactionDetails),
@@ -75,7 +75,7 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                   width: 40,
                   height: 40,
                   child: SpinKitPumpingHeart(
-                    color: FlutterFlowTheme.primaryColor,
+                    color: FlutterFlowTheme.of(context).primaryColor,
                     size: 40,
                   ),
                 ),
@@ -89,9 +89,9 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 175,
+                    height: 220,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.background,
+                      color: FlutterFlowTheme.of(context).background,
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -100,10 +100,10 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Text(
                             'Payment Approval',
-                            style: FlutterFlowTheme.title3.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0xFFC5E1A5),
-                            ),
+                            style: FlutterFlowTheme.of(context).title3.override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: Color(0xFFC5E1A5),
+                                ),
                           ),
                         ),
                         Padding(
@@ -112,47 +112,67 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              TextFormField(
-                                controller: amountBPController ??=
-                                    TextEditingController(
-                                  text: columnTransactionsRecord
-                                      .transactionAmount
-                                      .toString(),
-                                ),
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  hintText: 'Amount to Pay',
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.grayDark,
-                                      width: 1,
+                              Text(
+                                columnTransactionsRecord.transactionID,
+                                style: FlutterFlowTheme.of(context)
+                                    .subtitle1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                child: TextFormField(
+                                  controller: amountBPController ??=
+                                      TextEditingController(
+                                    text: columnTransactionsRecord
+                                        .transactionAmount
+                                        .toString(),
                                   ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.grayDark,
-                                      width: 1,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    hintText: 'Amount to Pay',
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .grayDark,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
                                     ),
-                                    borderRadius: BorderRadius.circular(8),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .grayDark,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    filled: true,
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            20, 4, 20, 4),
+                                    prefixIcon: FaIcon(
+                                      FontAwesomeIcons.rupeeSign,
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                    ),
                                   ),
-                                  filled: true,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          20, 4, 20, 4),
-                                  prefixIcon: FaIcon(
-                                    FontAwesomeIcons.rupeeSign,
-                                    color: FlutterFlowTheme.textColor,
-                                  ),
-                                ),
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.of(context)
+                                            .textColor,
+                                      ),
                                 ),
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                 child: FlutterFlowDropDown(
                                   initialOption: dropDownValue ??=
                                       columnTransactionsRecord.mode,
@@ -161,15 +181,19 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                       setState(() => dropDownValue = val),
                                   width: MediaQuery.of(context).size.width,
                                   height: 50,
-                                  textStyle:
-                                      FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: FlutterFlowTheme.textColor,
-                                  ),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.of(context)
+                                            .textColor,
+                                      ),
                                   hintText: 'Select Mode',
-                                  fillColor: FlutterFlowTheme.background,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).background,
                                   elevation: 2,
-                                  borderColor: FlutterFlowTheme.grayDark,
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).grayDark,
                                   borderWidth: 0,
                                   borderRadius: 8,
                                   margin: EdgeInsetsDirectional.fromSTEB(
@@ -185,7 +209,7 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 25, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: StreamBuilder<List<AdminConstsRecord>>(
                     stream: queryAdminConstsRecord(
                       singleRecord: true,
@@ -198,7 +222,7 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                             width: 40,
                             height: 40,
                             child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               size: 40,
                             ),
                           ),
@@ -224,7 +248,8 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                     width: 40,
                                     height: 40,
                                     child: SpinKitPumpingHeart(
-                                      color: FlutterFlowTheme.primaryColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                       size: 40,
                                     ),
                                   ),
@@ -252,7 +277,8 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                             height: 40,
                                             child: SpinKitPumpingHeart(
                                               color:
-                                                  FlutterFlowTheme.primaryColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                               size: 40,
                                             ),
                                           ),
@@ -289,8 +315,10 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                     width: 40,
                                                     height: 40,
                                                     child: SpinKitPumpingHeart(
-                                                      color: FlutterFlowTheme
-                                                          .primaryColor,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
                                                       size: 40,
                                                     ),
                                                   ),
@@ -333,7 +361,8 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                 height: 40,
                                                                 child:
                                                                     SpinKitPumpingHeart(
-                                                                  color: FlutterFlowTheme
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
                                                                       .primaryColor,
                                                                   size: 40,
                                                                 ),
@@ -354,6 +383,8 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                 mode:
                                                                     dropDownValue,
                                                                 status: true,
+                                                                transactionID:
+                                                                    '${columnCalculationsRecord.userCode}_T${columnCalculationsRecord.transCount.toString()}',
                                                               );
                                                               await widget
                                                                   .transactionDetails
@@ -405,32 +436,38 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                       bookingsUpdateData);
 
                                                               final calculationsUpdateData =
-                                                                  createCalculationsRecordData(
-                                                                emiDueAmount: functions.getDiff(
-                                                                    functions.getSum(
-                                                                        columnCalculationsRecord
-                                                                            .emiDueAmount,
-                                                                        columnBookingsRecord
-                                                                            .emiAmount),
-                                                                    double.parse(
-                                                                        amountBPController?.text ??
-                                                                            '')),
-                                                                emiDueDate: functions.getNewDate(
-                                                                    columnBookingsRecord
-                                                                        .dueDate,
-                                                                    0,
-                                                                    1,
-                                                                    actionsAdminConstsRecord
-                                                                        .emiPaymentDay,
-                                                                    (functions.getDiff(
-                                                                            columnCalculationsRecord
-                                                                                .emiDueAmount,
-                                                                            double.parse(amountBPController?.text ??
-                                                                                ''))) <=
-                                                                        0.0,
-                                                                    columnCalculationsRecord
-                                                                        .emiDueDate),
-                                                              );
+                                                                  {
+                                                                ...createCalculationsRecordData(
+                                                                  emiDueAmount: functions.getDiff(
+                                                                      functions.getSum(
+                                                                          columnCalculationsRecord
+                                                                              .emiDueAmount,
+                                                                          columnBookingsRecord
+                                                                              .emiAmount),
+                                                                      double.parse(
+                                                                          amountBPController?.text ??
+                                                                              '')),
+                                                                  emiDueDate: functions.getNewDate(
+                                                                      columnBookingsRecord
+                                                                          .dueDate,
+                                                                      0,
+                                                                      1,
+                                                                      actionsAdminConstsRecord
+                                                                          .emiPaymentDay,
+                                                                      (functions.getDiff(
+                                                                              columnCalculationsRecord
+                                                                                  .emiDueAmount,
+                                                                              double.parse(amountBPController?.text ??
+                                                                                  ''))) <=
+                                                                          0.0,
+                                                                      columnCalculationsRecord
+                                                                          .emiDueDate),
+                                                                ),
+                                                                'transCount':
+                                                                    FieldValue
+                                                                        .increment(
+                                                                            1),
+                                                              };
                                                               await columnCalculationsRecord
                                                                   .reference
                                                                   .update(
@@ -471,16 +508,18 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                               width: 130,
                                                               height: 40,
                                                               color: FlutterFlowTheme
+                                                                      .of(context)
                                                                   .primaryColor,
                                                               textStyle:
-                                                                  FlutterFlowTheme
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
                                                                       .subtitle2
                                                                       .override(
-                                                                fontFamily:
-                                                                    'Lexend Deca',
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
+                                                                        fontFamily:
+                                                                            'Lexend Deca',
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
                                                               borderSide:
                                                                   BorderSide(
                                                                 color: Colors
@@ -507,6 +546,8 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                       ''),
                                                           mode: dropDownValue,
                                                           status: true,
+                                                          transactionID:
+                                                              '${columnCalculationsRecord.userCode}_T${columnCalculationsRecord.transCount.toString()}',
                                                         );
                                                         await widget
                                                             .transactionDetails
@@ -563,34 +604,38 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                 bookingsUpdateData);
 
                                                         final calculationsUpdateData =
-                                                            createCalculationsRecordData(
-                                                          emiDueAmount: functions.getDiff(
-                                                              functions.getSum(
-                                                                  columnCalculationsRecord
-                                                                      .emiDueAmount,
-                                                                  columnBookingsRecord
-                                                                      .emiAmount),
-                                                              double.parse(
-                                                                  amountBPController
-                                                                          ?.text ??
-                                                                      '')),
-                                                          emiDueDate: functions.getNewDate(
-                                                              columnBookingsRecord
-                                                                  .dueDate,
-                                                              0,
-                                                              1,
-                                                              actionsAdminConstsRecord
-                                                                  .emiPaymentDay,
-                                                              (functions.getDiff(
-                                                                      columnCalculationsRecord
-                                                                          .emiDueAmount,
-                                                                      double.parse(
-                                                                          amountBPController?.text ??
-                                                                              ''))) <=
-                                                                  0.0,
-                                                              columnCalculationsRecord
-                                                                  .emiDueDate),
-                                                        );
+                                                            {
+                                                          ...createCalculationsRecordData(
+                                                            emiDueAmount: functions.getDiff(
+                                                                functions.getSum(
+                                                                    columnCalculationsRecord
+                                                                        .emiDueAmount,
+                                                                    columnBookingsRecord
+                                                                        .emiAmount),
+                                                                double.parse(
+                                                                    amountBPController
+                                                                            ?.text ??
+                                                                        '')),
+                                                            emiDueDate: functions.getNewDate(
+                                                                columnBookingsRecord
+                                                                    .dueDate,
+                                                                0,
+                                                                1,
+                                                                actionsAdminConstsRecord
+                                                                    .emiPaymentDay,
+                                                                (functions.getDiff(
+                                                                        columnCalculationsRecord
+                                                                            .emiDueAmount,
+                                                                        double.parse(amountBPController?.text ??
+                                                                            ''))) <=
+                                                                    0.0,
+                                                                columnCalculationsRecord
+                                                                    .emiDueDate),
+                                                          ),
+                                                          'transCount':
+                                                              FieldValue
+                                                                  .increment(1),
+                                                        };
                                                         await columnCalculationsRecord
                                                             .reference
                                                             .update(
@@ -601,16 +646,20 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                       options: FFButtonOptions(
                                                         width: 130,
                                                         height: 40,
-                                                        color: FlutterFlowTheme
-                                                            .primaryColor,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
                                                         textStyle:
-                                                            FlutterFlowTheme
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .subtitle2
                                                                 .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color: Colors.white,
-                                                        ),
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                         borderSide: BorderSide(
                                                           color: Colors
                                                               .transparent,

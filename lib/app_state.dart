@@ -20,7 +20,7 @@ class FFAppState {
 
   List<String> strList = [];
 
-  bool hasReferral = false;
+  bool hasReferral = true;
 
   bool addAdmin = false;
 

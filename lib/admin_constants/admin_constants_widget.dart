@@ -30,7 +30,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -38,22 +38,22 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'Admin Constants',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.darkBackground,
+      backgroundColor: FlutterFlowTheme.of(context).darkBackground,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
@@ -69,7 +69,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                     width: 40,
                     height: 40,
                     child: SpinKitPumpingHeart(
-                      color: FlutterFlowTheme.primaryColor,
+                      color: FlutterFlowTheme.of(context).primaryColor,
                       size: 40,
                     ),
                   ),
@@ -94,15 +94,16 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                         children: [
                           Text(
                             'Direct Commission Percentage',
-                            style: FlutterFlowTheme.title3.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayDark,
-                            ),
+                            style: FlutterFlowTheme.of(context).title3.override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayDark,
+                                ),
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                             child: Slider(
-                              activeColor: FlutterFlowTheme.primaryColor,
+                              activeColor:
+                                  FlutterFlowTheme.of(context).primaryColor,
                               inactiveColor: Color(0xFF9E9E9E),
                               min: 0,
                               max: 100,
@@ -120,16 +121,20 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                 EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: Text(
                               'Indirect Commission Percentage',
-                              style: FlutterFlowTheme.title3.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.grayDark,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .title3
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).grayDark,
+                                  ),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                             child: Slider(
-                              activeColor: FlutterFlowTheme.primaryColor,
+                              activeColor:
+                                  FlutterFlowTheme.of(context).primaryColor,
                               inactiveColor: Color(0xFF9E9E9E),
                               min: 0,
                               max: 100,
@@ -147,16 +152,20 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                 EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                             child: Text(
                               'Day of EMI Payment',
-                              style: FlutterFlowTheme.title3.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.grayDark,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .title3
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).grayDark,
+                                  ),
                             ),
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                             child: Slider(
-                              activeColor: FlutterFlowTheme.primaryColor,
+                              activeColor:
+                                  FlutterFlowTheme.of(context).primaryColor,
                               inactiveColor: Color(0xFF9E9E9E),
                               min: 1,
                               max: 28,
@@ -177,7 +186,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                               children: [
                                 Text(
                                   'Want to make a user admin click checkbox',
-                                  style: FlutterFlowTheme.bodyText1,
+                                  style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -218,8 +227,10 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                                     width: 40,
                                                     height: 40,
                                                     child: SpinKitPumpingHeart(
-                                                      color: FlutterFlowTheme
-                                                          .primaryColor,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
                                                       size: 40,
                                                     ),
                                                   ),
@@ -237,16 +248,20 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                                     () => dropDownValue = val),
                                                 width: 265,
                                                 height: 50,
-                                                textStyle: FlutterFlowTheme
+                                                textStyle: FlutterFlowTheme.of(
+                                                        context)
                                                     .bodyText1
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                                 hintText: 'Select User',
                                                 fillColor:
-                                                    FlutterFlowTheme.background,
+                                                    FlutterFlowTheme.of(context)
+                                                        .background,
                                                 elevation: 2,
                                                 borderColor: Colors.transparent,
                                                 borderWidth: 0,
@@ -287,7 +302,8 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                   width: 40,
                                   height: 40,
                                   child: SpinKitPumpingHeart(
-                                    color: FlutterFlowTheme.primaryColor,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
                                     size: 40,
                                   ),
                                 ),
@@ -326,11 +342,14 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                               options: FFButtonOptions(
                                 width: 130,
                                 height: 40,
-                                color: FlutterFlowTheme.primaryColor,
-                                textStyle: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: Colors.white,
-                                ),
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                    ),
                                 borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1,

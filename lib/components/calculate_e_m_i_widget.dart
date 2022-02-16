@@ -39,11 +39,12 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
+      autovalidateMode: AutovalidateMode.disabled,
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 400,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.darkBackground,
+          color: FlutterFlowTheme.of(context).darkBackground,
         ),
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),
@@ -84,7 +85,7 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                           width: 40,
                           height: 40,
                           child: SpinKitPumpingHeart(
-                            color: FlutterFlowTheme.primaryColor,
+                            color: FlutterFlowTheme.of(context).primaryColor,
                             size: 40,
                           ),
                         ),
@@ -130,7 +131,7 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                               contentPadding:
                                   EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                             ),
-                            style: FlutterFlowTheme.subtitle2,
+                            style: FlutterFlowTheme.of(context).subtitle2,
                             keyboardType: TextInputType.number,
                             validator: (val) {
                               if (val.isEmpty) {
@@ -180,10 +181,10 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                   EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                               prefixIcon: FaIcon(
                                 FontAwesomeIcons.rupeeSign,
-                                color: FlutterFlowTheme.grayLight,
+                                color: FlutterFlowTheme.of(context).grayLight,
                               ),
                             ),
-                            style: FlutterFlowTheme.subtitle2,
+                            style: FlutterFlowTheme.of(context).subtitle2,
                             keyboardType: TextInputType.number,
                             validator: (val) {
                               if (val.isEmpty) {
@@ -204,14 +205,14 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                             children: [
                               Text(
                                 'Rate per SQFT',
-                                style: FlutterFlowTheme.subtitle2,
+                                style: FlutterFlowTheme.of(context).subtitle2,
                               ),
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                                 child: FaIcon(
                                   FontAwesomeIcons.rupeeSign,
-                                  color: FlutterFlowTheme.grayLight,
+                                  color: FlutterFlowTheme.of(context).grayLight,
                                   size: 16,
                                 ),
                               ),
@@ -225,7 +226,7 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                         .toString(),
                                     '0',
                                   ),
-                                  style: FlutterFlowTheme.subtitle2,
+                                  style: FlutterFlowTheme.of(context).subtitle2,
                                 ),
                               ),
                             ],
@@ -239,14 +240,14 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                             children: [
                               Text(
                                 'Total Amount',
-                                style: FlutterFlowTheme.subtitle2,
+                                style: FlutterFlowTheme.of(context).subtitle2,
                               ),
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                                 child: FaIcon(
                                   FontAwesomeIcons.rupeeSign,
-                                  color: FlutterFlowTheme.grayLight,
+                                  color: FlutterFlowTheme.of(context).grayLight,
                                   size: 16,
                                 ),
                               ),
@@ -264,7 +265,7 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                         .toString(),
                                     '0',
                                   ),
-                                  style: FlutterFlowTheme.subtitle2,
+                                  style: FlutterFlowTheme.of(context).subtitle2,
                                 ),
                               ),
                             ],
@@ -278,14 +279,14 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                             children: [
                               Text(
                                 'Booking Amount',
-                                style: FlutterFlowTheme.subtitle2,
+                                style: FlutterFlowTheme.of(context).subtitle2,
                               ),
                               Padding(
                                 padding:
                                     EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
                                 child: FaIcon(
                                   FontAwesomeIcons.rupeeSign,
-                                  color: FlutterFlowTheme.grayLight,
+                                  color: FlutterFlowTheme.of(context).grayLight,
                                   size: 16,
                                 ),
                               ),
@@ -305,7 +306,7 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                         .toString(),
                                     '0',
                                   ),
-                                  style: FlutterFlowTheme.subtitle2,
+                                  style: FlutterFlowTheme.of(context).subtitle2,
                                 ),
                               ),
                             ],
@@ -323,9 +324,10 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                 setState(() => emiTenureValue = val),
                             width: MediaQuery.of(context).size.width,
                             height: 50,
-                            textStyle: FlutterFlowTheme.subtitle2,
+                            textStyle: FlutterFlowTheme.of(context).subtitle2,
                             hintText: 'Select EMI Tenure',
-                            fillColor: FlutterFlowTheme.darkBackground,
+                            fillColor:
+                                FlutterFlowTheme.of(context).darkBackground,
                             elevation: 2,
                             borderColor: Colors.transparent,
                             borderWidth: 0,
@@ -338,7 +340,7 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                           child: Text(
                             'Monthly Installments',
-                            style: FlutterFlowTheme.title3,
+                            style: FlutterFlowTheme.of(context).title3,
                           ),
                         ),
                         Padding(
@@ -376,10 +378,12 @@ class _CalculateEMIWidgetState extends State<CalculateEMIWidget> {
                                               downPaymentController.text),
                                           emiTenureValue)
                                       .toString(),
-                                  style: FlutterFlowTheme.title3.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: Color(0xFF7CD514),
-                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .title3
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Color(0xFF7CD514),
+                                      ),
                                 ),
                               ),
                             ],

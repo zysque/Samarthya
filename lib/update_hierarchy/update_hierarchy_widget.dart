@@ -31,20 +31,20 @@ class _UpdateHierarchyWidgetState extends State<UpdateHierarchyWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         title: Text(
           'Heirarchy Updates',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.tertiaryColor,
+      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -63,7 +63,7 @@ class _UpdateHierarchyWidgetState extends State<UpdateHierarchyWidget> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.7,
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.darkBackground,
+                color: FlutterFlowTheme.of(context).darkBackground,
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(16),
                   bottomRight: Radius.circular(16),
@@ -80,11 +80,11 @@ class _UpdateHierarchyWidgetState extends State<UpdateHierarchyWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
                       child: Text(
                         'Child has been added on respected leg of the user.\nYou will see the updated hierarchy on MyHierarchy now.\n\nWhat will change now:\n1. All the Sales made by added child will now accumulate the indirect commission of the Parents in the hierarchy.\n2. The children will also get the direct commision for each sale made by themselves.',
-                        style: FlutterFlowTheme.title3.override(
-                          fontFamily: 'Lexend Deca',
-                          color: Color(0xFFC5E1A5),
-                          fontWeight: FontWeight.w500,
-                        ),
+                        style: FlutterFlowTheme.of(context).title3.override(
+                              fontFamily: 'Lexend Deca',
+                              color: Color(0xFFC5E1A5),
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
                     ),
                   ],
@@ -116,11 +116,11 @@ class _UpdateHierarchyWidgetState extends State<UpdateHierarchyWidget> {
               options: FFButtonOptions(
                 width: 300,
                 height: 70,
-                color: FlutterFlowTheme.tertiaryColor,
-                textStyle: FlutterFlowTheme.title1,
+                color: FlutterFlowTheme.of(context).tertiaryColor,
+                textStyle: FlutterFlowTheme.of(context).title1,
                 elevation: 0,
                 borderSide: BorderSide(
-                  color: FlutterFlowTheme.grayLight,
+                  color: FlutterFlowTheme.of(context).grayLight,
                   width: 1,
                 ),
                 borderRadius: 12,
@@ -129,10 +129,10 @@ class _UpdateHierarchyWidgetState extends State<UpdateHierarchyWidget> {
           ),
           Text(
             'Tap above to confirm and complete request',
-            style: FlutterFlowTheme.bodyText1.override(
-              fontFamily: 'Lexend Deca',
-              color: Color(0x43000000),
-            ),
+            style: FlutterFlowTheme.of(context).bodyText1.override(
+                  fontFamily: 'Lexend Deca',
+                  color: Color(0x43000000),
+                ),
           ),
         ],
       ),

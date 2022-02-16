@@ -33,6 +33,12 @@ abstract class CalculationsRecord
   DateTime get comissionProcessed;
 
   @nullable
+  int get transCount;
+
+  @nullable
+  String get userCode;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -40,7 +46,9 @@ abstract class CalculationsRecord
     ..directCommission = 0.0
     ..indirectCommission = 0.0
     ..emiDueAmount = 0.0
-    ..defaultPayments = 0;
+    ..defaultPayments = 0
+    ..transCount = 0
+    ..userCode = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('calculations');
@@ -72,6 +80,8 @@ Map<String, dynamic> createCalculationsRecordData({
   DateTime emiDueDate,
   int defaultPayments,
   DateTime comissionProcessed,
+  int transCount,
+  String userCode,
 }) =>
     serializers.toFirestore(
         CalculationsRecord.serializer,
@@ -82,4 +92,6 @@ Map<String, dynamic> createCalculationsRecordData({
           ..emiDueAmount = emiDueAmount
           ..emiDueDate = emiDueDate
           ..defaultPayments = defaultPayments
-          ..comissionProcessed = comissionProcessed));
+          ..comissionProcessed = comissionProcessed
+          ..transCount = transCount
+          ..userCode = userCode));

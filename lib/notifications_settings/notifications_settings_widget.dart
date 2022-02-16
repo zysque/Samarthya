@@ -35,24 +35,24 @@ class _NotificationsSettingsWidgetState
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'Notifications',
-          style: FlutterFlowTheme.title3,
+          style: FlutterFlowTheme.of(context).title3,
         ),
         actions: [],
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 1,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.background,
+          color: FlutterFlowTheme.of(context).background,
           image: DecorationImage(
             fit: BoxFit.fitWidth,
             image: Image.asset(
@@ -70,7 +70,7 @@ class _NotificationsSettingsWidgetState
                   width: 40,
                   height: 40,
                   child: SpinKitPumpingHeart(
-                    color: FlutterFlowTheme.primaryColor,
+                    color: FlutterFlowTheme.of(context).primaryColor,
                     size: 40,
                   ),
                 ),
@@ -88,7 +88,7 @@ class _NotificationsSettingsWidgetState
                       Expanded(
                         child: Text(
                           'Choose what notifcations you want to recieve below and we will update the settings.',
-                          style: FlutterFlowTheme.bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ),
                     ],
@@ -102,15 +102,15 @@ class _NotificationsSettingsWidgetState
                         setState(() => switchListTileValue1 = newValue),
                     title: Text(
                       'Push Notifications',
-                      style: FlutterFlowTheme.title3,
+                      style: FlutterFlowTheme.of(context).title3,
                     ),
                     subtitle: Text(
                       'Receive Push notifications from our application on a semi regular basis.',
-                      style: FlutterFlowTheme.bodyText1,
+                      style: FlutterFlowTheme.of(context).bodyText1,
                     ),
                     tileColor: Color(0xFFF5F5F5),
-                    activeColor: FlutterFlowTheme.tertiaryColor,
-                    activeTrackColor: FlutterFlowTheme.primaryColor,
+                    activeColor: FlutterFlowTheme.of(context).tertiaryColor,
+                    activeTrackColor: FlutterFlowTheme.of(context).primaryColor,
                     dense: false,
                     controlAffinity: ListTileControlAffinity.trailing,
                     contentPadding:
@@ -123,15 +123,15 @@ class _NotificationsSettingsWidgetState
                       setState(() => switchListTileValue2 = newValue),
                   title: Text(
                     'Email Notifications',
-                    style: FlutterFlowTheme.title3,
+                    style: FlutterFlowTheme.of(context).title3,
                   ),
                   subtitle: Text(
                     'Receive email notifications from our marketing team about new features.',
-                    style: FlutterFlowTheme.bodyText1,
+                    style: FlutterFlowTheme.of(context).bodyText1,
                   ),
                   tileColor: Color(0xFFF5F5F5),
-                  activeColor: FlutterFlowTheme.tertiaryColor,
-                  activeTrackColor: FlutterFlowTheme.primaryColor,
+                  activeColor: FlutterFlowTheme.of(context).tertiaryColor,
+                  activeTrackColor: FlutterFlowTheme.of(context).primaryColor,
                   dense: false,
                   controlAffinity: ListTileControlAffinity.trailing,
                   contentPadding:
@@ -143,15 +143,15 @@ class _NotificationsSettingsWidgetState
                       setState(() => switchListTileValue3 = newValue),
                   title: Text(
                     'Location Services',
-                    style: FlutterFlowTheme.title3,
+                    style: FlutterFlowTheme.of(context).title3,
                   ),
                   subtitle: Text(
                     'Allow us to track your location, this helps keep track of spending and keeps you safe.',
-                    style: FlutterFlowTheme.bodyText1,
+                    style: FlutterFlowTheme.of(context).bodyText1,
                   ),
                   tileColor: Color(0xFFF5F5F5),
-                  activeColor: FlutterFlowTheme.tertiaryColor,
-                  activeTrackColor: FlutterFlowTheme.primaryColor,
+                  activeColor: FlutterFlowTheme.of(context).tertiaryColor,
+                  activeTrackColor: FlutterFlowTheme.of(context).primaryColor,
                   dense: false,
                   controlAffinity: ListTileControlAffinity.trailing,
                   contentPadding:
@@ -167,11 +167,12 @@ class _NotificationsSettingsWidgetState
                     options: FFButtonOptions(
                       width: 190,
                       height: 50,
-                      color: FlutterFlowTheme.primaryColor,
-                      textStyle: FlutterFlowTheme.subtitle2.override(
-                        fontFamily: 'Lexend Deca',
-                        color: FlutterFlowTheme.textColor,
-                      ),
+                      color: FlutterFlowTheme.of(context).primaryColor,
+                      textStyle:
+                          FlutterFlowTheme.of(context).subtitle2.override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.of(context).textColor,
+                              ),
                       elevation: 3,
                       borderSide: BorderSide(
                         color: Colors.transparent,

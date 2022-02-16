@@ -33,7 +33,7 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -47,22 +47,22 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'Pay Dues',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: SafeArea(
         child: StreamBuilder<BookingsRecord>(
           stream: BookingsRecord.getDocument(widget.bookingDetails),
@@ -74,7 +74,7 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                   width: 40,
                   height: 40,
                   child: SpinKitPumpingHeart(
-                    color: FlutterFlowTheme.primaryColor,
+                    color: FlutterFlowTheme.of(context).primaryColor,
                     size: 40,
                   ),
                 ),
@@ -90,7 +90,7 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                     width: MediaQuery.of(context).size.width,
                     height: 175,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.background,
+                      color: FlutterFlowTheme.of(context).background,
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -99,10 +99,10 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Text(
                             'Payment',
-                            style: FlutterFlowTheme.title3.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0xFFC5E1A5),
-                            ),
+                            style: FlutterFlowTheme.of(context).title3.override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: Color(0xFFC5E1A5),
+                                ),
                           ),
                         ),
                         Padding(
@@ -122,14 +122,16 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                   hintText: 'Amount to Pay',
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.grayDark,
+                                      color:
+                                          FlutterFlowTheme.of(context).grayDark,
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.grayDark,
+                                      color:
+                                          FlutterFlowTheme.of(context).grayDark,
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
@@ -137,13 +139,17 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                   filled: true,
                                   prefixIcon: FaIcon(
                                     FontAwesomeIcons.rupeeSign,
-                                    color: FlutterFlowTheme.textColor,
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
                                   ),
                                 ),
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                    ),
                               ),
                               Padding(
                                 padding:
@@ -154,15 +160,19 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                       setState(() => dropDownValue = val),
                                   width: MediaQuery.of(context).size.width,
                                   height: 50,
-                                  textStyle:
-                                      FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: FlutterFlowTheme.textColor,
-                                  ),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.of(context)
+                                            .textColor,
+                                      ),
                                   hintText: 'Select Mode',
-                                  fillColor: FlutterFlowTheme.background,
+                                  fillColor:
+                                      FlutterFlowTheme.of(context).background,
                                   elevation: 2,
-                                  borderColor: FlutterFlowTheme.grayDark,
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).grayDark,
                                   borderWidth: 0,
                                   borderRadius: 8,
                                   margin: EdgeInsetsDirectional.fromSTEB(
@@ -194,7 +204,7 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                             width: 40,
                             height: 40,
                             child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               size: 40,
                             ),
                           ),
@@ -235,7 +245,8 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                         width: 40,
                                         height: 40,
                                         child: SpinKitPumpingHeart(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                           size: 40,
                                         ),
                                       ),
@@ -279,12 +290,14 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                     options: FFButtonOptions(
                                       width: 130,
                                       height: 40,
-                                      color: FlutterFlowTheme.primaryColor,
-                                      textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: Colors.white,
-                                      ),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Colors.white,
+                                          ),
                                       borderSide: BorderSide(
                                         color: Colors.transparent,
                                         width: 1,
@@ -326,11 +339,14 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                               options: FFButtonOptions(
                                 width: 130,
                                 height: 40,
-                                color: FlutterFlowTheme.primaryColor,
-                                textStyle: FlutterFlowTheme.subtitle2.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: Colors.white,
-                                ),
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                    ),
                                 borderSide: BorderSide(
                                   color: Colors.transparent,
                                   width: 1,

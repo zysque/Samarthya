@@ -1,6 +1,7 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../change_password/change_password_widget.dart';
+import '../complete_profile/complete_profile_widget.dart';
 import '../components/view_image_widget.dart';
 import '../edit_profile/edit_profile_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -44,7 +45,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
               width: 40,
               height: 40,
               child: SpinKitPumpingHeart(
-                color: FlutterFlowTheme.primaryColor,
+                color: FlutterFlowTheme.of(context).primaryColor,
                 size: 40,
               ),
             ),
@@ -53,7 +54,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
         final myProfilePageUsersRecord = snapshot.data;
         return Scaffold(
           key: scaffoldKey,
-          backgroundColor: FlutterFlowTheme.background,
+          backgroundColor: FlutterFlowTheme.of(context).background,
           body: StreamBuilder<List<AdminConstsRecord>>(
             stream: queryAdminConstsRecord(
               singleRecord: true,
@@ -66,7 +67,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                     width: 40,
                     height: 40,
                     child: SpinKitPumpingHeart(
-                      color: FlutterFlowTheme.primaryColor,
+                      color: FlutterFlowTheme.of(context).primaryColor,
                       size: 40,
                     ),
                   ),
@@ -116,7 +117,8 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 children: [
                                   Card(
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    color: FlutterFlowTheme.primaryColor,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
                                     elevation: 2,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(40),
@@ -136,6 +138,15 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                         ),
                                       ),
                                     ),
+                                  ),
+                                  Text(
+                                    myProfilePageUsersRecord.userCode,
+                                    style: FlutterFlowTheme.of(context)
+                                        .title3
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Color(0xFFE485A2),
+                                        ),
                                   ),
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -157,12 +168,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                             buttonSize: 46,
                                             icon: FaIcon(
                                               FontAwesomeIcons.whatsapp,
-                                              color: FlutterFlowTheme.textColor,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .textColor,
                                               size: 24,
                                             ),
                                             onPressed: () async {
                                               await Share.share(
-                                                  'Please use my referral ID to register on the app\\n ${myProfilePageUsersRecord.uid}');
+                                                  'Please use my referral ID to register on the app  ${myProfilePageUsersRecord.userCode}');
                                             },
                                           ),
                                         ),
@@ -184,7 +197,9 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                             buttonSize: 46,
                                             icon: Icon(
                                               Icons.login_rounded,
-                                              color: FlutterFlowTheme.textColor,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .textColor,
                                               size: 24,
                                             ),
                                             onPressed: () async {
@@ -215,18 +230,24 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                       0, 0, 2, 0),
                                   child: Text(
                                     myProfilePageUsersRecord.userTitle,
-                                    style: FlutterFlowTheme.subtitle1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .subtitle1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                        ),
                                   ),
                                 ),
                                 Text(
                                   myProfilePageUsersRecord.displayName,
-                                  style: FlutterFlowTheme.subtitle1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: FlutterFlowTheme.textColor,
-                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .subtitle1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.of(context)
+                                            .textColor,
+                                      ),
                                 ),
                               ],
                             ),
@@ -238,11 +259,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                       4, 8, 0, 0),
                                   child: Text(
                                     myProfilePageUsersRecord.dob,
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                 ),
                               ],
@@ -258,12 +282,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     child: Text(
                                       myProfilePageUsersRecord.phoneNumber,
                                       textAlign: TextAlign.end,
-                                      style:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: FlutterFlowTheme.textColor,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: FlutterFlowTheme.of(context)
+                                                .textColor,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -277,11 +303,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                       4, 8, 0, 0),
                                   child: Text(
                                     myProfilePageUsersRecord.email,
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                 ),
                               ],
@@ -296,16 +325,19 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   child: Text(
                                     myProfilePageUsersRecord.aadharNumber
                                         .toString(),
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 50, 0),
+                                      0, 0, 100, 0),
                                   child: InkWell(
                                     onTap: () async {
                                       await showModalBottomSheet(
@@ -326,7 +358,8 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     },
                                     child: Icon(
                                       Icons.photo_library,
-                                      color: FlutterFlowTheme.textColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
                                       size: 24,
                                     ),
                                   ),
@@ -342,16 +375,19 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                       4, 8, 0, 0),
                                   child: Text(
                                     myProfilePageUsersRecord.panNumber,
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 50, 0),
+                                      0, 0, 100, 0),
                                   child: InkWell(
                                     onTap: () async {
                                       await showModalBottomSheet(
@@ -372,7 +408,8 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     },
                                     child: Icon(
                                       Icons.photo_library,
-                                      color: FlutterFlowTheme.textColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
                                       size: 24,
                                     ),
                                   ),
@@ -391,12 +428,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                         4, 8, 0, 0),
                                     child: Text(
                                       myProfilePageUsersRecord.address,
-                                      style:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: FlutterFlowTheme.textColor,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: FlutterFlowTheme.of(context)
+                                                .textColor,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
                                   ),
                                 ],
@@ -417,7 +456,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                             children: [
                               Text(
                                 'My Account',
-                                style: FlutterFlowTheme.bodyText1,
+                                style: FlutterFlowTheme.of(context).bodyText1,
                               ),
                             ],
                           ),
@@ -432,15 +471,51 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                         children: [
                           InkWell(
                             onTap: () async {
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => EditProfileWidget(
-                                    userProfile:
-                                        myProfilePageUsersRecord.reference,
+                              if (myProfilePageUsersRecord.incomplete) {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Complete User Profile'),
+                                      content: Text(
+                                          'You haven\'t completed your profile. Please complete it to use the App.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Cancel'),
+                                        ),
+                                        TextButton(
+                                          onPressed: () async {
+                                            Navigator.pop(alertDialogContext);
+                                            await Navigator.pushAndRemoveUntil(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    CompleteProfileWidget(),
+                                              ),
+                                              (r) => false,
+                                            );
+                                            ;
+                                          },
+                                          child: Text('Complete'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
+                              if (!(myProfilePageUsersRecord.incomplete)) {
+                                await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => EditProfileWidget(
+                                      userProfile:
+                                          myProfilePageUsersRecord.reference,
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
+                              }
                             },
                             child: Material(
                               color: Colors.transparent,
@@ -452,10 +527,12 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.background,
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
-                                    color: FlutterFlowTheme.darkBackground,
+                                    color: FlutterFlowTheme.of(context)
+                                        .darkBackground,
                                     width: 2,
                                   ),
                                 ),
@@ -469,13 +546,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     children: [
                                       Text(
                                         'Edit Profile',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                       ),
                                       FlutterFlowIconButton(
                                         borderColor: Colors.transparent,
@@ -524,10 +602,12 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.background,
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
-                                    color: FlutterFlowTheme.darkBackground,
+                                    color: FlutterFlowTheme.of(context)
+                                        .darkBackground,
                                     width: 2,
                                   ),
                                 ),
@@ -541,13 +621,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     children: [
                                       Text(
                                         'Change Password',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                       ),
                                       FlutterFlowIconButton(
                                         borderColor: Colors.transparent,
@@ -597,7 +678,8 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.background,
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
                                     color: Color(0xFF090F13),
@@ -614,13 +696,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     children: [
                                       Text(
                                         'Notification Settings',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                       ),
                                       FlutterFlowIconButton(
                                         borderColor: Colors.transparent,
@@ -669,7 +752,8 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.background,
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
                                     color: Color(0xFF090F13),
@@ -686,13 +770,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     children: [
                                       Text(
                                         'Tutorial',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                       ),
                                       FlutterFlowIconButton(
                                         borderColor: Colors.transparent,
@@ -741,7 +826,8 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                 width: MediaQuery.of(context).size.width * 0.9,
                                 height: 60,
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.background,
+                                  color:
+                                      FlutterFlowTheme.of(context).background,
                                   borderRadius: BorderRadius.circular(8),
                                   border: Border.all(
                                     color: Color(0xFF090F13),
@@ -758,13 +844,14 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     children: [
                                       Text(
                                         'Uses Policy',
-                                        style:
-                                            FlutterFlowTheme.bodyText1.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.normal,
-                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.normal,
+                                            ),
                                       ),
                                       FlutterFlowIconButton(
                                         borderColor: Colors.transparent,

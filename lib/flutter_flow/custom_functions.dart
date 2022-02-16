@@ -133,3 +133,30 @@ double getBookingAmt(
   // Add your function code here!
   return (area * rate * perc).ceilToDouble();
 }
+
+List<String> getNumbersInBetween(
+  int start,
+  int end,
+) {
+  // add to list while start is less than end
+
+  final these = <String>[];
+  var n = 0;
+  if (start <= end) {
+    n = start;
+  } else {
+    n = end;
+  }
+
+  while (n < end) {
+    these.add(n.toString());
+    n += 1;
+  }
+  return these;
+}
+
+String getPaddedNumber(int number) {
+  // pad number to 5 digit
+  int newNum = number + 1;
+  return newNum.toString().padLeft(5, '0');
+}

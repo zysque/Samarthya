@@ -67,7 +67,7 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.primaryColor,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -81,22 +81,22 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'Approvals',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -121,7 +121,8 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                               width: 40,
                               height: 40,
                               child: SpinKitPumpingHeart(
-                                color: FlutterFlowTheme.primaryColor,
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
                                 size: 40,
                               ),
                             ),
@@ -156,7 +157,8 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                         width: 40,
                                         height: 40,
                                         child: SpinKitPumpingHeart(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                           size: 40,
                                         ),
                                       ),
@@ -166,7 +168,8 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                   return Container(
                                     width: 100,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.primaryColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Padding(
@@ -189,15 +192,49 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text(
-                                                  containerProjectsRecord
-                                                      .projectName,
-                                                  style: FlutterFlowTheme
-                                                      .subtitle1
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 4),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        listViewBookingsRecord
+                                                            .areaBookedInSqft
+                                                            .toString(),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    2, 0, 0, 0),
+                                                        child: Text(
+                                                          'SQFT',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                                 InkWell(
@@ -225,7 +262,8 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                   },
                                                   child: Icon(
                                                     Icons.person,
-                                                    color: FlutterFlowTheme
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .textColor,
                                                     size: 30,
                                                   ),
@@ -249,8 +287,10 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     },
                                                     child: Icon(
                                                       Icons.approval,
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
                                                       size: 30,
                                                     ),
                                                   ),
@@ -264,53 +304,39 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     0, 0, 0, 4),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Text(
                                                   containerProjectsRecord
-                                                      .projectCity,
-                                                  style: FlutterFlowTheme
-                                                      .subtitle2
+                                                      .projectName,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .subtitle1
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
                                                 Text(
-                                                  listViewBookingsRecord
-                                                      .areaBookedInSqft
-                                                      .toString(),
-                                                  style: FlutterFlowTheme
+                                                  containerProjectsRecord
+                                                      .projectCity,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(2, 0, 0, 0),
-                                                  child: Text(
-                                                    'SQFT',
-                                                    style: FlutterFlowTheme
-                                                        .subtitle2
-                                                        .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -328,13 +354,16 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       FormatType.compact,
                                                   currency: 'Rs',
                                                 ),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -347,15 +376,26 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                         FormatType.compact,
                                                     currency: 'Rs',
                                                   ),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                               ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
                                               Text(
                                                 formatNumber(
                                                   listViewBookingsRecord
@@ -364,25 +404,31 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       FormatType.compact,
                                                   currency: 'Rs',
                                                 ),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                               Text(
                                                 listViewBookingsRecord
                                                     .emiTenureInMonths
                                                     .toString(),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -401,24 +447,29 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       'relative',
                                                       listViewBookingsRecord
                                                           .created),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    fontSize: 14,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
                                                 ),
                                                 if (listViewBookingsRecord
                                                         .creditStatus ??
                                                     true)
                                                   Text(
                                                     'Running EMIs',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: Color(0xFFE91E63),
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color:
+                                                              Color(0xFFE91E63),
+                                                        ),
                                                   ),
                                               ],
                                             ),
@@ -459,7 +510,8 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                               width: 40,
                               height: 40,
                               child: SpinKitPumpingHeart(
-                                color: FlutterFlowTheme.primaryColor,
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
                                 size: 40,
                               ),
                             ),
@@ -496,7 +548,8 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                         width: 40,
                                         height: 40,
                                         child: SpinKitPumpingHeart(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                           size: 40,
                                         ),
                                       ),
@@ -506,7 +559,8 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                   return Container(
                                     width: 100,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.primaryColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Padding(
@@ -530,17 +584,11 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  formatNumber(
-                                                    listViewTransactionsRecord
-                                                        .transactionAmount,
-                                                    formatType:
-                                                        FormatType.custom,
-                                                    currency: '',
-                                                    format: '',
-                                                    locale: '',
-                                                  ),
-                                                  style:
-                                                      FlutterFlowTheme.title3,
+                                                  listViewTransactionsRecord
+                                                      .transactionID,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title3,
                                                 ),
                                                 InkWell(
                                                   onTap: () async {
@@ -567,7 +615,8 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                   },
                                                   child: Icon(
                                                     Icons.person,
-                                                    color: FlutterFlowTheme
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .textColor,
                                                     size: 30,
                                                   ),
@@ -591,8 +640,10 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     },
                                                     child: Icon(
                                                       Icons.approval,
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
                                                       size: 30,
                                                     ),
                                                   ),
@@ -610,21 +661,40 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                   MainAxisAlignment.start,
                                               children: [
                                                 Text(
+                                                  formatNumber(
+                                                    listViewTransactionsRecord
+                                                        .transactionAmount,
+                                                    formatType:
+                                                        FormatType.custom,
+                                                    currency: '',
+                                                    format: '',
+                                                    locale: '',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title3,
+                                                ),
+                                                Text(
                                                   listViewTransactionsRecord
                                                       .transactionType,
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                                 Text(
                                                   listViewTransactionsRecord
                                                       .mode,
-                                                  style:
-                                                      FlutterFlowTheme.title3,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title3,
                                                 ),
                                               ],
                                             ),
@@ -648,8 +718,10 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       height: 40,
                                                       child:
                                                           SpinKitPumpingHeart(
-                                                        color: FlutterFlowTheme
-                                                            .primaryColor,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
                                                         size: 40,
                                                       ),
                                                     ),
@@ -667,14 +739,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     Text(
                                                       rowProjectsRecord
                                                           .projectName,
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -684,15 +759,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       child: Text(
                                                         rowProjectsRecord
                                                             .projectCity,
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
                                                       ),
                                                     ),
                                                   ],
@@ -712,13 +789,16 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     containerBookingsRecord
                                                         .areaBookedInSqft
                                                         .toString(),
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                        ),
                                                   ),
                                                   Padding(
                                                     padding:
@@ -727,14 +807,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                                 2, 0, 0, 0),
                                                     child: Text(
                                                       'SQFT',
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                   ),
                                                 ],
@@ -750,13 +833,16 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                           FormatType.compact,
                                                       currency: '',
                                                     ),
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                        ),
                                                   ),
                                                   Padding(
                                                     padding:
@@ -765,14 +851,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                                 2, 0, 0, 0),
                                                     child: Text(
                                                       'Left',
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                   ),
                                                 ],
@@ -798,39 +887,45 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                           'EEEE',
                                                           listViewTransactionsRecord
                                                               .transactionTime),
-                                                      style: FlutterFlowTheme
-                                                          .bodyText2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                fontSize: 14,
+                                                              ),
                                                     ),
                                                     Text(
                                                       dateTimeFormat(
                                                           'yMMMd',
                                                           listViewTransactionsRecord
                                                               .transactionTime),
-                                                      style: FlutterFlowTheme
-                                                          .bodyText2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                fontSize: 14,
+                                                              ),
                                                     ),
                                                     Text(
                                                       dateTimeFormat(
                                                           'jms',
                                                           listViewTransactionsRecord
                                                               .transactionTime),
-                                                      style: FlutterFlowTheme
-                                                          .bodyText2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                fontSize: 14,
+                                                              ),
                                                     ),
                                                   ],
                                                 ),
@@ -839,12 +934,15 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     true)
                                                   Text(
                                                     'Successful',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: Color(0xFF7CD514),
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color:
+                                                              Color(0xFF7CD514),
+                                                        ),
                                                   ),
                                               ],
                                             ),

@@ -26,7 +26,7 @@ class _ViewImageWidgetState extends State<ViewImageWidget> {
       width: MediaQuery.of(context).size.width,
       height: 280,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.darkBackground,
+        color: FlutterFlowTheme.of(context).darkBackground,
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(5, 5, 5, 5),

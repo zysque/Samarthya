@@ -27,7 +27,7 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
       width: MediaQuery.of(context).size.width,
       height: 370,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.darkBackground,
+        color: FlutterFlowTheme.of(context).darkBackground,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
@@ -83,7 +83,7 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                         width: 40,
                         height: 40,
                         child: SpinKitPumpingHeart(
-                          color: FlutterFlowTheme.primaryColor,
+                          color: FlutterFlowTheme.of(context).primaryColor,
                           size: 40,
                         ),
                       ),
@@ -101,7 +101,7 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                           children: [
                             Card(
                               clipBehavior: Clip.antiAliasWithSaveLayer,
-                              color: FlutterFlowTheme.primaryColor,
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               elevation: 2,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(40),
@@ -135,18 +135,24 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                                   EdgeInsetsDirectional.fromSTEB(0, 0, 2, 0),
                               child: Text(
                                 columnUsersRecord.userTitle,
-                                style: FlutterFlowTheme.subtitle1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .subtitle1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                    ),
                               ),
                             ),
                             Text(
                               columnUsersRecord.displayName,
-                              style: FlutterFlowTheme.subtitle1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.textColor,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .subtitle1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                  ),
                             ),
                           ],
                         ),
@@ -158,11 +164,14 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
                             child: Text(
                               columnUsersRecord.dob,
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.textColor,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
                           ),
                         ],
@@ -178,11 +187,14 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                               child: Text(
                                 columnUsersRecord.phoneNumber,
                                 textAlign: TextAlign.end,
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                               ),
                             ),
                           ),
@@ -195,11 +207,14 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
                             child: Text(
                               columnUsersRecord.email,
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.textColor,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
                           ),
                         ],
@@ -212,11 +227,14 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
                             child: Text(
                               columnUsersRecord.aadharNumber.toString(),
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.textColor,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
                           ),
                           Padding(
@@ -241,7 +259,7 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                               },
                               child: Icon(
                                 Icons.photo_library,
-                                color: FlutterFlowTheme.textColor,
+                                color: FlutterFlowTheme.of(context).textColor,
                                 size: 24,
                               ),
                             ),
@@ -256,11 +274,14 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
                             child: Text(
                               columnUsersRecord.panNumber,
-                              style: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.textColor,
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
                           ),
                           Padding(
@@ -285,7 +306,7 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                               },
                               child: Icon(
                                 Icons.photo_library,
-                                color: FlutterFlowTheme.textColor,
+                                color: FlutterFlowTheme.of(context).textColor,
                                 size: 24,
                               ),
                             ),
@@ -303,11 +324,14 @@ class _UserDetailsWidgetState extends State<UserDetailsWidget> {
                                   EdgeInsetsDirectional.fromSTEB(4, 8, 0, 0),
                               child: Text(
                                 columnUsersRecord.address,
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                               ),
                             ),
                           ],
