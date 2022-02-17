@@ -709,7 +709,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                         },
                         text: 'Save Changes',
                         options: FFButtonOptions(
-                          width: 230,
+                          width: 200,
                           height: 56,
                           color: FlutterFlowTheme.of(context).primaryColor,
                           textStyle: FlutterFlowTheme.of(context)

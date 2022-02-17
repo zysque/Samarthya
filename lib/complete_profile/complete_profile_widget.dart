@@ -7,8 +7,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
-import '../my_profile_page/my_profile_page_widget.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
+import '../main.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -712,38 +711,14 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               address: yourAddressController.text,
                               aadharImage: uploadedFileUrl2,
                               panImage: uploadedFileUrl3,
-                              userCode:
-                                  'USB${functions.getPaddedNumber(actionAdminConstsRecord.usersCount)}',
                               incomplete: false,
                             );
                             await currentUserReference.update(usersUpdateData);
-
-                            final calculationsCreateData =
-                                createCalculationsRecordData(
-                              userRef: currentUserReference,
-                              directCommission: 0.0,
-                              indirectCommission: 0.0,
-                              emiDueAmount: 0.0,
-                              defaultPayments: 0,
-                              userCode:
-                                  'USB${functions.getPaddedNumber(actionAdminConstsRecord.usersCount)}',
-                              transCount: 1,
-                            );
-                            await CalculationsRecord.collection
-                                .doc()
-                                .set(calculationsCreateData);
-
-                            final adminConstsUpdateData = {
-                              'usersCount': FieldValue.increment(1),
-                            };
-                            await actionAdminConstsRecord.reference
-                                .update(adminConstsUpdateData);
                             await Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => MyProfilePageWidget(
-                                  userProfile: currentUserReference,
-                                ),
+                                builder: (context) =>
+                                    NavBarPage(initialPage: 'HomePage'),
                               ),
                               (r) => false,
                             );

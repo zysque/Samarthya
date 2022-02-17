@@ -558,136 +558,225 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 24, 0, 24),
-                                  child: StreamBuilder<List<UsersRecord>>(
-                                    stream: queryUsersRecord(
-                                      queryBuilder: (usersRecord) =>
-                                          usersRecord.where('userCode',
-                                              isEqualTo:
-                                                  referralController.text),
-                                      singleRecord: true,
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 40,
-                                            height: 40,
-                                            child: SpinKitPumpingHeart(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                              size: 40,
-                                            ),
+                                StreamBuilder<List<AdminConstsRecord>>(
+                                  stream: queryAdminConstsRecord(
+                                    singleRecord: true,
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: SpinKitPumpingHeart(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            size: 40,
                                           ),
-                                        );
-                                      }
-                                      List<UsersRecord> buttonUsersRecordList =
-                                          snapshot.data;
-                                      final buttonUsersRecord =
-                                          buttonUsersRecordList.isNotEmpty
-                                              ? buttonUsersRecordList.first
-                                              : null;
-                                      return FFButtonWidget(
-                                        onPressed: () async {
-                                          if ((FFAppState().hasReferral) ==
-                                              (functions.getAndOutput(
-                                                  FFAppState().hasReferral,
-                                                  FFAppState().validated))) {
-                                            if (passwordCreateController.text !=
-                                                passwordConfirmController
-                                                    .text) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                    'Passwords don\'t match!',
-                                                  ),
-                                                ),
-                                              );
-                                              return;
-                                            }
-
-                                            final user =
-                                                await createAccountWithEmail(
-                                              context,
-                                              emailAddressController.text,
-                                              passwordCreateController.text,
-                                            );
-                                            if (user == null) {
-                                              return;
-                                            }
-
-                                            final usersCreateData =
-                                                createUsersRecordData(
-                                              incomplete: true,
-                                            );
-                                            await UsersRecord.collection
-                                                .doc(user.uid)
-                                                .update(usersCreateData);
-                                          } else {
-                                            return;
-                                          }
-                                          if (FFAppState().hasReferral) {
-                                            final userHierarchiesCreateData =
-                                                createUserHierarchiesRecordData(
-                                              hierarchyUser:
-                                                  currentUserReference,
-                                              referralParent:
-                                                  buttonUsersRecord.reference,
-                                              hierarchyUserEmail:
-                                                  currentUserEmail,
-                                              hasParent: false,
-                                              hasReferral: true,
-                                              hasLeft: false,
-                                              hasRight: false,
-                                            );
-                                            await UserHierarchiesRecord
-                                                .collection
-                                                .doc()
-                                                .set(userHierarchiesCreateData);
-                                          }
-                                          if (!(FFAppState().hasReferral)) {
-                                            final delinkedUsersCreateData =
-                                                createDelinkedUsersRecordData(
-                                              userRef: currentUserReference,
-                                              userEmail: currentUserEmail,
-                                            );
-                                            await DelinkedUsersRecord.collection
-                                                .doc()
-                                                .set(delinkedUsersCreateData);
-                                          }
-                                          await Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  CompleteProfileWidget(),
-                                            ),
-                                            (r) => false,
-                                          );
-                                        },
-                                        text: 'Create Account',
-                                        options: FFButtonOptions(
-                                          width: 160,
-                                          height: 50,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryColor,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyText2,
-                                          elevation: 3,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1,
-                                          ),
-                                          borderRadius: 30,
                                         ),
                                       );
-                                    },
-                                  ),
+                                    }
+                                    List<AdminConstsRecord>
+                                        actionsAdminConstsRecordList =
+                                        snapshot.data;
+                                    final actionsAdminConstsRecord =
+                                        actionsAdminConstsRecordList.isNotEmpty
+                                            ? actionsAdminConstsRecordList.first
+                                            : null;
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0, 24, 0, 24),
+                                          child:
+                                              StreamBuilder<List<UsersRecord>>(
+                                            stream: queryUsersRecord(
+                                              queryBuilder: (usersRecord) =>
+                                                  usersRecord.where('userCode',
+                                                      isEqualTo:
+                                                          referralController
+                                                              .text),
+                                              singleRecord: true,
+                                            ),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 40,
+                                                    height: 40,
+                                                    child: SpinKitPumpingHeart(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                      size: 40,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              List<UsersRecord>
+                                                  buttonUsersRecordList =
+                                                  snapshot.data;
+                                              final buttonUsersRecord =
+                                                  buttonUsersRecordList
+                                                          .isNotEmpty
+                                                      ? buttonUsersRecordList
+                                                          .first
+                                                      : null;
+                                              return FFButtonWidget(
+                                                onPressed: () async {
+                                                  if ((FFAppState()
+                                                          .hasReferral) ==
+                                                      (functions
+                                                          .getAndOutput(
+                                                              FFAppState()
+                                                                  .hasReferral,
+                                                              FFAppState()
+                                                                  .validated))) {
+                                                    if (passwordCreateController
+                                                            .text !=
+                                                        passwordConfirmController
+                                                            .text) {
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Passwords don\'t match!',
+                                                          ),
+                                                        ),
+                                                      );
+                                                      return;
+                                                    }
+
+                                                    final user =
+                                                        await createAccountWithEmail(
+                                                      context,
+                                                      emailAddressController
+                                                          .text,
+                                                      passwordCreateController
+                                                          .text,
+                                                    );
+                                                    if (user == null) {
+                                                      return;
+                                                    }
+
+                                                    final usersCreateData =
+                                                        createUsersRecordData(
+                                                      incomplete: true,
+                                                      userCode:
+                                                          'USB${functions.getPaddedNumber(actionsAdminConstsRecord.usersCount)}',
+                                                    );
+                                                    await UsersRecord.collection
+                                                        .doc(user.uid)
+                                                        .update(
+                                                            usersCreateData);
+                                                  } else {
+                                                    return;
+                                                  }
+                                                  if (FFAppState()
+                                                      .hasReferral) {
+                                                    final userHierarchiesCreateData =
+                                                        createUserHierarchiesRecordData(
+                                                      hierarchyUser:
+                                                          currentUserReference,
+                                                      referralParent:
+                                                          buttonUsersRecord
+                                                              .reference,
+                                                      hasParent: false,
+                                                      hasReferral: true,
+                                                      hasLeft: false,
+                                                      hasRight: false,
+                                                      userCode:
+                                                          'USB${functions.getPaddedNumber(actionsAdminConstsRecord.usersCount)}',
+                                                    );
+                                                    await UserHierarchiesRecord
+                                                        .collection
+                                                        .doc()
+                                                        .set(
+                                                            userHierarchiesCreateData);
+                                                  }
+                                                  if (!(FFAppState()
+                                                      .hasReferral)) {
+                                                    final delinkedUsersCreateData =
+                                                        createDelinkedUsersRecordData(
+                                                      userRef:
+                                                          currentUserReference,
+                                                      userCode:
+                                                          'USB${functions.getPaddedNumber(actionsAdminConstsRecord.usersCount)}',
+                                                    );
+                                                    await DelinkedUsersRecord
+                                                        .collection
+                                                        .doc()
+                                                        .set(
+                                                            delinkedUsersCreateData);
+                                                  }
+                                                  final calculationsCreateData =
+                                                      createCalculationsRecordData(
+                                                    userRef:
+                                                        currentUserReference,
+                                                    directCommission: 0.0,
+                                                    indirectCommission: 0.0,
+                                                    emiDueAmount: 0.0,
+                                                    defaultPayments: 0,
+                                                    userCode:
+                                                        'USB${functions.getPaddedNumber(actionsAdminConstsRecord.usersCount)}',
+                                                    transCount: 1,
+                                                  );
+                                                  await CalculationsRecord
+                                                      .collection
+                                                      .doc()
+                                                      .set(
+                                                          calculationsCreateData);
+
+                                                  final adminConstsUpdateData =
+                                                      {
+                                                    'usersCount':
+                                                        FieldValue.increment(1),
+                                                  };
+                                                  await actionsAdminConstsRecord
+                                                      .reference
+                                                      .update(
+                                                          adminConstsUpdateData);
+                                                  await Navigator
+                                                      .pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          CompleteProfileWidget(),
+                                                    ),
+                                                    (r) => false,
+                                                  );
+                                                },
+                                                text: 'Create Account',
+                                                options: FFButtonOptions(
+                                                  width: 160,
+                                                  height: 50,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyText2,
+                                                  elevation: 3,
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius: 30,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 ),
                                 Row(
                                   mainAxisSize: MainAxisSize.max,

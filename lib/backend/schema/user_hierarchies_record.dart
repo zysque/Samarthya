@@ -36,10 +36,10 @@ abstract class UserHierarchiesRecord
   bool get hasRight;
 
   @nullable
-  String get hierarchyUserEmail;
+  bool get hasReferral;
 
   @nullable
-  bool get hasReferral;
+  String get userCode;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -50,8 +50,8 @@ abstract class UserHierarchiesRecord
         ..hasParent = false
         ..hasLeft = false
         ..hasRight = false
-        ..hierarchyUserEmail = ''
-        ..hasReferral = false;
+        ..hasReferral = false
+        ..userCode = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('userHierarchies');
@@ -84,8 +84,8 @@ Map<String, dynamic> createUserHierarchiesRecordData({
   bool hasParent,
   bool hasLeft,
   bool hasRight,
-  String hierarchyUserEmail,
   bool hasReferral,
+  String userCode,
 }) =>
     serializers.toFirestore(
         UserHierarchiesRecord.serializer,
@@ -98,5 +98,5 @@ Map<String, dynamic> createUserHierarchiesRecordData({
           ..hasParent = hasParent
           ..hasLeft = hasLeft
           ..hasRight = hasRight
-          ..hierarchyUserEmail = hierarchyUserEmail
-          ..hasReferral = hasReferral));
+          ..hasReferral = hasReferral
+          ..userCode = userCode));
