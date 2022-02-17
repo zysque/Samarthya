@@ -286,7 +286,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                         color: FlutterFlowTheme.of(context).background,
                       ),
                       child: Visibility(
-                        visible: plansUserHierarchiesRecord != null,
+                        visible: plansUserHierarchiesRecord.hasParent ?? true,
                         child: SingleChildScrollView(
                           child: Column(
                             mainAxisSize: MainAxisSize.max,

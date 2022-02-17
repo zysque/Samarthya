@@ -552,7 +552,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                         ),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 600,
+                          height: 590,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).darkBackground,
                             borderRadius: BorderRadius.only(
@@ -564,7 +564,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                           ),
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 20),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -861,7 +861,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 20, 0, 0),
+                                      0, 10, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
@@ -882,7 +882,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 10, 0, 0),
+                                      0, 5, 0, 0),
                                   child: StreamBuilder<List<UsersRecord>>(
                                     stream: queryUsersRecord(
                                       queryBuilder: (usersRecord) =>
@@ -1108,7 +1108,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
                         child: StreamBuilder<UserHierarchiesRecord>(
                           stream: UserHierarchiesRecord.getDocument(
                               widget.userHierarchyRef),

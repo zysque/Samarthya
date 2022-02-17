@@ -742,6 +742,8 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                       .reference
                                                       .update(
                                                           adminConstsUpdateData);
+                                                  setState(() => FFAppState()
+                                                      .validated = false);
                                                   await Navigator
                                                       .pushAndRemoveUntil(
                                                     context,
