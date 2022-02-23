@@ -15,14 +15,14 @@ abstract class DelinkedUsersRecord
   DocumentReference get userRef;
 
   @nullable
-  String get userEmail;
+  String get userCode;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(DelinkedUsersRecordBuilder builder) =>
-      builder..userEmail = '';
+      builder..userCode = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('delinkedUsers');
@@ -48,10 +48,10 @@ abstract class DelinkedUsersRecord
 
 Map<String, dynamic> createDelinkedUsersRecordData({
   DocumentReference userRef,
-  String userEmail,
+  String userCode,
 }) =>
     serializers.toFirestore(
         DelinkedUsersRecord.serializer,
         DelinkedUsersRecord((d) => d
           ..userRef = userRef
-          ..userEmail = userEmail));
+          ..userCode = userCode));

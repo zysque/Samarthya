@@ -34,8 +34,7 @@ double getCommission(
   double amount,
 ) {
   // a percent b
-  return ((percentage / 100) * amount);
-  ;
+  return ((percentage / 100) * amount).ceilToDouble();
 }
 
 bool getAndOutput(
@@ -57,7 +56,7 @@ double emiCalculator(
   final int tenureY = int.parse(tenure.replaceAll(' Months', ''));
   double emiAmount =
       ((plotArea * ratePerSQFT) - bookingAmount - downPayment) / tenureY;
-  return emiAmount;
+  return emiAmount.ceilToDouble();
 }
 
 int parseReplaceFromString(
@@ -80,7 +79,7 @@ int getDaysLeft(DateTime timeStamp) {
   // get timestamp difference from current date
   Duration difference = timeStamp.difference(DateTime.now());
 
-  return difference.inDays;
+  return difference.inDays.abs();
 }
 
 bool getIfDaysLeft(DateTime timeStamp) {
@@ -103,7 +102,7 @@ int getQuotient(
   double val2,
 ) {
   // Add your function code here!
-  return (val1 / val2).floor();
+  return (val1 / val2).round();
 }
 
 DateTime getNewDate(
@@ -111,22 +110,53 @@ DateTime getNewDate(
   int addYear,
   int addMonth,
   double day,
+  bool condn,
+  DateTime date2,
 ) {
   // get next month
-  return DateTime.parse(DateFormat('yyyy-MM-dd').format(
-    DateTime(
-      date1.year + addYear + (date1.month + addMonth > 12 ? 1 : 0),
-      (date1.month + addMonth < 12) ? date1.month + addMonth : 1,
-      day.floor(),
-    ),
-  ));
+  return condn
+      ? DateTime.parse(DateFormat('yyyy-MM-dd').format(
+          DateTime(
+            date1.year + addYear + (date1.month + addMonth > 12 ? 1 : 0),
+            (date1.month + addMonth < 12) ? date1.month + addMonth : 1,
+            day.floor(),
+          ),
+        ))
+      : date2;
 }
 
 double getBookingAmt(
   double perc,
   double rate,
-  double area,
+  int area,
 ) {
   // Add your function code here!
-  return (area * rate * perc) / 100;
+  return (area * rate * perc).ceilToDouble();
+}
+
+List<String> getNumbersInBetween(
+  int start,
+  int end,
+) {
+  // add to list while start is less than end
+
+  final these = <String>[];
+  var n = 0;
+  if (start <= end) {
+    n = start;
+  } else {
+    n = end;
+  }
+
+  while (n < end) {
+    these.add(n.toString());
+    n += 1;
+  }
+  return these;
+}
+
+String getPaddedNumber(int number) {
+  // pad number to 5 digit
+  int newNum = number + 1;
+  return newNum.toString().padLeft(5, '0');
 }

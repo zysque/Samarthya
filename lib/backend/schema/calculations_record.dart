@@ -21,12 +21,6 @@ abstract class CalculationsRecord
   double get indirectCommission;
 
   @nullable
-  double get unsettledDirect;
-
-  @nullable
-  double get unsettledIndirect;
-
-  @nullable
   double get emiDueAmount;
 
   @nullable
@@ -39,16 +33,22 @@ abstract class CalculationsRecord
   DateTime get comissionProcessed;
 
   @nullable
+  int get transCount;
+
+  @nullable
+  String get userCode;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(CalculationsRecordBuilder builder) => builder
     ..directCommission = 0.0
     ..indirectCommission = 0.0
-    ..unsettledDirect = 0.0
-    ..unsettledIndirect = 0.0
     ..emiDueAmount = 0.0
-    ..defaultPayments = 0;
+    ..defaultPayments = 0
+    ..transCount = 0
+    ..userCode = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('calculations');
@@ -76,12 +76,12 @@ Map<String, dynamic> createCalculationsRecordData({
   DocumentReference userRef,
   double directCommission,
   double indirectCommission,
-  double unsettledDirect,
-  double unsettledIndirect,
   double emiDueAmount,
   DateTime emiDueDate,
   int defaultPayments,
   DateTime comissionProcessed,
+  int transCount,
+  String userCode,
 }) =>
     serializers.toFirestore(
         CalculationsRecord.serializer,
@@ -89,9 +89,9 @@ Map<String, dynamic> createCalculationsRecordData({
           ..userRef = userRef
           ..directCommission = directCommission
           ..indirectCommission = indirectCommission
-          ..unsettledDirect = unsettledDirect
-          ..unsettledIndirect = unsettledIndirect
           ..emiDueAmount = emiDueAmount
           ..emiDueDate = emiDueDate
           ..defaultPayments = defaultPayments
-          ..comissionProcessed = comissionProcessed));
+          ..comissionProcessed = comissionProcessed
+          ..transCount = transCount
+          ..userCode = userCode));

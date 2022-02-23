@@ -3,12 +3,15 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../my_hierarchy/my_hierarchy_widget.dart';
 import '../update_hierarchy/update_hierarchy_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,15 +33,22 @@ class AddrightChildWidget extends StatefulWidget {
 }
 
 class _AddrightChildWidgetState extends State<AddrightChildWidget> {
-  String delinkedUserEmailValue;
-  String uHUserEmailValue;
+  String uDuserCodeValue;
+  TextEditingController referralController;
+  String uHUserCodeValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    referralController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.tertiaryColor,
+      backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -50,11 +60,11 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
               children: [
                 Text(
                   'Add Child Heirarchy',
-                  style: FlutterFlowTheme.title1,
+                  style: FlutterFlowTheme.of(context).title1,
                 ),
                 Card(
                   clipBehavior: Clip.antiAliasWithSaveLayer,
-                  color: FlutterFlowTheme.background,
+                  color: FlutterFlowTheme.of(context).background,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -64,7 +74,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                     buttonSize: 48,
                     icon: Icon(
                       Icons.close_rounded,
-                      color: FlutterFlowTheme.textColor,
+                      color: FlutterFlowTheme.of(context).textColor,
                       size: 30,
                     ),
                     onPressed: () async {
@@ -96,9 +106,9 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                         ),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.7,
+                          height: 530,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.darkBackground,
+                            color: FlutterFlowTheme.of(context).darkBackground,
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(16),
                               bottomRight: Radius.circular(16),
@@ -115,8 +125,12 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                 StreamBuilder<List<UserHierarchiesRecord>>(
                                   stream: queryUserHierarchiesRecord(
                                     queryBuilder: (userHierarchiesRecord) =>
-                                        userHierarchiesRecord.where('hasParent',
-                                            isEqualTo: false),
+                                        userHierarchiesRecord
+                                            .where('hasParent',
+                                                isEqualTo: false)
+                                            .where('referralParent',
+                                                isEqualTo:
+                                                    currentUserReference),
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -126,42 +140,43 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                           width: 40,
                                           height: 40,
                                           child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
                                             size: 40,
                                           ),
                                         ),
                                       );
                                     }
                                     List<UserHierarchiesRecord>
-                                        uHUserEmailUserHierarchiesRecordList =
+                                        uHUserCodeUserHierarchiesRecordList =
                                         snapshot.data;
                                     return FlutterFlowDropDown(
                                       options:
-                                          uHUserEmailUserHierarchiesRecordList
-                                              .map((e) => e.hierarchyUserEmail)
+                                          uHUserCodeUserHierarchiesRecordList
+                                              .map((e) => e.userCode)
                                               .toList()
                                               .toList(),
-                                      onChanged: (val) => setState(
-                                          () => uHUserEmailValue = val),
+                                      onChanged: (val) =>
+                                          setState(() => uHUserCodeValue = val),
                                       width: MediaQuery.of(context).size.width,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.1,
-                                      textStyle:
-                                          FlutterFlowTheme.subtitle1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        fontSize: 20,
-                                      ),
-                                      hintText: 'Select available User...',
-                                      fillColor:
-                                          FlutterFlowTheme.darkBackground,
+                                      height: 70,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: FlutterFlowTheme.of(context)
+                                                .textColor,
+                                          ),
+                                      hintText: 'Select available user...',
+                                      fillColor: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
                                       elevation: 2,
-                                      borderColor: FlutterFlowTheme.background,
+                                      borderColor:
+                                          FlutterFlowTheme.of(context).grayDark,
                                       borderWidth: 2,
                                       borderRadius: 8,
                                       margin: EdgeInsetsDirectional.fromSTEB(
-                                          8, 8, 8, 8),
+                                          12, 4, 12, 4),
                                       hidesUnderline: true,
                                     );
                                   },
@@ -174,11 +189,15 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                     children: [
                                       Text(
                                         'Please choose desired child from dropdown. \nVerify selected user\'s informations below.',
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: FlutterFlowTheme.grayLight,
-                                          fontSize: 16,
-                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .title3
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayLight,
+                                              fontSize: 16,
+                                            ),
                                       ),
                                     ],
                                   ),
@@ -189,8 +208,8 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                   child: StreamBuilder<List<UsersRecord>>(
                                     stream: queryUsersRecord(
                                       queryBuilder: (usersRecord) =>
-                                          usersRecord.where('email',
-                                              isEqualTo: uHUserEmailValue),
+                                          usersRecord.where('userCode',
+                                              isEqualTo: uHUserCodeValue),
                                       singleRecord: true,
                                     ),
                                     builder: (context, snapshot) {
@@ -202,7 +221,8 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                             height: 40,
                                             child: SpinKitPumpingHeart(
                                               color:
-                                                  FlutterFlowTheme.primaryColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                               size: 40,
                                             ),
                                           ),
@@ -224,8 +244,9 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                               Card(
                                                 clipBehavior:
                                                     Clip.antiAliasWithSaveLayer,
-                                                color: FlutterFlowTheme
-                                                    .primaryColor,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
                                                 elevation: 2,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -264,15 +285,17 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                   child: Text(
                                                     userDetailsUsersRecord
                                                         .userTitle,
-                                                    style:
-                                                        FlutterFlowTheme.title3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .title3,
                                                   ),
                                                 ),
                                                 Text(
                                                   userDetailsUsersRecord
                                                       .displayName,
-                                                  style:
-                                                      FlutterFlowTheme.title3,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title3,
                                                 ),
                                               ],
                                             ),
@@ -289,16 +312,19 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                       .fromSTEB(4, 8, 0, 0),
                                                   child: Text(
                                                     userDetailsUsersRecord.dob,
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -317,16 +343,19 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                   child: Text(
                                                     userDetailsUsersRecord
                                                         .phoneNumber,
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -345,16 +374,19 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                   child: Text(
                                                     userDetailsUsersRecord
                                                         .email,
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -369,15 +401,20 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                 child: AutoSizeText(
                                                   userDetailsUsersRecord
                                                       .address,
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText1
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
                                                 ),
                                               ),
                                             ],
@@ -392,108 +429,109 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                           ),
                         ),
                       ),
-                      StreamBuilder<UserHierarchiesRecord>(
-                        stream: UserHierarchiesRecord.getDocument(
-                            widget.userHierarchyRef),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: SpinKitPumpingHeart(
-                                  color: FlutterFlowTheme.primaryColor,
-                                  size: 40,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: StreamBuilder<UserHierarchiesRecord>(
+                          stream: UserHierarchiesRecord.getDocument(
+                              widget.userHierarchyRef),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: SpinKitPumpingHeart(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    size: 40,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                          final actionsUserHierarchiesRecord = snapshot.data;
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              StreamBuilder<List<UserHierarchiesRecord>>(
-                                stream: queryUserHierarchiesRecord(
-                                  queryBuilder: (userHierarchiesRecord) =>
-                                      userHierarchiesRecord.where(
-                                          'hierarchyUserEmail',
-                                          isEqualTo: uHUserEmailValue),
-                                  singleRecord: true,
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 40,
-                                        height: 40,
-                                        child: SpinKitPumpingHeart(
-                                          color: FlutterFlowTheme.primaryColor,
-                                          size: 40,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  List<UserHierarchiesRecord>
-                                      addUserHierarchiesRecordList =
-                                      snapshot.data;
-                                  final addUserHierarchiesRecord =
-                                      addUserHierarchiesRecordList.isNotEmpty
-                                          ? addUserHierarchiesRecordList.first
-                                          : null;
-                                  return FFButtonWidget(
-                                    onPressed: () async {
-                                      final userHierarchiesUpdateData =
-                                          createUserHierarchiesRecordData(
-                                        rightChildRef: addUserHierarchiesRecord
-                                            .hierarchyUser,
-                                        hasRight: true,
-                                      );
-                                      await widget.userHierarchyRef
-                                          .update(userHierarchiesUpdateData);
-                                      await Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              UpdateHierarchyWidget(
-                                            childHierarchyRef:
-                                                addUserHierarchiesRecord
-                                                    .reference,
-                                            parentRef:
-                                                actionsUserHierarchiesRecord
-                                                    .hierarchyUser,
+                              );
+                            }
+                            final actionsUserHierarchiesRecord = snapshot.data;
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                StreamBuilder<List<UserHierarchiesRecord>>(
+                                  stream: queryUserHierarchiesRecord(
+                                    queryBuilder: (userHierarchiesRecord) =>
+                                        userHierarchiesRecord.where('userCode',
+                                            isEqualTo: uHUserCodeValue),
+                                    singleRecord: true,
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: SpinKitPumpingHeart(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            size: 40,
                                           ),
                                         ),
-                                        (r) => false,
                                       );
-                                    },
-                                    text: 'Add Child',
-                                    options: FFButtonOptions(
-                                      width: 300,
-                                      height: 70,
-                                      color: FlutterFlowTheme.tertiaryColor,
-                                      textStyle: FlutterFlowTheme.title1,
-                                      elevation: 0,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
+                                    }
+                                    List<UserHierarchiesRecord>
+                                        addUserHierarchiesRecordList =
+                                        snapshot.data;
+                                    final addUserHierarchiesRecord =
+                                        addUserHierarchiesRecordList.isNotEmpty
+                                            ? addUserHierarchiesRecordList.first
+                                            : null;
+                                    return FFButtonWidget(
+                                      onPressed: () async {
+                                        final userHierarchiesUpdateData =
+                                            createUserHierarchiesRecordData(
+                                          rightChildRef:
+                                              addUserHierarchiesRecord
+                                                  .hierarchyUser,
+                                          hasRight: true,
+                                        );
+                                        await widget.userHierarchyRef
+                                            .update(userHierarchiesUpdateData);
+                                        await Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                UpdateHierarchyWidget(
+                                              childHierarchyRef:
+                                                  addUserHierarchiesRecord
+                                                      .reference,
+                                              parentRef:
+                                                  actionsUserHierarchiesRecord
+                                                      .hierarchyUser,
+                                            ),
+                                          ),
+                                          (r) => false,
+                                        );
+                                      },
+                                      text: 'Add Child',
+                                      options: FFButtonOptions(
+                                        width: 250,
+                                        height: 70,
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiaryColor,
+                                        textStyle:
+                                            FlutterFlowTheme.of(context).title1,
+                                        elevation: 0,
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
+                                          width: 1,
+                                        ),
+                                        borderRadius: 12,
                                       ),
-                                      borderRadius: 12,
-                                    ),
-                                  );
-                                },
-                              ),
-                              Text(
-                                'Tap above to complete request',
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: Color(0x43000000),
+                                    );
+                                  },
                                 ),
-                              ),
-                            ],
-                          );
-                        },
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -514,9 +552,9 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                         ),
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.height * 0.7,
+                          height: 590,
                           decoration: BoxDecoration(
-                            color: FlutterFlowTheme.darkBackground,
+                            color: FlutterFlowTheme.of(context).darkBackground,
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(16),
                               bottomRight: Radius.circular(16),
@@ -526,86 +564,330 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                           ),
                           child: Padding(
                             padding:
-                                EdgeInsetsDirectional.fromSTEB(20, 44, 20, 20),
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 20),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                StreamBuilder<List<DelinkedUsersRecord>>(
-                                  stream: queryDelinkedUsersRecord(),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 40,
-                                          height: 40,
-                                          child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
-                                            size: 40,
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        ToggleIcon(
+                                          onPressed: () async {
+                                            setState(() =>
+                                                FFAppState().hasReferral =
+                                                    !FFAppState().hasReferral);
+                                          },
+                                          value: FFAppState().hasReferral,
+                                          onIcon: Icon(
+                                            Icons.check_box,
+                                            color: FlutterFlowTheme.of(context)
+                                                .errorRed,
+                                            size: 30,
+                                          ),
+                                          offIcon: Icon(
+                                            Icons.check_box_outline_blank,
+                                            color: Colors.purple,
+                                            size: 30,
                                           ),
                                         ),
-                                      );
-                                    }
-                                    List<DelinkedUsersRecord>
-                                        delinkedUserEmailDelinkedUsersRecordList =
-                                        snapshot.data;
-                                    return FlutterFlowDropDown(
-                                      options:
-                                          delinkedUserEmailDelinkedUsersRecordList
-                                              .map((e) => e.userEmail)
-                                              .toList()
-                                              .toList(),
-                                      onChanged: (val) => setState(
-                                          () => delinkedUserEmailValue = val),
-                                      width: MediaQuery.of(context).size.width,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.1,
-                                      textStyle:
-                                          FlutterFlowTheme.subtitle1.override(
-                                        fontFamily: 'Lexend Deca',
-                                        fontSize: 20,
+                                        if (FFAppState().hasReferral ?? true)
+                                          Expanded(
+                                            child: TextFormField(
+                                              onChanged: (_) =>
+                                                  EasyDebounce.debounce(
+                                                'referralController',
+                                                Duration(milliseconds: 20),
+                                                () => setState(() {}),
+                                              ),
+                                              controller: referralController,
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                labelText: 'Referral ID',
+                                                labelStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'Lexend Deca',
+                                                      color: Color(0x98FFFFFF),
+                                                    ),
+                                                hintText: 'Enter Referral ID',
+                                                hintStyle: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyText1
+                                                    .override(
+                                                      fontFamily: 'Lexend Deca',
+                                                      color: Color(0x98FFFFFF),
+                                                    ),
+                                                enabledBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .grayDark,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .grayDark,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                filled: true,
+                                                fillColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .darkBackground,
+                                                contentPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            20, 24, 20, 24),
+                                              ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Lexend Deca',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .textColor,
+                                                  ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    if (FFAppState().hasReferral ?? true)
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 5, 0, 0),
+                                            child: StreamBuilder<
+                                                List<UsersRecord>>(
+                                              stream: queryUsersRecord(
+                                                queryBuilder: (usersRecord) =>
+                                                    usersRecord.where(
+                                                        'userCode',
+                                                        isEqualTo:
+                                                            referralController
+                                                                .text),
+                                                singleRecord: true,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 40,
+                                                      height: 40,
+                                                      child:
+                                                          SpinKitPumpingHeart(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
+                                                        size: 40,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                List<UsersRecord>
+                                                    validateUsersRecordList =
+                                                    snapshot.data;
+                                                final validateUsersRecord =
+                                                    validateUsersRecordList
+                                                            .isNotEmpty
+                                                        ? validateUsersRecordList
+                                                            .first
+                                                        : null;
+                                                return FFButtonWidget(
+                                                  onPressed: () async {
+                                                    setState(() => FFAppState()
+                                                        .validated = (FFAppState()
+                                                            .hasReferral) ==
+                                                        (validateUsersRecord !=
+                                                            null));
+                                                    if (FFAppState()
+                                                        .validated) {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                                'Correct Referral ID'),
+                                                            content: Text(
+                                                                'The entered referral ID is corrrect, referral user is associated with us.'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    }
+                                                    if (!(FFAppState()
+                                                        .validated)) {
+                                                      await showDialog(
+                                                        context: context,
+                                                        builder:
+                                                            (alertDialogContext) {
+                                                          return AlertDialog(
+                                                            title: Text(
+                                                                'Wrong Referral ID'),
+                                                            content: Text(
+                                                                'The referral User doesn\'t exist, Please correct the referral ID.'),
+                                                            actions: [
+                                                              TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        alertDialogContext),
+                                                                child:
+                                                                    Text('Ok'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      );
+                                                    }
+                                                    if (!(FFAppState()
+                                                        .validated)) {
+                                                      setState(() {
+                                                        referralController
+                                                            .clear();
+                                                      });
+                                                    }
+                                                  },
+                                                  text: 'Validate',
+                                                  options: FFButtonOptions(
+                                                    width: 74,
+                                                    height: 20,
+                                                    color: Color(0xFF78A638),
+                                                    textStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyText2,
+                                                    borderSide: BorderSide(
+                                                      color: Colors.transparent,
+                                                      width: 1,
+                                                    ),
+                                                    borderRadius: 12,
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      hintText: 'Select available User...',
-                                      fillColor:
-                                          FlutterFlowTheme.darkBackground,
-                                      elevation: 2,
-                                      borderColor: FlutterFlowTheme.background,
-                                      borderWidth: 2,
-                                      borderRadius: 8,
-                                      margin: EdgeInsetsDirectional.fromSTEB(
-                                          8, 8, 8, 8),
-                                      hidesUnderline: true,
-                                    );
-                                  },
+                                  ],
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0, 20, 0, 0),
+                                  child:
+                                      StreamBuilder<List<DelinkedUsersRecord>>(
+                                    stream: queryDelinkedUsersRecord(),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 40,
+                                            height: 40,
+                                            child: SpinKitPumpingHeart(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              size: 40,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      List<DelinkedUsersRecord>
+                                          uDuserCodeDelinkedUsersRecordList =
+                                          snapshot.data;
+                                      return FlutterFlowDropDown(
+                                        options:
+                                            uDuserCodeDelinkedUsersRecordList
+                                                .map((e) => e.userCode)
+                                                .toList()
+                                                .toList(),
+                                        onChanged: (val) => setState(
+                                            () => uDuserCodeValue = val),
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height: 70,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle1
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .textColor,
+                                            ),
+                                        hintText: 'Select available user..',
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        elevation: 2,
+                                        borderColor:
+                                            FlutterFlowTheme.of(context)
+                                                .grayDark,
+                                        borderWidth: 2,
+                                        borderRadius: 8,
+                                        margin: EdgeInsetsDirectional.fromSTEB(
+                                            12, 4, 12, 4),
+                                        hidesUnderline: true,
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 10, 0, 0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
                                         'Please choose desired child from dropdown. \nVerify selected user\'s informations below.',
-                                        style: FlutterFlowTheme.title3.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: FlutterFlowTheme.grayLight,
-                                          fontSize: 16,
-                                        ),
+                                        style: FlutterFlowTheme.of(context)
+                                            .title3
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayLight,
+                                              fontSize: 16,
+                                            ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0, 20, 0, 0),
+                                      0, 5, 0, 0),
                                   child: StreamBuilder<List<UsersRecord>>(
                                     stream: queryUsersRecord(
                                       queryBuilder: (usersRecord) =>
-                                          usersRecord.where('email',
-                                              isEqualTo:
-                                                  delinkedUserEmailValue),
+                                          usersRecord.where('userCode',
+                                              isEqualTo: uDuserCodeValue),
                                       singleRecord: true,
                                     ),
                                     builder: (context, snapshot) {
@@ -617,7 +899,8 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                             height: 40,
                                             child: SpinKitPumpingHeart(
                                               color:
-                                                  FlutterFlowTheme.primaryColor,
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
                                               size: 40,
                                             ),
                                           ),
@@ -639,8 +922,9 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                               Card(
                                                 clipBehavior:
                                                     Clip.antiAliasWithSaveLayer,
-                                                color: FlutterFlowTheme
-                                                    .primaryColor,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryColor,
                                                 elevation: 2,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
@@ -679,15 +963,17 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                   child: Text(
                                                     userDetailsUsersRecord
                                                         .userTitle,
-                                                    style:
-                                                        FlutterFlowTheme.title3,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .title3,
                                                   ),
                                                 ),
                                                 Text(
                                                   userDetailsUsersRecord
                                                       .displayName,
-                                                  style:
-                                                      FlutterFlowTheme.title3,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title3,
                                                 ),
                                               ],
                                             ),
@@ -704,16 +990,19 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                       .fromSTEB(4, 8, 0, 0),
                                                   child: Text(
                                                     userDetailsUsersRecord.dob,
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -732,16 +1021,19 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                   child: Text(
                                                     userDetailsUsersRecord
                                                         .phoneNumber,
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -760,16 +1052,19 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                   child: Text(
                                                     userDetailsUsersRecord
                                                         .email,
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                      fontSize: 20,
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -784,15 +1079,20 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                 child: AutoSizeText(
                                                   userDetailsUsersRecord
                                                       .address,
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText1
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                    fontSize: 20,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                        fontSize: 20,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
                                                 ),
                                               ),
                                             ],
@@ -807,119 +1107,260 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                           ),
                         ),
                       ),
-                      StreamBuilder<UserHierarchiesRecord>(
-                        stream: UserHierarchiesRecord.getDocument(
-                            widget.userHierarchyRef),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: SpinKitPumpingHeart(
-                                  color: FlutterFlowTheme.primaryColor,
-                                  size: 40,
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                        child: StreamBuilder<UserHierarchiesRecord>(
+                          stream: UserHierarchiesRecord.getDocument(
+                              widget.userHierarchyRef),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 40,
+                                  height: 40,
+                                  child: SpinKitPumpingHeart(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    size: 40,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                          final actionsUserHierarchiesRecord = snapshot.data;
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              StreamBuilder<List<DelinkedUsersRecord>>(
-                                stream: queryDelinkedUsersRecord(
-                                  queryBuilder: (delinkedUsersRecord) =>
-                                      delinkedUsersRecord.where('userEmail',
-                                          isEqualTo: delinkedUserEmailValue),
-                                  singleRecord: true,
-                                ),
-                                builder: (context, snapshot) {
-                                  // Customize what your widget looks like when it's loading.
-                                  if (!snapshot.hasData) {
-                                    return Center(
-                                      child: SizedBox(
-                                        width: 40,
-                                        height: 40,
-                                        child: SpinKitPumpingHeart(
-                                          color: FlutterFlowTheme.primaryColor,
-                                          size: 40,
-                                        ),
-                                      ),
-                                    );
-                                  }
-                                  List<DelinkedUsersRecord>
-                                      addDelinkedUsersRecordList =
-                                      snapshot.data;
-                                  final addDelinkedUsersRecord =
-                                      addDelinkedUsersRecordList.isNotEmpty
-                                          ? addDelinkedUsersRecordList.first
-                                          : null;
-                                  return FFButtonWidget(
-                                    onPressed: () async {
-                                      final userHierarchiesCreateData =
-                                          createUserHierarchiesRecordData(
-                                        hierarchyUser:
-                                            addDelinkedUsersRecord.userRef,
-                                        referralParent: currentUserReference,
-                                        parentRef: actionsUserHierarchiesRecord
-                                            .hierarchyUser,
-                                        hasParent: true,
-                                        hierarchyUserEmail:
-                                            addDelinkedUsersRecord.userEmail,
-                                      );
-                                      await UserHierarchiesRecord.collection
-                                          .doc()
-                                          .set(userHierarchiesCreateData);
-
-                                      final userHierarchiesUpdateData =
-                                          createUserHierarchiesRecordData(
-                                        rightChildRef:
-                                            addDelinkedUsersRecord.userRef,
-                                        hasRight: true,
-                                      );
-                                      await widget.userHierarchyRef
-                                          .update(userHierarchiesUpdateData);
-                                      await addDelinkedUsersRecord.reference
-                                          .delete();
-                                      await Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              MyHierarchyWidget(
-                                            userProfile: currentUserReference,
+                              );
+                            }
+                            final actionsUserHierarchiesRecord = snapshot.data;
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                StreamBuilder<List<DelinkedUsersRecord>>(
+                                  stream: queryDelinkedUsersRecord(
+                                    queryBuilder: (delinkedUsersRecord) =>
+                                        delinkedUsersRecord.where('userCode',
+                                            isEqualTo: uDuserCodeValue),
+                                    singleRecord: true,
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 40,
+                                          height: 40,
+                                          child: SpinKitPumpingHeart(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            size: 40,
                                           ),
                                         ),
-                                        (r) => false,
                                       );
-                                    },
-                                    text: 'Add Child',
-                                    options: FFButtonOptions(
-                                      width: 300,
-                                      height: 70,
-                                      color: FlutterFlowTheme.tertiaryColor,
-                                      textStyle: FlutterFlowTheme.title1,
-                                      elevation: 0,
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
-                                      ),
-                                      borderRadius: 12,
-                                    ),
-                                  );
-                                },
-                              ),
-                              Text(
-                                'Tap above to complete request',
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: Color(0x43000000),
+                                    }
+                                    List<DelinkedUsersRecord>
+                                        columnDelinkedUsersRecordList =
+                                        snapshot.data;
+                                    final columnDelinkedUsersRecord =
+                                        columnDelinkedUsersRecordList.isNotEmpty
+                                            ? columnDelinkedUsersRecordList
+                                                .first
+                                            : null;
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        if (functions.getAndOutput(
+                                                FFAppState().hasReferral,
+                                                FFAppState().validated) ??
+                                            true)
+                                          StreamBuilder<List<UsersRecord>>(
+                                            stream: queryUsersRecord(
+                                              queryBuilder: (usersRecord) =>
+                                                  usersRecord.where('userCode',
+                                                      isEqualTo:
+                                                          referralController
+                                                              .text),
+                                              singleRecord: true,
+                                            ),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 40,
+                                                    height: 40,
+                                                    child: SpinKitPumpingHeart(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                      size: 40,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              List<UsersRecord>
+                                                  addUsersRecordList =
+                                                  snapshot.data;
+                                              final addUsersRecord =
+                                                  addUsersRecordList.isNotEmpty
+                                                      ? addUsersRecordList.first
+                                                      : null;
+                                              return FFButtonWidget(
+                                                onPressed: () async {
+                                                  final userHierarchiesCreateData =
+                                                      createUserHierarchiesRecordData(
+                                                    hierarchyUser:
+                                                        columnDelinkedUsersRecord
+                                                            .userRef,
+                                                    parentRef:
+                                                        actionsUserHierarchiesRecord
+                                                            .hierarchyUser,
+                                                    hasParent: true,
+                                                    hasLeft: false,
+                                                    hasRight: false,
+                                                    hasReferral: true,
+                                                    referralParent:
+                                                        addUsersRecord
+                                                            .reference,
+                                                    userCode:
+                                                        columnDelinkedUsersRecord
+                                                            .userCode,
+                                                  );
+                                                  await UserHierarchiesRecord
+                                                      .collection
+                                                      .doc()
+                                                      .set(
+                                                          userHierarchiesCreateData);
+
+                                                  final userHierarchiesUpdateData =
+                                                      createUserHierarchiesRecordData(
+                                                    rightChildRef:
+                                                        columnDelinkedUsersRecord
+                                                            .userRef,
+                                                    hasRight: true,
+                                                  );
+                                                  await widget.userHierarchyRef
+                                                      .update(
+                                                          userHierarchiesUpdateData);
+                                                  await columnDelinkedUsersRecord
+                                                      .reference
+                                                      .delete();
+                                                  await Navigator
+                                                      .pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          MyHierarchyWidget(
+                                                        userProfile:
+                                                            currentUserReference,
+                                                      ),
+                                                    ),
+                                                    (r) => false,
+                                                  );
+                                                },
+                                                text: 'Add Child',
+                                                options: FFButtonOptions(
+                                                  width: 250,
+                                                  height: 70,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .tertiaryColor,
+                                                  textStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .title1,
+                                                  elevation: 0,
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .grayDark,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius: 12,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        if (!(functions.getAndOutput(
+                                                FFAppState().hasReferral,
+                                                FFAppState().validated)) ??
+                                            true)
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              final userHierarchiesCreateData =
+                                                  createUserHierarchiesRecordData(
+                                                hierarchyUser:
+                                                    columnDelinkedUsersRecord
+                                                        .userRef,
+                                                parentRef:
+                                                    actionsUserHierarchiesRecord
+                                                        .hierarchyUser,
+                                                hasParent: true,
+                                                hasReferral: true,
+                                                referralParent:
+                                                    currentUserReference,
+                                                hasLeft: false,
+                                                hasRight: false,
+                                                userCode:
+                                                    columnDelinkedUsersRecord
+                                                        .userCode,
+                                              );
+                                              await UserHierarchiesRecord
+                                                  .collection
+                                                  .doc()
+                                                  .set(
+                                                      userHierarchiesCreateData);
+
+                                              final userHierarchiesUpdateData =
+                                                  createUserHierarchiesRecordData(
+                                                rightChildRef:
+                                                    columnDelinkedUsersRecord
+                                                        .userRef,
+                                                hasRight: true,
+                                              );
+                                              await widget.userHierarchyRef
+                                                  .update(
+                                                      userHierarchiesUpdateData);
+                                              await columnDelinkedUsersRecord
+                                                  .reference
+                                                  .delete();
+                                              await Navigator
+                                                  .pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      MyHierarchyWidget(
+                                                    userProfile:
+                                                        currentUserReference,
+                                                  ),
+                                                ),
+                                                (r) => false,
+                                              );
+                                            },
+                                            text: 'Add Child',
+                                            options: FFButtonOptions(
+                                              width: 250,
+                                              height: 70,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title1,
+                                              elevation: 0,
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          ),
+                                      ],
+                                    );
+                                  },
                                 ),
-                              ),
-                            ],
-                          );
-                        },
+                              ],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -932,8 +1373,8 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    'No referral available or no use to add as your child.\n\nfor more contact your Administrator.',
-                    style: FlutterFlowTheme.title2,
+                    'No referral available or no user to add as your child.\n\nfor more information contact your Administrator.',
+                    style: FlutterFlowTheme.of(context).title2,
                   ),
                 ],
               ),

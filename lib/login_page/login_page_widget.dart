@@ -34,7 +34,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: Column(
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -45,7 +45,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 1,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.background,
+                  color: FlutterFlowTheme.of(context).background,
                   image: DecorationImage(
                     fit: BoxFit.fitWidth,
                     image: Image.asset(
@@ -83,11 +83,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   EdgeInsetsDirectional.fromSTEB(6, 0, 0, 0),
                               child: Text(
                                 'Samarthya Bhumi',
-                                style: FlutterFlowTheme.title2.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: Color(0xFFA5325A),
-                                  fontSize: 35,
-                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .title2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFFA5325A),
+                                      fontSize: 35,
+                                    ),
                               ),
                             ),
                           ],
@@ -104,41 +106,49 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelText: 'Email Address',
-                                  labelStyle:
-                                      FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: Color(0x98FFFFFF),
-                                  ),
+                                  labelStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Color(0x98FFFFFF),
+                                      ),
                                   hintText: 'Enter your email...',
-                                  hintStyle:
-                                      FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: Color(0x98FFFFFF),
-                                  ),
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Color(0x98FFFFFF),
+                                      ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).grayDark,
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color:
+                                          FlutterFlowTheme.of(context).grayDark,
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   filled: true,
-                                  fillColor: FlutterFlowTheme.darkBackground,
+                                  fillColor: FlutterFlowTheme.of(context)
+                                      .darkBackground,
                                   contentPadding:
                                       EdgeInsetsDirectional.fromSTEB(
                                           20, 24, 20, 24),
                                 ),
-                                style: FlutterFlowTheme.bodyText1.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.textColor,
-                                ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: FlutterFlowTheme.of(context)
+                                          .textColor,
+                                    ),
                               ),
                               Padding(
                                 padding:
@@ -148,33 +158,38 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   obscureText: !passwordLoginVisibility,
                                   decoration: InputDecoration(
                                     labelText: 'Password',
-                                    labelStyle:
-                                        FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0x98FFFFFF),
-                                    ),
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Color(0x98FFFFFF),
+                                        ),
                                     hintText: 'Enter your password...',
-                                    hintStyle:
-                                        FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0x98FFFFFF),
-                                    ),
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .bodyText1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Color(0x98FFFFFF),
+                                        ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .grayDark,
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .grayDark,
                                         width: 1,
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     filled: true,
-                                    fillColor: FlutterFlowTheme.darkBackground,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .darkBackground,
                                     contentPadding:
                                         EdgeInsetsDirectional.fromSTEB(
                                             20, 24, 20, 24),
@@ -192,10 +207,13 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                       ),
                                     ),
                                   ),
-                                  style: FlutterFlowTheme.bodyText1.override(
-                                    fontFamily: 'Lexend Deca',
-                                    color: FlutterFlowTheme.textColor,
-                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.of(context)
+                                            .textColor,
+                                      ),
                                 ),
                               ),
                               Row(
@@ -221,11 +239,12 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         width: 180,
                                         height: 40,
                                         color: Color(0x001A1F24),
-                                        textStyle:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Colors.white,
-                                        ),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                            ),
                                         elevation: 0,
                                         borderSide: BorderSide(
                                           color: Colors.transparent,
@@ -259,12 +278,15 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     options: FFButtonOptions(
                                       width: 120,
                                       height: 50,
-                                      color: FlutterFlowTheme.primaryColor,
-                                      textStyle:
-                                          FlutterFlowTheme.subtitle2.override(
-                                        fontFamily: 'Lexend Deca',
-                                        color: FlutterFlowTheme.textColor,
-                                      ),
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: FlutterFlowTheme.of(context)
+                                                .textColor,
+                                          ),
                                       elevation: 3,
                                       borderSide: BorderSide(
                                         color: Colors.transparent,
@@ -284,7 +306,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         MediaQuery.of(context).size.width * 0.8,
                                     height: 44,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.background,
+                                      color: FlutterFlowTheme.of(context)
+                                          .background,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Row(
@@ -295,7 +318,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         Text(
                                           'Don\'t have account?',
                                           textAlign: TextAlign.start,
-                                          style: FlutterFlowTheme.bodyText1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
                                         ),
                                         FFButtonWidget(
                                           onPressed: () async {
@@ -311,14 +335,18 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                           options: FFButtonOptions(
                                             width: 80,
                                             height: 40,
-                                            color: FlutterFlowTheme.background,
-                                            textStyle: FlutterFlowTheme
-                                                .bodyText2
-                                                .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color:
-                                                  FlutterFlowTheme.primaryColor,
-                                            ),
+                                            color: FlutterFlowTheme.of(context)
+                                                .background,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyText2
+                                                    .override(
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
+                                                    ),
                                             borderSide: BorderSide(
                                               color: Colors.transparent,
                                               width: 1,
@@ -328,7 +356,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                         ),
                                         Icon(
                                           Icons.arrow_forward_rounded,
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                           size: 24,
                                         ),
                                       ],
@@ -338,6 +367,39 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                             ],
                           ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(24, 50, 24, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 0, 0, 5),
+                                  child: Text(
+                                    'Designed By',
+                                    style: FlutterFlowTheme.of(context)
+                                        .subtitle2
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Color(0xFFE49CAF),
+                                        ),
+                                  ),
+                                ),
+                                Image.asset(
+                                  'assets/images/Trademrk.png',
+                                  width: 150,
+                                  height: 30,
+                                  fit: BoxFit.cover,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ],

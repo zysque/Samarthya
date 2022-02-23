@@ -36,6 +36,9 @@ abstract class TransactionsRecord
   bool get status;
 
   @nullable
+  String get transactionID;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -43,7 +46,8 @@ abstract class TransactionsRecord
     ..transactionAmount = 0.0
     ..transactionType = ''
     ..mode = ''
-    ..status = false;
+    ..status = false
+    ..transactionID = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('transactions');
@@ -76,6 +80,7 @@ Map<String, dynamic> createTransactionsRecordData({
   String mode,
   DateTime transactionTime,
   bool status,
+  String transactionID,
 }) =>
     serializers.toFirestore(
         TransactionsRecord.serializer,
@@ -87,4 +92,5 @@ Map<String, dynamic> createTransactionsRecordData({
           ..commissionRef = commissionRef
           ..mode = mode
           ..transactionTime = transactionTime
-          ..status = status));
+          ..status = status
+          ..transactionID = transactionID));

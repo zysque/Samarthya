@@ -63,6 +63,9 @@ abstract class BookingsRecord
   DateTime get dueDate;
 
   @nullable
+  String get plotNo;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -77,7 +80,8 @@ abstract class BookingsRecord
     ..comments = ListBuilder()
     ..amountLeftToPay = 0.0
     ..creditStatus = false
-    ..dueAmount = 0.0;
+    ..dueAmount = 0.0
+    ..plotNo = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('bookings');
@@ -117,6 +121,7 @@ Map<String, dynamic> createBookingsRecordData({
   bool creditStatus,
   double dueAmount,
   DateTime dueDate,
+  String plotNo,
 }) =>
     serializers.toFirestore(
         BookingsRecord.serializer,
@@ -137,4 +142,5 @@ Map<String, dynamic> createBookingsRecordData({
           ..lastModified = lastModified
           ..creditStatus = creditStatus
           ..dueAmount = dueAmount
-          ..dueDate = dueDate));
+          ..dueDate = dueDate
+          ..plotNo = plotNo));

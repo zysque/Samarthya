@@ -5,7 +5,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 
-import '../flutter_flow/flutter_flow_theme.dart';
+import 'flutter_flow/flutter_flow_theme.dart';
+import 'flutter_flow/internationalization.dart';
 import 'package:samarthya/login_page/login_page_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
@@ -26,13 +27,23 @@ class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
+
+  static _MyAppState of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
 }
 
 class _MyAppState extends State<MyApp> {
+  Locale _locale;
+  ThemeMode _themeMode = ThemeMode.system;
   Stream<SamarthyaFirebaseUser> userStream;
   SamarthyaFirebaseUser initialUser;
   bool displaySplashImage = true;
   final authUserSub = authenticatedUserStream.listen((_) {});
+
+  void setLocale(Locale value) => setState(() => _locale = value);
+  void setThemeMode(ThemeMode mode) => setState(() {
+        _themeMode = mode;
+      });
 
   @override
   void initState() {
@@ -55,12 +66,16 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Samarthya',
       localizationsDelegates: [
+        FFLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
+      locale: _locale,
       supportedLocales: const [Locale('en', '')],
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(brightness: Brightness.light),
+      darkTheme: ThemeData(brightness: Brightness.dark),
+      themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
           ? Container(
               color: Colors.transparent,
@@ -110,13 +125,13 @@ class _NavBarPageState extends State<NavBarPage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         onTap: (i) => setState(() => _currentPage = tabs.keys.toList()[i]),
-        backgroundColor: FlutterFlowTheme.darkBackground,
-        selectedItemColor: FlutterFlowTheme.primaryColor,
-        unselectedItemColor: FlutterFlowTheme.grayLight,
+        backgroundColor: FlutterFlowTheme.of(context).darkBackground,
+        selectedItemColor: FlutterFlowTheme.of(context).primaryColor,
+        unselectedItemColor: FlutterFlowTheme.of(context).grayLight,
         showSelectedLabels: true,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home_outlined,
@@ -134,7 +149,7 @@ class _NavBarPageState extends State<NavBarPage> {
               FontAwesomeIcons.rProject,
               size: 24,
             ),
-            label: '',
+            label: 'Projects',
             tooltip: '',
           ),
           BottomNavigationBarItem(
@@ -146,7 +161,7 @@ class _NavBarPageState extends State<NavBarPage> {
               Icons.account_circle_rounded,
               size: 24,
             ),
-            label: '',
+            label: 'Profile',
             tooltip: '',
           )
         ],

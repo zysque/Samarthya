@@ -15,16 +15,16 @@
       ]
     },
     {
-      "collectionGroup": "bookings",
+      "collectionGroup": "plansAndRates",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "buyerRef",
+          "fieldPath": "projectRef",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "lastModified",
-          "order": "DESCENDING"
+          "fieldPath": "phaseCode",
+          "order": "ASCENDING"
         }
       ]
     },
@@ -34,10 +34,6 @@
       "fields": [
         {
           "fieldPath": "buyerRef",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "creditStatus",
           "order": "ASCENDING"
         },
         {
@@ -79,7 +75,7 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "bookingRef",
+          "fieldPath": "status",
           "order": "ASCENDING"
         },
         {
@@ -93,11 +89,33 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "commissionRef",
+          "fieldPath": "bookingRef",
           "order": "ASCENDING"
         },
         {
           "fieldPath": "transactionTime",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "buyerRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "creditStatus",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isApproved",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "lastModified",
           "order": "DESCENDING"
         }
       ]

@@ -6,8 +6,10 @@ import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,6 +32,7 @@ class _AdminBookingApprovalWidgetState
     extends State<AdminBookingApprovalWidget> {
   String emiTenureValue;
   TextEditingController areaController;
+  TextEditingController plotController;
   TextEditingController rateController;
   TextEditingController bookingAmtController;
   TextEditingController downPaymentController;
@@ -45,60 +48,67 @@ class _AdminBookingApprovalWidgetState
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: StreamBuilder<List<AdminConstsRecord>>(
-        stream: queryAdminConstsRecord(
-          singleRecord: true,
-        ),
-        builder: (context, snapshot) {
-          // Customize what your widget looks like when it's loading.
-          if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 40,
-                height: 40,
-                child: SpinKitPumpingHeart(
-                  color: FlutterFlowTheme.primaryColor,
-                  size: 40,
-                ),
+    return StreamBuilder<List<AdminConstsRecord>>(
+      stream: queryAdminConstsRecord(
+        singleRecord: true,
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 40,
+              height: 40,
+              child: SpinKitPumpingHeart(
+                color: FlutterFlowTheme.of(context).primaryColor,
+                size: 40,
               ),
-            );
-          }
-          List<AdminConstsRecord> adminBookingApprovalAdminConstsRecordList =
-              snapshot.data;
-          final adminBookingApprovalAdminConstsRecord =
-              adminBookingApprovalAdminConstsRecordList.isNotEmpty
-                  ? adminBookingApprovalAdminConstsRecordList.first
-                  : null;
-          return Scaffold(
-            key: scaffoldKey,
-            appBar: AppBar(
-              backgroundColor: FlutterFlowTheme.primaryColor,
-              automaticallyImplyLeading: false,
-              leading: InkWell(
-                onTap: () async {
-                  Navigator.pop(context);
-                },
-                child: Icon(
-                  Icons.chevron_left_rounded,
-                  color: FlutterFlowTheme.grayLight,
-                  size: 32,
-                ),
-              ),
-              title: Text(
-                'Approve Bookings',
-                style: FlutterFlowTheme.title1.override(
-                  fontFamily: 'Lexend Deca',
-                  color: FlutterFlowTheme.textColor,
-                ),
-              ),
-              actions: [],
-              centerTitle: true,
-              elevation: 0,
             ),
-            backgroundColor: FlutterFlowTheme.tertiaryColor,
-            body: StreamBuilder<BookingsRecord>(
+          );
+        }
+        List<AdminConstsRecord> adminBookingApprovalAdminConstsRecordList =
+            snapshot.data;
+        final adminBookingApprovalAdminConstsRecord =
+            adminBookingApprovalAdminConstsRecordList.isNotEmpty
+                ? adminBookingApprovalAdminConstsRecordList.first
+                : null;
+        return Scaffold(
+          key: scaffoldKey,
+          appBar: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+            automaticallyImplyLeading: false,
+            leading: InkWell(
+              onTap: () async {
+                await Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NavBarPage(initialPage: 'HomePage'),
+                  ),
+                  (r) => false,
+                );
+              },
+              child: Icon(
+                Icons.chevron_left_rounded,
+                color: FlutterFlowTheme.of(context).grayLight,
+                size: 32,
+              ),
+            ),
+            title: Text(
+              'Approve Bookings',
+              style: FlutterFlowTheme.of(context).title1.override(
+                    fontFamily: 'Lexend Deca',
+                    color: FlutterFlowTheme.of(context).textColor,
+                  ),
+            ),
+            actions: [],
+            centerTitle: true,
+            elevation: 0,
+          ),
+          backgroundColor: FlutterFlowTheme.of(context).tertiaryColor,
+          body: Form(
+            key: formKey,
+            autovalidateMode: AutovalidateMode.disabled,
+            child: StreamBuilder<BookingsRecord>(
               stream: BookingsRecord.getDocument(widget.bookingRef),
               builder: (context, snapshot) {
                 // Customize what your widget looks like when it's loading.
@@ -108,7 +118,7 @@ class _AdminBookingApprovalWidgetState
                       width: 40,
                       height: 40,
                       child: SpinKitPumpingHeart(
-                        color: FlutterFlowTheme.primaryColor,
+                        color: FlutterFlowTheme.of(context).primaryColor,
                         size: 40,
                       ),
                     ),
@@ -131,9 +141,8 @@ class _AdminBookingApprovalWidgetState
                       ),
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.76,
                         decoration: BoxDecoration(
-                          color: FlutterFlowTheme.darkBackground,
+                          color: FlutterFlowTheme.of(context).darkBackground,
                           borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(16),
                             bottomRight: Radius.circular(16),
@@ -161,8 +170,8 @@ class _AdminBookingApprovalWidgetState
                                           width: 40,
                                           height: 40,
                                           child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
                                             size: 40,
                                           ),
                                         ),
@@ -176,11 +185,13 @@ class _AdminBookingApprovalWidgetState
                                       children: [
                                         Text(
                                           projectProjectsRecord.projectName,
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                         Text(
                                           projectProjectsRecord.projectCity,
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                       ],
                                     );
@@ -201,8 +212,8 @@ class _AdminBookingApprovalWidgetState
                                           width: 40,
                                           height: 40,
                                           child: SpinKitPumpingHeart(
-                                            color:
-                                                FlutterFlowTheme.primaryColor,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
                                             size: 40,
                                           ),
                                         ),
@@ -217,7 +228,8 @@ class _AdminBookingApprovalWidgetState
                                       children: [
                                         Text(
                                           planPlansAndRatesRecord.phaseCode,
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                         Text(
                                           formatNumber(
@@ -228,7 +240,8 @@ class _AdminBookingApprovalWidgetState
                                             format: '',
                                             locale: '',
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                         Text(
                                           formatNumber(
@@ -236,7 +249,8 @@ class _AdminBookingApprovalWidgetState
                                                 .minBookingAmtPerc,
                                             formatType: FormatType.percent,
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                         ),
                                       ],
                                     );
@@ -254,7 +268,8 @@ class _AdminBookingApprovalWidgetState
                                         width: 40,
                                         height: 40,
                                         child: SpinKitPumpingHeart(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                           size: 40,
                                         ),
                                       ),
@@ -269,6 +284,58 @@ class _AdminBookingApprovalWidgetState
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 8, 0, 0),
                                         child: TextFormField(
+                                          controller: plotController ??=
+                                              TextEditingController(
+                                            text: columnBookingsRecord.plotNo,
+                                          ),
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Plot No',
+                                            hintText:
+                                                'Please enter plot number',
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
+                                                width: 1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            filled: true,
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20, 4, 20, 4),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
+                                          keyboardType: TextInputType.number,
+                                          validator: (val) {
+                                            if (val.isEmpty) {
+                                              return 'Field is required';
+                                            }
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 8, 0, 0),
+                                        child: TextFormField(
                                           controller: areaController ??=
                                               TextEditingController(
                                             text: columnBookingsRecord
@@ -278,45 +345,43 @@ class _AdminBookingApprovalWidgetState
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Plot Area',
-                                            labelStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             hintText:
                                                 'Please enter plot area in sqft',
-                                            hintStyle:
-                                                FlutterFlowTheme.subtitle1,
-                                            enabledBorder: UnderlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
+                                            filled: true,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                           keyboardType: TextInputType.number,
                                           validator: (val) {
                                             if (val.isEmpty) {
                                               return 'Field is required';
                                             }
-
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
                                             return null;
                                           },
                                         ),
@@ -325,59 +390,65 @@ class _AdminBookingApprovalWidgetState
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 8, 0, 0),
                                         child: TextFormField(
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            'rateController',
+                                            Duration(milliseconds: 200),
+                                            () => setState(() {}),
+                                          ),
                                           controller: rateController ??=
                                               TextEditingController(
-                                            text: formatNumber(
-                                              bookingDetailsPlansAndRatesRecord
-                                                  .fixedRatePerSqFt,
-                                              formatType: FormatType.custom,
-                                              currency: '',
-                                              format: '',
-                                              locale: '',
-                                            ),
+                                            text:
+                                                bookingDetailsPlansAndRatesRecord
+                                                    .fixedRatePerSqFt
+                                                    .toString(),
                                           ),
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Rate Per SqFt',
-                                            labelStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             hintText:
                                                 'Please enter rate per sqft',
-                                            hintStyle:
-                                                FlutterFlowTheme.subtitle1,
-                                            enabledBorder: UnderlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
+                                            filled: true,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
+                                            prefixIcon: FaIcon(
+                                              FontAwesomeIcons.rupeeSign,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayLight,
+                                            ),
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                           keyboardType: TextInputType.number,
                                           validator: (val) {
                                             if (val.isEmpty) {
                                               return 'Field is required';
                                             }
-
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
                                             return null;
                                           },
                                         ),
@@ -386,59 +457,64 @@ class _AdminBookingApprovalWidgetState
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 8, 0, 0),
                                         child: TextFormField(
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            'bookingAmtController',
+                                            Duration(milliseconds: 200),
+                                            () => setState(() {}),
+                                          ),
                                           controller: bookingAmtController ??=
                                               TextEditingController(
-                                            text: formatNumber(
-                                              columnBookingsRecord
-                                                  .bookingAmount,
-                                              formatType: FormatType.custom,
-                                              currency: '',
-                                              format: '',
-                                              locale: '',
-                                            ),
+                                            text: columnBookingsRecord
+                                                .bookingAmount
+                                                .toString(),
                                           ),
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Booking Amount',
-                                            labelStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             hintText:
                                                 'Please enter booking amount',
-                                            hintStyle:
-                                                FlutterFlowTheme.subtitle1,
-                                            enabledBorder: UnderlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
+                                            filled: true,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     20, 4, 20, 4),
+                                            prefixIcon: FaIcon(
+                                              FontAwesomeIcons.rupeeSign,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayLight,
+                                            ),
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                           keyboardType: TextInputType.number,
                                           validator: (val) {
                                             if (val.isEmpty) {
                                               return 'Field is required';
                                             }
-
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
                                             return null;
                                           },
                                         ),
@@ -447,58 +523,64 @@ class _AdminBookingApprovalWidgetState
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 8, 0, 0),
                                         child: TextFormField(
+                                          onChanged: (_) =>
+                                              EasyDebounce.debounce(
+                                            'downPaymentController',
+                                            Duration(milliseconds: 200),
+                                            () => setState(() {}),
+                                          ),
                                           controller: downPaymentController ??=
                                               TextEditingController(
-                                            text: formatNumber(
-                                              columnBookingsRecord.downPayment,
-                                              formatType: FormatType.custom,
-                                              currency: '',
-                                              format: '',
-                                              locale: '',
-                                            ),
+                                            text: columnBookingsRecord
+                                                .downPayment
+                                                .toString(),
                                           ),
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Down Payment',
-                                            labelStyle:
-                                                FlutterFlowTheme.subtitle1,
                                             hintText:
                                                 'Please enter booking amount',
-                                            hintStyle:
-                                                FlutterFlowTheme.subtitle1,
-                                            enabledBorder: UnderlineInputBorder(
+                                            enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
-                                            focusedBorder: UnderlineInputBorder(
+                                            focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color: Color(0x00000000),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 1,
                                               ),
                                               borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(4.0),
-                                                topRight: Radius.circular(4.0),
-                                              ),
+                                                  BorderRadius.circular(8),
                                             ),
+                                            filled: true,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    20, 0, 0, 0),
+                                                    20, 4, 20, 4),
+                                            prefixIcon: FaIcon(
+                                              FontAwesomeIcons.rupeeSign,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayLight,
+                                            ),
                                           ),
-                                          style: FlutterFlowTheme.subtitle1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .subtitle1,
                                           keyboardType: TextInputType.number,
                                           validator: (val) {
                                             if (val.isEmpty) {
                                               return 'Field is required';
                                             }
-
+                                            if (val.length < 1) {
+                                              return 'Requires at least 1 characters.';
+                                            }
                                             return null;
                                           },
                                         ),
@@ -524,14 +606,18 @@ class _AdminBookingApprovalWidgetState
                                               width: 200,
                                               height: 50,
                                               textStyle:
-                                                  FlutterFlowTheme.subtitle1,
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle1,
                                               hintText: 'Select EMI Tenure',
-                                              fillColor: FlutterFlowTheme
-                                                  .darkBackground,
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .darkBackground,
                                               elevation: 2,
-                                              borderColor: Colors.transparent,
+                                              borderColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayDark,
                                               borderWidth: 0,
-                                              borderRadius: 0,
+                                              borderRadius: 8,
                                               margin: EdgeInsetsDirectional
                                                   .fromSTEB(12, 4, 4, 4),
                                               hidesUnderline: true,
@@ -581,7 +667,9 @@ class _AdminBookingApprovalWidgetState
                                           children: [
                                             Text(
                                               'Monthly Installments',
-                                              style: FlutterFlowTheme.subtitle1,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .subtitle1,
                                             ),
                                             Padding(
                                               padding: EdgeInsetsDirectional
@@ -589,7 +677,8 @@ class _AdminBookingApprovalWidgetState
                                               child: FaIcon(
                                                 FontAwesomeIcons.rupeeSign,
                                                 color:
-                                                    FlutterFlowTheme.grayLight,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayLight,
                                                 size: 18,
                                               ),
                                             ),
@@ -597,26 +686,32 @@ class _AdminBookingApprovalWidgetState
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(5, 0, 0, 0),
                                               child: Text(
-                                                functions
-                                                    .emiCalculator(
-                                                        int.parse(areaController
-                                                                ?.text ??
-                                                            ''),
-                                                        int.parse(rateController
-                                                                ?.text ??
-                                                            ''),
-                                                        double.parse(
-                                                            bookingAmtController
-                                                                    ?.text ??
-                                                                ''),
-                                                        double.parse(
-                                                            downPaymentController
-                                                                    ?.text ??
-                                                                ''),
-                                                        emiTenureValue)
-                                                    .toString(),
+                                                valueOrDefault<String>(
+                                                  functions
+                                                      .emiCalculator(
+                                                          int.parse(
+                                                              areaController
+                                                                      ?.text ??
+                                                                  ''),
+                                                          int.parse(
+                                                              rateController
+                                                                      ?.text ??
+                                                                  ''),
+                                                          double.parse(
+                                                              bookingAmtController
+                                                                      ?.text ??
+                                                                  ''),
+                                                          double.parse(
+                                                              downPaymentController
+                                                                      ?.text ??
+                                                                  ''),
+                                                          emiTenureValue)
+                                                      .toString(),
+                                                  '0',
+                                                ),
                                                 style:
-                                                    FlutterFlowTheme.subtitle1,
+                                                    FlutterFlowTheme.of(context)
+                                                        .subtitle1,
                                               ),
                                             ),
                                           ],
@@ -624,18 +719,23 @@ class _AdminBookingApprovalWidgetState
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 10, 0, 0),
+                                            0, 10, 0, 10),
                                         child: TextFormField(
                                           controller: descriptionController,
                                           obscureText: false,
                                           decoration: InputDecoration(
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyText1,
                                             hintText: 'Booking  Description',
                                             hintStyle:
-                                                FlutterFlowTheme.bodyText1,
+                                                FlutterFlowTheme.of(context)
+                                                    .bodyText1,
                                             enabledBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.background,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 2,
                                               ),
                                               borderRadius:
@@ -644,24 +744,32 @@ class _AdminBookingApprovalWidgetState
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
                                                 color:
-                                                    FlutterFlowTheme.background,
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
                                                 width: 2,
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(8),
                                             ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .darkBackground,
                                             contentPadding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    20, 10, 24, 0),
+                                                    20, 4, 24, 4),
                                           ),
-                                          style: FlutterFlowTheme.bodyText1
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
                                               .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: FlutterFlowTheme.textColor,
-                                            fontSize: 13,
-                                          ),
+                                                fontFamily: 'Lexend Deca',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .textColor,
+                                                fontSize: 13,
+                                              ),
                                           textAlign: TextAlign.start,
-                                          maxLines: 12,
+                                          maxLines: 8,
                                         ),
                                       ),
                                     ],
@@ -674,12 +782,12 @@ class _AdminBookingApprovalWidgetState
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                       child: StreamBuilder<List<UserHierarchiesRecord>>(
                         stream: queryUserHierarchiesRecord(
                           queryBuilder: (userHierarchiesRecord) =>
                               userHierarchiesRecord.where('hierarchyUser',
-                                  isEqualTo: currentUserReference),
+                                  isEqualTo: columnBookingsRecord.buyerRef),
                           singleRecord: true,
                         ),
                         builder: (context, snapshot) {
@@ -690,122 +798,208 @@ class _AdminBookingApprovalWidgetState
                                 width: 40,
                                 height: 40,
                                 child: SpinKitPumpingHeart(
-                                  color: FlutterFlowTheme.primaryColor,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
                                   size: 40,
                                 ),
                               ),
                             );
                           }
                           List<UserHierarchiesRecord>
-                              columnUserHierarchiesRecordList = snapshot.data;
-                          final columnUserHierarchiesRecord =
-                              columnUserHierarchiesRecordList.isNotEmpty
-                                  ? columnUserHierarchiesRecordList.first
+                              actionsUserHierarchiesRecordList = snapshot.data;
+                          final actionsUserHierarchiesRecord =
+                              actionsUserHierarchiesRecordList.isNotEmpty
+                                  ? actionsUserHierarchiesRecordList.first
                                   : null;
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              FFButtonWidget(
-                                onPressed: () async {
-                                  if (!formKey.currentState.validate()) {
-                                    return;
+                              StreamBuilder<List<CalculationsRecord>>(
+                                stream: queryCalculationsRecord(
+                                  queryBuilder: (calculationsRecord) =>
+                                      calculationsRecord.where('userRef',
+                                          isEqualTo:
+                                              columnBookingsRecord.buyerRef),
+                                  singleRecord: true,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: SpinKitPumpingHeart(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 40,
+                                        ),
+                                      ),
+                                    );
                                   }
-                                  final bookingsUpdateData = {
-                                    ...createBookingsRecordData(
-                                      totalAmountToPay:
-                                          functions.getMultiplication(
-                                              double.parse(
-                                                  rateController?.text ?? ''),
-                                              double.parse(
-                                                  areaController?.text ?? '')),
-                                      areaBookedInSqft:
-                                          int.parse(areaController?.text ?? ''),
-                                      bookingAmount: double.parse(
-                                          bookingAmtController?.text ?? ''),
-                                      downPayment: double.parse(
-                                          downPaymentController?.text ?? ''),
-                                      emiAmount: functions.emiCalculator(
-                                          int.parse(areaController?.text ?? ''),
-                                          int.parse(rateController?.text ?? ''),
-                                          double.parse(
+                                  List<CalculationsRecord>
+                                      logBookingCalculationsRecordList =
+                                      snapshot.data;
+                                  final logBookingCalculationsRecord =
+                                      logBookingCalculationsRecordList
+                                              .isNotEmpty
+                                          ? logBookingCalculationsRecordList
+                                              .first
+                                          : null;
+                                  return FFButtonWidget(
+                                    onPressed: () async {
+                                      final bookingsUpdateData = {
+                                        ...createBookingsRecordData(
+                                          totalAmountToPay:
+                                              functions.getMultiplication(
+                                                  double.parse(
+                                                      rateController?.text ??
+                                                          ''),
+                                                  double.parse(
+                                                      areaController?.text ??
+                                                          '')),
+                                          areaBookedInSqft: int.parse(
+                                              areaController?.text ?? ''),
+                                          bookingAmount: double.parse(
                                               bookingAmtController?.text ?? ''),
-                                          double.parse(
+                                          downPayment: double.parse(
                                               downPaymentController?.text ??
                                                   ''),
-                                          emiTenureValue),
-                                      emiTenureInMonths:
-                                          functions.parseReplaceFromString(
-                                              emiTenureValue, ' Months'),
-                                      isApproved: true,
-                                      dueAmount: functions.getSum(
-                                          double.parse(
-                                              bookingAmtController?.text ?? ''),
-                                          double.parse(
-                                              downPaymentController?.text ??
-                                                  '')),
-                                      dueDate: functions.getNewDate(
-                                          getCurrentTimestamp,
-                                          0,
-                                          1,
-                                          adminBookingApprovalAdminConstsRecord
-                                              .emiPaymentDay),
-                                      lastModified: getCurrentTimestamp,
-                                      amountLeftToPay: functions.getDiff(
-                                          functions.getMultiplication(
-                                              double.parse(
+                                          emiAmount: functions.emiCalculator(
+                                              int.parse(
                                                   areaController?.text ?? ''),
-                                              double.parse(
-                                                  rateController?.text ?? '')),
-                                          functions.getSum(
+                                              int.parse(
+                                                  rateController?.text ?? ''),
                                               double.parse(
                                                   bookingAmtController?.text ??
                                                       ''),
                                               double.parse(
                                                   downPaymentController?.text ??
-                                                      ''))),
-                                    ),
-                                    'comments': FieldValue.arrayUnion(
-                                        [descriptionController.text]),
-                                  };
-                                  await widget.bookingRef
-                                      .update(bookingsUpdateData);
+                                                      ''),
+                                              emiTenureValue),
+                                          emiTenureInMonths:
+                                              functions.parseReplaceFromString(
+                                                  emiTenureValue, ' Months'),
+                                          isApproved: true,
+                                          dueAmount: functions.getSum(
+                                              double.parse(
+                                                  bookingAmtController?.text ??
+                                                      ''),
+                                              double.parse(
+                                                  downPaymentController?.text ??
+                                                      '')),
+                                          dueDate: functions.getNewDate(
+                                              getCurrentTimestamp,
+                                              0,
+                                              1,
+                                              adminBookingApprovalAdminConstsRecord
+                                                  .emiPaymentDay,
+                                              true,
+                                              getCurrentTimestamp),
+                                          lastModified: getCurrentTimestamp,
+                                          amountLeftToPay:
+                                              functions.getMultiplication(
+                                                  double.parse(
+                                                      rateController?.text ??
+                                                          ''),
+                                                  double.parse(
+                                                      areaController?.text ??
+                                                          '')),
+                                          plotNo: plotController?.text ?? '',
+                                        ),
+                                        'comments': FieldValue.arrayUnion(
+                                            [descriptionController.text]),
+                                      };
+                                      await widget.bookingRef
+                                          .update(bookingsUpdateData);
 
-                                  final commissionsCreateData =
-                                      createCommissionsRecordData(
-                                    commissionUser: columnUserHierarchiesRecord
-                                        .referralParent,
-                                    isDirect: true,
-                                    comments: descriptionController.text,
-                                    bookingRef: widget.bookingRef,
-                                    commissionAmount: 0.0,
-                                    unsettledAmount: 0.0,
-                                    lastModified: getCurrentTimestamp,
-                                  );
-                                  await CommissionsRecord.collection
-                                      .doc()
-                                      .set(commissionsCreateData);
-                                  await Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          AdminApprovalsWidget(),
+                                      final calculationsUpdateData =
+                                          createCalculationsRecordData(
+                                        emiDueAmount: functions.getSum(
+                                            logBookingCalculationsRecord
+                                                .emiDueAmount,
+                                            functions.getSum(
+                                                double.parse(
+                                                    bookingAmtController
+                                                            ?.text ??
+                                                        ''),
+                                                double.parse(
+                                                    downPaymentController
+                                                            ?.text ??
+                                                        ''))),
+                                        emiDueDate: functions.getNewDate(
+                                            getCurrentTimestamp,
+                                            0,
+                                            1,
+                                            adminBookingApprovalAdminConstsRecord
+                                                .emiPaymentDay,
+                                            (logBookingCalculationsRecord
+                                                    .emiDueAmount) <=
+                                                0.0,
+                                            logBookingCalculationsRecord
+                                                .emiDueDate),
+                                      );
+                                      await logBookingCalculationsRecord
+                                          .reference
+                                          .update(calculationsUpdateData);
+                                      if (actionsUserHierarchiesRecord
+                                          .hasReferral) {
+                                        final commissionsCreateData = {
+                                          ...createCommissionsRecordData(
+                                            commissionUser:
+                                                actionsUserHierarchiesRecord
+                                                    .referralParent,
+                                            isDirect: true,
+                                            bookingRef: widget.bookingRef,
+                                            commissionAmount: 0.0,
+                                            unsettledAmount: 0.0,
+                                            lastModified: getCurrentTimestamp,
+                                          ),
+                                          'comments': [
+                                            'Commission record created for new business booking recieved.'
+                                          ],
+                                        };
+                                        await CommissionsRecord.collection
+                                            .doc()
+                                            .set(commissionsCreateData);
+                                      }
+                                      final plansAndRatesUpdateData = {
+                                        ...createPlansAndRatesRecordData(
+                                          lastModified: getCurrentTimestamp,
+                                        ),
+                                        'plotsAvailable':
+                                            FieldValue.arrayRemove(
+                                                [plotController?.text ?? '']),
+                                      };
+                                      await columnBookingsRecord.planRef
+                                          .update(plansAndRatesUpdateData);
+                                      await Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              AdminApprovalsWidget(),
+                                        ),
+                                        (r) => false,
+                                      );
+                                    },
+                                    text: 'Approve',
+                                    options: FFButtonOptions(
+                                      width: 180,
+                                      height: 50,
+                                      color: FlutterFlowTheme.of(context)
+                                          .tertiaryColor,
+                                      textStyle:
+                                          FlutterFlowTheme.of(context).title1,
+                                      elevation: 0,
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .darkBackground,
+                                        width: 1,
+                                      ),
+                                      borderRadius: 12,
                                     ),
-                                    (r) => false,
                                   );
                                 },
-                                text: 'Approve',
-                                options: FFButtonOptions(
-                                  width: 180,
-                                  height: 50,
-                                  color: FlutterFlowTheme.tertiaryColor,
-                                  textStyle: FlutterFlowTheme.title1,
-                                  elevation: 0,
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.darkBackground,
-                                    width: 1,
-                                  ),
-                                  borderRadius: 12,
-                                ),
                               ),
                             ],
                           );
@@ -816,9 +1010,9 @@ class _AdminBookingApprovalWidgetState
                 );
               },
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

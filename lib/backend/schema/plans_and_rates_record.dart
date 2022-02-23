@@ -33,6 +33,12 @@ abstract class PlansAndRatesRecord
   DateTime get created;
 
   @nullable
+  DateTime get lastModified;
+
+  @nullable
+  BuiltList<String> get plotsAvailable;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -41,7 +47,8 @@ abstract class PlansAndRatesRecord
     ..fixedRatePerSqFt = 0
     ..minBookingAmtPerc = 0.0
     ..emiTenureOptions = ListBuilder()
-    ..paymentDaysAllowed = 0;
+    ..paymentDaysAllowed = 0
+    ..plotsAvailable = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('plansAndRates');
@@ -72,6 +79,7 @@ Map<String, dynamic> createPlansAndRatesRecordData({
   int paymentDaysAllowed,
   DocumentReference projectRef,
   DateTime created,
+  DateTime lastModified,
 }) =>
     serializers.toFirestore(
         PlansAndRatesRecord.serializer,
@@ -82,4 +90,6 @@ Map<String, dynamic> createPlansAndRatesRecordData({
           ..emiTenureOptions = null
           ..paymentDaysAllowed = paymentDaysAllowed
           ..projectRef = projectRef
-          ..created = created));
+          ..created = created
+          ..lastModified = lastModified
+          ..plotsAvailable = null));

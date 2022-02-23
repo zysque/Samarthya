@@ -29,13 +29,13 @@ class _UsesPolicyWidgetState extends State<UsesPolicyWidget> {
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'Uses Policy',
-          style: FlutterFlowTheme.title3,
+          style: FlutterFlowTheme.of(context).title3,
         ),
         actions: [],
         centerTitle: false,
@@ -52,7 +52,7 @@ class _UsesPolicyWidgetState extends State<UsesPolicyWidget> {
                 width: 40,
                 height: 40,
                 child: SpinKitPumpingHeart(
-                  color: FlutterFlowTheme.primaryColor,
+                  color: FlutterFlowTheme.of(context).primaryColor,
                   size: 40,
                 ),
               ),
@@ -71,7 +71,7 @@ class _UsesPolicyWidgetState extends State<UsesPolicyWidget> {
                       Expanded(
                         child: Text(
                           'Purpose of using this App',
-                          style: FlutterFlowTheme.title1,
+                          style: FlutterFlowTheme.of(context).title1,
                         ),
                       ),
                     ],
@@ -85,7 +85,7 @@ class _UsesPolicyWidgetState extends State<UsesPolicyWidget> {
                       Expanded(
                         child: Text(
                           'This app is being designed to handle to partners, sales and commisions data on a single platform.\n\nAdmin controls the direct and indirect sale commision percentages and Hierarchies.\n\nUser can register themselves, add themselves in hierarchy and their own legs to expand their hierarchy to increase their and hierarchical parents commissions.\n\nThe commisions would be of two types:\n1. Direct Sale commission:-\n    Direct sale commision is the commision amount user gets in respect of making a sale in any project as per the percentage specified by Admin.\n2. Indirect Sale commision\n    Indirect Sale commision is the commission user gets in respect of sale made by its hierarchical childs in any project as per the percentage specified by Admin.',
-                          style: FlutterFlowTheme.bodyText1,
+                          style: FlutterFlowTheme.of(context).bodyText1,
                         ),
                       ),
                     ],

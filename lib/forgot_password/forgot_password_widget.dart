@@ -36,24 +36,24 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'Forgot Password',
-          style: FlutterFlowTheme.title3,
+          style: FlutterFlowTheme.of(context).title3,
         ),
         actions: [],
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 1,
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.background,
+          color: FlutterFlowTheme.of(context).background,
           image: DecorationImage(
             fit: BoxFit.fitWidth,
             image: Image.asset(
@@ -72,7 +72,7 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                   Expanded(
                     child: Text(
                       'Enter the email associated with your account and we will send you a verification code.',
-                      style: FlutterFlowTheme.bodyText1,
+                      style: FlutterFlowTheme.of(context).bodyText1,
                     ),
                   ),
                 ],
@@ -85,38 +85,38 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                 obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'Email Address',
-                  labelStyle: FlutterFlowTheme.bodyText1.override(
-                    fontFamily: 'Lexend Deca',
-                    color: Color(0x98FFFFFF),
-                  ),
+                  labelStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Lexend Deca',
+                        color: Color(0x98FFFFFF),
+                      ),
                   hintText: 'Enter your email...',
-                  hintStyle: FlutterFlowTheme.bodyText1.override(
-                    fontFamily: 'Lexend Deca',
-                    color: Color(0x98FFFFFF),
-                  ),
+                  hintStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Lexend Deca',
+                        color: Color(0x98FFFFFF),
+                      ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0x00000000),
+                      color: FlutterFlowTheme.of(context).grayDark,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                      color: Color(0x00000000),
+                      color: FlutterFlowTheme.of(context).grayDark,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   filled: true,
-                  fillColor: FlutterFlowTheme.darkBackground,
+                  fillColor: FlutterFlowTheme.of(context).darkBackground,
                   contentPadding:
                       EdgeInsetsDirectional.fromSTEB(20, 24, 20, 24),
                 ),
-                style: FlutterFlowTheme.bodyText1.override(
-                  fontFamily: 'Lexend Deca',
-                  color: FlutterFlowTheme.tertiaryColor,
-                ),
+                style: FlutterFlowTheme.of(context).bodyText1.override(
+                      fontFamily: 'Lexend Deca',
+                      color: FlutterFlowTheme.of(context).tertiaryColor,
+                    ),
               ),
             ),
             Padding(
@@ -142,11 +142,11 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
                 options: FFButtonOptions(
                   width: 190,
                   height: 50,
-                  color: FlutterFlowTheme.primaryColor,
-                  textStyle: FlutterFlowTheme.subtitle2.override(
-                    fontFamily: 'Lexend Deca',
-                    color: FlutterFlowTheme.textColor,
-                  ),
+                  color: FlutterFlowTheme.of(context).primaryColor,
+                  textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                        fontFamily: 'Lexend Deca',
+                        color: FlutterFlowTheme.of(context).textColor,
+                      ),
                   elevation: 3,
                   borderSide: BorderSide(
                     color: Colors.transparent,

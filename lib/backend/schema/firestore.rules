@@ -32,7 +32,7 @@ service cloud.firestore {
     match /adminConsts/{document} {
       allow create: if false;
       allow read: if true;
-      allow write: if resource.data.adminUsers == /databases/$(database)/documents/users/$(request.auth.uid);
+      allow write: if request.auth != null;
       allow delete: if false;
     }
 

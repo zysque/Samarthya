@@ -36,7 +36,7 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
               width: 40,
               height: 40,
               child: SpinKitPumpingHeart(
-                color: FlutterFlowTheme.primaryColor,
+                color: FlutterFlowTheme.of(context).primaryColor,
                 size: 40,
               ),
             ),
@@ -44,10 +44,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
         }
         final containerBookingsRecord = snapshot.data;
         return Container(
-          width: double.infinity,
-          height: double.infinity,
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.darkBackground,
+            color: FlutterFlowTheme.of(context).darkBackground,
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -86,7 +84,7 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                           width: 40,
                           height: 40,
                           child: SpinKitPumpingHeart(
-                            color: FlutterFlowTheme.primaryColor,
+                            color: FlutterFlowTheme.of(context).primaryColor,
                             size: 40,
                           ),
                         ),
@@ -95,9 +93,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                     final containerProjectsRecord = snapshot.data;
                     return Container(
                       width: MediaQuery.of(context).size.width,
-                      height: 70,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.primaryColor,
+                        color: FlutterFlowTheme.of(context).primaryColor,
                       ),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 0),
@@ -114,7 +111,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                         0, 4, 0, 0),
                                     child: Text(
                                       'Project Name',
-                                      style: FlutterFlowTheme.title3,
+                                      style:
+                                          FlutterFlowTheme.of(context).title3,
                                     ),
                                   ),
                                 ),
@@ -124,7 +122,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                         0, 4, 0, 0),
                                     child: Text(
                                       containerProjectsRecord.projectName,
-                                      style: FlutterFlowTheme.title3,
+                                      style:
+                                          FlutterFlowTheme.of(context).title3,
                                     ),
                                   ),
                                 ),
@@ -140,17 +139,23 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                 children: [
                                   Text(
                                     'Project City',
-                                    style: FlutterFlowTheme.subtitle1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .subtitle1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                        ),
                                   ),
                                   Text(
                                     containerProjectsRecord.projectCity,
-                                    style: FlutterFlowTheme.subtitle1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.textColor,
-                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .subtitle1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .textColor,
+                                        ),
                                   ),
                                 ],
                               ),
@@ -162,12 +167,12 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                   },
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 417,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.background,
+                      color: FlutterFlowTheme.of(context).background,
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -176,10 +181,11 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                           child: Text(
                             'Purchase Details',
-                            style: FlutterFlowTheme.subtitle1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0xFFDFD8D8),
-                            ),
+                            style:
+                                FlutterFlowTheme.of(context).subtitle1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0xFFDFD8D8),
+                                    ),
                           ),
                         ),
                         Padding(
@@ -198,18 +204,20 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                   children: [
                                     Text(
                                       'Total Amount',
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                     Text(
                                       formatNumber(
                                         containerBookingsRecord
                                             .totalAmountToPay,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ],
                                 ),
@@ -224,12 +232,14 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                   children: [
                                     Text(
                                       'Area Booked in SQFT',
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                     Text(
                                       containerBookingsRecord.areaBookedInSqft
                                           .toString(),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ],
                                 ),
@@ -244,17 +254,19 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                   children: [
                                     Text(
                                       'Booking Amount',
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                     Text(
                                       formatNumber(
                                         containerBookingsRecord.bookingAmount,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ],
                                 ),
@@ -269,17 +281,19 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                   children: [
                                     Text(
                                       'Down Payment',
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                     Text(
                                       formatNumber(
                                         containerBookingsRecord.downPayment,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ],
                                 ),
@@ -294,17 +308,19 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                   children: [
                                     Text(
                                       'Monthly Installments',
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                     Text(
                                       formatNumber(
                                         containerBookingsRecord.emiAmount,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ],
                                 ),
@@ -319,12 +335,14 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                   children: [
                                     Text(
                                       'EMI Tenure (In Months)',
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                     Text(
                                       containerBookingsRecord.emiTenureInMonths
                                           .toString(),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ],
                                 ),
@@ -339,7 +357,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                   children: [
                                     Text(
                                       'Booked',
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -347,7 +366,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                         Text(
                                           dateTimeFormat('EEEE',
                                               containerBookingsRecord.created),
-                                          style: FlutterFlowTheme.bodyText1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
                                         ),
                                         Padding(
                                           padding:
@@ -358,7 +378,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                                 'yMMMd',
                                                 containerBookingsRecord
                                                     .created),
-                                            style: FlutterFlowTheme.bodyText1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
                                           ),
                                         ),
                                         Padding(
@@ -370,7 +391,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                                 'jms',
                                                 containerBookingsRecord
                                                     .created),
-                                            style: FlutterFlowTheme.bodyText1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
                                           ),
                                         ),
                                       ],
@@ -388,17 +410,19 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                   children: [
                                     Text(
                                       'Amount Left to Pay',
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                     Text(
                                       formatNumber(
                                         containerBookingsRecord.amountLeftToPay,
                                         formatType: FormatType.custom,
-                                        currency: '',
+                                        currency: 'Rs',
                                         format: '',
                                         locale: '',
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                   ],
                                 ),
@@ -413,7 +437,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                   children: [
                                     Text(
                                       'Last Payed',
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                     ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -423,7 +448,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                               'EEEE',
                                               containerBookingsRecord
                                                   .lastModified),
-                                          style: FlutterFlowTheme.bodyText1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
                                         ),
                                         Padding(
                                           padding:
@@ -434,7 +460,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                                 'yMMMd',
                                                 containerBookingsRecord
                                                     .lastModified),
-                                            style: FlutterFlowTheme.bodyText1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
                                           ),
                                         ),
                                         Padding(
@@ -446,7 +473,8 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                                 'jms',
                                                 containerBookingsRecord
                                                     .lastModified),
-                                            style: FlutterFlowTheme.bodyText1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
                                           ),
                                         ),
                                       ],
@@ -470,11 +498,14 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                             switchListTileValue1 = newValue),
                                         title: Text(
                                           'Approved',
-                                          style: FlutterFlowTheme.bodyText1
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
                                               .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: FlutterFlowTheme.grayLight,
-                                          ),
+                                                fontFamily: 'Lexend Deca',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayLight,
+                                              ),
                                         ),
                                         tileColor: Color(0xFFF5F5F5),
                                         dense: false,
@@ -502,11 +533,14 @@ class _BookingDetailsAdminWidgetState extends State<BookingDetailsAdminWidget> {
                                             switchListTileValue2 = newValue),
                                         title: Text(
                                           'Fully Paid',
-                                          style: FlutterFlowTheme.bodyText1
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
                                               .override(
-                                            fontFamily: 'Lexend Deca',
-                                            color: FlutterFlowTheme.grayLight,
-                                          ),
+                                                fontFamily: 'Lexend Deca',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayLight,
+                                              ),
                                         ),
                                         tileColor: Color(0xFFF5F5F5),
                                         dense: false,

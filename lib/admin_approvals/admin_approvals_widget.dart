@@ -1,10 +1,11 @@
 import '../admin_booking_approval/admin_booking_approval_widget.dart';
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
-import '../components/payment_approvals_widget.dart';
+import '../components/user_details_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
+import '../payment_approvals/payment_approvals_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -66,97 +67,109 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.darkBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
+        leading: InkWell(
+          onTap: () async {
+            await Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NavBarPage(initialPage: 'HomePage'),
+              ),
+              (r) => false,
+            );
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.of(context).grayLight,
+            size: 32,
+          ),
+        ),
         title: Text(
           'Approvals',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
-          ),
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  StreamBuilder<List<BookingsRecord>>(
-                    stream: queryBookingsRecord(
-                      queryBuilder: (bookingsRecord) => bookingsRecord
-                          .where('isApproved', isEqualTo: false)
-                          .orderBy('lastModified', descending: true),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    StreamBuilder<List<BookingsRecord>>(
+                      stream: queryBookingsRecord(
+                        queryBuilder: (bookingsRecord) => bookingsRecord
+                            .where('isApproved', isEqualTo: false)
+                            .orderBy('lastModified', descending: true),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: SpinKitPumpingHeart(
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                                size: 40,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<BookingsRecord> listViewBookingsRecordList =
-                          snapshot.data;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewBookingsRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewBookingsRecord =
-                              listViewBookingsRecordList[listViewIndex];
-                          return Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
-                            child: StreamBuilder<ProjectsRecord>(
-                              stream: ProjectsRecord.getDocument(
-                                  listViewBookingsRecord.projectRef),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 40,
-                                      height: 40,
-                                      child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.primaryColor,
-                                        size: 40,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final containerProjectsRecord = snapshot.data;
-                                return InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            AdminBookingApprovalWidget(
-                                          bookingRef:
-                                              listViewBookingsRecord.reference,
+                          );
+                        }
+                        List<BookingsRecord> listViewBookingsRecordList =
+                            snapshot.data;
+                        if (listViewBookingsRecordList.isEmpty) {
+                          return Image.asset(
+                            'assets/images/df3hg_',
+                          );
+                        }
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listViewBookingsRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewBookingsRecord =
+                                listViewBookingsRecordList[listViewIndex];
+                            return Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
+                              child: StreamBuilder<ProjectsRecord>(
+                                stream: ProjectsRecord.getDocument(
+                                    listViewBookingsRecord.projectRef),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: SpinKitPumpingHeart(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 40,
                                         ),
                                       ),
                                     );
-                                  },
-                                  child: Container(
+                                  }
+                                  final containerProjectsRecord = snapshot.data;
+                                  return Container(
                                     width: 100,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.primaryColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Padding(
@@ -179,80 +192,151 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                Text(
-                                                  containerProjectsRecord
-                                                      .projectName,
-                                                  style: FlutterFlowTheme
-                                                      .subtitle1
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 4),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        listViewBookingsRecord
+                                                            .areaBookedInSqft
+                                                            .toString(),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    2, 0, 0, 0),
+                                                        child: Text(
+                                                          'SQFT',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
-                                                Icon(
-                                                  Icons
-                                                      .arrow_forward_ios_rounded,
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                  size: 16,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  containerProjectsRecord
-                                                      .projectCity,
-                                                  style: FlutterFlowTheme
-                                                      .subtitle2
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return Padding(
+                                                          padding:
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .viewInsets,
+                                                          child:
+                                                              UserDetailsWidget(
+                                                            userDetails:
+                                                                listViewBookingsRecord
+                                                                    .buyerRef,
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Icon(
+                                                    Icons.person,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
                                                         .textColor,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  listViewBookingsRecord
-                                                      .areaBookedInSqft
-                                                      .toString(),
-                                                  style: FlutterFlowTheme
-                                                      .subtitle2
-                                                      .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
+                                                    size: 30,
                                                   ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
-                                                      .fromSTEB(2, 0, 0, 0),
-                                                  child: Text(
-                                                    'SQFT',
-                                                    style: FlutterFlowTheme
-                                                        .subtitle2
-                                                        .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
+                                                      .fromSTEB(10, 0, 0, 0),
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      await Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              AdminBookingApprovalWidget(
+                                                            bookingRef:
+                                                                listViewBookingsRecord
+                                                                    .reference,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      Icons.approval,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                      size: 30,
                                                     ),
                                                   ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0, 0, 0, 4),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Text(
+                                                  containerProjectsRecord
+                                                      .projectName,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .subtitle1
+                                                      .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
+                                                ),
+                                                Text(
+                                                  containerProjectsRecord
+                                                      .projectCity,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                               ],
                                             ),
@@ -268,15 +352,18 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       .totalAmountToPay,
                                                   formatType:
                                                       FormatType.compact,
-                                                  currency: '',
+                                                  currency: 'Rs',
                                                 ),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                               Padding(
                                                 padding: EdgeInsetsDirectional
@@ -287,44 +374,61 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                         .amountLeftToPay,
                                                     formatType:
                                                         FormatType.compact,
-                                                    currency: '',
+                                                    currency: 'Rs',
                                                   ),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                               ),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
                                               Text(
                                                 formatNumber(
                                                   listViewBookingsRecord
                                                       .emiAmount,
                                                   formatType:
                                                       FormatType.compact,
-                                                  currency: '',
+                                                  currency: 'Rs',
                                                 ),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                               Text(
                                                 listViewBookingsRecord
                                                     .emiTenureInMonths
                                                     .toString(),
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -343,24 +447,29 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       'relative',
                                                       listViewBookingsRecord
                                                           .created),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    fontSize: 14,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
                                                 ),
                                                 if (listViewBookingsRecord
                                                         .creditStatus ??
                                                     true)
                                                   Text(
                                                     'Running EMIs',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: Color(0xFFE91E63),
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color:
+                                                              Color(0xFFE91E63),
+                                                        ),
                                                   ),
                                               ],
                                             ),
@@ -368,109 +477,90 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                         ],
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ).animated(
-                          [animationsMap['listViewOnPageLoadAnimation1']]);
-                    },
-                  ),
-                ],
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ).animated(
+                            [animationsMap['listViewOnPageLoadAnimation1']]);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  StreamBuilder<List<TransactionsRecord>>(
-                    stream: queryTransactionsRecord(
-                      queryBuilder: (transactionsRecord) => transactionsRecord
-                          .where('transactionUser',
-                              isEqualTo: currentUserReference)
-                          .orderBy('transactionTime', descending: true),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
-                              size: 40,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    StreamBuilder<List<TransactionsRecord>>(
+                      stream: queryTransactionsRecord(
+                        queryBuilder: (transactionsRecord) => transactionsRecord
+                            .where('status', isEqualTo: false)
+                            .orderBy('transactionTime', descending: true),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 40,
+                              height: 40,
+                              child: SpinKitPumpingHeart(
+                                color:
+                                    FlutterFlowTheme.of(context).primaryColor,
+                                size: 40,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<TransactionsRecord> listViewTransactionsRecordList =
-                          snapshot.data;
-                      if (listViewTransactionsRecordList.isEmpty) {
-                        return Center(
-                          child: Image.asset(
-                            'assets/images/NoSale.JPG',
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewTransactionsRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTransactionsRecord =
-                              listViewTransactionsRecordList[listViewIndex];
-                          return Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
-                            child: StreamBuilder<BookingsRecord>(
-                              stream: BookingsRecord.getDocument(
-                                  listViewTransactionsRecord.bookingRef),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 40,
-                                      height: 40,
-                                      child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.primaryColor,
-                                        size: 40,
+                          );
+                        }
+                        List<TransactionsRecord>
+                            listViewTransactionsRecordList = snapshot.data;
+                        if (listViewTransactionsRecordList.isEmpty) {
+                          return Center(
+                            child: Image.network(
+                              '',
+                            ),
+                          );
+                        }
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: listViewTransactionsRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewTransactionsRecord =
+                                listViewTransactionsRecordList[listViewIndex];
+                            return Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
+                              child: StreamBuilder<BookingsRecord>(
+                                stream: BookingsRecord.getDocument(
+                                    listViewTransactionsRecord.bookingRef),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 40,
+                                        height: 40,
+                                        child: SpinKitPumpingHeart(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                          size: 40,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }
-                                final containerBookingsRecord = snapshot.data;
-                                return InkWell(
-                                  onTap: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.of(context).viewInsets,
-                                          child: PaymentApprovalsWidget(
-                                            transRef: listViewTransactionsRecord
-                                                .reference,
-                                            isCommission:
-                                                (listViewTransactionsRecord
-                                                        .transactionType) ==
-                                                    'Commission',
-                                          ),
-                                        );
-                                      },
                                     );
-                                  },
-                                  child: Container(
+                                  }
+                                  final containerBookingsRecord = snapshot.data;
+                                  return Container(
                                     width: 100,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.primaryColor,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
                                       borderRadius: BorderRadius.circular(8),
                                     ),
                                     child: Padding(
@@ -494,23 +584,69 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       .spaceBetween,
                                               children: [
                                                 Text(
-                                                  formatNumber(
-                                                    listViewTransactionsRecord
-                                                        .transactionAmount,
-                                                    formatType:
-                                                        FormatType.custom,
-                                                    currency: '',
-                                                    format: '',
-                                                    locale: '',
-                                                  ),
-                                                  style:
-                                                      FlutterFlowTheme.title3,
-                                                ),
-                                                Text(
                                                   listViewTransactionsRecord
-                                                      .mode,
-                                                  style:
-                                                      FlutterFlowTheme.title3,
+                                                      .transactionID,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title3,
+                                                ),
+                                                InkWell(
+                                                  onTap: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return Padding(
+                                                          padding:
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .viewInsets,
+                                                          child:
+                                                              UserDetailsWidget(
+                                                            userDetails:
+                                                                listViewTransactionsRecord
+                                                                    .transactionUser,
+                                                          ),
+                                                        );
+                                                      },
+                                                    );
+                                                  },
+                                                  child: Icon(
+                                                    Icons.person,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .textColor,
+                                                    size: 30,
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(10, 0, 0, 0),
+                                                  child: InkWell(
+                                                    onTap: () async {
+                                                      await Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              PaymentApprovalsWidget(
+                                                            transactionDetails:
+                                                                listViewTransactionsRecord
+                                                                    .reference,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Icon(
+                                                      Icons.approval,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                      size: 30,
+                                                    ),
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -525,15 +661,40 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                   MainAxisAlignment.start,
                                               children: [
                                                 Text(
+                                                  formatNumber(
+                                                    listViewTransactionsRecord
+                                                        .transactionAmount,
+                                                    formatType:
+                                                        FormatType.custom,
+                                                    currency: '',
+                                                    format: '',
+                                                    locale: '',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title3,
+                                                ),
+                                                Text(
                                                   listViewTransactionsRecord
                                                       .transactionType,
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
+                                                ),
+                                                Text(
+                                                  listViewTransactionsRecord
+                                                      .mode,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .title3,
                                                 ),
                                               ],
                                             ),
@@ -557,8 +718,10 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       height: 40,
                                                       child:
                                                           SpinKitPumpingHeart(
-                                                        color: FlutterFlowTheme
-                                                            .primaryColor,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
                                                         size: 40,
                                                       ),
                                                     ),
@@ -576,14 +739,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     Text(
                                                       rowProjectsRecord
                                                           .projectName,
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -593,15 +759,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       child: Text(
                                                         rowProjectsRecord
                                                             .projectCity,
-                                                        style: FlutterFlowTheme
-                                                            .subtitle2
-                                                            .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color:
-                                                              FlutterFlowTheme
-                                                                  .textColor,
-                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
                                                       ),
                                                     ),
                                                   ],
@@ -621,13 +789,16 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     containerBookingsRecord
                                                         .areaBookedInSqft
                                                         .toString(),
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                        ),
                                                   ),
                                                   Padding(
                                                     padding:
@@ -636,14 +807,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                                 2, 0, 0, 0),
                                                     child: Text(
                                                       'SQFT',
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                   ),
                                                 ],
@@ -659,13 +833,16 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                           FormatType.compact,
                                                       currency: '',
                                                     ),
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                        ),
                                                   ),
                                                   Padding(
                                                     padding:
@@ -674,14 +851,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                                 2, 0, 0, 0),
                                                     child: Text(
                                                       'Left',
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                   ),
                                                 ],
@@ -707,39 +887,45 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                           'EEEE',
                                                           listViewTransactionsRecord
                                                               .transactionTime),
-                                                      style: FlutterFlowTheme
-                                                          .bodyText2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                fontSize: 14,
+                                                              ),
                                                     ),
                                                     Text(
                                                       dateTimeFormat(
                                                           'yMMMd',
                                                           listViewTransactionsRecord
                                                               .transactionTime),
-                                                      style: FlutterFlowTheme
-                                                          .bodyText2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                fontSize: 14,
+                                                              ),
                                                     ),
                                                     Text(
                                                       dateTimeFormat(
                                                           'jms',
                                                           listViewTransactionsRecord
                                                               .transactionTime),
-                                                      style: FlutterFlowTheme
-                                                          .bodyText2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                fontSize: 14,
+                                                              ),
                                                     ),
                                                   ],
                                                 ),
@@ -748,12 +934,15 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                     true)
                                                   Text(
                                                     'Successful',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText1
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: Color(0xFF7CD514),
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color:
+                                                              Color(0xFF7CD514),
+                                                        ),
                                                   ),
                                               ],
                                             ),
@@ -761,17 +950,17 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                         ],
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ).animated(
-                          [animationsMap['listViewOnPageLoadAnimation2']]);
-                    },
-                  ),
-                ],
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        ).animated(
+                            [animationsMap['listViewOnPageLoadAnimation2']]);
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

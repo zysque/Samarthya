@@ -50,20 +50,30 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.darkBackground,
+        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
-        title: Text(
-          'Transactions',
-          style: FlutterFlowTheme.title1.override(
-            fontFamily: 'Lexend Deca',
-            color: FlutterFlowTheme.textColor,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left_rounded,
+            color: FlutterFlowTheme.of(context).grayLight,
+            size: 32,
           ),
+        ),
+        title: Text(
+          'My Transactions',
+          style: FlutterFlowTheme.of(context).title1.override(
+                fontFamily: 'Lexend Deca',
+                color: FlutterFlowTheme.of(context).textColor,
+              ),
         ),
         actions: [],
         centerTitle: true,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.background,
+      backgroundColor: FlutterFlowTheme.of(context).background,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -88,7 +98,7 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                             width: 40,
                             height: 40,
                             child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.primaryColor,
+                              color: FlutterFlowTheme.of(context).primaryColor,
                               size: 40,
                             ),
                           ),
@@ -99,7 +109,7 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                       if (listViewTransactionsRecordList.isEmpty) {
                         return Center(
                           child: Image.asset(
-                            'assets/images/NoSale.JPG',
+                            'assets/images/NoTransactions.JPG',
                           ),
                         );
                       }
@@ -125,7 +135,8 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                       width: 40,
                                       height: 40,
                                       child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.primaryColor,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
                                         size: 40,
                                       ),
                                     ),
@@ -135,7 +146,8 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                 return Container(
                                   width: 100,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.primaryColor,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Padding(
@@ -158,19 +170,24 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
+                                                listViewTransactionsRecord
+                                                    .transactionID,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .title3,
+                                              ),
+                                              Text(
                                                 formatNumber(
                                                   listViewTransactionsRecord
                                                       .transactionAmount,
                                                   formatType: FormatType.custom,
-                                                  currency: '',
+                                                  currency: 'Rs',
                                                   format: '',
                                                   locale: '',
                                                 ),
-                                                style: FlutterFlowTheme.title3,
-                                              ),
-                                              Text(
-                                                listViewTransactionsRecord.mode,
-                                                style: FlutterFlowTheme.title3,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .title3,
                                               ),
                                             ],
                                           ),
@@ -182,18 +199,34 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
                                                 listViewTransactionsRecord
                                                     .transactionType,
-                                                style: FlutterFlowTheme
+                                                style: FlutterFlowTheme.of(
+                                                        context)
                                                     .subtitle2
                                                     .override(
-                                                  fontFamily: 'Lexend Deca',
-                                                  color: FlutterFlowTheme
-                                                      .textColor,
-                                                ),
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
+                                              ),
+                                              Text(
+                                                listViewTransactionsRecord.mode,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .subtitle2
+                                                    .override(
+                                                      fontFamily: 'Lexend Deca',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .textColor,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -214,8 +247,10 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                     width: 40,
                                                     height: 40,
                                                     child: SpinKitPumpingHeart(
-                                                      color: FlutterFlowTheme
-                                                          .primaryColor,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primaryColor,
                                                       size: 40,
                                                     ),
                                                   ),
@@ -232,13 +267,16 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                   Text(
                                                     rowProjectsRecord
                                                         .projectName,
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                        ),
                                                   ),
                                                   Padding(
                                                     padding:
@@ -248,14 +286,17 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                     child: Text(
                                                       rowProjectsRecord
                                                           .projectCity,
-                                                      style: FlutterFlowTheme
-                                                          .subtitle2
-                                                          .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color: FlutterFlowTheme
-                                                            .textColor,
-                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                   ),
                                                 ],
@@ -275,26 +316,33 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                   containerBookingsRecord
                                                       .areaBookedInSqft
                                                       .toString(),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(2, 0, 0, 0),
                                                   child: Text(
                                                     'SQFT',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -308,28 +356,35 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                         .amountLeftToPay,
                                                     formatType:
                                                         FormatType.compact,
-                                                    currency: '',
+                                                    currency: 'Rs',
                                                   ),
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .subtitle2
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: FlutterFlowTheme
-                                                        .textColor,
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .textColor,
+                                                      ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(2, 0, 0, 0),
                                                   child: Text(
                                                     'Left',
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .subtitle2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      color: FlutterFlowTheme
-                                                          .textColor,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .textColor,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
@@ -353,36 +408,42 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                         'EEEE',
                                                         listViewTransactionsRecord
                                                             .transactionTime),
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      fontSize: 14,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 14,
+                                                        ),
                                                   ),
                                                   Text(
                                                     dateTimeFormat(
                                                         'yMMMd',
                                                         listViewTransactionsRecord
                                                             .transactionTime),
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      fontSize: 14,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 14,
+                                                        ),
                                                   ),
                                                   Text(
                                                     dateTimeFormat(
                                                         'jms',
                                                         listViewTransactionsRecord
                                                             .transactionTime),
-                                                    style: FlutterFlowTheme
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyText2
                                                         .override(
-                                                      fontFamily: 'Lexend Deca',
-                                                      fontSize: 14,
-                                                    ),
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 14,
+                                                        ),
                                                   ),
                                                 ],
                                               ),
@@ -391,12 +452,15 @@ class _MyTransactionsWidgetState extends State<MyTransactionsWidget>
                                                   true)
                                                 Text(
                                                   'Successful',
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText1
                                                       .override(
-                                                    fontFamily: 'Lexend Deca',
-                                                    color: Color(0xFF7CD514),
-                                                  ),
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        color:
+                                                            Color(0xFF7CD514),
+                                                      ),
                                                 ),
                                             ],
                                           ),

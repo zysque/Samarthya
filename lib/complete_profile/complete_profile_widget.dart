@@ -71,23 +71,24 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Scaffold(
-        key: scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: Color(0xFF14181B),
-          automaticallyImplyLeading: false,
-          title: Text(
-            'Complete Profile',
-            style: FlutterFlowTheme.title3,
-          ),
-          actions: [],
-          centerTitle: true,
-          elevation: 0,
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: Color(0xFF14181B),
+        automaticallyImplyLeading: false,
+        title: Text(
+          'Complete Profile',
+          style: FlutterFlowTheme.of(context).title3,
         ),
-        backgroundColor: FlutterFlowTheme.background,
-        body: Container(
+        actions: [],
+        centerTitle: true,
+        elevation: 0,
+      ),
+      backgroundColor: FlutterFlowTheme.of(context).background,
+      body: Form(
+        key: formKey,
+        autovalidateMode: AutovalidateMode.disabled,
+        child: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height * 1,
           decoration: BoxDecoration(
@@ -119,16 +120,21 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   setState(() => yourTitleValue = val),
                               width: 100,
                               height: 50,
-                              textStyle: FlutterFlowTheme.bodyText1.override(
-                                fontFamily: 'Lexend Deca',
-                                color: FlutterFlowTheme.textColor,
-                              ),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                  ),
                               hintText: 'Title',
-                              fillColor: FlutterFlowTheme.darkBackground,
+                              fillColor:
+                                  FlutterFlowTheme.of(context).darkBackground,
                               elevation: 2,
-                              borderColor: Colors.transparent,
+                              borderColor:
+                                  FlutterFlowTheme.of(context).grayDark,
                               borderWidth: 0,
-                              borderRadius: 0,
+                              borderRadius: 8,
                               margin:
                                   EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
                               hidesUnderline: true,
@@ -143,17 +149,20 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                     await selectMediaWithSourceBottomSheet(
                                   context: context,
                                   allowPhoto: true,
-                                  backgroundColor:
-                                      FlutterFlowTheme.darkBackground,
-                                  textColor: FlutterFlowTheme.textColor,
+                                  backgroundColor: FlutterFlowTheme.of(context)
+                                      .darkBackground,
+                                  textColor:
+                                      FlutterFlowTheme.of(context).textColor,
                                   pickerFontFamily: 'Lexend Deca',
                                 );
                                 if (selectedMedia != null &&
                                     validateFileFormat(
                                         selectedMedia.storagePath, context)) {
                                   showUploadMessage(
-                                      context, 'Uploading file...',
-                                      showLoading: true);
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
                                   final downloadUrl = await uploadData(
                                       selectedMedia.storagePath,
                                       selectedMedia.bytes);
@@ -162,10 +171,15 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   if (downloadUrl != null) {
                                     setState(
                                         () => uploadedFileUrl1 = downloadUrl);
-                                    showUploadMessage(context, 'Success!');
+                                    showUploadMessage(
+                                      context,
+                                      'Success!',
+                                    );
                                   } else {
                                     showUploadMessage(
-                                        context, 'Failed to upload media');
+                                      context,
+                                      'Failed to upload media',
+                                    );
                                     return;
                                   }
                                 }
@@ -198,38 +212,44 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Your Name',
-                            labelStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                            ),
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                ),
                             hintText: 'Please enter a valid number...',
-                            hintStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: Color(0x98FFFFFF),
-                            ),
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0x98FFFFFF),
+                                    ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: FlutterFlowTheme.darkBackground,
+                            fillColor:
+                                FlutterFlowTheme.of(context).darkBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           ),
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.textColor,
-                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.of(context).textColor,
+                              ),
                           validator: (val) {
                             if (val.isEmpty) {
                               return 'Field is required';
@@ -246,33 +266,43 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Your DOB',
-                            labelStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                            ),
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                ),
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0x98FFFFFF),
+                                    ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: FlutterFlowTheme.darkBackground,
+                            fillColor:
+                                FlutterFlowTheme.of(context).darkBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           ),
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.textColor,
-                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.of(context).textColor,
+                              ),
                           keyboardType: TextInputType.datetime,
                           validator: (val) {
                             if (val.isEmpty) {
@@ -290,33 +320,43 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Your Phone',
-                            labelStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                            ),
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                ),
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0x98FFFFFF),
+                                    ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: FlutterFlowTheme.darkBackground,
+                            fillColor:
+                                FlutterFlowTheme.of(context).darkBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           ),
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.textColor,
-                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.of(context).textColor,
+                              ),
                           keyboardType: TextInputType.number,
                           validator: (val) {
                             if (val.isEmpty) {
@@ -336,40 +376,50 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Your Aadhar',
-                            labelStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                            ),
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                ),
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0x98FFFFFF),
+                                    ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: FlutterFlowTheme.darkBackground,
+                            fillColor:
+                                FlutterFlowTheme.of(context).darkBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           ),
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.textColor,
-                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.of(context).textColor,
+                              ),
                           keyboardType: TextInputType.number,
                           validator: (val) {
                             if (val.isEmpty) {
                               return 'Field is required';
                             }
-                            if (val.length < 10) {
-                              return 'Requires at least 10 characters.';
+                            if (val.length < 12) {
+                              return 'Requires at least 12 characters.';
                             }
                             return null;
                           },
@@ -382,39 +432,43 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Your PAN',
-                            labelStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                            ),
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                ),
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0x98FFFFFF),
+                                    ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: FlutterFlowTheme.darkBackground,
+                            fillColor:
+                                FlutterFlowTheme.of(context).darkBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           ),
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.textColor,
-                          ),
-                          validator: (val) {
-                            if (val.length < 10) {
-                              return 'Requires at least 10 characters.';
-                            }
-                            return null;
-                          },
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.of(context).textColor,
+                              ),
                         ),
                       ),
                       Padding(
@@ -424,150 +478,187 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Your Address',
-                            labelStyle: FlutterFlowTheme.bodyText1.override(
-                              fontFamily: 'Lexend Deca',
-                              color: FlutterFlowTheme.grayLight,
-                            ),
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                ),
+                            hintStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Color(0x98FFFFFF),
+                                    ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).grayDark,
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             filled: true,
-                            fillColor: FlutterFlowTheme.darkBackground,
+                            fillColor:
+                                FlutterFlowTheme.of(context).darkBackground,
                             contentPadding:
                                 EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                           ),
-                          style: FlutterFlowTheme.bodyText1.override(
-                            fontFamily: 'Lexend Deca',
-                            color: FlutterFlowTheme.textColor,
-                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Lexend Deca',
+                                color: FlutterFlowTheme.of(context).textColor,
+                              ),
                           maxLines: 5,
                           keyboardType: TextInputType.multiline,
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Align(
                               alignment: AlignmentDirectional(-1, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: InkWell(
-                                      onTap: () async {
-                                        final selectedMedia =
-                                            await selectMediaWithSourceBottomSheet(
-                                          context: context,
-                                          allowPhoto: true,
-                                        );
-                                        if (selectedMedia != null &&
-                                            validateFileFormat(
-                                                selectedMedia.storagePath,
-                                                context)) {
-                                          showUploadMessage(
-                                              context, 'Uploading file...',
-                                              showLoading: true);
-                                          final downloadUrl = await uploadData(
-                                              selectedMedia.storagePath,
-                                              selectedMedia.bytes);
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          if (downloadUrl != null) {
-                                            setState(() =>
-                                                uploadedFileUrl2 = downloadUrl);
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: InkWell(
+                                        onTap: () async {
+                                          final selectedMedia =
+                                              await selectMediaWithSourceBottomSheet(
+                                            context: context,
+                                            allowPhoto: true,
+                                          );
+                                          if (selectedMedia != null &&
+                                              validateFileFormat(
+                                                  selectedMedia.storagePath,
+                                                  context)) {
                                             showUploadMessage(
-                                                context, 'Success!');
-                                          } else {
-                                            showUploadMessage(context,
-                                                'Failed to upload media');
-                                            return;
+                                              context,
+                                              'Uploading file...',
+                                              showLoading: true,
+                                            );
+                                            final downloadUrl =
+                                                await uploadData(
+                                                    selectedMedia.storagePath,
+                                                    selectedMedia.bytes);
+                                            ScaffoldMessenger.of(context)
+                                                .hideCurrentSnackBar();
+                                            if (downloadUrl != null) {
+                                              setState(() => uploadedFileUrl2 =
+                                                  downloadUrl);
+                                              showUploadMessage(
+                                                context,
+                                                'Success!',
+                                              );
+                                            } else {
+                                              showUploadMessage(
+                                                context,
+                                                'Failed to upload media',
+                                              );
+                                              return;
+                                            }
                                           }
-                                        }
-                                      },
-                                      child: FaIcon(
-                                        FontAwesomeIcons.idCard,
-                                        color: Colors.black,
-                                        size: 50,
+                                        },
+                                        child: FaIcon(
+                                          FontAwesomeIcons.idCard,
+                                          color: Colors.black,
+                                          size: 50,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Aadhar Card',
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF960087),
+                                    Text(
+                                      'Aadhar Card',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0xFF960087),
+                                          ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             Align(
                               alignment: AlignmentDirectional(1, 0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Card(
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    child: InkWell(
-                                      onTap: () async {
-                                        final selectedMedia =
-                                            await selectMediaWithSourceBottomSheet(
-                                          context: context,
-                                          allowPhoto: true,
-                                        );
-                                        if (selectedMedia != null &&
-                                            validateFileFormat(
-                                                selectedMedia.storagePath,
-                                                context)) {
-                                          showUploadMessage(
-                                              context, 'Uploading file...',
-                                              showLoading: true);
-                                          final downloadUrl = await uploadData(
-                                              selectedMedia.storagePath,
-                                              selectedMedia.bytes);
-                                          ScaffoldMessenger.of(context)
-                                              .hideCurrentSnackBar();
-                                          if (downloadUrl != null) {
-                                            setState(() =>
-                                                uploadedFileUrl3 = downloadUrl);
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Card(
+                                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                                      child: InkWell(
+                                        onTap: () async {
+                                          final selectedMedia =
+                                              await selectMediaWithSourceBottomSheet(
+                                            context: context,
+                                            allowPhoto: true,
+                                          );
+                                          if (selectedMedia != null &&
+                                              validateFileFormat(
+                                                  selectedMedia.storagePath,
+                                                  context)) {
                                             showUploadMessage(
-                                                context, 'Success!');
-                                          } else {
-                                            showUploadMessage(context,
-                                                'Failed to upload media');
-                                            return;
+                                              context,
+                                              'Uploading file...',
+                                              showLoading: true,
+                                            );
+                                            final downloadUrl =
+                                                await uploadData(
+                                                    selectedMedia.storagePath,
+                                                    selectedMedia.bytes);
+                                            ScaffoldMessenger.of(context)
+                                                .hideCurrentSnackBar();
+                                            if (downloadUrl != null) {
+                                              setState(() => uploadedFileUrl3 =
+                                                  downloadUrl);
+                                              showUploadMessage(
+                                                context,
+                                                'Success!',
+                                              );
+                                            } else {
+                                              showUploadMessage(
+                                                context,
+                                                'Failed to upload media',
+                                              );
+                                              return;
+                                            }
                                           }
-                                        }
-                                      },
-                                      child: FaIcon(
-                                        FontAwesomeIcons.idCard,
-                                        color: Colors.black,
-                                        size: 50,
+                                        },
+                                        child: FaIcon(
+                                          FontAwesomeIcons.idCard,
+                                          color: Colors.black,
+                                          size: 50,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    'PAN Card',
-                                    style: FlutterFlowTheme.bodyText1.override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF960087),
+                                    Text(
+                                      'PAN Card',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Lexend Deca',
+                                            color: Color(0xFF960087),
+                                          ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -577,65 +668,84 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                   ),
                 ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                    child: FFButtonWidget(
-                      onPressed: () async {
-                        if (!formKey.currentState.validate()) {
-                          return;
-                        }
-                        final usersUpdateData = createUsersRecordData(
-                          userTitle: yourTitleValue,
-                          displayName: yourNameController.text,
-                          photoUrl: uploadedFileUrl1,
-                          dob: yourDOBController.text,
-                          phoneNumber: yourPhoneController.text,
-                          aadharNumber: int.parse(yourAaadharController.text),
-                          panNumber: yourPANController.text,
-                          address: yourAddressController.text,
-                          aadharImage: uploadedFileUrl2,
-                          panImage: uploadedFileUrl3,
-                        );
-                        await currentUserReference.update(usersUpdateData);
-
-                        final calculationsCreateData =
-                            createCalculationsRecordData(
-                          userRef: currentUserReference,
-                        );
-                        await CalculationsRecord.collection
-                            .doc()
-                            .set(calculationsCreateData);
-                        await Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NavBarPage(initialPage: 'HomePage'),
-                          ),
-                          (r) => false,
-                        );
-                      },
-                      text: 'Complete',
-                      options: FFButtonOptions(
-                        width: 150,
-                        height: 50,
-                        color: FlutterFlowTheme.primaryColor,
-                        textStyle: FlutterFlowTheme.subtitle2.override(
-                          fontFamily: 'Lexend Deca',
-                          color: FlutterFlowTheme.textColor,
+              StreamBuilder<List<AdminConstsRecord>>(
+                stream: queryAdminConstsRecord(
+                  singleRecord: true,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: SpinKitPumpingHeart(
+                          color: FlutterFlowTheme.of(context).primaryColor,
+                          size: 40,
                         ),
-                        elevation: 3,
-                        borderSide: BorderSide(
-                          color: Colors.transparent,
-                          width: 1,
-                        ),
-                        borderRadius: 30,
                       ),
-                    ),
-                  ),
-                ],
+                    );
+                  }
+                  List<AdminConstsRecord> actionAdminConstsRecordList =
+                      snapshot.data;
+                  final actionAdminConstsRecord =
+                      actionAdminConstsRecordList.isNotEmpty
+                          ? actionAdminConstsRecordList.first
+                          : null;
+                  return Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            final usersUpdateData = createUsersRecordData(
+                              userTitle: yourTitleValue,
+                              displayName: yourNameController.text,
+                              photoUrl: uploadedFileUrl1,
+                              dob: yourDOBController.text,
+                              phoneNumber: yourPhoneController.text,
+                              aadharNumber:
+                                  int.parse(yourAaadharController.text),
+                              panNumber: yourPANController.text,
+                              address: yourAddressController.text,
+                              aadharImage: uploadedFileUrl2,
+                              panImage: uploadedFileUrl3,
+                              incomplete: false,
+                            );
+                            await currentUserReference.update(usersUpdateData);
+                            await Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    NavBarPage(initialPage: 'HomePage'),
+                              ),
+                              (r) => false,
+                            );
+                          },
+                          text: 'Complete',
+                          options: FFButtonOptions(
+                            width: 150,
+                            height: 50,
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .subtitle2
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).textColor,
+                                ),
+                            elevation: 3,
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 30,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),

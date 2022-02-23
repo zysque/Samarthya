@@ -48,7 +48,7 @@ class _TutorialWidgetState extends State<TutorialWidget>
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.darkBackground,
+        backgroundColor: FlutterFlowTheme.of(context).darkBackground,
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -56,19 +56,19 @@ class _TutorialWidgetState extends State<TutorialWidget>
           },
           child: Icon(
             Icons.chevron_left_rounded,
-            color: FlutterFlowTheme.grayLight,
+            color: FlutterFlowTheme.of(context).grayLight,
             size: 32,
           ),
         ),
         title: Text(
           'Tutorial',
-          style: FlutterFlowTheme.title3,
+          style: FlutterFlowTheme.of(context).title3,
         ),
         actions: [],
         centerTitle: false,
         elevation: 0,
       ),
-      backgroundColor: FlutterFlowTheme.darkBackground,
+      backgroundColor: FlutterFlowTheme.of(context).darkBackground,
       body: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -140,7 +140,8 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                           child: Text(
                                             'View Projects',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.title1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .title1,
                                           ),
                                         ),
                                       ],
@@ -156,13 +157,14 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                           child: Text(
                                             'View new Projects, available plans in mutliple phases available in the Project. Make your booking for desired project by clicking on Book.',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.subtitle2
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle2
                                                 .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Color(0x99FFFFFF),
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
-                                            ),
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: Color(0x99FFFFFF),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
                                           ),
                                         ),
                                       ],
@@ -203,9 +205,10 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Keep Track of Spending',
+                                            'Keep Track of Transactions',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.title1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .title1,
                                           ),
                                         ),
                                       ],
@@ -219,15 +222,16 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Easily add transactions and associate them with budgets that have been created.',
+                                            'Easily view and track the booking EMI as well as direct and indirect commission transactions.',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.subtitle2
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle2
                                                 .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Color(0x99FFFFFF),
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
-                                            ),
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: Color(0x99FFFFFF),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
                                           ),
                                         ),
                                       ],
@@ -268,9 +272,10 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Budget Analysis',
+                                            'Hierarchy Operations',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.title1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .title1,
                                           ),
                                         ),
                                       ],
@@ -284,15 +289,16 @@ class _TutorialWidgetState extends State<TutorialWidget>
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            'Know where your budgets are and how they can be adjusted.',
+                                            'View your hierarchy, Your team members details. Add new referrals to your team for better business.',
                                             textAlign: TextAlign.center,
-                                            style: FlutterFlowTheme.subtitle2
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle2
                                                 .override(
-                                              fontFamily: 'Lexend Deca',
-                                              color: Color(0xFF82878C),
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.normal,
-                                            ),
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: Color(0xFF82878C),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
                                           ),
                                         ),
                                       ],
