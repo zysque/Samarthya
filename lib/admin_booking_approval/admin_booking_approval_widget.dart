@@ -31,8 +31,8 @@ class AdminBookingApprovalWidget extends StatefulWidget {
 class _AdminBookingApprovalWidgetState
     extends State<AdminBookingApprovalWidget> {
   String emiTenureValue;
+  String plotValue;
   TextEditingController areaController;
-  TextEditingController plotController;
   TextEditingController rateController;
   TextEditingController bookingAmtController;
   TextEditingController downPaymentController;
@@ -236,7 +236,7 @@ class _AdminBookingApprovalWidgetState
                                             planPlansAndRatesRecord
                                                 .fixedRatePerSqFt,
                                             formatType: FormatType.custom,
-                                            currency: '',
+                                            currency: 'Rs',
                                             format: '',
                                             locale: '',
                                           ),
@@ -280,57 +280,37 @@ class _AdminBookingApprovalWidgetState
                                   return Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 8, 0, 0),
-                                        child: TextFormField(
-                                          controller: plotController ??=
-                                              TextEditingController(
-                                            text: columnBookingsRecord.plotNo,
-                                          ),
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            labelText: 'Plot No',
-                                            hintText:
-                                                'Please enter plot number',
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .grayDark,
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
+                                      FlutterFlowDropDown(
+                                        initialOption: plotValue ??=
+                                            columnBookingsRecord.plotNo,
+                                        options:
+                                            bookingDetailsPlansAndRatesRecord
+                                                .plotsAvailable
+                                                .toList()
+                                                .toList(),
+                                        onChanged: (val) =>
+                                            setState(() => plotValue = val),
+                                        height: 45,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle1
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .grayLight,
                                             ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .grayDark,
-                                                width: 1,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                            ),
-                                            filled: true,
-                                            contentPadding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    20, 4, 20, 4),
-                                          ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .subtitle1,
-                                          keyboardType: TextInputType.number,
-                                          validator: (val) {
-                                            if (val.isEmpty) {
-                                              return 'Field is required';
-                                            }
-                                            if (val.length < 1) {
-                                              return 'Requires at least 1 characters.';
-                                            }
-                                            return null;
-                                          },
-                                        ),
+                                        hintText: 'Select Plot',
+                                        fillColor: FlutterFlowTheme.of(context)
+                                            .darkBackground,
+                                        elevation: 2,
+                                        borderColor:
+                                            FlutterFlowTheme.of(context)
+                                                .grayDark,
+                                        borderWidth: 2,
+                                        borderRadius: 8,
+                                        margin: EdgeInsetsDirectional.fromSTEB(
+                                            20, 4, 20, 4),
+                                        hidesUnderline: true,
                                       ),
                                       Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -905,7 +885,7 @@ class _AdminBookingApprovalWidgetState
                                                   double.parse(
                                                       areaController?.text ??
                                                           '')),
-                                          plotNo: plotController?.text ?? '',
+                                          plotNo: plotValue,
                                         ),
                                         'comments': FieldValue.arrayUnion(
                                             [descriptionController.text]),
@@ -968,8 +948,7 @@ class _AdminBookingApprovalWidgetState
                                           lastModified: getCurrentTimestamp,
                                         ),
                                         'plotsAvailable':
-                                            FieldValue.arrayRemove(
-                                                [plotController?.text ?? '']),
+                                            FieldValue.arrayRemove([plotValue]),
                                       };
                                       await columnBookingsRecord.planRef
                                           .update(plansAndRatesUpdateData);

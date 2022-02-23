@@ -39,6 +39,9 @@ abstract class CalculationsRecord
   String get userCode;
 
   @nullable
+  double get unPBusinessAmt;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -48,7 +51,8 @@ abstract class CalculationsRecord
     ..emiDueAmount = 0.0
     ..defaultPayments = 0
     ..transCount = 0
-    ..userCode = '';
+    ..userCode = ''
+    ..unPBusinessAmt = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('calculations');
@@ -82,6 +86,7 @@ Map<String, dynamic> createCalculationsRecordData({
   DateTime comissionProcessed,
   int transCount,
   String userCode,
+  double unPBusinessAmt,
 }) =>
     serializers.toFirestore(
         CalculationsRecord.serializer,
@@ -94,4 +99,5 @@ Map<String, dynamic> createCalculationsRecordData({
           ..defaultPayments = defaultPayments
           ..comissionProcessed = comissionProcessed
           ..transCount = transCount
-          ..userCode = userCode));
+          ..userCode = userCode
+          ..unPBusinessAmt = unPBusinessAmt));

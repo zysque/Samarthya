@@ -2,6 +2,7 @@ import '../admin_modify_projects/admin_modify_projects_widget.dart';
 import '../admin_modify_projects_plan/admin_modify_projects_plan_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../components/availability_details_widget.dart';
 import '../create_booking/create_booking_widget.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -285,22 +286,20 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).background,
                       ),
-                      child: Visibility(
-                        visible: plansUserHierarchiesRecord.hasParent ?? true,
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'Click on Plan you like to Book',
-                                style: FlutterFlowTheme.of(context)
-                                    .title3
-                                    .override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: Color(0xFF7CD514),
-                                      fontSize: 24,
-                                    ),
-                              ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Click on Plan you like to Book',
+                              style:
+                                  FlutterFlowTheme.of(context).title3.override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: Color(0xFF7CD514),
+                                        fontSize: 24,
+                                      ),
+                            ),
+                            if (plansUserHierarchiesRecord != null)
                               StreamBuilder<List<PlansAndRatesRecord>>(
                                 stream: queryPlansAndRatesRecord(
                                   queryBuilder: (plansAndRatesRecord) =>
@@ -403,6 +402,41 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                                                     .of(context)
                                                                 .subtitle1,
                                                           ),
+                                                          if (widget.isAdmin ??
+                                                              true)
+                                                            InkWell(
+                                                              onTap: () async {
+                                                                await showModalBottomSheet(
+                                                                  isScrollControlled:
+                                                                      true,
+                                                                  backgroundColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  context:
+                                                                      context,
+                                                                  builder:
+                                                                      (context) {
+                                                                    return Padding(
+                                                                      padding: MediaQuery.of(
+                                                                              context)
+                                                                          .viewInsets,
+                                                                      child:
+                                                                          AvailabilityDetailsWidget(
+                                                                        plansRef:
+                                                                            listViewPlansAndRatesRecord.reference,
+                                                                      ),
+                                                                    );
+                                                                  },
+                                                                );
+                                                              },
+                                                              child: Icon(
+                                                                Icons
+                                                                    .event_available_outlined,
+                                                                color: Colors
+                                                                    .black,
+                                                                size: 24,
+                                                              ),
+                                                            ),
                                                           if (widget.isAdmin ??
                                                               true)
                                                             InkWell(
@@ -613,8 +647,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget>
                                   ]);
                                 },
                               ),
-                            ],
-                          ),
+                          ],
                         ),
                       ),
                     );

@@ -422,20 +422,17 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                if (listViewCommissionsRecord
-                                                        .isDirect ??
-                                                    true)
-                                                  Text(
-                                                    'Unsettled Amount',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText2
-                                                        .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          fontSize: 14,
-                                                        ),
-                                                  ),
+                                                Text(
+                                                  'Unsettled Amount',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText2
+                                                      .override(
+                                                        fontFamily:
+                                                            'Lexend Deca',
+                                                        fontSize: 14,
+                                                      ),
+                                                ),
                                                 Text(
                                                   formatNumber(
                                                     listViewCommissionsRecord

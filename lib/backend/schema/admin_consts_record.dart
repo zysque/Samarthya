@@ -30,6 +30,12 @@ abstract class AdminConstsRecord
   int get usersCount;
 
   @nullable
+  int get comPPeriod;
+
+  @nullable
+  DateTime get lastProcessed;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -38,7 +44,8 @@ abstract class AdminConstsRecord
     ..indirectPer = 0.0
     ..adminUsers = ListBuilder()
     ..emiPaymentDay = 0.0
-    ..usersCount = 0;
+    ..usersCount = 0
+    ..comPPeriod = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('adminConsts');
@@ -67,6 +74,8 @@ Map<String, dynamic> createAdminConstsRecordData({
   DateTime lastModified,
   double emiPaymentDay,
   int usersCount,
+  int comPPeriod,
+  DateTime lastProcessed,
 }) =>
     serializers.toFirestore(
         AdminConstsRecord.serializer,
@@ -76,4 +85,6 @@ Map<String, dynamic> createAdminConstsRecordData({
           ..adminUsers = null
           ..lastModified = lastModified
           ..emiPaymentDay = emiPaymentDay
-          ..usersCount = usersCount));
+          ..usersCount = usersCount
+          ..comPPeriod = comPPeriod
+          ..lastProcessed = lastProcessed));

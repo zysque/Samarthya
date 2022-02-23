@@ -462,6 +462,12 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                           0.0,
                                                                       columnCalculationsRecord
                                                                           .emiDueDate),
+                                                                  unPBusinessAmt: functions.getSum(
+                                                                      columnCalculationsRecord
+                                                                          .unPBusinessAmt,
+                                                                      double.parse(
+                                                                          amountBPController?.text ??
+                                                                              '')),
                                                                 ),
                                                                 'transCount':
                                                                     FieldValue

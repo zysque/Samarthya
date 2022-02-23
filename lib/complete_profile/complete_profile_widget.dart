@@ -714,6 +714,19 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               incomplete: false,
                             );
                             await currentUserReference.update(usersUpdateData);
+
+                            final commissionsCreateData =
+                                createCommissionsRecordData(
+                              commissionUser: currentUserReference,
+                              commissionAmount: 0.0,
+                              isDirect: false,
+                              unsettledAmount: 0.0,
+                              settled: true,
+                              lastModified: getCurrentTimestamp,
+                            );
+                            await CommissionsRecord.collection
+                                .doc()
+                                .set(commissionsCreateData);
                             await Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

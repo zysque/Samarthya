@@ -119,6 +119,20 @@
           "order": "DESCENDING"
         }
       ]
+    },
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "planRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "plotNo",
+          "order": "ASCENDING"
+        }
+      ]
     }
   ]
 }

@@ -726,6 +726,7 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                     userCode:
                                                         'USB${functions.getPaddedNumber(actionsAdminConstsRecord.usersCount)}',
                                                     transCount: 1,
+                                                    unPBusinessAmt: 0.0,
                                                   );
                                                   await CalculationsRecord
                                                       .collection

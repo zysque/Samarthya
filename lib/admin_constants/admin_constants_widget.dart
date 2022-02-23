@@ -20,6 +20,7 @@ class AdminConstantsWidget extends StatefulWidget {
 
 class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
   String dropDownValue;
+  TextEditingController comPPDaysController;
   double sliderValue1;
   double sliderValue2;
   double sliderValue3;
@@ -180,6 +181,54 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                           ),
                           Padding(
                             padding:
+                                EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                            child: TextFormField(
+                              controller: comPPDaysController ??=
+                                  TextEditingController(
+                                text: columnAdminConstsRecord.comPPeriod
+                                    .toString(),
+                              ),
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText:
+                                    'Indirect Commission  Processing Days',
+                                labelStyle:
+                                    FlutterFlowTheme.of(context).bodyText1,
+                                hintText:
+                                    'Days between indirect commission processing',
+                                hintStyle:
+                                    FlutterFlowTheme.of(context).bodyText1,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).grayDark,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).grayDark,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                filled: true,
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                    10, 4, 10, 4),
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                  ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
@@ -323,6 +372,8 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                     indirectPer: sliderValue2,
                                     emiPaymentDay: sliderValue3,
                                     lastModified: getCurrentTimestamp,
+                                    comPPeriod: int.parse(
+                                        comPPDaysController?.text ?? ''),
                                   ),
                                   'adminUsers': FieldValue.arrayUnion(
                                       [saveButtonUsersRecord.reference]),
