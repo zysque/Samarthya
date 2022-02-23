@@ -91,21 +91,25 @@ async function setCalculations(userRef,bVal,cVal) {
   calRefs.forEach(doc => {
     calDoc=doc;
   });
+  let lmDate= admin.firestore.Timestamp.now();
   let res;
   if(bVal!=undefined && cVal!=undefined) {
 	  let uCVal= cVal + calDoc.data().indirectCommission;
 	  res= await calDoc.ref.update({
 		  unPBusinessAmt: bVal ,
-		  indirectCommission: uCVal
+		  indirectCommission: uCVal,
+		  commissionProcessed: lmDate
 	  });
   } else if(bVal!=undefined) {
 	  res= await calDoc.ref.update({
-		  unPBusinessAmt: bVal
+		  unPBusinessAmt: bVal,
+		  commissionProcessed: lmDate
 	  });
   } else {
 	  let uCVal= cVal + calDoc.data().indirectCommission;
 	  res= await calDoc.ref.update({
-		  indirectCommission: uCVal
+		  indirectCommission: uCVal,
+		  commissionProcessed: lmDate
 	  });
   }
   return res;
