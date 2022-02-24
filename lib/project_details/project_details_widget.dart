@@ -67,6 +67,10 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget> {
                     if (widget.isAdmin ?? true)
                       InkWell(
                         onTap: () async {
+                          setState(() => FFAppState().projPhtos =
+                              projectDetailsProjectsRecord.photos.toList());
+                          setState(() => FFAppState().projVideos =
+                              projectDetailsProjectsRecord.videos.toList());
                           await Navigator.push(
                             context,
                             MaterialPageRoute(

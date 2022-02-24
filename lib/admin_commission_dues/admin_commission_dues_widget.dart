@@ -901,12 +901,12 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                               .override(
                                                                 fontFamily:
                                                                     'Lexend Deca',
-                                                                fontSize: 14,
+                                                                fontSize: 12,
                                                               ),
                                                     ),
                                                     Text(
                                                       dateTimeFormat(
-                                                          'EEEE',
+                                                          'jms',
                                                           inDirectCommissionsRecord
                                                               .lastModified),
                                                       style:
@@ -916,7 +916,7 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                               .override(
                                                                 fontFamily:
                                                                     'Lexend Deca',
-                                                                fontSize: 14,
+                                                                fontSize: 12,
                                                               ),
                                                     ),
                                                   ],

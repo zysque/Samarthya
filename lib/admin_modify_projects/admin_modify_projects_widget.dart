@@ -599,7 +599,6 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                               projectDesc: descriptionController?.text ?? '',
                               lastModified: getCurrentTimestamp,
                               active: statusValue,
-                              projectLocation: locationValue.latLng,
                             ),
                             'photos': FFAppState().projPhtos,
                             'videos': FFAppState().projVideos,
