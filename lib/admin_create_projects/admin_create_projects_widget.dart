@@ -1,9 +1,14 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
+import '../flutter_flow/flutter_flow_place_picker.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/place.dart';
+import '../flutter_flow/upload_media.dart';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -19,9 +24,12 @@ class AdminCreateProjectsWidget extends StatefulWidget {
 
 class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
     with TickerProviderStateMixin {
+  String uploadedFileUrl1 = '';
+  String uploadedFileUrl2 = '';
   TextEditingController descriptionController;
   TextEditingController projectCityController;
   TextEditingController projectNameController;
+  var locationValue = FFPlace();
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
@@ -115,7 +123,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: 550,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).darkBackground,
                   borderRadius: BorderRadius.only(
@@ -126,12 +134,12 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                         child: TextFormField(
                           controller: projectNameController,
                           obscureText: false,
@@ -189,7 +197,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                             [animationsMap['textFieldOnPageLoadAnimation1']]),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: TextFormField(
                           controller: projectCityController,
                           obscureText: false,
@@ -247,7 +255,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                             [animationsMap['textFieldOnPageLoadAnimation2']]),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: TextFormField(
                           controller: descriptionController,
                           obscureText: false,
@@ -274,7 +282,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                             fillColor:
                                 FlutterFlowTheme.of(context).darkBackground,
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 20, 24, 20),
+                                EdgeInsetsDirectional.fromSTEB(20, 4, 20, 4),
                           ),
                           style: FlutterFlowTheme.of(context)
                               .bodyText1
@@ -286,24 +294,192 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                           maxLines: 10,
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            FFButtonWidget(
+                              onPressed: () async {
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
+                                  allowPhoto: true,
+                                );
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl1 = downloadUrl);
+                                    showUploadMessage(
+                                      context,
+                                      'Success!',
+                                    );
+                                  } else {
+                                    showUploadMessage(
+                                      context,
+                                      'Failed to upload media',
+                                    );
+                                    return;
+                                  }
+                                }
+                                setState(() => FFAppState()
+                                    .projPhtos
+                                    .add(uploadedFileUrl1));
+                              },
+                              text: 'Photos',
+                              icon: Icon(
+                                Icons.add_to_photos,
+                                size: 15,
+                              ),
+                              options: FFButtonOptions(
+                                width: 130,
+                                height: 40,
+                                color: Color(0xFF81BCEA),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).grayDark,
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
+                              ),
+                            ),
+                            FFButtonWidget(
+                              onPressed: () async {
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
+                                  allowPhoto: false,
+                                  allowVideo: true,
+                                );
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl2 = downloadUrl);
+                                    showUploadMessage(
+                                      context,
+                                      'Success!',
+                                    );
+                                  } else {
+                                    showUploadMessage(
+                                      context,
+                                      'Failed to upload media',
+                                    );
+                                    return;
+                                  }
+                                }
+                                setState(() => FFAppState()
+                                    .projVideos
+                                    .add(uploadedFileUrl2));
+                              },
+                              text: 'Videos',
+                              icon: Icon(
+                                Icons.video_collection_sharp,
+                                size: 15,
+                              ),
+                              options: FFButtonOptions(
+                                width: 130,
+                                height: 40,
+                                color: Color(0xFF21537B),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).grayDark,
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: FlutterFlowPlacePicker(
+                          iOSGoogleMapsApiKey: '',
+                          androidGoogleMapsApiKey: '',
+                          webGoogleMapsApiKey: '',
+                          onSelect: (place) =>
+                              setState(() => locationValue = place),
+                          defaultText: 'Select Location',
+                          icon: Icon(
+                            Icons.place,
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                          buttonOptions: FFButtonOptions(
+                            width: 200,
+                            height: 40,
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            textStyle:
+                                FlutterFlowTheme.of(context).subtitle2.override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                    ),
+                            borderSide: BorderSide(
+                              color: Colors.transparent,
+                              width: 1,
+                            ),
+                            borderRadius: 12,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  FFButtonWidget(
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: FFButtonWidget(
                     onPressed: () async {
-                      final projectsCreateData = createProjectsRecordData(
-                        projectName: projectNameController.text,
-                        projectCity: projectCityController.text,
-                        projectDesc: descriptionController.text,
-                        lastModified: getCurrentTimestamp,
-                      );
+                      final projectsCreateData = {
+                        ...createProjectsRecordData(
+                          projectName: projectNameController.text,
+                          projectCity: projectCityController.text,
+                          projectDesc: descriptionController.text,
+                          lastModified: getCurrentTimestamp,
+                          projectLocation: locationValue.latLng,
+                        ),
+                        'photos': FFAppState().projPhtos,
+                        'videos': FFAppState().projVideos,
+                      };
                       await ProjectsRecord.collection
                           .doc()
                           .set(projectsCreateData);
@@ -317,21 +493,14 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                       textStyle: FlutterFlowTheme.of(context).title1,
                       elevation: 0,
                       borderSide: BorderSide(
-                        color: Colors.transparent,
+                        color: FlutterFlowTheme.of(context).grayLight,
                         width: 1,
                       ),
                       borderRadius: 12,
                     ),
                   ),
-                  Text(
-                    'Tap above to complete request',
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: Color(0x43000000),
-                        ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

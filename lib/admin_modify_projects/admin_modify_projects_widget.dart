@@ -1,11 +1,16 @@
 import '../admin_create_projects_plan/admin_create_projects_plan_widget.dart';
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
+import '../flutter_flow/flutter_flow_place_picker.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/place.dart';
+import '../flutter_flow/upload_media.dart';
 import '../project_details/project_details_widget.dart';
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -26,9 +31,12 @@ class AdminModifyProjectsWidget extends StatefulWidget {
 
 class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
     with TickerProviderStateMixin {
+  String uploadedFileUrl1 = '';
+  String uploadedFileUrl2 = '';
   TextEditingController descriptionController;
   TextEditingController projectCityController;
   TextEditingController projectNameController;
+  var locationValue = FFPlace();
   bool statusValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -136,7 +144,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                   ),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 550,
+                    height: 565,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).darkBackground,
                       borderRadius: BorderRadius.only(
@@ -331,7 +339,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                         .darkBackground,
                                     contentPadding:
                                         EdgeInsetsDirectional.fromSTEB(
-                                            20, 40, 24, 0),
+                                            20, 5, 20, 5),
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyText1
@@ -342,6 +350,178 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                       ),
                                   textAlign: TextAlign.start,
                                   maxLines: 10,
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        final selectedMedia =
+                                            await selectMediaWithSourceBottomSheet(
+                                          context: context,
+                                          allowPhoto: true,
+                                        );
+                                        if (selectedMedia != null &&
+                                            validateFileFormat(
+                                                selectedMedia.storagePath,
+                                                context)) {
+                                          showUploadMessage(
+                                            context,
+                                            'Uploading file...',
+                                            showLoading: true,
+                                          );
+                                          final downloadUrl = await uploadData(
+                                              selectedMedia.storagePath,
+                                              selectedMedia.bytes);
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          if (downloadUrl != null) {
+                                            setState(() =>
+                                                uploadedFileUrl1 = downloadUrl);
+                                            showUploadMessage(
+                                              context,
+                                              'Success!',
+                                            );
+                                          } else {
+                                            showUploadMessage(
+                                              context,
+                                              'Failed to upload media',
+                                            );
+                                            return;
+                                          }
+                                        }
+                                        setState(() => FFAppState()
+                                            .projPhtos
+                                            .add(uploadedFileUrl1));
+                                      },
+                                      text: 'Photos',
+                                      icon: Icon(
+                                        Icons.add_to_photos,
+                                        size: 15,
+                                      ),
+                                      options: FFButtonOptions(
+                                        width: 130,
+                                        height: 40,
+                                        color: Color(0xFF81BCEA),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
+                                          width: 1,
+                                        ),
+                                        borderRadius: 12,
+                                      ),
+                                    ),
+                                    FFButtonWidget(
+                                      onPressed: () async {
+                                        final selectedMedia =
+                                            await selectMediaWithSourceBottomSheet(
+                                          context: context,
+                                          allowPhoto: false,
+                                          allowVideo: true,
+                                        );
+                                        if (selectedMedia != null &&
+                                            validateFileFormat(
+                                                selectedMedia.storagePath,
+                                                context)) {
+                                          showUploadMessage(
+                                            context,
+                                            'Uploading file...',
+                                            showLoading: true,
+                                          );
+                                          final downloadUrl = await uploadData(
+                                              selectedMedia.storagePath,
+                                              selectedMedia.bytes);
+                                          ScaffoldMessenger.of(context)
+                                              .hideCurrentSnackBar();
+                                          if (downloadUrl != null) {
+                                            setState(() =>
+                                                uploadedFileUrl2 = downloadUrl);
+                                            showUploadMessage(
+                                              context,
+                                              'Success!',
+                                            );
+                                          } else {
+                                            showUploadMessage(
+                                              context,
+                                              'Failed to upload media',
+                                            );
+                                            return;
+                                          }
+                                        }
+                                        setState(() => FFAppState()
+                                            .projVideos
+                                            .add(uploadedFileUrl2));
+                                      },
+                                      text: 'Videos',
+                                      icon: Icon(
+                                        Icons.video_collection_sharp,
+                                        size: 15,
+                                      ),
+                                      options: FFButtonOptions(
+                                        width: 130,
+                                        height: 40,
+                                        color: Color(0xFF21537B),
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Lexend Deca',
+                                              color: Colors.white,
+                                            ),
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayDark,
+                                          width: 1,
+                                        ),
+                                        borderRadius: 12,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                                child: FlutterFlowPlacePicker(
+                                  iOSGoogleMapsApiKey: '',
+                                  androidGoogleMapsApiKey: '',
+                                  webGoogleMapsApiKey: '',
+                                  onSelect: (place) =>
+                                      setState(() => locationValue = place),
+                                  defaultText: 'Select Location',
+                                  icon: Icon(
+                                    Icons.place,
+                                    color: Colors.white,
+                                    size: 16,
+                                  ),
+                                  buttonOptions: FFButtonOptions(
+                                    width: 200,
+                                    height: 40,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .subtitle2
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: Colors.white,
+                                        ),
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: 12,
+                                  ),
                                 ),
                               ),
                               Padding(
@@ -373,56 +553,32 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                           ),
                         ),
                         Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'For Adding new Plans to your Project click on Add Plan below.',
-                                style: FlutterFlowTheme.of(context)
-                                    .title3
-                                    .override(
-                                      fontFamily: 'Lexend Deca',
-                                      color:
-                                          FlutterFlowTheme.of(context).errorRed,
-                                      fontSize: 18,
-                                    ),
-                              ),
-                              Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            AdminCreateProjectsPlanWidget(
-                                          projectRef: widget.projectDetails,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  text: 'Add Plan',
-                                  options: FFButtonOptions(
-                                    width: 140,
-                                    height: 40,
-                                    color:
-                                        FlutterFlowTheme.of(context).grayLight,
-                                    textStyle:
-                                        FlutterFlowTheme.of(context).title3,
-                                    elevation: 0,
-                                    borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).grayDark,
-                                      width: 2,
-                                    ),
-                                    borderRadius: 12,
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AdminCreateProjectsPlanWidget(
+                                    projectRef: widget.projectDetails,
                                   ),
                                 ),
+                              );
+                            },
+                            text: 'Modify Plan',
+                            options: FFButtonOptions(
+                              width: 150,
+                              height: 40,
+                              color: FlutterFlowTheme.of(context).grayLight,
+                              textStyle: FlutterFlowTheme.of(context).title3,
+                              elevation: 0,
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).grayDark,
+                                width: 2,
                               ),
-                            ],
+                              borderRadius: 12,
+                            ),
                           ),
                         ),
                       ],
@@ -430,19 +586,24 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       FFButtonWidget(
                         onPressed: () async {
-                          final projectsUpdateData = createProjectsRecordData(
-                            projectName: projectNameController?.text ?? '',
-                            projectCity: projectCityController?.text ?? '',
-                            projectDesc: descriptionController?.text ?? '',
-                            lastModified: getCurrentTimestamp,
-                            active: statusValue,
-                          );
+                          final projectsUpdateData = {
+                            ...createProjectsRecordData(
+                              projectName: projectNameController?.text ?? '',
+                              projectCity: projectCityController?.text ?? '',
+                              projectDesc: descriptionController?.text ?? '',
+                              lastModified: getCurrentTimestamp,
+                              active: statusValue,
+                              projectLocation: locationValue.latLng,
+                            ),
+                            'photos': FFAppState().projPhtos,
+                            'videos': FFAppState().projVideos,
+                          };
                           await adminModifyProjectsProjectsRecord.reference
                               .update(projectsUpdateData);
                           await Navigator.push(
