@@ -794,14 +794,9 @@ class _AdminBookingApprovalWidgetState
                           return Column(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              StreamBuilder<List<CalculationsRecord>>(
-                                stream: queryCalculationsRecord(
-                                  queryBuilder: (calculationsRecord) =>
-                                      calculationsRecord.where('userRef',
-                                          isEqualTo:
-                                              columnBookingsRecord.buyerRef),
-                                  singleRecord: true,
-                                ),
+                              StreamBuilder<PlansAndRatesRecord>(
+                                stream: PlansAndRatesRecord.getDocument(
+                                    columnBookingsRecord.planRef),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
@@ -817,166 +812,259 @@ class _AdminBookingApprovalWidgetState
                                       ),
                                     );
                                   }
-                                  List<CalculationsRecord>
-                                      logBookingCalculationsRecordList =
+                                  final columnPlansAndRatesRecord =
                                       snapshot.data;
-                                  final logBookingCalculationsRecord =
-                                      logBookingCalculationsRecordList
-                                              .isNotEmpty
-                                          ? logBookingCalculationsRecordList
-                                              .first
-                                          : null;
-                                  return FFButtonWidget(
-                                    onPressed: () async {
-                                      final bookingsUpdateData = {
-                                        ...createBookingsRecordData(
-                                          totalAmountToPay:
-                                              functions.getMultiplication(
-                                                  double.parse(
-                                                      rateController?.text ??
-                                                          ''),
-                                                  double.parse(
-                                                      areaController?.text ??
-                                                          '')),
-                                          areaBookedInSqft: int.parse(
-                                              areaController?.text ?? ''),
-                                          bookingAmount: double.parse(
-                                              bookingAmtController?.text ?? ''),
-                                          downPayment: double.parse(
-                                              downPaymentController?.text ??
-                                                  ''),
-                                          emiAmount: functions.emiCalculator(
-                                              int.parse(
-                                                  areaController?.text ?? ''),
-                                              int.parse(
-                                                  rateController?.text ?? ''),
-                                              double.parse(
-                                                  bookingAmtController?.text ??
-                                                      ''),
-                                              double.parse(
-                                                  downPaymentController?.text ??
-                                                      ''),
-                                              emiTenureValue),
-                                          emiTenureInMonths:
-                                              functions.parseReplaceFromString(
-                                                  emiTenureValue, ' Months'),
-                                          isApproved: true,
-                                          dueAmount: functions.getSum(
-                                              double.parse(
-                                                  bookingAmtController?.text ??
-                                                      ''),
-                                              double.parse(
-                                                  downPaymentController?.text ??
-                                                      '')),
-                                          dueDate: functions.getNewDate(
-                                              getCurrentTimestamp,
-                                              0,
-                                              1,
-                                              adminBookingApprovalAdminConstsRecord
-                                                  .emiPaymentDay,
-                                              true,
-                                              getCurrentTimestamp),
-                                          lastModified: getCurrentTimestamp,
-                                          amountLeftToPay:
-                                              functions.getMultiplication(
-                                                  double.parse(
-                                                      rateController?.text ??
-                                                          ''),
-                                                  double.parse(
-                                                      areaController?.text ??
-                                                          '')),
-                                          plotNo: plotValue,
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      StreamBuilder<List<CalculationsRecord>>(
+                                        stream: queryCalculationsRecord(
+                                          queryBuilder: (calculationsRecord) =>
+                                              calculationsRecord.where(
+                                                  'userRef',
+                                                  isEqualTo:
+                                                      columnBookingsRecord
+                                                          .buyerRef),
+                                          singleRecord: true,
                                         ),
-                                        'comments': FieldValue.arrayUnion(
-                                            [descriptionController.text]),
-                                      };
-                                      await widget.bookingRef
-                                          .update(bookingsUpdateData);
-
-                                      final calculationsUpdateData =
-                                          createCalculationsRecordData(
-                                        emiDueAmount: functions.getSum(
-                                            logBookingCalculationsRecord
-                                                .emiDueAmount,
-                                            functions.getSum(
-                                                double.parse(
-                                                    bookingAmtController
-                                                            ?.text ??
-                                                        ''),
-                                                double.parse(
-                                                    downPaymentController
-                                                            ?.text ??
-                                                        ''))),
-                                        emiDueDate: functions.getNewDate(
-                                            getCurrentTimestamp,
-                                            0,
-                                            1,
-                                            adminBookingApprovalAdminConstsRecord
-                                                .emiPaymentDay,
-                                            (logBookingCalculationsRecord
-                                                    .emiDueAmount) <=
-                                                0.0,
-                                            logBookingCalculationsRecord
-                                                .emiDueDate),
-                                      );
-                                      await logBookingCalculationsRecord
-                                          .reference
-                                          .update(calculationsUpdateData);
-                                      if (actionsUserHierarchiesRecord
-                                          .hasReferral) {
-                                        final commissionsCreateData = {
-                                          ...createCommissionsRecordData(
-                                            commissionUser:
-                                                actionsUserHierarchiesRecord
-                                                    .referralParent,
-                                            isDirect: true,
-                                            bookingRef: widget.bookingRef,
-                                            commissionAmount: 0.0,
-                                            unsettledAmount: 0.0,
-                                            lastModified: getCurrentTimestamp,
-                                          ),
-                                          'comments': [
-                                            'Commission record created for new business booking recieved.'
-                                          ],
-                                        };
-                                        await CommissionsRecord.collection
-                                            .doc()
-                                            .set(commissionsCreateData);
-                                      }
-                                      final plansAndRatesUpdateData = {
-                                        ...createPlansAndRatesRecordData(
-                                          lastModified: getCurrentTimestamp,
-                                        ),
-                                        'plotsAvailable':
-                                            FieldValue.arrayRemove([plotValue]),
-                                      };
-                                      await columnBookingsRecord.planRef
-                                          .update(plansAndRatesUpdateData);
-                                      await Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AdminApprovalsWidget(),
-                                        ),
-                                        (r) => false,
-                                      );
-                                    },
-                                    text: 'Approve',
-                                    options: FFButtonOptions(
-                                      width: 180,
-                                      height: 50,
-                                      color: FlutterFlowTheme.of(context)
-                                          .tertiaryColor,
-                                      textStyle:
-                                          FlutterFlowTheme.of(context).title1,
-                                      elevation: 0,
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .darkBackground,
-                                        width: 1,
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 40,
+                                                height: 40,
+                                                child: SpinKitPumpingHeart(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  size: 40,
+                                                ),
+                                              ),
+                                            );
+                                          }
+                                          List<CalculationsRecord>
+                                              logBookingCalculationsRecordList =
+                                              snapshot.data;
+                                          final logBookingCalculationsRecord =
+                                              logBookingCalculationsRecordList
+                                                      .isNotEmpty
+                                                  ? logBookingCalculationsRecordList
+                                                      .first
+                                                  : null;
+                                          return FFButtonWidget(
+                                            onPressed: () async {
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text('Confirmation'),
+                                                    content: Text(
+                                                        'Are you sure to approve this booking?'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Cancel'),
+                                                      ),
+                                                      TextButton(
+                                                        onPressed: () async {
+                                                          Navigator.pop(
+                                                              alertDialogContext);
+                                                          setState(() =>
+                                                              FFAppState()
+                                                                      .validated =
+                                                                  true);
+                                                          ;
+                                                        },
+                                                        child: Text('Confirm'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                              if (FFAppState().validated) {
+                                                final bookingsUpdateData = {
+                                                  ...createBookingsRecordData(
+                                                    totalAmountToPay: functions
+                                                        .getMultiplication(
+                                                            double.parse(
+                                                                rateController
+                                                                        ?.text ??
+                                                                    ''),
+                                                            double.parse(
+                                                                areaController
+                                                                        ?.text ??
+                                                                    '')),
+                                                    areaBookedInSqft: int.parse(
+                                                        areaController?.text ??
+                                                            ''),
+                                                    bookingAmount: double.parse(
+                                                        bookingAmtController
+                                                                ?.text ??
+                                                            ''),
+                                                    downPayment: double.parse(
+                                                        downPaymentController
+                                                                ?.text ??
+                                                            ''),
+                                                    emiAmount: functions.emiCalculator(
+                                                        int.parse(areaController
+                                                                ?.text ??
+                                                            ''),
+                                                        int.parse(rateController
+                                                                ?.text ??
+                                                            ''),
+                                                        double.parse(
+                                                            bookingAmtController
+                                                                    ?.text ??
+                                                                ''),
+                                                        double.parse(
+                                                            downPaymentController
+                                                                    ?.text ??
+                                                                ''),
+                                                        emiTenureValue),
+                                                    emiTenureInMonths: functions
+                                                        .parseReplaceFromString(
+                                                            emiTenureValue,
+                                                            ' Months'),
+                                                    isApproved: true,
+                                                    dueAmount: functions.getSum(
+                                                        double.parse(
+                                                            bookingAmtController
+                                                                    ?.text ??
+                                                                ''),
+                                                        double.parse(
+                                                            downPaymentController
+                                                                    ?.text ??
+                                                                '')),
+                                                    lastModified:
+                                                        getCurrentTimestamp,
+                                                    amountLeftToPay: functions
+                                                        .getMultiplication(
+                                                            double.parse(
+                                                                rateController
+                                                                        ?.text ??
+                                                                    ''),
+                                                            double.parse(
+                                                                areaController
+                                                                        ?.text ??
+                                                                    '')),
+                                                    plotNo: plotValue,
+                                                    dueDate: functions.getPaymentDate(
+                                                        columnPlansAndRatesRecord
+                                                            .paymentDaysAllowed
+                                                            .toDouble(),
+                                                        false,
+                                                        0.0,
+                                                        0.0),
+                                                  ),
+                                                  'comments':
+                                                      FieldValue.arrayUnion([
+                                                    descriptionController.text
+                                                  ]),
+                                                };
+                                                await widget.bookingRef
+                                                    .update(bookingsUpdateData);
+                                              } else {
+                                                return;
+                                              }
+                                              final calculationsUpdateData =
+                                                  createCalculationsRecordData(
+                                                emiDueAmount: functions.getSum(
+                                                    logBookingCalculationsRecord
+                                                        .emiDueAmount,
+                                                    functions.getSum(
+                                                        double.parse(
+                                                            bookingAmtController
+                                                                    ?.text ??
+                                                                ''),
+                                                        double.parse(
+                                                            downPaymentController
+                                                                    ?.text ??
+                                                                ''))),
+                                                emiDueDate:
+                                                    functions.getPaymentDate(
+                                                        columnPlansAndRatesRecord
+                                                            .paymentDaysAllowed
+                                                            .toDouble(),
+                                                        false,
+                                                        0.0,
+                                                        0.0),
+                                              );
+                                              await logBookingCalculationsRecord
+                                                  .reference
+                                                  .update(
+                                                      calculationsUpdateData);
+                                              if (actionsUserHierarchiesRecord
+                                                  .hasReferral) {
+                                                final commissionsCreateData = {
+                                                  ...createCommissionsRecordData(
+                                                    commissionUser:
+                                                        actionsUserHierarchiesRecord
+                                                            .referralParent,
+                                                    isDirect: true,
+                                                    bookingRef:
+                                                        widget.bookingRef,
+                                                    commissionAmount: 0.0,
+                                                    unsettledAmount: 0.0,
+                                                    lastModified:
+                                                        getCurrentTimestamp,
+                                                  ),
+                                                  'comments': [
+                                                    'Commission record created for new business booking recieved.'
+                                                  ],
+                                                };
+                                                await CommissionsRecord
+                                                    .collection
+                                                    .doc()
+                                                    .set(commissionsCreateData);
+                                              }
+                                              final plansAndRatesUpdateData = {
+                                                ...createPlansAndRatesRecordData(
+                                                  lastModified:
+                                                      getCurrentTimestamp,
+                                                ),
+                                                'plotsAvailable':
+                                                    FieldValue.arrayRemove(
+                                                        [plotValue]),
+                                              };
+                                              await columnBookingsRecord.planRef
+                                                  .update(
+                                                      plansAndRatesUpdateData);
+                                              await Navigator
+                                                  .pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AdminApprovalsWidget(),
+                                                ),
+                                                (r) => false,
+                                              );
+                                            },
+                                            text: 'Approve',
+                                            options: FFButtonOptions(
+                                              width: 180,
+                                              height: 50,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .tertiaryColor,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .title1,
+                                              elevation: 0,
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .darkBackground,
+                                                width: 1,
+                                              ),
+                                              borderRadius: 12,
+                                            ),
+                                          );
+                                        },
                                       ),
-                                      borderRadius: 12,
-                                    ),
+                                    ],
                                   );
                                 },
                               ),

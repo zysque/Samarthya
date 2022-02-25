@@ -273,6 +273,10 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       .fromSTEB(10, 0, 0, 0),
                                                   child: InkWell(
                                                     onTap: () async {
+                                                      setState(() =>
+                                                          FFAppState()
+                                                                  .validated =
+                                                              false);
                                                       await Navigator.push(
                                                         context,
                                                         MaterialPageRoute(
@@ -626,6 +630,10 @@ class _AdminApprovalsWidgetState extends State<AdminApprovalsWidget>
                                                       .fromSTEB(10, 0, 0, 0),
                                                   child: InkWell(
                                                     onTap: () async {
+                                                      setState(() =>
+                                                          FFAppState()
+                                                                  .validated =
+                                                              false);
                                                       await Navigator.push(
                                                         context,
                                                         MaterialPageRoute(

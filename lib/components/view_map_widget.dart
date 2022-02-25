@@ -2,6 +2,7 @@ import '../flutter_flow/flutter_flow_static_map.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/lat_lng.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -65,7 +66,9 @@ class _ViewMapWidgetState extends State<ViewMapWidget> {
               height: 500,
               fit: BoxFit.cover,
               borderRadius: BorderRadius.circular(0),
-              zoom: 12,
+              markerColor: Color(0xFF810933),
+              cached: true,
+              zoom: 16,
               tilt: 0,
               rotation: 0,
             ),

@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
 import '../main.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -705,9 +706,12 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                               photoUrl: uploadedFileUrl1,
                               dob: yourDOBController.text,
                               phoneNumber: yourPhoneController.text,
-                              aadharNumber:
+                              aadharNumber: functions.encryptData(
                                   int.parse(yourAaadharController.text),
-                              panNumber: yourPANController.text,
+                                  '0',
+                                  true),
+                              panNumber: functions.encryptData(
+                                  0, yourPANController.text, false),
                               address: yourAddressController.text,
                               aadharImage: uploadedFileUrl2,
                               panImage: uploadedFileUrl3,

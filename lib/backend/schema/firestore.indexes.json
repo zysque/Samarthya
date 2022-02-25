@@ -101,6 +101,10 @@
           "order": "ASCENDING"
         },
         {
+          "fieldPath": "dueDate",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "lastModified",
           "order": "DESCENDING"
         }

@@ -10,6 +10,7 @@ import '../flutter_flow/flutter_flow_video_player.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../plan_details/plan_details_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -247,53 +248,44 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).background,
                   ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Builder(
-                          builder: (context) {
-                            final photos = projectDetailsProjectsRecord.photos
-                                    .toList()
-                                    ?.toList() ??
-                                [];
-                            return Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children:
-                                  List.generate(photos.length, (photosIndex) {
-                                final photosItem = photos[photosIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 5, 0),
-                                  child: FlutterFlowMediaDisplay(
-                                    path: photosItem,
-                                    imageBuilder: (path) => Image.network(
-                                      path,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.95,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.25,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    videoPlayerBuilder: (path) =>
-                                        FlutterFlowVideoPlayer(
-                                      path: path,
-                                      autoPlay: false,
-                                      looping: false,
-                                      showControls: false,
-                                      allowFullScreen: true,
-                                      allowPlaybackSpeedMenu: false,
-                                    ),
-                                  ),
-                                );
-                              }),
+                  child: Builder(
+                    builder: (context) {
+                      final photos = projectDetailsProjectsRecord.photos
+                              .toList()
+                              ?.toList() ??
+                          [];
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: List.generate(photos.length, (photosIndex) {
+                            final photosItem = photos[photosIndex];
+                            return Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                              child: FlutterFlowMediaDisplay(
+                                path: photosItem,
+                                imageBuilder: (path) => CachedNetworkImage(
+                                  imageUrl: path,
+                                  width: 360,
+                                  height: 200,
+                                  fit: BoxFit.scaleDown,
+                                ),
+                                videoPlayerBuilder: (path) =>
+                                    FlutterFlowVideoPlayer(
+                                  path: path,
+                                  autoPlay: false,
+                                  looping: false,
+                                  showControls: false,
+                                  allowFullScreen: true,
+                                  allowPlaybackSpeedMenu: false,
+                                ),
+                              ),
                             );
-                          },
+                          }),
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -304,50 +296,44 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).background,
                   ),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 5),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Builder(
-                          builder: (context) {
-                            final videos = projectDetailsProjectsRecord.videos
-                                    .toList()
-                                    ?.toList() ??
-                                [];
-                            return Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children:
-                                  List.generate(videos.length, (videosIndex) {
-                                final videosItem = videos[videosIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      5, 0, 5, 0),
-                                  child: FlutterFlowMediaDisplay(
-                                    path: videosItem,
-                                    imageBuilder: (path) => Image.network(
-                                      path,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    videoPlayerBuilder: (path) =>
-                                        FlutterFlowVideoPlayer(
-                                      path: path,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.95,
-                                      autoPlay: true,
-                                      looping: true,
-                                      showControls: true,
-                                      allowFullScreen: true,
-                                      allowPlaybackSpeedMenu: true,
-                                    ),
-                                  ),
-                                );
-                              }),
+                  child: Builder(
+                    builder: (context) {
+                      final videos = projectDetailsProjectsRecord.videos
+                              .toList()
+                              ?.toList() ??
+                          [];
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: List.generate(videos.length, (videosIndex) {
+                            final videosItem = videos[videosIndex];
+                            return Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 5, 0),
+                              child: FlutterFlowMediaDisplay(
+                                path: videosItem,
+                                imageBuilder: (path) => CachedNetworkImage(
+                                  imageUrl: path,
+                                  fit: BoxFit.cover,
+                                ),
+                                videoPlayerBuilder: (path) =>
+                                    FlutterFlowVideoPlayer(
+                                  path: path,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.96,
+                                  autoPlay: false,
+                                  looping: false,
+                                  showControls: true,
+                                  allowFullScreen: true,
+                                  allowPlaybackSpeedMenu: true,
+                                ),
+                              ),
                             );
-                          },
+                          }),
                         ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 ),
               ),

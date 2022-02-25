@@ -3,14 +3,12 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
-import '../flutter_flow/flutter_flow_place_picker.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../flutter_flow/place.dart';
 import '../flutter_flow/upload_media.dart';
 import '../project_details/project_details_widget.dart';
-import 'dart:io';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -36,7 +34,8 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
   TextEditingController descriptionController;
   TextEditingController projectCityController;
   TextEditingController projectNameController;
-  var locationValue = FFPlace();
+  TextEditingController latController;
+  TextEditingController lngController;
   bool statusValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -67,6 +66,32 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
         opacity: 1,
       ),
     ),
+    'textFieldOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 40),
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        opacity: 1,
+      ),
+    ),
+    'textFieldOnPageLoadAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 40),
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        opacity: 1,
+      ),
+    ),
   };
 
   @override
@@ -77,6 +102,9 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
           .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
       this,
     );
+
+    latController = TextEditingController();
+    lngController = TextEditingController();
   }
 
   @override
@@ -144,7 +172,6 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                   ),
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 565,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).darkBackground,
                       borderRadius: BorderRadius.only(
@@ -354,6 +381,161 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                               ),
                               Padding(
                                 padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 20, 0),
+                                        child: TextFormField(
+                                          controller: latController,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Lattitude',
+                                            labelStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .title1
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .grayLight,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                            hintText: 'Location Lattitude',
+                                            hintStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .title1
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .grayLight,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            filled: true,
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20, 4, 20, 4),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .title1
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                          textAlign: TextAlign.center,
+                                          keyboardType: TextInputType.number,
+                                        ).animated([
+                                          animationsMap[
+                                              'textFieldOnPageLoadAnimation3']
+                                        ]),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            20, 0, 0, 0),
+                                        child: TextFormField(
+                                          controller: lngController,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Longitude',
+                                            labelStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .title1
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .grayLight,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w300,
+                                                ),
+                                            hintText: 'Location Longitude',
+                                            hintStyle: FlutterFlowTheme.of(
+                                                    context)
+                                                .title1
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .grayLight,
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .grayDark,
+                                                width: 2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            filled: true,
+                                            contentPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    20, 4, 20, 4),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .title1
+                                              .override(
+                                                fontFamily: 'Lexend Deca',
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                          textAlign: TextAlign.center,
+                                          keyboardType: TextInputType.number,
+                                        ).animated([
+                                          animationsMap[
+                                              'textFieldOnPageLoadAnimation4']
+                                        ]),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -492,40 +674,6 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                               ),
                               Padding(
                                 padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
-                                child: FlutterFlowPlacePicker(
-                                  iOSGoogleMapsApiKey: '',
-                                  androidGoogleMapsApiKey: '',
-                                  webGoogleMapsApiKey: '',
-                                  onSelect: (place) =>
-                                      setState(() => locationValue = place),
-                                  defaultText: 'Select Location',
-                                  icon: Icon(
-                                    Icons.place,
-                                    color: Colors.white,
-                                    size: 16,
-                                  ),
-                                  buttonOptions: FFButtonOptions(
-                                    width: 200,
-                                    height: 40,
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .subtitle2
-                                        .override(
-                                          fontFamily: 'Lexend Deca',
-                                          color: Colors.white,
-                                        ),
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 1,
-                                    ),
-                                    borderRadius: 12,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
                                     EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(2),
@@ -553,7 +701,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                           child: FFButtonWidget(
                             onPressed: () async {
                               await Navigator.push(
@@ -586,7 +734,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -599,6 +747,8 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                               projectDesc: descriptionController?.text ?? '',
                               lastModified: getCurrentTimestamp,
                               active: statusValue,
+                              projectLocation: functions.getLocation(
+                                  latController.text, lngController.text),
                             ),
                             'photos': FFAppState().projPhtos,
                             'videos': FFAppState().projVideos,

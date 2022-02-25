@@ -374,23 +374,61 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                           return FFButtonWidget(
                                                             onPressed:
                                                                 () async {
-                                                              final transactionsUpdateData =
-                                                                  createTransactionsRecordData(
-                                                                transactionAmount:
-                                                                    double.parse(
-                                                                        amountBPController?.text ??
-                                                                            ''),
-                                                                mode:
-                                                                    dropDownValue,
-                                                                status: true,
-                                                                transactionID:
-                                                                    '${columnCalculationsRecord.userCode}_T${columnCalculationsRecord.transCount.toString()}',
+                                                              await showDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (alertDialogContext) {
+                                                                  return AlertDialog(
+                                                                    title: Text(
+                                                                        'Confirmation'),
+                                                                    content: Text(
+                                                                        'Are you sure to approve this booking?'),
+                                                                    actions: [
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () =>
+                                                                                Navigator.pop(alertDialogContext),
+                                                                        child: Text(
+                                                                            'Cancel'),
+                                                                      ),
+                                                                      TextButton(
+                                                                        onPressed:
+                                                                            () async {
+                                                                          Navigator.pop(
+                                                                              alertDialogContext);
+                                                                          setState(() =>
+                                                                              FFAppState().validated = true);
+                                                                          ;
+                                                                        },
+                                                                        child: Text(
+                                                                            'Confirm'),
+                                                                      ),
+                                                                    ],
+                                                                  );
+                                                                },
                                                               );
-                                                              await widget
-                                                                  .transactionDetails
-                                                                  .update(
-                                                                      transactionsUpdateData);
-
+                                                              if (FFAppState()
+                                                                  .validated) {
+                                                                final transactionsUpdateData =
+                                                                    createTransactionsRecordData(
+                                                                  transactionAmount:
+                                                                      double.parse(
+                                                                          amountBPController?.text ??
+                                                                              ''),
+                                                                  mode:
+                                                                      dropDownValue,
+                                                                  status: true,
+                                                                  transactionID:
+                                                                      '${columnCalculationsRecord.userCode}_T${columnCalculationsRecord.transCount.toString()}',
+                                                                );
+                                                                await widget
+                                                                    .transactionDetails
+                                                                    .update(
+                                                                        transactionsUpdateData);
+                                                              } else {
+                                                                return;
+                                                              }
                                                               final bookingsUpdateData =
                                                                   createBookingsRecordData(
                                                                 amountLeftToPay: functions.getDiff(
@@ -408,21 +446,13 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                     double.parse(
                                                                         amountBPController?.text ??
                                                                             '')),
-                                                                dueDate: functions.getNewDate(
-                                                                    columnBookingsRecord
-                                                                        .dueDate,
-                                                                    0,
-                                                                    1,
+                                                                dueDate: functions.getPaymentDate(
+                                                                    0.0,
+                                                                    true,
                                                                     actionsAdminConstsRecord
                                                                         .emiPaymentDay,
-                                                                    (functions.getDiff(
-                                                                            columnBookingsRecord
-                                                                                .dueAmount,
-                                                                            double.parse(amountBPController?.text ??
-                                                                                ''))) <=
-                                                                        0.0,
-                                                                    columnBookingsRecord
-                                                                        .dueDate),
+                                                                    actionsAdminConstsRecord
+                                                                        .reminderBeforeDays),
                                                                 creditStatus: (functions.getDiff(
                                                                         columnBookingsRecord
                                                                             .amountLeftToPay,
@@ -447,21 +477,13 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                                       double.parse(
                                                                           amountBPController?.text ??
                                                                               '')),
-                                                                  emiDueDate: functions.getNewDate(
-                                                                      columnBookingsRecord
-                                                                          .dueDate,
-                                                                      0,
-                                                                      1,
+                                                                  emiDueDate: functions.getPaymentDate(
+                                                                      0.0,
+                                                                      true,
                                                                       actionsAdminConstsRecord
                                                                           .emiPaymentDay,
-                                                                      (functions.getDiff(
-                                                                              columnCalculationsRecord
-                                                                                  .emiDueAmount,
-                                                                              double.parse(amountBPController?.text ??
-                                                                                  ''))) <=
-                                                                          0.0,
-                                                                      columnCalculationsRecord
-                                                                          .emiDueDate),
+                                                                      actionsAdminConstsRecord
+                                                                          .reminderBeforeDays),
                                                                   unPBusinessAmt: functions.getSum(
                                                                       columnCalculationsRecord
                                                                           .unPBusinessAmt,
@@ -543,23 +565,61 @@ class _PaymentApprovalsWidgetState extends State<PaymentApprovalsWidget> {
                                                       true)
                                                     FFButtonWidget(
                                                       onPressed: () async {
-                                                        final transactionsUpdateData =
-                                                            createTransactionsRecordData(
-                                                          transactionAmount:
-                                                              double.parse(
-                                                                  amountBPController
-                                                                          ?.text ??
-                                                                      ''),
-                                                          mode: dropDownValue,
-                                                          status: true,
-                                                          transactionID:
-                                                              '${columnCalculationsRecord.userCode}_T${columnCalculationsRecord.transCount.toString()}',
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                  'Confirmation'),
+                                                              content: Text(
+                                                                  'Are you sure to approve this booking?'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Cancel'),
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    Navigator.pop(
+                                                                        alertDialogContext);
+                                                                    setState(() =>
+                                                                        FFAppState().validated =
+                                                                            true);
+                                                                    ;
+                                                                  },
+                                                                  child: Text(
+                                                                      'Confirm'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
                                                         );
-                                                        await widget
-                                                            .transactionDetails
-                                                            .update(
-                                                                transactionsUpdateData);
-
+                                                        if (FFAppState()
+                                                            .validated) {
+                                                          final transactionsUpdateData =
+                                                              createTransactionsRecordData(
+                                                            transactionAmount:
+                                                                double.parse(
+                                                                    amountBPController
+                                                                            ?.text ??
+                                                                        ''),
+                                                            mode: dropDownValue,
+                                                            status: true,
+                                                            transactionID:
+                                                                '${columnCalculationsRecord.userCode}_T${columnCalculationsRecord.transCount.toString()}',
+                                                          );
+                                                          await widget
+                                                              .transactionDetails
+                                                              .update(
+                                                                  transactionsUpdateData);
+                                                        } else {
+                                                          return;
+                                                        }
                                                         final bookingsUpdateData =
                                                             createBookingsRecordData(
                                                           amountLeftToPay: functions.getDiff(

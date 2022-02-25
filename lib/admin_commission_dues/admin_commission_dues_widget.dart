@@ -426,7 +426,7 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                                                               );
                                                             },
                                                             child: Icon(
-                                                              Icons.approval,
+                                                              Icons.payment,
                                                               color: FlutterFlowTheme
                                                                       .of(context)
                                                                   .textColor,
@@ -715,13 +715,6 @@ class _AdminCommissionDuesWidgetState extends State<AdminCommissionDuesWidget>
                             }
                             List<CommissionsRecord>
                                 inDirectCommissionsRecordList = snapshot.data;
-                            if (inDirectCommissionsRecordList.isEmpty) {
-                              return Center(
-                                child: Image.asset(
-                                  'assets/images/NoDues.JPG',
-                                ),
-                              );
-                            }
                             return ListView.builder(
                               padding: EdgeInsets.zero,
                               shrinkWrap: true,

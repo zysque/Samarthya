@@ -11,6 +11,7 @@ import '../login_page/login_page_widget.dart';
 import '../notifications_settings/notifications_settings_widget.dart';
 import '../tutorial/tutorial_widget.dart';
 import '../uses_policy/uses_policy_widget.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -323,7 +324,9 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       4, 8, 0, 0),
                                   child: Text(
-                                    myProfilePageUsersRecord.aadharNumber
+                                    functions
+                                        .decryptIntData(myProfilePageUsersRecord
+                                            .aadharNumber)
                                         .toString(),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
@@ -374,7 +377,8 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       4, 8, 0, 0),
                                   child: Text(
-                                    myProfilePageUsersRecord.panNumber,
+                                    functions.decryptStringData(
+                                        myProfilePageUsersRecord.panNumber),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyText1
                                         .override(
