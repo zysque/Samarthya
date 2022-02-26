@@ -535,7 +535,7 @@ class _RegisterAccountWidgetState extends State<RegisterAccountWidget> {
                                                     },
                                                     text: 'Validate',
                                                     options: FFButtonOptions(
-                                                      width: 74,
+                                                      width: 85,
                                                       height: 20,
                                                       color: Color(0xFF78A638),
                                                       textStyle:

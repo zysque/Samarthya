@@ -778,7 +778,7 @@ class _AddrightChildWidgetState extends State<AddrightChildWidget> {
                                                   },
                                                   text: 'Validate',
                                                   options: FFButtonOptions(
-                                                    width: 74,
+                                                    width: 85,
                                                     height: 20,
                                                     color: Color(0xFF78A638),
                                                     textStyle:
