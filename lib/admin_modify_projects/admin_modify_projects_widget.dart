@@ -102,9 +102,6 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
           .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
       this,
     );
-
-    latController = TextEditingController();
-    lngController = TextEditingController();
   }
 
   @override
@@ -392,7 +389,15 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 0, 20, 0),
                                         child: TextFormField(
-                                          controller: latController,
+                                          controller: latController ??=
+                                              TextEditingController(
+                                            text: functions
+                                                .parseLatLng(
+                                                    adminModifyProjectsProjectsRecord
+                                                        .projectLocation,
+                                                    true)
+                                                .toString(),
+                                          ),
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Lattitude',
@@ -464,7 +469,15 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             20, 0, 0, 0),
                                         child: TextFormField(
-                                          controller: lngController,
+                                          controller: lngController ??=
+                                              TextEditingController(
+                                            text: functions
+                                                .parseLatLng(
+                                                    adminModifyProjectsProjectsRecord
+                                                        .projectLocation,
+                                                    false)
+                                                .toString(),
+                                          ),
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText: 'Longitude',
@@ -547,6 +560,8 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                         final selectedMedia =
                                             await selectMediaWithSourceBottomSheet(
                                           context: context,
+                                          maxWidth: 360.00,
+                                          maxHeight: 200.00,
                                           allowPhoto: true,
                                         );
                                         if (selectedMedia != null &&
@@ -704,6 +719,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                           padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 10),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              setState(() => FFAppState().strList = []);
                               await Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -714,7 +730,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                 ),
                               );
                             },
-                            text: 'Modify Plan',
+                            text: 'Add Plan',
                             options: FFButtonOptions(
                               width: 150,
                               height: 40,
@@ -748,7 +764,8 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                               lastModified: getCurrentTimestamp,
                               active: statusValue,
                               projectLocation: functions.getLocation(
-                                  latController.text, lngController.text),
+                                  latController?.text ?? '',
+                                  lngController?.text ?? ''),
                             ),
                             'photos': FFAppState().projPhtos,
                             'videos': FFAppState().projVideos,

@@ -320,8 +320,7 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget> {
                                 videoPlayerBuilder: (path) =>
                                     FlutterFlowVideoPlayer(
                                   path: path,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.96,
+                                  width: 360,
                                   autoPlay: false,
                                   looping: false,
                                   showControls: true,

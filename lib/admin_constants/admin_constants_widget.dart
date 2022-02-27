@@ -323,7 +323,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                                   snapshot.data;
                                               return FlutterFlowDropDown(
                                                 options: dropDownUsersRecordList
-                                                    .map((e) => e.email)
+                                                    .map((e) => e.userCode)
                                                     .toList()
                                                     .toList(),
                                                 onChanged: (val) => setState(
@@ -373,7 +373,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                         StreamBuilder<List<UsersRecord>>(
                           stream: queryUsersRecord(
                             queryBuilder: (usersRecord) => usersRecord
-                                .where('email', isEqualTo: dropDownValue),
+                                .where('userCode', isEqualTo: dropDownValue),
                             singleRecord: true,
                           ),
                           builder: (context, snapshot) {

@@ -245,6 +245,11 @@ class _PlanDetailsWidgetState extends State<PlanDetailsWidget>
                                                     if (widget.isAdmin ?? true)
                                                       InkWell(
                                                         onTap: () async {
+                                                          setState(() => FFAppState()
+                                                                  .strList =
+                                                              listViewPlansAndRatesRecord
+                                                                  .emiTenureOptions
+                                                                  .toList());
                                                           await Navigator.push(
                                                             context,
                                                             MaterialPageRoute(

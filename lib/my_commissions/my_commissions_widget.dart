@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -327,194 +328,209 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                             itemBuilder: (context, listViewIndex) {
                               final listViewCommissionsRecord =
                                   listViewCommissionsRecordList[listViewIndex];
-                              return Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16, 0, 16, 10),
-                                child: InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            CommissionDetailsWidget(
-                                          commissionRef:
-                                              listViewCommissionsRecord
-                                                  .reference,
+                              return Visibility(
+                                visible: (functions.getSum(
+                                        listViewCommissionsRecord
+                                            .commissionAmount,
+                                        listViewCommissionsRecord
+                                            .unsettledAmount)) >
+                                    0.0,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16, 0, 16, 10),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              CommissionDetailsWidget(
+                                            commissionRef:
+                                                listViewCommissionsRecord
+                                                    .reference,
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        borderRadius: BorderRadius.circular(8),
                                       ),
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12, 5, 12, 5),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  'Commission',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 24,
-                                                      ),
-                                                ),
-                                                Text(
-                                                  formatNumber(
-                                                    listViewCommissionsRecord
-                                                        .commissionAmount,
-                                                    formatType:
-                                                        FormatType.custom,
-                                                    currency: 'Rs',
-                                                    format: '',
-                                                    locale: '',
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            12, 5, 12, 5),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 0, 0, 4),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    'Commission',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 24,
+                                                        ),
                                                   ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 24,
-                                                      ),
-                                                ),
-                                                Icon(
-                                                  Icons
-                                                      .arrow_forward_ios_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .textColor,
-                                                  size: 16,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 4, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  'Unsettled Amount',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
-                                                ),
-                                                Text(
-                                                  formatNumber(
-                                                    listViewCommissionsRecord
-                                                        .unsettledAmount,
-                                                    formatType:
-                                                        FormatType.custom,
-                                                    currency: 'Rs',
-                                                    format: '',
-                                                    locale: '',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
-                                                ),
-                                                ToggleIcon(
-                                                  onPressed: () async {
-                                                    final commissionsUpdateData =
-                                                        createCommissionsRecordData(
-                                                      settled:
-                                                          !listViewCommissionsRecord
-                                                              .settled,
-                                                    );
-                                                    await listViewCommissionsRecord
-                                                        .reference
-                                                        .update(
-                                                            commissionsUpdateData);
-                                                  },
-                                                  value:
+                                                  Text(
+                                                    formatNumber(
                                                       listViewCommissionsRecord
-                                                          .settled,
-                                                  onIcon: FaIcon(
-                                                    FontAwesomeIcons.donate,
-                                                    color: Color(0xFF7CD514),
-                                                    size: 20,
+                                                          .commissionAmount,
+                                                      formatType:
+                                                          FormatType.custom,
+                                                      currency: 'Rs',
+                                                      format: '',
+                                                      locale: '',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 24,
+                                                        ),
                                                   ),
-                                                  offIcon: Icon(
-                                                    Icons.pending_actions,
-                                                    color: Color(0xFF810933),
-                                                    size: 20,
+                                                  Icon(
+                                                    Icons
+                                                        .arrow_forward_ios_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .textColor,
+                                                    size: 16,
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 4, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  dateTimeFormat(
-                                                      'relative',
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 4, 0, 0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    'Unsettled Amount',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 14,
+                                                        ),
+                                                  ),
+                                                  Text(
+                                                    formatNumber(
                                                       listViewCommissionsRecord
-                                                          .lastModified),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
-                                                ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    if (!(listViewCommissionsRecord
-                                                            .isDirect) ??
-                                                        true)
+                                                          .unsettledAmount,
+                                                      formatType:
+                                                          FormatType.custom,
+                                                      currency: 'Rs',
+                                                      format: '',
+                                                      locale: '',
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 14,
+                                                        ),
+                                                  ),
+                                                  ToggleIcon(
+                                                    onPressed: () async {
+                                                      final commissionsUpdateData =
+                                                          createCommissionsRecordData(
+                                                        settled:
+                                                            !listViewCommissionsRecord
+                                                                .settled,
+                                                      );
+                                                      await listViewCommissionsRecord
+                                                          .reference
+                                                          .update(
+                                                              commissionsUpdateData);
+                                                    },
+                                                    value:
+                                                        listViewCommissionsRecord
+                                                            .settled,
+                                                    onIcon: FaIcon(
+                                                      FontAwesomeIcons.donate,
+                                                      color: Color(0xFF7CD514),
+                                                      size: 20,
+                                                    ),
+                                                    offIcon: Icon(
+                                                      Icons.pending_actions,
+                                                      color: Color(0xFF810933),
+                                                      size: 20,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0, 4, 0, 0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    dateTimeFormat(
+                                                        'relative',
+                                                        listViewCommissionsRecord
+                                                            .lastModified),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText2
+                                                        .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 14,
+                                                        ),
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      if (!(listViewCommissionsRecord
+                                                              .isDirect) ??
+                                                          true)
+                                                        Text(
+                                                          'In',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyText2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                fontSize: 14,
+                                                              ),
+                                                        ),
                                                       Text(
-                                                        'In',
+                                                        'Direct',
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -525,24 +541,13 @@ class _MyCommissionsWidgetState extends State<MyCommissionsWidget>
                                                                   fontSize: 14,
                                                                 ),
                                                       ),
-                                                    Text(
-                                                      'Direct',
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyText2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lexend Deca',
-                                                                fontSize: 14,
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

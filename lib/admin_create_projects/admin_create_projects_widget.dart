@@ -151,7 +151,6 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 550,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).darkBackground,
                   borderRadius: BorderRadius.only(
@@ -468,6 +467,8 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                                 final selectedMedia =
                                     await selectMediaWithSourceBottomSheet(
                                   context: context,
+                                  maxWidth: 360.00,
+                                  maxHeight: 200.00,
                                   allowPhoto: true,
                                 );
                                 if (selectedMedia != null &&

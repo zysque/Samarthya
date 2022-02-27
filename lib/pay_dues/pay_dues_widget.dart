@@ -277,6 +277,13 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                       await TransactionsRecord.collection
                                           .doc()
                                           .set(transactionsCreateData);
+
+                                      final bookingsUpdateData =
+                                          createBookingsRecordData(
+                                        creditStatus: false,
+                                      );
+                                      await columnBookingsRecord.reference
+                                          .update(bookingsUpdateData);
                                       Navigator.pop(context);
                                     },
                                     text: 'Log Pay',
@@ -319,6 +326,13 @@ class _PayDuesWidgetState extends State<PayDuesWidget> {
                                 await TransactionsRecord.collection
                                     .doc()
                                     .set(transactionsCreateData);
+
+                                final bookingsUpdateData =
+                                    createBookingsRecordData(
+                                  creditStatus: false,
+                                );
+                                await columnBookingsRecord.reference
+                                    .update(bookingsUpdateData);
                                 Navigator.pop(context);
                               },
                               text: 'Log Pay',

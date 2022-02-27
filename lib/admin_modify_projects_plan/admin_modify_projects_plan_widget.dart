@@ -5,7 +5,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../main.dart';
-import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -31,8 +30,6 @@ class _AdminModifyProjectsPlanWidgetState
   TextEditingController fixRateController;
   TextEditingController phaseCodeController;
   double downPaymentPercentageValue;
-  TextEditingController plotEndController;
-  TextEditingController plotStartController;
   TextEditingController paymentsDaysController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -86,9 +83,6 @@ class _AdminModifyProjectsPlanWidgetState
           .where((anim) => anim.trigger == AnimationTrigger.onPageLoad),
       this,
     );
-
-    plotEndController = TextEditingController();
-    plotStartController = TextEditingController();
   }
 
   @override
@@ -324,104 +318,6 @@ class _AdminModifyProjectsPlanWidgetState
                               setState(
                                   () => downPaymentPercentageValue = newValue);
                             },
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Plots Range',
-                                style: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Lexend Deca',
-                                      color: FlutterFlowTheme.of(context)
-                                          .textColor,
-                                    ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 0, 0, 0),
-                                  child: TextFormField(
-                                    controller: plotStartController,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'Start',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .subtitle2,
-                                      hintText: 'Enter starting plot No',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .subtitle2,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .grayDark,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .grayDark,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              20, 10, 20, 10),
-                                    ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                    textAlign: TextAlign.center,
-                                    keyboardType: TextInputType.number,
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      20, 0, 0, 0),
-                                  child: TextFormField(
-                                    controller: plotEndController,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      labelText: 'End',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .subtitle2,
-                                      hintText: 'Enter ending plot No',
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .subtitle2,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .grayDark,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .grayDark,
-                                          width: 1,
-                                        ),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      contentPadding:
-                                          EdgeInsetsDirectional.fromSTEB(
-                                              20, 10, 20, 10),
-                                    ),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                    textAlign: TextAlign.center,
-                                    keyboardType: TextInputType.number,
-                                  ),
-                                ),
-                              ),
-                            ],
                           ),
                           Padding(
                             padding:
@@ -852,9 +748,6 @@ class _AdminModifyProjectsPlanWidgetState
                                   int.parse(paymentsDaysController?.text ?? ''),
                             ),
                             'emiTenureOptions': FFAppState().strList,
-                            'plotsAvailable': functions.getNumbersInBetween(
-                                int.parse(plotStartController.text),
-                                int.parse(plotEndController.text)),
                           };
                           await widget.planRef.update(plansAndRatesUpdateData);
                           await Navigator.push(

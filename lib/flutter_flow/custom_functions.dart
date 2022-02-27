@@ -245,3 +245,11 @@ String decryptStringData(String data) {
   }
   return decodedStr;
 }
+
+double parseLatLng(
+  LatLng location,
+  bool isLat,
+) {
+  // Add your function code here!
+  return isLat ? location.latitude : location.longitude;
+}

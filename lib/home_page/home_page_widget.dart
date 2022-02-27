@@ -230,7 +230,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .background,
-                                                  fontSize: 17,
+                                                  fontSize: 16,
                                                 ),
                                           ),
                                           if ((columnCalculationsRecord
@@ -476,7 +476,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .textColor,
-                                                  fontSize: 17,
+                                                  fontSize: 16,
                                                 ),
                                           ),
                                           Row(
@@ -506,6 +506,49 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .title1,
+                                              ),
+                                            ],
+                                          ),
+                                          Text(
+                                            'Unprocessed Amount',
+                                            style: FlutterFlowTheme.of(context)
+                                                .subtitle1
+                                                .override(
+                                                  fontFamily: 'Lexend Deca',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .textColor,
+                                                  fontSize: 14,
+                                                ),
+                                          ),
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(0, 0, 5, 0),
+                                                child: FaIcon(
+                                                  FontAwesomeIcons.rupeeSign,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .textColor,
+                                                  size: 16,
+                                                ),
+                                              ),
+                                              Text(
+                                                columnCalculationsRecord
+                                                    .unPBusinessAmt
+                                                    .toString(),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .title1
+                                                        .override(
+                                                          fontFamily:
+                                                              'Lexend Deca',
+                                                          fontSize: 16,
+                                                        ),
                                               ),
                                             ],
                                           ),
@@ -546,7 +589,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         .override(
                                                           fontFamily:
                                                               'Lexend Deca',
-                                                          fontSize: 20,
+                                                          fontSize: 16,
                                                         ),
                                                   ),
                                                 ),
