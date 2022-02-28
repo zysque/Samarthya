@@ -593,9 +593,31 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                             return;
                                           }
                                         }
-                                        setState(() => FFAppState()
-                                            .projPhtos
-                                            .add(uploadedFileUrl1));
+                                        if ((uploadedFileUrl1) == '\"\"') {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text('Size exceeds'),
+                                                content: Text(
+                                                    'The image should be 360*200 pixels. Th uploaded images not adhere to that. Please check and re-upload.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+                                        if ((uploadedFileUrl1) != '\"\"') {
+                                          setState(() => FFAppState()
+                                              .projPhtos
+                                              .add(uploadedFileUrl1));
+                                        }
                                       },
                                       text: 'Photos',
                                       icon: Icon(
