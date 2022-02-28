@@ -87,6 +87,43 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget> {
                           size: 50,
                         ),
                       ),
+                    FFButtonWidget(
+                      onPressed: () async {
+                        await showModalBottomSheet(
+                          isScrollControlled: true,
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) {
+                            return Padding(
+                              padding: MediaQuery.of(context).viewInsets,
+                              child: ViewMapWidget(
+                                location: projectDetailsProjectsRecord
+                                    .projectLocation,
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      text: 'View Map',
+                      icon: FaIcon(
+                        FontAwesomeIcons.mapMarkerAlt,
+                      ),
+                      options: FFButtonOptions(
+                        width: 140,
+                        height: 40,
+                        color: Color(0xFFE49CAF),
+                        textStyle:
+                            FlutterFlowTheme.of(context).subtitle2.override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).textColor,
+                                ),
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).grayLight,
+                          width: 4,
+                        ),
+                        borderRadius: 8,
+                      ),
+                    ),
                     Card(
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       color: FlutterFlowTheme.of(context).background,
@@ -334,51 +371,6 @@ class _ProjectDetailsWidgetState extends State<ProjectDetailsWidget> {
                       );
                     },
                   ),
-                ),
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    FFButtonWidget(
-                      onPressed: () async {
-                        await showModalBottomSheet(
-                          isScrollControlled: true,
-                          backgroundColor: Colors.transparent,
-                          context: context,
-                          builder: (context) {
-                            return Padding(
-                              padding: MediaQuery.of(context).viewInsets,
-                              child: ViewMapWidget(
-                                location: projectDetailsProjectsRecord
-                                    .projectLocation,
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      text: 'View Map',
-                      icon: FaIcon(
-                        FontAwesomeIcons.mapMarkerAlt,
-                      ),
-                      options: FFButtonOptions(
-                        width: 150,
-                        height: 40,
-                        color: Color(0xFFE49CAF),
-                        textStyle:
-                            FlutterFlowTheme.of(context).subtitle2.override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.of(context).textColor,
-                                ),
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).grayLight,
-                          width: 4,
-                        ),
-                        borderRadius: 8,
-                      ),
-                    ),
-                  ],
                 ),
               ),
               Padding(

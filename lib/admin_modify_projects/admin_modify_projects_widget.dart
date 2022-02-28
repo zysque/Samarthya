@@ -593,14 +593,14 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                             return;
                                           }
                                         }
-                                        if ((uploadedFileUrl1) == '\"\"') {
+                                        if ((uploadedFileUrl1) == '') {
                                           await showDialog(
                                             context: context,
                                             builder: (alertDialogContext) {
                                               return AlertDialog(
                                                 title: Text('Size exceeds'),
                                                 content: Text(
-                                                    'The image should be 360*200 pixels. Th uploaded images not adhere to that. Please check and re-upload.'),
+                                                    'The uploaded photo should be 360*200 poxels. Please re-upload.'),
                                                 actions: [
                                                   TextButton(
                                                     onPressed: () =>
@@ -613,7 +613,7 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                             },
                                           );
                                         }
-                                        if ((uploadedFileUrl1) != '\"\"') {
+                                        if ((uploadedFileUrl1) != '') {
                                           setState(() => FFAppState()
                                               .projPhtos
                                               .add(uploadedFileUrl1));
@@ -679,9 +679,31 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                                             return;
                                           }
                                         }
-                                        setState(() => FFAppState()
-                                            .projVideos
-                                            .add(uploadedFileUrl2));
+                                        if ((uploadedFileUrl2) == '') {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text('Size exceeds'),
+                                                content: Text(
+                                                    'The uploaded video size exceeded. Please re-upload.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+                                        if ((uploadedFileUrl2) != '') {
+                                          setState(() => FFAppState()
+                                              .projVideos
+                                              .add(uploadedFileUrl2));
+                                        }
                                       },
                                       text: 'Videos',
                                       icon: Icon(
@@ -797,7 +819,9 @@ class _AdminModifyProjectsWidgetState extends State<AdminModifyProjectsWidget>
                           await Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => ProjectDetailsWidget(),
+                              builder: (context) => ProjectDetailsWidget(
+                                projectDetails: widget.projectDetails,
+                              ),
                             ),
                           );
                         },
