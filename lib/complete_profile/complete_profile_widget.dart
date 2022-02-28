@@ -219,7 +219,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
-                            hintText: 'Please enter a valid number...',
+                            hintText: 'Please enter your name...',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -273,6 +273,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your Date of Birth',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -327,6 +328,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your phone number',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -383,6 +385,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your aadhar number',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -439,6 +442,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your pan number',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -485,6 +489,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your address',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
