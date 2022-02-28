@@ -86,10 +86,17 @@ class _$UserHierarchiesRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.hierarchyUserEmail;
+    value = object.hasReferral;
     if (value != null) {
       result
-        ..add('hierarchyUserEmail')
+        ..add('hasReferral')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.userCode;
+    if (value != null) {
+      result
+        ..add('userCode')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -158,8 +165,12 @@ class _$UserHierarchiesRecordSerializer
           result.hasRight = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
-        case 'hierarchyUserEmail':
-          result.hierarchyUserEmail = serializers.deserialize(value,
+        case 'hasReferral':
+          result.hasReferral = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'userCode':
+          result.userCode = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'Document__Reference__Field':
@@ -193,7 +204,9 @@ class _$UserHierarchiesRecord extends UserHierarchiesRecord {
   @override
   final bool hasRight;
   @override
-  final String hierarchyUserEmail;
+  final bool hasReferral;
+  @override
+  final String userCode;
   @override
   final DocumentReference<Object> reference;
 
@@ -210,7 +223,8 @@ class _$UserHierarchiesRecord extends UserHierarchiesRecord {
       this.hasParent,
       this.hasLeft,
       this.hasRight,
-      this.hierarchyUserEmail,
+      this.hasReferral,
+      this.userCode,
       this.reference})
       : super._();
 
@@ -235,7 +249,8 @@ class _$UserHierarchiesRecord extends UserHierarchiesRecord {
         hasParent == other.hasParent &&
         hasLeft == other.hasLeft &&
         hasRight == other.hasRight &&
-        hierarchyUserEmail == other.hierarchyUserEmail &&
+        hasReferral == other.hasReferral &&
+        userCode == other.userCode &&
         reference == other.reference;
   }
 
@@ -249,15 +264,17 @@ class _$UserHierarchiesRecord extends UserHierarchiesRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, hierarchyUser.hashCode),
-                                        referralParent.hashCode),
-                                    parentRef.hashCode),
-                                leftChildRef.hashCode),
-                            rightChildRef.hashCode),
-                        hasParent.hashCode),
-                    hasLeft.hashCode),
-                hasRight.hashCode),
-            hierarchyUserEmail.hashCode),
+                                    $jc(
+                                        $jc($jc(0, hierarchyUser.hashCode),
+                                            referralParent.hashCode),
+                                        parentRef.hashCode),
+                                    leftChildRef.hashCode),
+                                rightChildRef.hashCode),
+                            hasParent.hashCode),
+                        hasLeft.hashCode),
+                    hasRight.hashCode),
+                hasReferral.hashCode),
+            userCode.hashCode),
         reference.hashCode));
   }
 
@@ -272,7 +289,8 @@ class _$UserHierarchiesRecord extends UserHierarchiesRecord {
           ..add('hasParent', hasParent)
           ..add('hasLeft', hasLeft)
           ..add('hasRight', hasRight)
-          ..add('hierarchyUserEmail', hierarchyUserEmail)
+          ..add('hasReferral', hasReferral)
+          ..add('userCode', userCode)
           ..add('reference', reference))
         .toString();
   }
@@ -319,10 +337,13 @@ class UserHierarchiesRecordBuilder
   bool get hasRight => _$this._hasRight;
   set hasRight(bool hasRight) => _$this._hasRight = hasRight;
 
-  String _hierarchyUserEmail;
-  String get hierarchyUserEmail => _$this._hierarchyUserEmail;
-  set hierarchyUserEmail(String hierarchyUserEmail) =>
-      _$this._hierarchyUserEmail = hierarchyUserEmail;
+  bool _hasReferral;
+  bool get hasReferral => _$this._hasReferral;
+  set hasReferral(bool hasReferral) => _$this._hasReferral = hasReferral;
+
+  String _userCode;
+  String get userCode => _$this._userCode;
+  set userCode(String userCode) => _$this._userCode = userCode;
 
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
@@ -344,7 +365,8 @@ class UserHierarchiesRecordBuilder
       _hasParent = $v.hasParent;
       _hasLeft = $v.hasLeft;
       _hasRight = $v.hasRight;
-      _hierarchyUserEmail = $v.hierarchyUserEmail;
+      _hasReferral = $v.hasReferral;
+      _userCode = $v.userCode;
       _reference = $v.reference;
       _$v = null;
     }
@@ -374,7 +396,8 @@ class UserHierarchiesRecordBuilder
             hasParent: hasParent,
             hasLeft: hasLeft,
             hasRight: hasRight,
-            hierarchyUserEmail: hierarchyUserEmail,
+            hasReferral: hasReferral,
+            userCode: userCode,
             reference: reference);
     replace(_$result);
     return _$result;

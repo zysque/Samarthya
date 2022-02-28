@@ -116,6 +116,20 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.userCode;
+    if (value != null) {
+      result
+        ..add('userCode')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
+    value = object.incomplete;
+    if (value != null) {
+      result
+        ..add('incomplete')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.reference;
     if (value != null) {
       result
@@ -194,6 +208,14 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.panImage = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
+        case 'userCode':
+          result.userCode = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'incomplete':
+          result.incomplete = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -237,6 +259,10 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String panImage;
   @override
+  final String userCode;
+  @override
+  final bool incomplete;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder) updates]) =>
@@ -257,6 +283,8 @@ class _$UsersRecord extends UsersRecord {
       this.panNumber,
       this.aadharImage,
       this.panImage,
+      this.userCode,
+      this.incomplete,
       this.reference})
       : super._();
 
@@ -285,6 +313,8 @@ class _$UsersRecord extends UsersRecord {
         panNumber == other.panNumber &&
         aadharImage == other.aadharImage &&
         panImage == other.panImage &&
+        userCode == other.userCode &&
+        incomplete == other.incomplete &&
         reference == other.reference;
   }
 
@@ -305,22 +335,27 @@ class _$UsersRecord extends UsersRecord {
                                                     $jc(
                                                         $jc(
                                                             $jc(
-                                                                0,
-                                                                displayName
-                                                                    .hashCode),
-                                                            email.hashCode),
-                                                        uid.hashCode),
-                                                    location.hashCode),
-                                                phoneNumber.hashCode),
-                                            photoUrl.hashCode),
-                                        createdTime.hashCode),
-                                    userTitle.hashCode),
-                                address.hashCode),
-                            dob.hashCode),
-                        aadharNumber.hashCode),
-                    panNumber.hashCode),
-                aadharImage.hashCode),
-            panImage.hashCode),
+                                                                $jc(
+                                                                    $jc(
+                                                                        0,
+                                                                        displayName
+                                                                            .hashCode),
+                                                                    email
+                                                                        .hashCode),
+                                                                uid.hashCode),
+                                                            location.hashCode),
+                                                        phoneNumber.hashCode),
+                                                    photoUrl.hashCode),
+                                                createdTime.hashCode),
+                                            userTitle.hashCode),
+                                        address.hashCode),
+                                    dob.hashCode),
+                                aadharNumber.hashCode),
+                            panNumber.hashCode),
+                        aadharImage.hashCode),
+                    panImage.hashCode),
+                userCode.hashCode),
+            incomplete.hashCode),
         reference.hashCode));
   }
 
@@ -341,6 +376,8 @@ class _$UsersRecord extends UsersRecord {
           ..add('panNumber', panNumber)
           ..add('aadharImage', aadharImage)
           ..add('panImage', panImage)
+          ..add('userCode', userCode)
+          ..add('incomplete', incomplete)
           ..add('reference', reference))
         .toString();
   }
@@ -405,6 +442,14 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String get panImage => _$this._panImage;
   set panImage(String panImage) => _$this._panImage = panImage;
 
+  String _userCode;
+  String get userCode => _$this._userCode;
+  set userCode(String userCode) => _$this._userCode = userCode;
+
+  bool _incomplete;
+  bool get incomplete => _$this._incomplete;
+  set incomplete(bool incomplete) => _$this._incomplete = incomplete;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -431,6 +476,8 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _panNumber = $v.panNumber;
       _aadharImage = $v.aadharImage;
       _panImage = $v.panImage;
+      _userCode = $v.userCode;
+      _incomplete = $v.incomplete;
       _reference = $v.reference;
       _$v = null;
     }
@@ -466,6 +513,8 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
             panNumber: panNumber,
             aadharImage: aadharImage,
             panImage: panImage,
+            userCode: userCode,
+            incomplete: incomplete,
             reference: reference);
     replace(_$result);
     return _$result;

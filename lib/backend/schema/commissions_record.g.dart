@@ -43,13 +43,6 @@ class _$CommissionsRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
-    value = object.comments;
-    if (value != null) {
-      result
-        ..add('comments')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.bookingRef;
     if (value != null) {
       result
@@ -57,15 +50,6 @@ class _$CommissionsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
                 DocumentReference, const [const FullType(Object)])));
-    }
-    value = object.commTransRef;
-    if (value != null) {
-      result
-        ..add('commTransRef')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(BuiltList, const [
-              const FullType(DocumentReference, const [const FullType(Object)])
-            ])));
     }
     value = object.lastModified;
     if (value != null) {
@@ -87,6 +71,14 @@ class _$CommissionsRecordSerializer
         ..add('settled')
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.comments;
+    if (value != null) {
+      result
+        ..add('comments')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
     }
     value = object.reference;
     if (value != null) {
@@ -125,22 +117,11 @@ class _$CommissionsRecordSerializer
           result.isDirect = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
-        case 'comments':
-          result.comments = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'bookingRef':
           result.bookingRef = serializers.deserialize(value,
                   specifiedType: const FullType(
                       DocumentReference, const [const FullType(Object)]))
               as DocumentReference<Object>;
-          break;
-        case 'commTransRef':
-          result.commTransRef.replace(serializers.deserialize(value,
-              specifiedType: const FullType(BuiltList, const [
-                const FullType(
-                    DocumentReference, const [const FullType(Object)])
-              ])) as BuiltList<Object>);
           break;
         case 'lastModified':
           result.lastModified = serializers.deserialize(value,
@@ -153,6 +134,12 @@ class _$CommissionsRecordSerializer
         case 'settled':
           result.settled = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'comments':
+          result.comments.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<Object>);
           break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
@@ -175,17 +162,15 @@ class _$CommissionsRecord extends CommissionsRecord {
   @override
   final bool isDirect;
   @override
-  final String comments;
-  @override
   final DocumentReference<Object> bookingRef;
-  @override
-  final BuiltList<DocumentReference<Object>> commTransRef;
   @override
   final DateTime lastModified;
   @override
   final double unsettledAmount;
   @override
   final bool settled;
+  @override
+  final BuiltList<String> comments;
   @override
   final DocumentReference<Object> reference;
 
@@ -197,12 +182,11 @@ class _$CommissionsRecord extends CommissionsRecord {
       {this.commissionUser,
       this.commissionAmount,
       this.isDirect,
-      this.comments,
       this.bookingRef,
-      this.commTransRef,
       this.lastModified,
       this.unsettledAmount,
       this.settled,
+      this.comments,
       this.reference})
       : super._();
 
@@ -221,12 +205,11 @@ class _$CommissionsRecord extends CommissionsRecord {
         commissionUser == other.commissionUser &&
         commissionAmount == other.commissionAmount &&
         isDirect == other.isDirect &&
-        comments == other.comments &&
         bookingRef == other.bookingRef &&
-        commTransRef == other.commTransRef &&
         lastModified == other.lastModified &&
         unsettledAmount == other.unsettledAmount &&
         settled == other.settled &&
+        comments == other.comments &&
         reference == other.reference;
   }
 
@@ -239,16 +222,14 @@ class _$CommissionsRecord extends CommissionsRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc(
-                                    $jc($jc(0, commissionUser.hashCode),
-                                        commissionAmount.hashCode),
-                                    isDirect.hashCode),
-                                comments.hashCode),
+                                $jc($jc(0, commissionUser.hashCode),
+                                    commissionAmount.hashCode),
+                                isDirect.hashCode),
                             bookingRef.hashCode),
-                        commTransRef.hashCode),
-                    lastModified.hashCode),
-                unsettledAmount.hashCode),
-            settled.hashCode),
+                        lastModified.hashCode),
+                    unsettledAmount.hashCode),
+                settled.hashCode),
+            comments.hashCode),
         reference.hashCode));
   }
 
@@ -258,12 +239,11 @@ class _$CommissionsRecord extends CommissionsRecord {
           ..add('commissionUser', commissionUser)
           ..add('commissionAmount', commissionAmount)
           ..add('isDirect', isDirect)
-          ..add('comments', comments)
           ..add('bookingRef', bookingRef)
-          ..add('commTransRef', commTransRef)
           ..add('lastModified', lastModified)
           ..add('unsettledAmount', unsettledAmount)
           ..add('settled', settled)
+          ..add('comments', comments)
           ..add('reference', reference))
         .toString();
   }
@@ -287,20 +267,10 @@ class CommissionsRecordBuilder
   bool get isDirect => _$this._isDirect;
   set isDirect(bool isDirect) => _$this._isDirect = isDirect;
 
-  String _comments;
-  String get comments => _$this._comments;
-  set comments(String comments) => _$this._comments = comments;
-
   DocumentReference<Object> _bookingRef;
   DocumentReference<Object> get bookingRef => _$this._bookingRef;
   set bookingRef(DocumentReference<Object> bookingRef) =>
       _$this._bookingRef = bookingRef;
-
-  ListBuilder<DocumentReference<Object>> _commTransRef;
-  ListBuilder<DocumentReference<Object>> get commTransRef =>
-      _$this._commTransRef ??= new ListBuilder<DocumentReference<Object>>();
-  set commTransRef(ListBuilder<DocumentReference<Object>> commTransRef) =>
-      _$this._commTransRef = commTransRef;
 
   DateTime _lastModified;
   DateTime get lastModified => _$this._lastModified;
@@ -315,6 +285,11 @@ class CommissionsRecordBuilder
   bool _settled;
   bool get settled => _$this._settled;
   set settled(bool settled) => _$this._settled = settled;
+
+  ListBuilder<String> _comments;
+  ListBuilder<String> get comments =>
+      _$this._comments ??= new ListBuilder<String>();
+  set comments(ListBuilder<String> comments) => _$this._comments = comments;
 
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
@@ -331,12 +306,11 @@ class CommissionsRecordBuilder
       _commissionUser = $v.commissionUser;
       _commissionAmount = $v.commissionAmount;
       _isDirect = $v.isDirect;
-      _comments = $v.comments;
       _bookingRef = $v.bookingRef;
-      _commTransRef = $v.commTransRef?.toBuilder();
       _lastModified = $v.lastModified;
       _unsettledAmount = $v.unsettledAmount;
       _settled = $v.settled;
+      _comments = $v.comments?.toBuilder();
       _reference = $v.reference;
       _$v = null;
     }
@@ -363,18 +337,17 @@ class CommissionsRecordBuilder
               commissionUser: commissionUser,
               commissionAmount: commissionAmount,
               isDirect: isDirect,
-              comments: comments,
               bookingRef: bookingRef,
-              commTransRef: _commTransRef?.build(),
               lastModified: lastModified,
               unsettledAmount: unsettledAmount,
               settled: settled,
+              comments: _comments?.build(),
               reference: reference);
     } catch (_) {
       String _$failedField;
       try {
-        _$failedField = 'commTransRef';
-        _commTransRef?.build();
+        _$failedField = 'comments';
+        _comments?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'CommissionsRecord', _$failedField, e.toString());

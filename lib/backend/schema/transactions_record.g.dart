@@ -80,6 +80,13 @@ class _$TransactionsRecordSerializer
         ..add(
             serializers.serialize(value, specifiedType: const FullType(bool)));
     }
+    value = object.transactionID;
+    if (value != null) {
+      result
+        ..add('transactionID')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.reference;
     if (value != null) {
       result
@@ -141,6 +148,10 @@ class _$TransactionsRecordSerializer
           result.status = serializers.deserialize(value,
               specifiedType: const FullType(bool)) as bool;
           break;
+        case 'transactionID':
+          result.transactionID = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -172,6 +183,8 @@ class _$TransactionsRecord extends TransactionsRecord {
   @override
   final bool status;
   @override
+  final String transactionID;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$TransactionsRecord(
@@ -187,6 +200,7 @@ class _$TransactionsRecord extends TransactionsRecord {
       this.mode,
       this.transactionTime,
       this.status,
+      this.transactionID,
       this.reference})
       : super._();
 
@@ -211,6 +225,7 @@ class _$TransactionsRecord extends TransactionsRecord {
         mode == other.mode &&
         transactionTime == other.transactionTime &&
         status == other.status &&
+        transactionID == other.transactionID &&
         reference == other.reference;
   }
 
@@ -223,14 +238,16 @@ class _$TransactionsRecord extends TransactionsRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc(0, transactionUser.hashCode),
-                                    transactionAmount.hashCode),
-                                transactionType.hashCode),
-                            bookingRef.hashCode),
-                        commissionRef.hashCode),
-                    mode.hashCode),
-                transactionTime.hashCode),
-            status.hashCode),
+                                $jc(
+                                    $jc($jc(0, transactionUser.hashCode),
+                                        transactionAmount.hashCode),
+                                    transactionType.hashCode),
+                                bookingRef.hashCode),
+                            commissionRef.hashCode),
+                        mode.hashCode),
+                    transactionTime.hashCode),
+                status.hashCode),
+            transactionID.hashCode),
         reference.hashCode));
   }
 
@@ -245,6 +262,7 @@ class _$TransactionsRecord extends TransactionsRecord {
           ..add('mode', mode)
           ..add('transactionTime', transactionTime)
           ..add('status', status)
+          ..add('transactionID', transactionID)
           ..add('reference', reference))
         .toString();
   }
@@ -292,6 +310,11 @@ class TransactionsRecordBuilder
   bool get status => _$this._status;
   set status(bool status) => _$this._status = status;
 
+  String _transactionID;
+  String get transactionID => _$this._transactionID;
+  set transactionID(String transactionID) =>
+      _$this._transactionID = transactionID;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -312,6 +335,7 @@ class TransactionsRecordBuilder
       _mode = $v.mode;
       _transactionTime = $v.transactionTime;
       _status = $v.status;
+      _transactionID = $v.transactionID;
       _reference = $v.reference;
       _$v = null;
     }
@@ -341,6 +365,7 @@ class TransactionsRecordBuilder
             mode: mode,
             transactionTime: transactionTime,
             status: status,
+            transactionID: transactionID,
             reference: reference);
     replace(_$result);
     return _$result;

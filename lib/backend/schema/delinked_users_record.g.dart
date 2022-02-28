@@ -33,10 +33,10 @@ class _$DelinkedUsersRecordSerializer
             specifiedType: const FullType(
                 DocumentReference, const [const FullType(Object)])));
     }
-    value = object.userEmail;
+    value = object.userCode;
     if (value != null) {
       result
-        ..add('userEmail')
+        ..add('userCode')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
@@ -69,8 +69,8 @@ class _$DelinkedUsersRecordSerializer
                       DocumentReference, const [const FullType(Object)]))
               as DocumentReference<Object>;
           break;
-        case 'userEmail':
-          result.userEmail = serializers.deserialize(value,
+        case 'userCode':
+          result.userCode = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
         case 'Document__Reference__Field':
@@ -90,7 +90,7 @@ class _$DelinkedUsersRecord extends DelinkedUsersRecord {
   @override
   final DocumentReference<Object> userRef;
   @override
-  final String userEmail;
+  final String userCode;
   @override
   final DocumentReference<Object> reference;
 
@@ -98,7 +98,7 @@ class _$DelinkedUsersRecord extends DelinkedUsersRecord {
           [void Function(DelinkedUsersRecordBuilder) updates]) =>
       (new DelinkedUsersRecordBuilder()..update(updates)).build();
 
-  _$DelinkedUsersRecord._({this.userRef, this.userEmail, this.reference})
+  _$DelinkedUsersRecord._({this.userRef, this.userCode, this.reference})
       : super._();
 
   @override
@@ -115,21 +115,21 @@ class _$DelinkedUsersRecord extends DelinkedUsersRecord {
     if (identical(other, this)) return true;
     return other is DelinkedUsersRecord &&
         userRef == other.userRef &&
-        userEmail == other.userEmail &&
+        userCode == other.userCode &&
         reference == other.reference;
   }
 
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc(0, userRef.hashCode), userEmail.hashCode), reference.hashCode));
+        $jc($jc(0, userRef.hashCode), userCode.hashCode), reference.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper('DelinkedUsersRecord')
           ..add('userRef', userRef)
-          ..add('userEmail', userEmail)
+          ..add('userCode', userCode)
           ..add('reference', reference))
         .toString();
   }
@@ -143,9 +143,9 @@ class DelinkedUsersRecordBuilder
   DocumentReference<Object> get userRef => _$this._userRef;
   set userRef(DocumentReference<Object> userRef) => _$this._userRef = userRef;
 
-  String _userEmail;
-  String get userEmail => _$this._userEmail;
-  set userEmail(String userEmail) => _$this._userEmail = userEmail;
+  String _userCode;
+  String get userCode => _$this._userCode;
+  set userCode(String userCode) => _$this._userCode = userCode;
 
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
@@ -160,7 +160,7 @@ class DelinkedUsersRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _userRef = $v.userRef;
-      _userEmail = $v.userEmail;
+      _userCode = $v.userCode;
       _reference = $v.reference;
       _$v = null;
     }
@@ -182,7 +182,7 @@ class DelinkedUsersRecordBuilder
   _$DelinkedUsersRecord build() {
     final _$result = _$v ??
         new _$DelinkedUsersRecord._(
-            userRef: userRef, userEmail: userEmail, reference: reference);
+            userRef: userRef, userCode: userCode, reference: reference);
     replace(_$result);
     return _$result;
   }

@@ -58,6 +58,12 @@ class _$AdminConstsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
+    value = object.usersCount;
+    if (value != null) {
+      result
+        ..add('usersCount')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.reference;
     if (value != null) {
       result
@@ -104,6 +110,10 @@ class _$AdminConstsRecordSerializer
           result.emiPaymentDay = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
+        case 'usersCount':
+          result.usersCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -129,6 +139,8 @@ class _$AdminConstsRecord extends AdminConstsRecord {
   @override
   final double emiPaymentDay;
   @override
+  final int usersCount;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$AdminConstsRecord(
@@ -141,6 +153,7 @@ class _$AdminConstsRecord extends AdminConstsRecord {
       this.adminUsers,
       this.lastModified,
       this.emiPaymentDay,
+      this.usersCount,
       this.reference})
       : super._();
 
@@ -161,6 +174,7 @@ class _$AdminConstsRecord extends AdminConstsRecord {
         adminUsers == other.adminUsers &&
         lastModified == other.lastModified &&
         emiPaymentDay == other.emiPaymentDay &&
+        usersCount == other.usersCount &&
         reference == other.reference;
   }
 
@@ -169,10 +183,12 @@ class _$AdminConstsRecord extends AdminConstsRecord {
     return $jf($jc(
         $jc(
             $jc(
-                $jc($jc($jc(0, directPer.hashCode), indirectPer.hashCode),
-                    adminUsers.hashCode),
-                lastModified.hashCode),
-            emiPaymentDay.hashCode),
+                $jc(
+                    $jc($jc($jc(0, directPer.hashCode), indirectPer.hashCode),
+                        adminUsers.hashCode),
+                    lastModified.hashCode),
+                emiPaymentDay.hashCode),
+            usersCount.hashCode),
         reference.hashCode));
   }
 
@@ -184,6 +200,7 @@ class _$AdminConstsRecord extends AdminConstsRecord {
           ..add('adminUsers', adminUsers)
           ..add('lastModified', lastModified)
           ..add('emiPaymentDay', emiPaymentDay)
+          ..add('usersCount', usersCount)
           ..add('reference', reference))
         .toString();
   }
@@ -217,6 +234,10 @@ class AdminConstsRecordBuilder
   set emiPaymentDay(double emiPaymentDay) =>
       _$this._emiPaymentDay = emiPaymentDay;
 
+  int _usersCount;
+  int get usersCount => _$this._usersCount;
+  set usersCount(int usersCount) => _$this._usersCount = usersCount;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -234,6 +255,7 @@ class AdminConstsRecordBuilder
       _adminUsers = $v.adminUsers?.toBuilder();
       _lastModified = $v.lastModified;
       _emiPaymentDay = $v.emiPaymentDay;
+      _usersCount = $v.usersCount;
       _reference = $v.reference;
       _$v = null;
     }
@@ -262,6 +284,7 @@ class AdminConstsRecordBuilder
               adminUsers: _adminUsers?.build(),
               lastModified: lastModified,
               emiPaymentDay: emiPaymentDay,
+              usersCount: usersCount,
               reference: reference);
     } catch (_) {
       String _$failedField;

@@ -43,20 +43,6 @@ class _$CalculationsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(double)));
     }
-    value = object.unsettledDirect;
-    if (value != null) {
-      result
-        ..add('unsettledDirect')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(double)));
-    }
-    value = object.unsettledIndirect;
-    if (value != null) {
-      result
-        ..add('unsettledIndirect')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(double)));
-    }
     value = object.emiDueAmount;
     if (value != null) {
       result
@@ -83,6 +69,19 @@ class _$CalculationsRecordSerializer
         ..add('comissionProcessed')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
+    }
+    value = object.transCount;
+    if (value != null) {
+      result
+        ..add('transCount')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.userCode;
+    if (value != null) {
+      result
+        ..add('userCode')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
     }
     value = object.reference;
     if (value != null) {
@@ -121,14 +120,6 @@ class _$CalculationsRecordSerializer
           result.indirectCommission = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
           break;
-        case 'unsettledDirect':
-          result.unsettledDirect = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
-        case 'unsettledIndirect':
-          result.unsettledIndirect = serializers.deserialize(value,
-              specifiedType: const FullType(double)) as double;
-          break;
         case 'emiDueAmount':
           result.emiDueAmount = serializers.deserialize(value,
               specifiedType: const FullType(double)) as double;
@@ -144,6 +135,14 @@ class _$CalculationsRecordSerializer
         case 'comissionProcessed':
           result.comissionProcessed = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+        case 'transCount':
+          result.transCount = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'userCode':
+          result.userCode = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
           break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
@@ -166,10 +165,6 @@ class _$CalculationsRecord extends CalculationsRecord {
   @override
   final double indirectCommission;
   @override
-  final double unsettledDirect;
-  @override
-  final double unsettledIndirect;
-  @override
   final double emiDueAmount;
   @override
   final DateTime emiDueDate;
@@ -177,6 +172,10 @@ class _$CalculationsRecord extends CalculationsRecord {
   final int defaultPayments;
   @override
   final DateTime comissionProcessed;
+  @override
+  final int transCount;
+  @override
+  final String userCode;
   @override
   final DocumentReference<Object> reference;
 
@@ -188,12 +187,12 @@ class _$CalculationsRecord extends CalculationsRecord {
       {this.userRef,
       this.directCommission,
       this.indirectCommission,
-      this.unsettledDirect,
-      this.unsettledIndirect,
       this.emiDueAmount,
       this.emiDueDate,
       this.defaultPayments,
       this.comissionProcessed,
+      this.transCount,
+      this.userCode,
       this.reference})
       : super._();
 
@@ -213,12 +212,12 @@ class _$CalculationsRecord extends CalculationsRecord {
         userRef == other.userRef &&
         directCommission == other.directCommission &&
         indirectCommission == other.indirectCommission &&
-        unsettledDirect == other.unsettledDirect &&
-        unsettledIndirect == other.unsettledIndirect &&
         emiDueAmount == other.emiDueAmount &&
         emiDueDate == other.emiDueDate &&
         defaultPayments == other.defaultPayments &&
         comissionProcessed == other.comissionProcessed &&
+        transCount == other.transCount &&
+        userCode == other.userCode &&
         reference == other.reference;
   }
 
@@ -235,12 +234,12 @@ class _$CalculationsRecord extends CalculationsRecord {
                                     $jc($jc(0, userRef.hashCode),
                                         directCommission.hashCode),
                                     indirectCommission.hashCode),
-                                unsettledDirect.hashCode),
-                            unsettledIndirect.hashCode),
-                        emiDueAmount.hashCode),
-                    emiDueDate.hashCode),
-                defaultPayments.hashCode),
-            comissionProcessed.hashCode),
+                                emiDueAmount.hashCode),
+                            emiDueDate.hashCode),
+                        defaultPayments.hashCode),
+                    comissionProcessed.hashCode),
+                transCount.hashCode),
+            userCode.hashCode),
         reference.hashCode));
   }
 
@@ -250,12 +249,12 @@ class _$CalculationsRecord extends CalculationsRecord {
           ..add('userRef', userRef)
           ..add('directCommission', directCommission)
           ..add('indirectCommission', indirectCommission)
-          ..add('unsettledDirect', unsettledDirect)
-          ..add('unsettledIndirect', unsettledIndirect)
           ..add('emiDueAmount', emiDueAmount)
           ..add('emiDueDate', emiDueDate)
           ..add('defaultPayments', defaultPayments)
           ..add('comissionProcessed', comissionProcessed)
+          ..add('transCount', transCount)
+          ..add('userCode', userCode)
           ..add('reference', reference))
         .toString();
   }
@@ -279,16 +278,6 @@ class CalculationsRecordBuilder
   set indirectCommission(double indirectCommission) =>
       _$this._indirectCommission = indirectCommission;
 
-  double _unsettledDirect;
-  double get unsettledDirect => _$this._unsettledDirect;
-  set unsettledDirect(double unsettledDirect) =>
-      _$this._unsettledDirect = unsettledDirect;
-
-  double _unsettledIndirect;
-  double get unsettledIndirect => _$this._unsettledIndirect;
-  set unsettledIndirect(double unsettledIndirect) =>
-      _$this._unsettledIndirect = unsettledIndirect;
-
   double _emiDueAmount;
   double get emiDueAmount => _$this._emiDueAmount;
   set emiDueAmount(double emiDueAmount) => _$this._emiDueAmount = emiDueAmount;
@@ -307,6 +296,14 @@ class CalculationsRecordBuilder
   set comissionProcessed(DateTime comissionProcessed) =>
       _$this._comissionProcessed = comissionProcessed;
 
+  int _transCount;
+  int get transCount => _$this._transCount;
+  set transCount(int transCount) => _$this._transCount = transCount;
+
+  String _userCode;
+  String get userCode => _$this._userCode;
+  set userCode(String userCode) => _$this._userCode = userCode;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -322,12 +319,12 @@ class CalculationsRecordBuilder
       _userRef = $v.userRef;
       _directCommission = $v.directCommission;
       _indirectCommission = $v.indirectCommission;
-      _unsettledDirect = $v.unsettledDirect;
-      _unsettledIndirect = $v.unsettledIndirect;
       _emiDueAmount = $v.emiDueAmount;
       _emiDueDate = $v.emiDueDate;
       _defaultPayments = $v.defaultPayments;
       _comissionProcessed = $v.comissionProcessed;
+      _transCount = $v.transCount;
+      _userCode = $v.userCode;
       _reference = $v.reference;
       _$v = null;
     }
@@ -352,12 +349,12 @@ class CalculationsRecordBuilder
             userRef: userRef,
             directCommission: directCommission,
             indirectCommission: indirectCommission,
-            unsettledDirect: unsettledDirect,
-            unsettledIndirect: unsettledIndirect,
             emiDueAmount: emiDueAmount,
             emiDueDate: emiDueDate,
             defaultPayments: defaultPayments,
             comissionProcessed: comissionProcessed,
+            transCount: transCount,
+            userCode: userCode,
             reference: reference);
     replace(_$result);
     return _$result;

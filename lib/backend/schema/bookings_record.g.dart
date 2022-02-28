@@ -142,6 +142,13 @@ class _$BookingsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
+    value = object.plotNo;
+    if (value != null) {
+      result
+        ..add('plotNo')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.reference;
     if (value != null) {
       result
@@ -241,6 +248,10 @@ class _$BookingsRecordSerializer
           result.dueDate = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
           break;
+        case 'plotNo':
+          result.plotNo = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -290,6 +301,8 @@ class _$BookingsRecord extends BookingsRecord {
   @override
   final DateTime dueDate;
   @override
+  final String plotNo;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$BookingsRecord([void Function(BookingsRecordBuilder) updates]) =>
@@ -313,6 +326,7 @@ class _$BookingsRecord extends BookingsRecord {
       this.creditStatus,
       this.dueAmount,
       this.dueDate,
+      this.plotNo,
       this.reference})
       : super._();
 
@@ -345,6 +359,7 @@ class _$BookingsRecord extends BookingsRecord {
         creditStatus == other.creditStatus &&
         dueAmount == other.dueAmount &&
         dueDate == other.dueDate &&
+        plotNo == other.plotNo &&
         reference == other.reference;
   }
 
@@ -368,29 +383,32 @@ class _$BookingsRecord extends BookingsRecord {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            0,
-                                                                            projectRef
+                                                                            $jc(
+                                                                                0,
+                                                                                projectRef
+                                                                                    .hashCode),
+                                                                            planRef
                                                                                 .hashCode),
-                                                                        planRef
+                                                                        buyerRef
                                                                             .hashCode),
-                                                                    buyerRef
+                                                                    totalAmountToPay
                                                                         .hashCode),
-                                                                totalAmountToPay
+                                                                areaBookedInSqft
                                                                     .hashCode),
-                                                            areaBookedInSqft
+                                                            bookingAmount
                                                                 .hashCode),
-                                                        bookingAmount.hashCode),
-                                                    downPayment.hashCode),
-                                                emiAmount.hashCode),
-                                            emiTenureInMonths.hashCode),
-                                        created.hashCode),
-                                    isApproved.hashCode),
-                                comments.hashCode),
-                            amountLeftToPay.hashCode),
-                        lastModified.hashCode),
-                    creditStatus.hashCode),
-                dueAmount.hashCode),
-            dueDate.hashCode),
+                                                        downPayment.hashCode),
+                                                    emiAmount.hashCode),
+                                                emiTenureInMonths.hashCode),
+                                            created.hashCode),
+                                        isApproved.hashCode),
+                                    comments.hashCode),
+                                amountLeftToPay.hashCode),
+                            lastModified.hashCode),
+                        creditStatus.hashCode),
+                    dueAmount.hashCode),
+                dueDate.hashCode),
+            plotNo.hashCode),
         reference.hashCode));
   }
 
@@ -414,6 +432,7 @@ class _$BookingsRecord extends BookingsRecord {
           ..add('creditStatus', creditStatus)
           ..add('dueAmount', dueAmount)
           ..add('dueDate', dueDate)
+          ..add('plotNo', plotNo)
           ..add('reference', reference))
         .toString();
   }
@@ -500,6 +519,10 @@ class BookingsRecordBuilder
   DateTime get dueDate => _$this._dueDate;
   set dueDate(DateTime dueDate) => _$this._dueDate = dueDate;
 
+  String _plotNo;
+  String get plotNo => _$this._plotNo;
+  set plotNo(String plotNo) => _$this._plotNo = plotNo;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -529,6 +552,7 @@ class BookingsRecordBuilder
       _creditStatus = $v.creditStatus;
       _dueAmount = $v.dueAmount;
       _dueDate = $v.dueDate;
+      _plotNo = $v.plotNo;
       _reference = $v.reference;
       _$v = null;
     }
@@ -569,6 +593,7 @@ class BookingsRecordBuilder
               creditStatus: creditStatus,
               dueAmount: dueAmount,
               dueDate: dueDate,
+              plotNo: plotNo,
               reference: reference);
     } catch (_) {
       String _$failedField;

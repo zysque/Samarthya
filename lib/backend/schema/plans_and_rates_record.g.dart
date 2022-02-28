@@ -74,6 +74,21 @@ class _$PlansAndRatesRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
+    value = object.lastModified;
+    if (value != null) {
+      result
+        ..add('lastModified')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(DateTime)));
+    }
+    value = object.plotsAvailable;
+    if (value != null) {
+      result
+        ..add('plotsAvailable')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
+    }
     value = object.reference;
     if (value != null) {
       result
@@ -129,6 +144,16 @@ class _$PlansAndRatesRecordSerializer
           result.created = serializers.deserialize(value,
               specifiedType: const FullType(DateTime)) as DateTime;
           break;
+        case 'lastModified':
+          result.lastModified = serializers.deserialize(value,
+              specifiedType: const FullType(DateTime)) as DateTime;
+          break;
+        case 'plotsAvailable':
+          result.plotsAvailable.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<Object>);
+          break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -158,6 +183,10 @@ class _$PlansAndRatesRecord extends PlansAndRatesRecord {
   @override
   final DateTime created;
   @override
+  final DateTime lastModified;
+  @override
+  final BuiltList<String> plotsAvailable;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$PlansAndRatesRecord(
@@ -172,6 +201,8 @@ class _$PlansAndRatesRecord extends PlansAndRatesRecord {
       this.paymentDaysAllowed,
       this.projectRef,
       this.created,
+      this.lastModified,
+      this.plotsAvailable,
       this.reference})
       : super._();
 
@@ -195,6 +226,8 @@ class _$PlansAndRatesRecord extends PlansAndRatesRecord {
         paymentDaysAllowed == other.paymentDaysAllowed &&
         projectRef == other.projectRef &&
         created == other.created &&
+        lastModified == other.lastModified &&
+        plotsAvailable == other.plotsAvailable &&
         reference == other.reference;
   }
 
@@ -206,13 +239,17 @@ class _$PlansAndRatesRecord extends PlansAndRatesRecord {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc(0, phaseCode.hashCode),
-                                fixedRatePerSqFt.hashCode),
-                            minBookingAmtPerc.hashCode),
-                        emiTenureOptions.hashCode),
-                    paymentDaysAllowed.hashCode),
-                projectRef.hashCode),
-            created.hashCode),
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, phaseCode.hashCode),
+                                        fixedRatePerSqFt.hashCode),
+                                    minBookingAmtPerc.hashCode),
+                                emiTenureOptions.hashCode),
+                            paymentDaysAllowed.hashCode),
+                        projectRef.hashCode),
+                    created.hashCode),
+                lastModified.hashCode),
+            plotsAvailable.hashCode),
         reference.hashCode));
   }
 
@@ -226,6 +263,8 @@ class _$PlansAndRatesRecord extends PlansAndRatesRecord {
           ..add('paymentDaysAllowed', paymentDaysAllowed)
           ..add('projectRef', projectRef)
           ..add('created', created)
+          ..add('lastModified', lastModified)
+          ..add('plotsAvailable', plotsAvailable)
           ..add('reference', reference))
         .toString();
   }
@@ -269,6 +308,17 @@ class PlansAndRatesRecordBuilder
   DateTime get created => _$this._created;
   set created(DateTime created) => _$this._created = created;
 
+  DateTime _lastModified;
+  DateTime get lastModified => _$this._lastModified;
+  set lastModified(DateTime lastModified) =>
+      _$this._lastModified = lastModified;
+
+  ListBuilder<String> _plotsAvailable;
+  ListBuilder<String> get plotsAvailable =>
+      _$this._plotsAvailable ??= new ListBuilder<String>();
+  set plotsAvailable(ListBuilder<String> plotsAvailable) =>
+      _$this._plotsAvailable = plotsAvailable;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -288,6 +338,8 @@ class PlansAndRatesRecordBuilder
       _paymentDaysAllowed = $v.paymentDaysAllowed;
       _projectRef = $v.projectRef;
       _created = $v.created;
+      _lastModified = $v.lastModified;
+      _plotsAvailable = $v.plotsAvailable?.toBuilder();
       _reference = $v.reference;
       _$v = null;
     }
@@ -318,12 +370,17 @@ class PlansAndRatesRecordBuilder
               paymentDaysAllowed: paymentDaysAllowed,
               projectRef: projectRef,
               created: created,
+              lastModified: lastModified,
+              plotsAvailable: _plotsAvailable?.build(),
               reference: reference);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'emiTenureOptions';
         _emiTenureOptions?.build();
+
+        _$failedField = 'plotsAvailable';
+        _plotsAvailable?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'PlansAndRatesRecord', _$failedField, e.toString());
