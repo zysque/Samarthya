@@ -25,6 +25,10 @@ class FFAppState {
   bool addAdmin = false;
 
   bool validated = false;
+
+  List<String> projPhtos = [];
+
+  List<String> projVideos = [];
 }
 
 LatLng _latLngFromString(String val) {

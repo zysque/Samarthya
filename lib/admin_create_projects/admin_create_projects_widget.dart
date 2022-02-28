@@ -1,9 +1,12 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../backend/firebase_storage/storage.dart';
 import '../flutter_flow/flutter_flow_animations.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/upload_media.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -19,9 +22,14 @@ class AdminCreateProjectsWidget extends StatefulWidget {
 
 class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
     with TickerProviderStateMixin {
+  String uploadedFileUrl1 = '';
+  String uploadedFileUrl2 = '';
   TextEditingController descriptionController;
   TextEditingController projectCityController;
   TextEditingController projectNameController;
+  TextEditingController latController;
+  TextEditingController lngController;
+  bool statusValue;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
@@ -51,6 +59,32 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
         opacity: 1,
       ),
     ),
+    'textFieldOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 40),
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        opacity: 1,
+      ),
+    ),
+    'textFieldOnPageLoadAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 40),
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        opacity: 1,
+      ),
+    ),
   };
 
   @override
@@ -65,6 +99,8 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
     descriptionController = TextEditingController();
     projectCityController = TextEditingController();
     projectNameController = TextEditingController();
+    latController = TextEditingController();
+    lngController = TextEditingController();
   }
 
   @override
@@ -115,7 +151,6 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
               ),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.6,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).darkBackground,
                   borderRadius: BorderRadius.only(
@@ -126,12 +161,12 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 20, 20, 20),
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 0, 20, 20),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                         child: TextFormField(
                           controller: projectNameController,
                           obscureText: false,
@@ -189,7 +224,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                             [animationsMap['textFieldOnPageLoadAnimation1']]),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: TextFormField(
                           controller: projectCityController,
                           obscureText: false,
@@ -247,7 +282,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                             [animationsMap['textFieldOnPageLoadAnimation2']]),
                       ),
                       Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 16, 0, 0),
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
                         child: TextFormField(
                           controller: descriptionController,
                           obscureText: false,
@@ -274,7 +309,7 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                             fillColor:
                                 FlutterFlowTheme.of(context).darkBackground,
                             contentPadding:
-                                EdgeInsetsDirectional.fromSTEB(20, 20, 24, 20),
+                                EdgeInsetsDirectional.fromSTEB(20, 4, 20, 4),
                           ),
                           style: FlutterFlowTheme.of(context)
                               .bodyText1
@@ -286,24 +321,361 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                           maxLines: 10,
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
+                                child: TextFormField(
+                                  controller: latController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Lattitude',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .title1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayLight,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                    hintText: 'Location Lattitude',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .title1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayLight,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .grayDark,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .grayDark,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    filled: true,
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            20, 4, 20, 4),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .title1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                ).animated([
+                                  animationsMap['textFieldOnPageLoadAnimation3']
+                                ]),
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                                child: TextFormField(
+                                  controller: lngController,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    labelText: 'Longitude',
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .title1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayLight,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300,
+                                        ),
+                                    hintText: 'Location Longitude',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .title1
+                                        .override(
+                                          fontFamily: 'Lexend Deca',
+                                          color: FlutterFlowTheme.of(context)
+                                              .grayLight,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .grayDark,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .grayDark,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    filled: true,
+                                    contentPadding:
+                                        EdgeInsetsDirectional.fromSTEB(
+                                            20, 4, 20, 4),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .title1
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                  textAlign: TextAlign.center,
+                                  keyboardType: TextInputType.number,
+                                ).animated([
+                                  animationsMap['textFieldOnPageLoadAnimation4']
+                                ]),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            FFButtonWidget(
+                              onPressed: () async {
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
+                                  maxWidth: 360.00,
+                                  maxHeight: 200.00,
+                                  allowPhoto: true,
+                                );
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl1 = downloadUrl);
+                                    showUploadMessage(
+                                      context,
+                                      'Success!',
+                                    );
+                                  } else {
+                                    showUploadMessage(
+                                      context,
+                                      'Failed to upload media',
+                                    );
+                                    return;
+                                  }
+                                }
+                                if ((uploadedFileUrl1) == '') {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Size exceeds'),
+                                        content: Text(
+                                            'The uploaded photo should be 360*200 poxels. Please re-upload.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                                if ((uploadedFileUrl1) != '') {
+                                  setState(() => FFAppState()
+                                      .projPhtos
+                                      .add(uploadedFileUrl1));
+                                }
+                              },
+                              text: 'Photos',
+                              icon: Icon(
+                                Icons.add_to_photos,
+                                size: 15,
+                              ),
+                              options: FFButtonOptions(
+                                width: 130,
+                                height: 40,
+                                color: Color(0xFF81BCEA),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).grayDark,
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
+                              ),
+                            ),
+                            FFButtonWidget(
+                              onPressed: () async {
+                                final selectedMedia =
+                                    await selectMediaWithSourceBottomSheet(
+                                  context: context,
+                                  allowPhoto: false,
+                                  allowVideo: true,
+                                );
+                                if (selectedMedia != null &&
+                                    validateFileFormat(
+                                        selectedMedia.storagePath, context)) {
+                                  showUploadMessage(
+                                    context,
+                                    'Uploading file...',
+                                    showLoading: true,
+                                  );
+                                  final downloadUrl = await uploadData(
+                                      selectedMedia.storagePath,
+                                      selectedMedia.bytes);
+                                  ScaffoldMessenger.of(context)
+                                      .hideCurrentSnackBar();
+                                  if (downloadUrl != null) {
+                                    setState(
+                                        () => uploadedFileUrl2 = downloadUrl);
+                                    showUploadMessage(
+                                      context,
+                                      'Success!',
+                                    );
+                                  } else {
+                                    showUploadMessage(
+                                      context,
+                                      'Failed to upload media',
+                                    );
+                                    return;
+                                  }
+                                }
+                                if ((uploadedFileUrl2) == '') {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Size exceeds'),
+                                        content: Text(
+                                            'The uploaded video size exceeded. Please re-upload.'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                                if ((uploadedFileUrl2) != '') {
+                                  setState(() => FFAppState()
+                                      .projVideos
+                                      .add(uploadedFileUrl2));
+                                }
+                              },
+                              text: 'Videos',
+                              icon: Icon(
+                                Icons.video_collection_sharp,
+                                size: 15,
+                              ),
+                              options: FFButtonOptions(
+                                width: 130,
+                                height: 40,
+                                color: Color(0xFF21537B),
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .subtitle2
+                                    .override(
+                                      fontFamily: 'Lexend Deca',
+                                      color: Colors.white,
+                                    ),
+                                borderSide: BorderSide(
+                                  color: FlutterFlowTheme.of(context).grayDark,
+                                  width: 1,
+                                ),
+                                borderRadius: 12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(2),
+                          child: SwitchListTile(
+                            value: statusValue ??= true,
+                            onChanged: (newValue) =>
+                                setState(() => statusValue = newValue),
+                            title: Text(
+                              'Active',
+                              style: FlutterFlowTheme.of(context).title3,
+                            ),
+                            tileColor: Color(0xFFF5F5F5),
+                            activeTrackColor:
+                                FlutterFlowTheme.of(context).background,
+                            dense: false,
+                            controlAffinity: ListTileControlAffinity.trailing,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  FFButtonWidget(
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                  child: FFButtonWidget(
                     onPressed: () async {
-                      final projectsCreateData = createProjectsRecordData(
-                        projectName: projectNameController.text,
-                        projectCity: projectCityController.text,
-                        projectDesc: descriptionController.text,
-                        lastModified: getCurrentTimestamp,
-                      );
+                      final projectsCreateData = {
+                        ...createProjectsRecordData(
+                          projectName: projectNameController.text,
+                          projectCity: projectCityController.text,
+                          projectDesc: descriptionController.text,
+                          lastModified: getCurrentTimestamp,
+                          projectLocation: functions.getLocation(
+                              latController.text, lngController.text),
+                        ),
+                        'photos': FFAppState().projPhtos,
+                        'videos': FFAppState().projVideos,
+                      };
                       await ProjectsRecord.collection
                           .doc()
                           .set(projectsCreateData);
@@ -317,21 +689,14 @@ class _AdminCreateProjectsWidgetState extends State<AdminCreateProjectsWidget>
                       textStyle: FlutterFlowTheme.of(context).title1,
                       elevation: 0,
                       borderSide: BorderSide(
-                        color: Colors.transparent,
+                        color: FlutterFlowTheme.of(context).grayLight,
                         width: 1,
                       ),
                       borderRadius: 12,
                     ),
                   ),
-                  Text(
-                    'Tap above to complete request',
-                    style: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Lexend Deca',
-                          color: Color(0x43000000),
-                        ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

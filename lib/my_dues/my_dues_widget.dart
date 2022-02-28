@@ -89,433 +89,486 @@ class _MyDuesWidgetState extends State<MyDuesWidget>
           children: [
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  StreamBuilder<List<BookingsRecord>>(
-                    stream: queryBookingsRecord(
-                      queryBuilder: (bookingsRecord) => bookingsRecord
-                          .where('buyerRef', isEqualTo: currentUserReference)
-                          .where('creditStatus', isEqualTo: true)
-                          .where('isApproved', isEqualTo: true)
-                          .orderBy('lastModified', descending: true),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 40,
-                            height: 40,
-                            child: SpinKitPumpingHeart(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              size: 40,
-                            ),
-                          ),
-                        );
-                      }
-                      List<BookingsRecord> listViewBookingsRecordList =
-                          snapshot.data;
-                      if (listViewBookingsRecordList.isEmpty) {
-                        return Center(
-                          child: Image.asset(
-                            'assets/images/NoDues.JPG',
-                          ),
-                        );
-                      }
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: listViewBookingsRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewBookingsRecord =
-                              listViewBookingsRecordList[listViewIndex];
-                          return Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(16, 0, 16, 12),
-                            child: StreamBuilder<ProjectsRecord>(
-                              stream: ProjectsRecord.getDocument(
-                                  listViewBookingsRecord.projectRef),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 40,
-                                      height: 40,
-                                      child: SpinKitPumpingHeart(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryColor,
-                                        size: 40,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final containerProjectsRecord = snapshot.data;
-                                return InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => PayDuesWidget(
-                                          bookingDetails:
-                                              listViewBookingsRecord.reference,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: Container(
-                                    width: 100,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          12, 12, 12, 12),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Padding(
+              child: StreamBuilder<List<AdminConstsRecord>>(
+                stream: queryAdminConstsRecord(
+                  singleRecord: true,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 40,
+                        height: 40,
+                        child: SpinKitPumpingHeart(
+                          color: FlutterFlowTheme.of(context).primaryColor,
+                          size: 40,
+                        ),
+                      ),
+                    );
+                  }
+                  List<AdminConstsRecord> recordsAdminConstsRecordList =
+                      snapshot.data;
+                  final recordsAdminConstsRecord =
+                      recordsAdminConstsRecordList.isNotEmpty
+                          ? recordsAdminConstsRecordList.first
+                          : null;
+                  return Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      StreamBuilder<List<BookingsRecord>>(
+                        stream: queryBookingsRecord(
+                          queryBuilder: (bookingsRecord) => bookingsRecord
+                              .where('buyerRef',
+                                  isEqualTo: currentUserReference)
+                              .where('creditStatus', isEqualTo: true)
+                              .where('isApproved', isEqualTo: true)
+                              .orderBy('lastModified', descending: true),
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 40,
+                                height: 40,
+                                child: SpinKitPumpingHeart(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  size: 40,
+                                ),
+                              ),
+                            );
+                          }
+                          List<BookingsRecord> listViewBookingsRecordList =
+                              snapshot.data;
+                          if (listViewBookingsRecordList.isEmpty) {
+                            return Center(
+                              child: Image.asset(
+                                'assets/images/NoDues.JPG',
+                              ),
+                            );
+                          }
+                          return ListView.builder(
+                            padding: EdgeInsets.zero,
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemCount: listViewBookingsRecordList.length,
+                            itemBuilder: (context, listViewIndex) {
+                              final listViewBookingsRecord =
+                                  listViewBookingsRecordList[listViewIndex];
+                              return Visibility(
+                                visible: (functions.getDaysLeft(
+                                        listViewBookingsRecord.dueDate)) <=
+                                    (recordsAdminConstsRecord
+                                        .reminderBeforeDays),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16, 0, 16, 12),
+                                  child: StreamBuilder<ProjectsRecord>(
+                                    stream: ProjectsRecord.getDocument(
+                                        listViewBookingsRecord.projectRef),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 40,
+                                            height: 40,
+                                            child: SpinKitPumpingHeart(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryColor,
+                                              size: 40,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      final containerProjectsRecord =
+                                          snapshot.data;
+                                      return InkWell(
+                                        onTap: () async {
+                                          await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PayDuesWidget(
+                                                bookingDetails:
+                                                    listViewBookingsRecord
+                                                        .reference,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: Container(
+                                          width: 100,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                          child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
+                                                    12, 12, 12, 12),
+                                            child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                Text(
-                                                  containerProjectsRecord
-                                                      .projectName,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .subtitle1
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 4),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        containerProjectsRecord
+                                                            .projectName,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
+                                                      ),
+                                                      Icon(
+                                                        Icons
+                                                            .arrow_forward_ios_rounded,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .textColor,
+                                                        size: 16,
                                                       ),
-                                                ),
-                                                Icon(
-                                                  Icons
-                                                      .arrow_forward_ios_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .textColor,
-                                                  size: 16,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  containerProjectsRecord
-                                                      .projectCity,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .subtitle2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .textColor,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 0, 0, 4),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  listViewBookingsRecord
-                                                      .areaBookedInSqft
-                                                      .toString(),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .subtitle2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .textColor,
-                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
-                                                      .fromSTEB(2, 0, 0, 0),
-                                                  child: Text(
-                                                    'SQFT',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .subtitle2
-                                                        .override(
-                                                          fontFamily:
-                                                              'Lexend Deca',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .textColor,
-                                                        ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(2, 0, 0, 0),
-                                                child: Text(
-                                                  formatNumber(
-                                                    listViewBookingsRecord
-                                                        .emiAmount,
-                                                    formatType:
-                                                        FormatType.custom,
-                                                    currency: 'Rs',
-                                                    format: '',
-                                                    locale: '',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .subtitle2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .textColor,
-                                                      ),
-                                                ),
-                                              ),
-                                              if (functions.getIfDaysLeft(
-                                                      listViewBookingsRecord
-                                                          .dueDate) ??
-                                                  true)
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      functions
-                                                          .getDaysLeft(
-                                                              listViewBookingsRecord
-                                                                  .dueDate)
-                                                          .toString(),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .subtitle2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lexend Deca',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .textColor,
-                                                              ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  2, 0, 0, 0),
-                                                      child: Text(
-                                                        'Days Left',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lexend Deca',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .textColor,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              if (!(functions.getIfDaysLeft(
-                                                      listViewBookingsRecord
-                                                          .dueDate)) ??
-                                                  true)
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      functions
-                                                          .getDaysLeft(
-                                                              listViewBookingsRecord
-                                                                  .dueDate)
-                                                          .toString(),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .subtitle2
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lexend Deca',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .textColor,
-                                                              ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  2, 0, 0, 0),
-                                                      child: Text(
-                                                        'Days Delayed',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .subtitle2
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lexend Deca',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .textColor,
-                                                                ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                            ],
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0, 4, 0, 0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  formatNumber(
-                                                    listViewBookingsRecord
-                                                        .amountLeftToPay,
-                                                    formatType:
-                                                        FormatType.custom,
-                                                    currency: 'Rs',
-                                                    format: '',
-                                                    locale: '',
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText2
-                                                      .override(
-                                                        fontFamily:
-                                                            'Lexend Deca',
-                                                        fontSize: 14,
-                                                      ),
-                                                ),
-                                                if ((functions.getQuotient(
-                                                        listViewBookingsRecord
-                                                            .amountLeftToPay,
-                                                        listViewBookingsRecord
-                                                            .emiAmount)) <=
-                                                    (listViewBookingsRecord
-                                                        .emiTenureInMonths))
-                                                  Row(
+                                                      .fromSTEB(0, 0, 0, 4),
+                                                  child: Row(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
-                                                      if (listViewBookingsRecord
-                                                              .creditStatus ??
-                                                          true)
-                                                        Text(
-                                                          functions
-                                                              .getQuotient(
-                                                                  listViewBookingsRecord
-                                                                      .amountLeftToPay,
-                                                                  listViewBookingsRecord
-                                                                      .emiAmount)
-                                                              .toString(),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyText1
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lexend Deca',
-                                                                color: Color(
-                                                                    0xFFE91E63),
-                                                              ),
-                                                        ),
-                                                      if (listViewBookingsRecord
-                                                              .creditStatus ??
-                                                          true)
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(2,
-                                                                      0, 0, 0),
-                                                          child: Text(
-                                                            'EMIs Left',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyText1
+                                                      Text(
+                                                        containerProjectsRecord
+                                                            .projectCity,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
                                                                 .override(
                                                                   fontFamily:
                                                                       'Lexend Deca',
-                                                                  color: Color(
-                                                                      0xFFE91E63),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 0, 0, 4),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        listViewBookingsRecord
+                                                            .areaBookedInSqft
+                                                            .toString(),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    2, 0, 0, 0),
+                                                        child: Text(
+                                                          'SQFT',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  2, 0, 0, 0),
+                                                      child: Text(
+                                                        formatNumber(
+                                                          listViewBookingsRecord
+                                                              .emiAmount,
+                                                          formatType:
+                                                              FormatType.custom,
+                                                          currency: 'Rs',
+                                                          format: '',
+                                                          locale: '',
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                    if (functions.getIfDaysLeft(
+                                                            listViewBookingsRecord
+                                                                .dueDate) ??
+                                                        true)
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            functions
+                                                                .getDaysLeft(
+                                                                    listViewBookingsRecord
+                                                                        .dueDate)
+                                                                .toString(),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
                                                                 ),
                                                           ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        2,
+                                                                        0,
+                                                                        0,
+                                                                        0),
+                                                            child: Text(
+                                                              'Days Left',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .subtitle2
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Lexend Deca',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .textColor,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    if (!(functions.getIfDaysLeft(
+                                                            listViewBookingsRecord
+                                                                .dueDate)) ??
+                                                        true)
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Text(
+                                                            functions
+                                                                .getDaysLeft(
+                                                                    listViewBookingsRecord
+                                                                        .dueDate)
+                                                                .toString(),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        2,
+                                                                        0,
+                                                                        0,
+                                                                        0),
+                                                            child: Text(
+                                                              'Days Delayed',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .subtitle2
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Lexend Deca',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .textColor,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(0, 4, 0, 0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        formatNumber(
+                                                          listViewBookingsRecord
+                                                              .amountLeftToPay,
+                                                          formatType:
+                                                              FormatType.custom,
+                                                          currency: 'Rs',
+                                                          format: '',
+                                                          locale: '',
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  fontSize: 14,
+                                                                ),
+                                                      ),
+                                                      if ((functions.getQuotient(
+                                                              listViewBookingsRecord
+                                                                  .amountLeftToPay,
+                                                              listViewBookingsRecord
+                                                                  .emiAmount)) <=
+                                                          (listViewBookingsRecord
+                                                              .emiTenureInMonths))
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            if (listViewBookingsRecord
+                                                                    .creditStatus ??
+                                                                true)
+                                                              Text(
+                                                                functions
+                                                                    .getQuotient(
+                                                                        listViewBookingsRecord
+                                                                            .amountLeftToPay,
+                                                                        listViewBookingsRecord
+                                                                            .emiAmount)
+                                                                    .toString(),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyText1
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Lexend Deca',
+                                                                      color: Color(
+                                                                          0xFFE91E63),
+                                                                    ),
+                                                              ),
+                                                            if (listViewBookingsRecord
+                                                                    .creditStatus ??
+                                                                true)
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            2,
+                                                                            0,
+                                                                            0,
+                                                                            0),
+                                                                child: Text(
+                                                                  'EMIs Left',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyText1
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Lexend Deca',
+                                                                        color: Color(
+                                                                            0xFFE91E63),
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                          ],
                                                         ),
                                                     ],
                                                   ),
+                                                ),
                                               ],
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                );
-                              },
-                            ),
-                          );
+                                ),
+                              );
+                            },
+                          ).animated(
+                              [animationsMap['listViewOnPageLoadAnimation']]);
                         },
-                      ).animated(
-                          [animationsMap['listViewOnPageLoadAnimation']]);
-                    },
-                  ),
-                ],
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ],

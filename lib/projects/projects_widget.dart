@@ -96,6 +96,8 @@ class _ProjectsWidgetState extends State<ProjectsWidget>
                 true,
             child: FloatingActionButton(
               onPressed: () async {
+                setState(() => FFAppState().projPhtos = []);
+                setState(() => FFAppState().projVideos = []);
                 await Navigator.push(
                   context,
                   MaterialPageRoute(

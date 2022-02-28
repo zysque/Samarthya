@@ -15,20 +15,6 @@
       ]
     },
     {
-      "collectionGroup": "plansAndRates",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "projectRef",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "phaseCode",
-          "order": "ASCENDING"
-        }
-      ]
-    },
-    {
       "collectionGroup": "bookings",
       "queryScope": "COLLECTION",
       "fields": [
@@ -89,7 +75,7 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "bookingRef",
+          "fieldPath": "commissionRef",
           "order": "ASCENDING"
         },
         {
@@ -117,6 +103,34 @@
         {
           "fieldPath": "lastModified",
           "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "bookings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "planRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "plotNo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "plansAndRates",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "projectRef",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "phaseCode",
+          "order": "ASCENDING"
         }
       ]
     }

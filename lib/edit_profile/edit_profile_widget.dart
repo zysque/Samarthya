@@ -6,6 +6,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -403,7 +404,10 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       child: TextFormField(
                         controller: yourAaadharController ??=
                             TextEditingController(
-                          text: editProfileUsersRecord.aadharNumber.toString(),
+                          text: functions
+                              .decryptIntData(
+                                  editProfileUsersRecord.aadharNumber)
+                              .toString(),
                         ),
                         obscureText: false,
                         decoration: InputDecoration(
@@ -450,7 +454,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                       padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 0),
                       child: TextFormField(
                         controller: yourPANController ??= TextEditingController(
-                          text: editProfileUsersRecord.panNumber,
+                          text: functions.decryptStringData(
+                              editProfileUsersRecord.panNumber),
                         ),
                         obscureText: false,
                         decoration: InputDecoration(
@@ -697,8 +702,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             dob: yourDOBController?.text ?? '',
                             phoneNumber: yourPhoneController?.text ?? '',
                             address: yourAddressController?.text ?? '',
-                            aadharNumber:
-                                int.parse(yourAaadharController?.text ?? ''),
+                            aadharNumber: yourAaadharController?.text ?? '',
                             panNumber: yourPANController?.text ?? '',
                             aadharImage: uploadedFileUrl2,
                             panImage: uploadedFileUrl3,

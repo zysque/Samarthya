@@ -4,12 +4,12 @@ import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
 
-class TestAPICall {
+class ProcessMatchingCommissionCall {
   static Future<ApiCallResponse> call() {
     return ApiManager.instance.makeApiCall(
-      callName: 'TestAPI',
+      callName: 'ProcessMatchingCommission',
       apiUrl:
-          'https://us-central1-saamarth-4cacd.cloudfunctions.net/helloWorld',
+          'https://us-central1-saamarth-4cacd.cloudfunctions.net/processMatchingCommissions',
       callType: ApiCallType.GET,
       headers: {},
       params: {},

@@ -33,6 +33,7 @@ class _AdminCreateProjectsPlanWidgetState
   double downPaymentPercentageValue;
   TextEditingController plotEndController;
   TextEditingController plotStartController;
+  TextEditingController paymentsDaysController;
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final animationsMap = {
@@ -62,6 +63,19 @@ class _AdminCreateProjectsPlanWidgetState
         opacity: 1,
       ),
     ),
+    'textFieldOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      duration: 600,
+      fadeIn: true,
+      initialState: AnimationState(
+        offset: Offset(0, 40),
+        opacity: 0,
+      ),
+      finalState: AnimationState(
+        offset: Offset(0, 0),
+        opacity: 1,
+      ),
+    ),
   };
 
   @override
@@ -77,6 +91,7 @@ class _AdminCreateProjectsPlanWidgetState
     phaseCodeController = TextEditingController();
     plotEndController = TextEditingController();
     plotStartController = TextEditingController();
+    paymentsDaysController = TextEditingController();
   }
 
   @override
@@ -392,6 +407,54 @@ class _AdminCreateProjectsPlanWidgetState
                             ),
                           ),
                         ],
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                        child: TextFormField(
+                          controller: paymentsDaysController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Max Days Allowed',
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .title1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                            hintText: 'Max Days allowed for booking payment',
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .title1
+                                .override(
+                                  fontFamily: 'Lexend Deca',
+                                  color: FlutterFlowTheme.of(context).grayLight,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).grayDark,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).grayDark,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            filled: true,
+                            contentPadding:
+                                EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10),
+                          ),
+                          style: FlutterFlowTheme.of(context).subtitle2,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                        ).animated(
+                            [animationsMap['textFieldOnPageLoadAnimation3']]),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
@@ -748,6 +811,8 @@ class _AdminCreateProjectsPlanWidgetState
                           projectRef: widget.projectRef,
                           created: getCurrentTimestamp,
                           lastModified: getCurrentTimestamp,
+                          paymentDaysAllowed:
+                              int.parse(paymentsDaysController.text),
                         ),
                         'emiTenureOptions': FFAppState().strList,
                         'plotsAvailable': functions.getNumbersInBetween(

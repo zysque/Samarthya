@@ -44,9 +44,6 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   String get dob;
 
   @nullable
-  int get aadharNumber;
-
-  @nullable
   String get panNumber;
 
   @nullable
@@ -62,6 +59,9 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
   bool get incomplete;
 
   @nullable
+  String get aadharNumber;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -74,12 +74,12 @@ abstract class UsersRecord implements Built<UsersRecord, UsersRecordBuilder> {
     ..userTitle = ''
     ..address = ''
     ..dob = ''
-    ..aadharNumber = 0
     ..panNumber = ''
     ..aadharImage = ''
     ..panImage = ''
     ..userCode = ''
-    ..incomplete = false;
+    ..incomplete = false
+    ..aadharNumber = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('users');
@@ -113,12 +113,12 @@ Map<String, dynamic> createUsersRecordData({
   String userTitle,
   String address,
   String dob,
-  int aadharNumber,
   String panNumber,
   String aadharImage,
   String panImage,
   String userCode,
   bool incomplete,
+  String aadharNumber,
 }) =>
     serializers.toFirestore(
         UsersRecord.serializer,
@@ -133,9 +133,9 @@ Map<String, dynamic> createUsersRecordData({
           ..userTitle = userTitle
           ..address = address
           ..dob = dob
-          ..aadharNumber = aadharNumber
           ..panNumber = panNumber
           ..aadharImage = aadharImage
           ..panImage = panImage
           ..userCode = userCode
-          ..incomplete = incomplete));
+          ..incomplete = incomplete
+          ..aadharNumber = aadharNumber));

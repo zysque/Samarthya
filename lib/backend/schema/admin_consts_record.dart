@@ -24,10 +24,19 @@ abstract class AdminConstsRecord
   DateTime get lastModified;
 
   @nullable
+  int get usersCount;
+
+  @nullable
+  int get comPPeriod;
+
+  @nullable
+  DateTime get lastProcessed;
+
+  @nullable
   double get emiPaymentDay;
 
   @nullable
-  int get usersCount;
+  double get reminderBeforeDays;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -37,8 +46,10 @@ abstract class AdminConstsRecord
     ..directPer = 0.0
     ..indirectPer = 0.0
     ..adminUsers = ListBuilder()
+    ..usersCount = 0
+    ..comPPeriod = 0
     ..emiPaymentDay = 0.0
-    ..usersCount = 0;
+    ..reminderBeforeDays = 0.0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('adminConsts');
@@ -65,8 +76,11 @@ Map<String, dynamic> createAdminConstsRecordData({
   double directPer,
   double indirectPer,
   DateTime lastModified,
-  double emiPaymentDay,
   int usersCount,
+  int comPPeriod,
+  DateTime lastProcessed,
+  double emiPaymentDay,
+  double reminderBeforeDays,
 }) =>
     serializers.toFirestore(
         AdminConstsRecord.serializer,
@@ -75,5 +89,8 @@ Map<String, dynamic> createAdminConstsRecordData({
           ..indirectPer = indirectPer
           ..adminUsers = null
           ..lastModified = lastModified
+          ..usersCount = usersCount
+          ..comPPeriod = comPPeriod
+          ..lastProcessed = lastProcessed
           ..emiPaymentDay = emiPaymentDay
-          ..usersCount = usersCount));
+          ..reminderBeforeDays = reminderBeforeDays));

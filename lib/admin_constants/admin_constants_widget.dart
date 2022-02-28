@@ -20,9 +20,11 @@ class AdminConstantsWidget extends StatefulWidget {
 
 class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
   String dropDownValue;
-  double sliderValue1;
-  double sliderValue2;
-  double sliderValue3;
+  TextEditingController comPPDaysController;
+  double directComValue;
+  double indirectComValue;
+  double emiDayValue;
+  double reminderDayValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -107,12 +109,12 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                               inactiveColor: Color(0xFF9E9E9E),
                               min: 0,
                               max: 100,
-                              value: sliderValue1 ??=
+                              value: directComValue ??=
                                   columnAdminConstsRecord.directPer,
-                              label: sliderValue1.toString(),
+                              label: directComValue.toString(),
                               divisions: 100,
                               onChanged: (newValue) {
-                                setState(() => sliderValue1 = newValue);
+                                setState(() => directComValue = newValue);
                               },
                             ),
                           ),
@@ -138,12 +140,12 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                               inactiveColor: Color(0xFF9E9E9E),
                               min: 0,
                               max: 100,
-                              value: sliderValue2 ??=
+                              value: indirectComValue ??=
                                   columnAdminConstsRecord.indirectPer,
-                              label: sliderValue2.toString(),
+                              label: indirectComValue.toString(),
                               divisions: 100,
                               onChanged: (newValue) {
-                                setState(() => sliderValue2 = newValue);
+                                setState(() => indirectComValue = newValue);
                               },
                             ),
                           ),
@@ -169,13 +171,93 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                               inactiveColor: Color(0xFF9E9E9E),
                               min: 1,
                               max: 28,
-                              value: sliderValue3 ??=
+                              value: emiDayValue ??=
                                   columnAdminConstsRecord.emiPaymentDay,
-                              label: sliderValue3.toString(),
+                              label: emiDayValue.toString(),
                               divisions: 27,
                               onChanged: (newValue) {
-                                setState(() => sliderValue3 = newValue);
+                                setState(() => emiDayValue = newValue);
                               },
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                            child: Text(
+                              'Due Reminder Before Days',
+                              style: FlutterFlowTheme.of(context)
+                                  .title3
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).grayDark,
+                                  ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
+                            child: Slider(
+                              activeColor:
+                                  FlutterFlowTheme.of(context).primaryColor,
+                              inactiveColor: Color(0xFF9E9E9E),
+                              min: 1,
+                              max: 28,
+                              value: reminderDayValue ??=
+                                  columnAdminConstsRecord.reminderBeforeDays,
+                              label: reminderDayValue.toString(),
+                              divisions: 27,
+                              onChanged: (newValue) {
+                                setState(() => reminderDayValue = newValue);
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                EdgeInsetsDirectional.fromSTEB(20, 20, 20, 0),
+                            child: TextFormField(
+                              controller: comPPDaysController ??=
+                                  TextEditingController(
+                                text: columnAdminConstsRecord.comPPeriod
+                                    .toString(),
+                              ),
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                labelText:
+                                    'Indirect Commission  Processing Days',
+                                labelStyle:
+                                    FlutterFlowTheme.of(context).bodyText1,
+                                hintText:
+                                    'Days between indirect commission processing',
+                                hintStyle:
+                                    FlutterFlowTheme.of(context).bodyText1,
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).grayDark,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color:
+                                        FlutterFlowTheme.of(context).grayDark,
+                                    width: 1,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                filled: true,
+                                contentPadding: EdgeInsetsDirectional.fromSTEB(
+                                    10, 4, 10, 4),
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                  ),
+                              keyboardType: TextInputType.number,
                             ),
                           ),
                           Padding(
@@ -241,7 +323,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                                   snapshot.data;
                                               return FlutterFlowDropDown(
                                                 options: dropDownUsersRecordList
-                                                    .map((e) => e.email)
+                                                    .map((e) => e.userCode)
                                                     .toList()
                                                     .toList(),
                                                 onChanged: (val) => setState(
@@ -284,14 +366,14 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 30, 0, 0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         StreamBuilder<List<UsersRecord>>(
                           stream: queryUsersRecord(
                             queryBuilder: (usersRecord) => usersRecord
-                                .where('email', isEqualTo: dropDownValue),
+                                .where('userCode', isEqualTo: dropDownValue),
                             singleRecord: true,
                           ),
                           builder: (context, snapshot) {
@@ -319,10 +401,13 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                               onPressed: () async {
                                 final adminConstsUpdateData = {
                                   ...createAdminConstsRecordData(
-                                    directPer: sliderValue1,
-                                    indirectPer: sliderValue2,
-                                    emiPaymentDay: sliderValue3,
+                                    directPer: directComValue,
+                                    indirectPer: indirectComValue,
+                                    emiPaymentDay: emiDayValue,
                                     lastModified: getCurrentTimestamp,
+                                    comPPeriod: int.parse(
+                                        comPPDaysController?.text ?? ''),
+                                    reminderBeforeDays: reminderDayValue,
                                   ),
                                   'adminUsers': FieldValue.arrayUnion(
                                       [saveButtonUsersRecord.reference]),
@@ -340,8 +425,8 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                               },
                               text: 'Save',
                               options: FFButtonOptions(
-                                width: 130,
-                                height: 40,
+                                width: 150,
+                                height: 50,
                                 color:
                                     FlutterFlowTheme.of(context).primaryColor,
                                 textStyle: FlutterFlowTheme.of(context)
@@ -349,6 +434,7 @@ class _AdminConstantsWidgetState extends State<AdminConstantsWidget> {
                                     .override(
                                       fontFamily: 'Lexend Deca',
                                       color: Colors.white,
+                                      fontSize: 20,
                                     ),
                                 borderSide: BorderSide(
                                   color: Colors.transparent,

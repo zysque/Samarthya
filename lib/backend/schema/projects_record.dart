@@ -30,6 +30,12 @@ abstract class ProjectsRecord
   bool get active;
 
   @nullable
+  BuiltList<String> get photos;
+
+  @nullable
+  BuiltList<String> get videos;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -37,7 +43,9 @@ abstract class ProjectsRecord
     ..projectName = ''
     ..projectCity = ''
     ..projectDesc = ''
-    ..active = false;
+    ..active = false
+    ..photos = ListBuilder()
+    ..videos = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('projects');
@@ -76,4 +84,6 @@ Map<String, dynamic> createProjectsRecordData({
           ..projectCity = projectCity
           ..projectDesc = projectDesc
           ..lastModified = lastModified
-          ..active = active));
+          ..active = active
+          ..photos = null
+          ..videos = null));

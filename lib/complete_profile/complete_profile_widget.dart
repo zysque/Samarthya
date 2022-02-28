@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/upload_media.dart';
 import '../main.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -218,7 +219,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
-                            hintText: 'Please enter a valid number...',
+                            hintText: 'Please enter your name...',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -272,6 +273,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your Date of Birth',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -326,6 +328,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your phone number',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -382,6 +385,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your aadhar number',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -438,6 +442,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your pan number',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -484,6 +489,7 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                                   fontFamily: 'Lexend Deca',
                                   color: FlutterFlowTheme.of(context).grayLight,
                                 ),
+                            hintText: 'Please enter your address',
                             hintStyle:
                                 FlutterFlowTheme.of(context).bodyText1.override(
                                       fontFamily: 'Lexend Deca',
@@ -695,54 +701,201 @@ class _CompleteProfileWidgetState extends State<CompleteProfileWidget>
                   return Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            final usersUpdateData = createUsersRecordData(
-                              userTitle: yourTitleValue,
-                              displayName: yourNameController.text,
-                              photoUrl: uploadedFileUrl1,
-                              dob: yourDOBController.text,
-                              phoneNumber: yourPhoneController.text,
-                              aadharNumber:
-                                  int.parse(yourAaadharController.text),
-                              panNumber: yourPANController.text,
-                              address: yourAddressController.text,
-                              aadharImage: uploadedFileUrl2,
-                              panImage: uploadedFileUrl3,
-                              incomplete: false,
-                            );
-                            await currentUserReference.update(usersUpdateData);
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NavBarPage(initialPage: 'HomePage'),
-                              ),
-                              (r) => false,
-                            );
-                          },
-                          text: 'Complete',
-                          options: FFButtonOptions(
-                            width: 150,
-                            height: 50,
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .subtitle2
-                                .override(
-                                  fontFamily: 'Lexend Deca',
-                                  color: FlutterFlowTheme.of(context).textColor,
+                      if ((actionAdminConstsRecord.usersCount) > 1)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              final usersUpdateData = createUsersRecordData(
+                                userTitle: yourTitleValue,
+                                displayName: yourNameController.text,
+                                photoUrl: uploadedFileUrl1,
+                                dob: yourDOBController.text,
+                                phoneNumber: yourPhoneController.text,
+                                aadharNumber: functions.encryptData(
+                                    int.parse(yourAaadharController.text),
+                                    '0',
+                                    true),
+                                panNumber: functions.encryptData(
+                                    0, yourPANController.text, false),
+                                address: yourAddressController.text,
+                                aadharImage: uploadedFileUrl2,
+                                panImage: uploadedFileUrl3,
+                                incomplete: false,
+                              );
+                              await currentUserReference
+                                  .update(usersUpdateData);
+
+                              final commissionsCreateData =
+                                  createCommissionsRecordData(
+                                commissionUser: currentUserReference,
+                                commissionAmount: 0.0,
+                                isDirect: false,
+                                unsettledAmount: 0.0,
+                                settled: true,
+                                lastModified: getCurrentTimestamp,
+                              );
+                              await CommissionsRecord.collection
+                                  .doc()
+                                  .set(commissionsCreateData);
+                              await Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      NavBarPage(initialPage: 'HomePage'),
                                 ),
-                            elevation: 3,
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
+                                (r) => false,
+                              );
+                            },
+                            text: 'Complete',
+                            options: FFButtonOptions(
+                              width: 150,
+                              height: 50,
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Lexend Deca',
+                                    color:
+                                        FlutterFlowTheme.of(context).textColor,
+                                  ),
+                              elevation: 3,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1,
+                              ),
+                              borderRadius: 30,
                             ),
-                            borderRadius: 30,
                           ),
                         ),
-                      ),
+                      if ((actionAdminConstsRecord.usersCount) == 1)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 0),
+                          child: StreamBuilder<List<DelinkedUsersRecord>>(
+                            stream: queryDelinkedUsersRecord(
+                              queryBuilder: (delinkedUsersRecord) =>
+                                  delinkedUsersRecord.where('userRef',
+                                      isEqualTo: currentUserReference),
+                              singleRecord: true,
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 40,
+                                    height: 40,
+                                    child: SpinKitPumpingHeart(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryColor,
+                                      size: 40,
+                                    ),
+                                  ),
+                                );
+                              }
+                              List<DelinkedUsersRecord>
+                                  completeAuthDelinkedUsersRecordList =
+                                  snapshot.data;
+                              // Return an empty Container when the document does not exist.
+                              if (snapshot.data.isEmpty) {
+                                return Container();
+                              }
+                              final completeAuthDelinkedUsersRecord =
+                                  completeAuthDelinkedUsersRecordList.isNotEmpty
+                                      ? completeAuthDelinkedUsersRecordList
+                                          .first
+                                      : null;
+                              return FFButtonWidget(
+                                onPressed: () async {
+                                  final usersUpdateData = createUsersRecordData(
+                                    userTitle: yourTitleValue,
+                                    displayName: yourNameController.text,
+                                    photoUrl: uploadedFileUrl1,
+                                    dob: yourDOBController.text,
+                                    phoneNumber: yourPhoneController.text,
+                                    aadharNumber: functions.encryptData(
+                                        int.parse(yourAaadharController.text),
+                                        '0',
+                                        true),
+                                    panNumber: functions.encryptData(
+                                        0, yourPANController.text, false),
+                                    address: yourAddressController.text,
+                                    aadharImage: uploadedFileUrl2,
+                                    panImage: uploadedFileUrl3,
+                                    incomplete: false,
+                                  );
+                                  await currentUserReference
+                                      .update(usersUpdateData);
+
+                                  final commissionsCreateData =
+                                      createCommissionsRecordData(
+                                    commissionUser: currentUserReference,
+                                    commissionAmount: 0.0,
+                                    isDirect: false,
+                                    unsettledAmount: 0.0,
+                                    settled: true,
+                                    lastModified: getCurrentTimestamp,
+                                  );
+                                  await CommissionsRecord.collection
+                                      .doc()
+                                      .set(commissionsCreateData);
+
+                                  final userHierarchiesCreateData =
+                                      createUserHierarchiesRecordData(
+                                    hierarchyUser:
+                                        completeAuthDelinkedUsersRecord.userRef,
+                                    userCode: completeAuthDelinkedUsersRecord
+                                        .userCode,
+                                    hasParent: false,
+                                    hasReferral: false,
+                                    hasLeft: false,
+                                    hasRight: false,
+                                  );
+                                  await UserHierarchiesRecord.collection
+                                      .doc()
+                                      .set(userHierarchiesCreateData);
+                                  await completeAuthDelinkedUsersRecord
+                                      .reference
+                                      .delete();
+                                  final adminConstsUpdateData = {
+                                    'adminUsers': FieldValue.arrayUnion(
+                                        [currentUserReference]),
+                                  };
+                                  await actionAdminConstsRecord.reference
+                                      .update(adminConstsUpdateData);
+                                  await Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NavBarPage(initialPage: 'HomePage'),
+                                    ),
+                                    (r) => false,
+                                  );
+                                },
+                                text: 'Complete',
+                                options: FFButtonOptions(
+                                  width: 150,
+                                  height: 50,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Lexend Deca',
+                                        color: FlutterFlowTheme.of(context)
+                                            .textColor,
+                                      ),
+                                  elevation: 3,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
+                                  ),
+                                  borderRadius: 30,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                     ],
                   );
                 },

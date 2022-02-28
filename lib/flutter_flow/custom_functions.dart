@@ -125,6 +125,33 @@ DateTime getNewDate(
       : date2;
 }
 
+DateTime getPaymentDate(
+  double addDay,
+  bool isEmi,
+  double day,
+  double reminderBefore,
+) {
+  // get next month
+  DateTime today = DateTime.now();
+  bool allowed = ((30 + day) - today.day) > reminderBefore.floor();
+  int addMonth = allowed ? 1 : 2;
+  return isEmi
+      ? DateTime.parse(DateFormat('yyyy-MM-dd').format(
+          DateTime(
+              today.year + (today.month + addMonth > 12 ? 1 : 0),
+              (today.month + addMonth < 12) ? today.month + addMonth : 1,
+              day.floor(),
+              0,
+              0,
+              0,
+              0,
+              0),
+        ))
+      : today.add(Duration(
+          days: addDay.floor(),
+        ));
+}
+
 double getBookingAmt(
   double perc,
   double rate,
@@ -159,4 +186,70 @@ String getPaddedNumber(int number) {
   // pad number to 5 digit
   int newNum = number + 1;
   return newNum.toString().padLeft(5, '0');
+}
+
+LatLng getLocation(
+  String lat,
+  String lng,
+) {
+  // get LatLng from strings
+  return LatLng(double.parse(lat), double.parse(lng));
+}
+
+String encryptData(
+  int intData,
+  String strData,
+  bool isInt,
+) {
+  // Add your function code here!
+  String encodedStr = "";
+  if (isInt) {
+    while (intData > 0) {
+      encodedStr += String.fromCharCode((intData % 10) + 65);
+      intData = (intData / 10).floor();
+    }
+  } else {
+    for (int i = 0; i < strData.length; i++) {
+      if (int.tryParse(strData[i]) == null) {
+        encodedStr += strData.codeUnitAt(i).toString();
+      } else {
+        int pos = int.tryParse(strData[i]) + 65;
+        encodedStr += String.fromCharCode(pos);
+      }
+    }
+  }
+  return encodedStr;
+}
+
+int decryptIntData(String data) {
+  // Add your function code here!
+  int decodedInt = 0;
+  for (int i = data.length - 1; i >= 0; i--) {
+    decodedInt = decodedInt * 10 + (data.codeUnitAt(i) - 65);
+  }
+  return decodedInt;
+}
+
+String decryptStringData(String data) {
+  // Add your function code here!
+  String decodedStr = "";
+  for (int i = 0; i < data.length; i++) {
+    if (int.tryParse(data[i]) == null) {
+      int pos = data.codeUnitAt(i) - 65;
+      decodedStr += pos.toString();
+    } else {
+      int pos = int.tryParse(data.substring(i, i + 2));
+      decodedStr += String.fromCharCode(pos);
+      i++;
+    }
+  }
+  return decodedStr;
+}
+
+double parseLatLng(
+  LatLng location,
+  bool isLat,
+) {
+  // Add your function code here!
+  return isLat ? location.latitude : location.longitude;
 }
