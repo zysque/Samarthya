@@ -225,7 +225,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 fontFamily: 'Lexend Deca',
                                 color: FlutterFlowTheme.of(context).grayLight,
                               ),
-                          hintText: 'Please enter a valid number...',
+                          hintText: 'Please enter your Name',
                           hintStyle:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',
@@ -255,6 +255,13 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               fontFamily: 'Lexend Deca',
                               color: FlutterFlowTheme.of(context).textColor,
                             ),
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Name is required';
+                          }
+
+                          return null;
+                        },
                       ),
                     ),
                     Padding(
@@ -272,6 +279,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 fontFamily: 'Lexend Deca',
                                 color: FlutterFlowTheme.of(context).grayLight,
                               ),
+                          hintText: 'Please enter your Date of Birth',
                           hintStyle:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',
@@ -302,6 +310,13 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               color: FlutterFlowTheme.of(context).textColor,
                             ),
                         keyboardType: TextInputType.datetime,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'DOB is required';
+                          }
+
+                          return null;
+                        },
                       ),
                     ),
                     Padding(
@@ -317,7 +332,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 fontFamily: 'Lexend Deca',
                                 color: FlutterFlowTheme.of(context).grayLight,
                               ),
-                          hintText: 'Your email',
+                          hintText: 'Please enter your email',
                           hintStyle:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',
@@ -349,6 +364,13 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               fontWeight: FontWeight.w600,
                             ),
                         keyboardType: TextInputType.emailAddress,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Field is required';
+                          }
+
+                          return null;
+                        },
                       ),
                     ),
                     Padding(
@@ -367,6 +389,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 fontFamily: 'Lexend Deca',
                                 color: FlutterFlowTheme.of(context).grayLight,
                               ),
+                          hintText: 'Please enter your Phone Number',
                           hintStyle:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',
@@ -397,6 +420,15 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               color: FlutterFlowTheme.of(context).textColor,
                             ),
                         keyboardType: TextInputType.number,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Phone number is required';
+                          }
+                          if (val.length < 10) {
+                            return 'Requires at least 10 characters.';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     Padding(
@@ -418,6 +450,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 fontFamily: 'Lexend Deca',
                                 color: FlutterFlowTheme.of(context).grayLight,
                               ),
+                          hintText: 'Please enter your Aadhar Number',
                           hintStyle:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',
@@ -448,6 +481,15 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               color: FlutterFlowTheme.of(context).textColor,
                             ),
                         keyboardType: TextInputType.number,
+                        validator: (val) {
+                          if (val.isEmpty) {
+                            return 'Aadhar number is required';
+                          }
+                          if (val.length < 12) {
+                            return 'Requires at least 12 characters.';
+                          }
+                          return null;
+                        },
                       ),
                     ),
                     Padding(
@@ -466,6 +508,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 fontFamily: 'Lexend Deca',
                                 color: FlutterFlowTheme.of(context).grayLight,
                               ),
+                          hintText: 'Please enter your PAN Number',
                           hintStyle:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',
@@ -495,7 +538,6 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               fontFamily: 'Lexend Deca',
                               color: FlutterFlowTheme.of(context).textColor,
                             ),
-                        keyboardType: TextInputType.number,
                       ),
                     ),
                     Padding(
@@ -514,6 +556,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                                 fontFamily: 'Lexend Deca',
                                 color: FlutterFlowTheme.of(context).grayLight,
                               ),
+                          hintText: 'Please enter your Address',
                           hintStyle:
                               FlutterFlowTheme.of(context).bodyText1.override(
                                     fontFamily: 'Lexend Deca',
@@ -702,8 +745,12 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                             dob: yourDOBController?.text ?? '',
                             phoneNumber: yourPhoneController?.text ?? '',
                             address: yourAddressController?.text ?? '',
-                            aadharNumber: yourAaadharController?.text ?? '',
-                            panNumber: yourPANController?.text ?? '',
+                            aadharNumber: functions.encryptData(
+                                int.parse(yourAaadharController?.text ?? ''),
+                                '0',
+                                true),
+                            panNumber: functions.encryptData(
+                                0, yourPANController?.text ?? '', false),
                             aadharImage: uploadedFileUrl2,
                             panImage: uploadedFileUrl3,
                           );
