@@ -208,7 +208,14 @@ class _PlanDetailsWidgetState extends State<PlanDetailsWidget>
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .subtitle1,
+                                                              .subtitle1
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                     if (widget.isAdmin ?? true)
                                                       InkWell(
@@ -289,7 +296,7 @@ class _PlanDetailsWidgetState extends State<PlanDetailsWidget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .grayLight,
+                                                                .textColor,
                                                         size: 16,
                                                       ),
                                                     ),
@@ -303,7 +310,14 @@ class _PlanDetailsWidgetState extends State<PlanDetailsWidget>
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .subtitle2,
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -315,7 +329,14 @@ class _PlanDetailsWidgetState extends State<PlanDetailsWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .subtitle2,
+                                                                .subtitle2
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lexend Deca',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .textColor,
+                                                                ),
                                                       ),
                                                     ),
                                                   ],
@@ -338,7 +359,14 @@ class _PlanDetailsWidgetState extends State<PlanDetailsWidget>
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .subtitle2,
+                                                              .subtitle2
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lexend Deca',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .textColor,
+                                                              ),
                                                     ),
                                                     Padding(
                                                       padding:
