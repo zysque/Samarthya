@@ -297,10 +297,8 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                           StreamBuilder<List<UserHierarchiesRecord>>(
                             stream: queryUserHierarchiesRecord(
                               queryBuilder: (userHierarchiesRecord) =>
-                                  userHierarchiesRecord
-                                      .where('hierarchyUser',
-                                          isEqualTo: widget.userProfile)
-                                      .where('hasParent', isEqualTo: true),
+                                  userHierarchiesRecord.where('hierarchyUser',
+                                      isEqualTo: widget.userProfile),
                               singleRecord: true,
                             ),
                             builder: (context, snapshot) {
@@ -593,140 +591,33 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          -1, 0),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                20, 0, 0, 0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        if (!(childsInfoUserHierarchiesRecord
-                                                                .hasLeft) ??
-                                                            true)
-                                                          StreamBuilder<
-                                                              List<
-                                                                  UserHierarchiesRecord>>(
-                                                            stream:
-                                                                queryUserHierarchiesRecord(
-                                                              queryBuilder: (userHierarchiesRecord) => userHierarchiesRecord
-                                                                  .where(
-                                                                      'referralParent',
-                                                                      isEqualTo:
-                                                                          currentUserReference)
-                                                                  .where(
-                                                                      'hasParent',
-                                                                      isEqualTo:
-                                                                          false),
-                                                            ),
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              // Customize what your widget looks like when it's loading.
-                                                              if (!snapshot
-                                                                  .hasData) {
-                                                                return Center(
-                                                                  child:
-                                                                      SizedBox(
-                                                                    width: 40,
-                                                                    height: 40,
-                                                                    child:
-                                                                        SpinKitPumpingHeart(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryColor,
-                                                                      size: 40,
-                                                                    ),
-                                                                  ),
-                                                                );
-                                                              }
-                                                              List<UserHierarchiesRecord>
-                                                                  buttonLeftChildUserHierarchiesRecordList =
-                                                                  snapshot.data;
-                                                              return FFButtonWidget(
-                                                                onPressed:
-                                                                    () async {
-                                                                  await Navigator
-                                                                      .push(
-                                                                    context,
-                                                                    MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              AddLeftChildWidget(
-                                                                        userSize:
-                                                                            buttonLeftChildUserHierarchiesRecordList.length,
-                                                                        addDelink:
-                                                                            false,
-                                                                        userHierarchyRef:
-                                                                            childsInfoUserHierarchiesRecord.reference,
-                                                                      ),
-                                                                    ),
-                                                                  );
-                                                                },
-                                                                text:
-                                                                    'Add Left Child',
-                                                                options:
-                                                                    FFButtonOptions(
-                                                                  width: 122,
-                                                                  height: 30,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .darkBackground,
-                                                                  textStyle: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyText2,
-                                                                  elevation: 2,
-                                                                  borderSide:
-                                                                      BorderSide(
-                                                                    color: Colors
-                                                                        .transparent,
-                                                                    width: 1,
-                                                                  ),
-                                                                  borderRadius:
-                                                                      8,
-                                                                ),
-                                                              );
-                                                            },
-                                                          ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          1, 0),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                0, 0, 20, 0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        if (!(childsInfoUserHierarchiesRecord
-                                                                .hasRight) ??
-                                                            true)
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        5,
-                                                                        0,
-                                                                        0,
-                                                                        0),
-                                                            child: StreamBuilder<
+                                            if ((childsInfoUserHierarchiesRecord
+                                                    .hasParent) ==
+                                                (childsInfoUserHierarchiesRecord
+                                                    .hasReferral))
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            -1, 0),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  20, 0, 0, 0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          if (!(childsInfoUserHierarchiesRecord
+                                                                  .hasLeft) ??
+                                                              true)
+                                                            StreamBuilder<
                                                                 List<
                                                                     UserHierarchiesRecord>>(
                                                               stream:
@@ -763,7 +654,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                   );
                                                                 }
                                                                 List<UserHierarchiesRecord>
-                                                                    buttonRightChildUserHierarchiesRecordList =
+                                                                    buttonLeftChildUserHierarchiesRecordList =
                                                                     snapshot
                                                                         .data;
                                                                 return FFButtonWidget(
@@ -775,9 +666,9 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                       MaterialPageRoute(
                                                                         builder:
                                                                             (context) =>
-                                                                                AddrightChildWidget(
+                                                                                AddLeftChildWidget(
                                                                           userSize:
-                                                                              buttonRightChildUserHierarchiesRecordList.length,
+                                                                              buttonLeftChildUserHierarchiesRecordList.length,
                                                                           addDelink:
                                                                               false,
                                                                           userHierarchyRef:
@@ -787,7 +678,7 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                     );
                                                                   },
                                                                   text:
-                                                                      'Add Right Child',
+                                                                      'Add Left Child',
                                                                   options:
                                                                       FFButtonOptions(
                                                                     width: 122,
@@ -812,13 +703,130 @@ class _MyHierarchyWidgetState extends State<MyHierarchyWidget> {
                                                                 );
                                                               },
                                                             ),
-                                                          ),
-                                                      ],
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
+                                                  Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            1, 0),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0, 0, 20, 0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          if (!(childsInfoUserHierarchiesRecord
+                                                                  .hasRight) ??
+                                                              true)
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5,
+                                                                          0,
+                                                                          0,
+                                                                          0),
+                                                              child: StreamBuilder<
+                                                                  List<
+                                                                      UserHierarchiesRecord>>(
+                                                                stream:
+                                                                    queryUserHierarchiesRecord(
+                                                                  queryBuilder: (userHierarchiesRecord) => userHierarchiesRecord
+                                                                      .where(
+                                                                          'referralParent',
+                                                                          isEqualTo:
+                                                                              currentUserReference)
+                                                                      .where(
+                                                                          'hasParent',
+                                                                          isEqualTo:
+                                                                              false),
+                                                                ),
+                                                                builder: (context,
+                                                                    snapshot) {
+                                                                  // Customize what your widget looks like when it's loading.
+                                                                  if (!snapshot
+                                                                      .hasData) {
+                                                                    return Center(
+                                                                      child:
+                                                                          SizedBox(
+                                                                        width:
+                                                                            40,
+                                                                        height:
+                                                                            40,
+                                                                        child:
+                                                                            SpinKitPumpingHeart(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryColor,
+                                                                          size:
+                                                                              40,
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }
+                                                                  List<UserHierarchiesRecord>
+                                                                      buttonRightChildUserHierarchiesRecordList =
+                                                                      snapshot
+                                                                          .data;
+                                                                  return FFButtonWidget(
+                                                                    onPressed:
+                                                                        () async {
+                                                                      await Navigator
+                                                                          .push(
+                                                                        context,
+                                                                        MaterialPageRoute(
+                                                                          builder: (context) =>
+                                                                              AddrightChildWidget(
+                                                                            userSize:
+                                                                                buttonRightChildUserHierarchiesRecordList.length,
+                                                                            addDelink:
+                                                                                false,
+                                                                            userHierarchyRef:
+                                                                                childsInfoUserHierarchiesRecord.reference,
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                    text:
+                                                                        'Add Right Child',
+                                                                    options:
+                                                                        FFButtonOptions(
+                                                                      width:
+                                                                          122,
+                                                                      height:
+                                                                          30,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .darkBackground,
+                                                                      textStyle:
+                                                                          FlutterFlowTheme.of(context)
+                                                                              .bodyText2,
+                                                                      elevation:
+                                                                          2,
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                        color: Colors
+                                                                            .transparent,
+                                                                        width:
+                                                                            1,
+                                                                      ),
+                                                                      borderRadius:
+                                                                          8,
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              ),
+                                                            ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             if (fullColumnAdminConstsRecord
                                                     .adminUsers
                                                     .toList()
